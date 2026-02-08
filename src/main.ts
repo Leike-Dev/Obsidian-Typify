@@ -11,7 +11,7 @@ import { CustomStatusIconsSettingTab } from './settings';
  * Main Plugin Class.
  * Handles the lifecycle of the plugin, settings management, and DOM observation.
  */
-export default class CustomStatusIconsPlugin extends Plugin {
+export default class TypifyPlugin extends Plugin {
     settings: CustomStatusIconsSettings;
     observer: MutationObserver;
 

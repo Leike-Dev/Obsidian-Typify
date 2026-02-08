@@ -1,10 +1,10 @@
 {
-	"id": "obsidian-custom-status-icons",
-	"name": "Custom Status Icons",
+	"id": "typify",
+	"name": "Typify",
 	"version": "1.3.1",
 	"minAppVersion": "0.15.0",
-	"description": "Create beautiful, customizable status pills with Lucide icons for your metadata properties.",
-	"author": "Antigravity",
+	"description": "Create attractive and customizable status indicators with Lucide icons for your metadata properties.",
+	"author": "Leike-Dev",
 	"authorUrl": "https://github.com/your-username/obsidian-custom-status-icons",
 	"isDesktopOnly": false
 }

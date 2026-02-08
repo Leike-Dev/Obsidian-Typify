@@ -1,4 +1,4 @@
-# Custom Status Icons for Obsidian
+# Typify for Obsidian
 
 Transform your mundane text statuses into beautiful, color-coded pills with icons! 🎨✨
 
@@ -29,7 +29,7 @@ Transform your mundane text statuses into beautiful, color-coded pills with icon
 
 ### Manual Installation
 1. Download the latest release `main.js`, `manifest.json`, and `styles.css`.
-2. Create a folder `obsidian-custom-status-icons` in your `.obsidian/plugins/` directory.
+2. Create a folder `typify` in your `.obsidian/plugins/` directory.
 3. Paste the files there.
 4. Reload Obsidian and enable the plugin.
 

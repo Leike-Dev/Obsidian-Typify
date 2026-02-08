@@ -1,5 +1,5 @@
 import { PluginSettingTab, App, Setting, setIcon, Notice } from 'obsidian';
-import type CustomStatusIconsPlugin from './main';
+import type TypifyPlugin from './main';
 import { StatusStyle, DEFAULT_STATUS_COLOR } from './types';
 import { IconPickerModal } from './icon-picker';
 import { generatePalette } from './utils';
@@ -10,13 +10,13 @@ import { t } from './lang/helpers';
 // ============================================================================
 
 /**
- * Settings Tab for the Custom Status Icons plugin.
+ * Settings Tab for the Typify plugin.
  * Handles configuration of target property, status styles, and import/export.
  */
 export class CustomStatusIconsSettingTab extends PluginSettingTab {
-    plugin: CustomStatusIconsPlugin;
+    plugin: TypifyPlugin;
 
-    constructor(app: App, plugin: CustomStatusIconsPlugin) {
+    constructor(app: App, plugin: TypifyPlugin) {
         super(app, plugin);
         this.plugin = plugin;
     }

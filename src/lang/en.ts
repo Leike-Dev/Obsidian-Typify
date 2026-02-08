@@ -1,6 +1,6 @@
 export const en = {
     // Settings Header
-    'settings_title': 'Custom Status Icons',
+    'settings_title': 'Typify',
 
     // Target Property
     'target_property_title': 'Target Property',
