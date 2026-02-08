@@ -1,0 +1,10 @@
+{
+	"id": "obsidian-custom-status-icons",
+	"name": "Custom Status Icons",
+	"version": "1.0.1",
+	"minAppVersion": "0.15.0",
+	"description": "Create beautiful, customizable status pills with Lucide icons for your metadata properties.",
+	"author": "Antigravity",
+	"authorUrl": "https://github.com/your-username/obsidian-custom-status-icons",
+	"isDesktopOnly": false
+}

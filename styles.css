@@ -1,0 +1,460 @@
+/* ==========================================================================
+   Custom Status Icons Plugin - Obsidian Styles
+   ========================================================================== */
+
+/* Base styling - using more specific selector to override Obsidian defaults */
+.multi-select-pill.custom-status-icon-pill {
+    /* ============================================
+       CUSTOM VARIABLES - Edit these to control sizing
+       ============================================ */
+    --icon-size: 14px;
+    /* Icon width and height */
+    --icon-gap: 6px;
+    /* Space between icon and text */
+    --pill-font-size: inherit;
+    /* Text size (inherit = use default) */
+    --pill-padding-x: 6px;
+    /* Horizontal padding */
+    --pill-padding-y: 2px;
+    /* Vertical padding */
+
+    /* Layout */
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: var(--pill-padding-y) var(--pill-padding-x) !important;
+    line-height: 1.2 !important;
+    /* Custom styled border */
+    border: 1px solid var(--pill-border-color) !important;
+    box-shadow: none !important;
+    border-radius: var(--tag-radius, 14px) !important;
+    background-color: var(--pill-background) !important;
+    color: var(--pill-color) !important;
+    /* No transition on base state to avoid animation when MutationObserver reprocesses */
+}
+
+/* Hover state - transition only applies here */
+.multi-select-pill.custom-status-icon-pill:hover {
+    background-color: var(--pill-background-hover) !important;
+    color: var(--pill-color-hover) !important;
+    border-color: var(--pill-border-color) !important;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
+}
+
+/* Remove button (X) - uses status color */
+.multi-select-pill.custom-status-icon-pill .multi-select-pill-remove-button {
+    color: var(--pill-color) !important;
+    opacity: 0.7;
+    margin-left: 2.5px;
+}
+
+.multi-select-pill.custom-status-icon-pill .multi-select-pill-remove-button:hover {
+    color: var(--pill-color-hover) !important;
+    opacity: 1;
+    transition: color 0.15s ease, opacity 0.15s ease !important;
+}
+
+/* Pill content - uses custom variables */
+.multi-select-pill.custom-status-icon-pill .multi-select-pill-content {
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--pill-font-size);
+}
+
+/* Icon - uses custom variables */
+.multi-select-pill.custom-status-icon-pill .multi-select-pill-content::before {
+    display: inline-block;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    margin-right: var(--icon-gap);
+    flex-shrink: 0;
+    background-color: currentColor;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+}
+
+/* ==========================================================================
+   SETTINGS TAB STYLES
+   ========================================================================== */
+
+.csi-settings-container {
+    padding: 32px 48px;
+    width: 100%;
+    min-width: 400px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+}
+
+/* Header */
+.csi-settings-header {
+    margin-bottom: var(--size-4-6);
+}
+
+.csi-settings-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.csi-version {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: normal;
+    margin-left: 8px;
+    vertical-align: middle;
+    background: var(--background-modifier-form-field);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* Cards - Using native Obsidian setting styles */
+.csi-setting-card {
+    display: flex;
+    align-items: center;
+    border-radius: var(--setting-items-radius);
+    background-color: var(--setting-items-background);
+    padding: var(--setting-items-padding);
+    margin-bottom: var(--size-4-2);
+    border: var(--setting-items-border-width) solid var(--setting-items-border-color);
+    box-sizing: border-box;
+}
+
+.csi-setting-card .csi-card-info {
+    flex: 1;
+}
+
+.csi-card-title {
+    margin: 0 0 2px 0;
+    color: var(--text-normal);
+    font-size: var(--font-ui-medium);
+    font-weight: inherit;
+    line-height: var(--line-height-tight);
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.csi-card-description {
+    color: var(--text-faint);
+    font-size: 11px;
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* Status List */
+.csi-status-list-header {
+    font-size: var(--setting-group-heading-size);
+    font-weight: var(--setting-group-heading-weight);
+    color: var(--setting-group-heading-color);
+    margin-bottom: 12px;
+    margin-top: 32px;
+    padding-left: var(--setting-items-padding);
+}
+
+.csi-status-item {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--setting-items-radius);
+    background-color: var(--setting-items-background);
+    padding: 0;
+    margin-bottom: var(--size-4-2);
+    border: var(--setting-items-border-width) solid var(--setting-items-border-color);
+    overflow: hidden;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.csi-status-item:hover {
+    border-color: var(--interactive-accent);
+}
+
+/* Accordion Header */
+.csi-status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--setting-items-padding);
+    cursor: pointer;
+    background-color: var(--background-secondary);
+    user-select: none;
+}
+
+.csi-status-header:hover {
+    background-color: var(--background-secondary-alt);
+}
+
+.csi-status-name {
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.csi-status-preview-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.csi-status-arrow {
+    transition: transform 0.2s ease;
+    color: var(--text-muted);
+}
+
+.csi-status-item.is-open .csi-status-arrow {
+    transform: rotate(180deg);
+}
+
+/* Accordion Body */
+.csi-status-body {
+    display: none;
+    padding: 0;
+    border-top: 1px solid transparent;
+}
+
+.csi-status-item.is-open .csi-status-body {
+    display: block;
+    padding: var(--setting-items-padding);
+    border-top-color: var(--background-modifier-border);
+}
+
+.csi-controls-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4-2);
+    margin-bottom: var(--size-4-4);
+}
+
+.csi-control-card {
+    display: flex;
+    align-items: center;
+    gap: var(--size-4-4);
+    border-radius: var(--setting-items-radius);
+    background-color: var(--setting-items-background);
+    padding: var(--setting-items-padding);
+    border: var(--setting-items-border-width) solid var(--setting-items-border-color);
+}
+
+.csi-control-card .csi-card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.csi-preview-card {
+    display: flex;
+    gap: 8px;
+    padding: var(--setting-items-padding);
+    border-radius: var(--setting-items-radius);
+    background-color: var(--setting-items-background);
+    border: var(--setting-items-border-width) solid var(--setting-items-border-color);
+    margin-bottom: var(--size-4-4);
+}
+
+/* Preview Wrappers for Theme Simulation */
+.csi-preview-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--background-modifier-border);
+    gap: 8px;
+}
+
+.csi-preview-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+    margin-bottom: 4px;
+}
+
+/* Adaptive Preview Backgrounds */
+
+/* Default fallback colors */
+.csi-preview-light {
+    background-color: #ffffff;
+    color: #202020;
+}
+
+.csi-preview-dark {
+    background-color: #1e1e1e;
+    color: #dcddde;
+}
+
+/* When in Light Mode: Light preview uses real note color */
+.theme-light .csi-preview-light {
+    background-color: var(--background-primary);
+    border-color: var(--background-modifier-border);
+}
+
+/* When in Dark Mode: Dark preview uses real note color */
+.theme-dark .csi-preview-dark {
+    background-color: var(--background-primary);
+    border-color: var(--background-modifier-border);
+}
+
+/* Ensure actions are separated */
+.csi-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--background-modifier-border);
+}
+
+.csi-delete-btn {
+    color: var(--text-error);
+    transition: all 0.2s ease;
+}
+
+.csi-delete-btn.csi-delete-confirm {
+    background-color: var(--background-modifier-error);
+    color: var(--text-on-accent);
+    border-color: var(--background-modifier-error);
+}
+
+.csi-delete-btn.csi-delete-confirm:hover {
+    background-color: var(--background-modifier-error-hover);
+    border-color: var(--background-modifier-error-hover);
+    box-shadow: 0 0 0 1px var(--background-modifier-error-hover);
+}
+
+/* Preview pills */
+.csi-preview-pill {
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Inputs within settings */
+.csi-input-text {
+    width: 150px;
+}
+
+/* Control area (right side of control cards) */
+.csi-control-area {
+    flex: 1 1 auto;
+    text-align: end;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--size-4-2);
+}
+
+/* Icon preview */
+.csi-icon-preview {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+}
+
+/* Color picker - native Obsidian style */
+.csi-control-card input[type="color"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: calc(var(--swatch-width) + 2px);
+    height: calc(var(--swatch-width) + 2px);
+    aspect-ratio: 1;
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    cursor: var(--cursor);
+    padding: 0px;
+}
+
+.csi-control-card input[type="color"]:hover,
+.csi-control-card input[type="color"]:focus {
+    border-color: var(--background-modifier-border);
+}
+
+.csi-control-card input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.csi-control-card input[type="color"]::-webkit-color-swatch {
+    border: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.csi-control-card input[type="color"]::-moz-color-swatch {
+    border: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+/* ==========================================================================
+   ICON PICKER MODAL
+   ========================================================================== */
+
+/* Icon Picker Button */
+.csi-icon-picker-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.csi-btn-remove-icon:hover {
+    color: var(--text-error);
+    background-color: var(--background-modifier-error-hover);
+    border-radius: 4px;
+}
+
+
+/* Icon Suggestion in Modal */
+.csi-icon-suggestion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.csi-icon-suggestion-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.csi-icon-suggestion-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.csi-icon-suggestion-name {
+    flex: 1;
+    font-family: var(--font-monospace);
+    font-size: 13px;
+}
+
+.csi-icon-recent-badge {
+    font-size: 8px;
+    color: var(--interactive-accent);
+}
