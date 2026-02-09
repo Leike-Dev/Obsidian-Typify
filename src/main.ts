@@ -458,6 +458,7 @@ body.theme-dark .multi-select-pill.custom-status-icon-pill${scopeSelector}[data-
     padding: 2px 6px !important;
     display: inline-flex !important;
     align-items: center !important;
+    vertical-align: middle !important;
     gap: 4px !important;
 }
 .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value${scopeSelector}[data-value="${safeName}" i]:hover {
