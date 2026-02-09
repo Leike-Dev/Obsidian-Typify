@@ -14,6 +14,7 @@ import { CustomStatusIconsSettingTab } from './settings';
 export default class TypifyPlugin extends Plugin {
     settings: CustomStatusIconsSettings;
     observer: MutationObserver;
+    private cachedTargetProps: string[] | null = null;
 
     /**
      * Called when the plugin is loaded.
@@ -24,17 +25,10 @@ export default class TypifyPlugin extends Plugin {
 
         this.addSettingTab(new CustomStatusIconsSettingTab(this.app, this));
 
-        const getTargetProperties = () => {
-            return this.settings.targetProperty
-                .split(',')
-                .map(p => p.trim().toLowerCase())
-                .filter(p => p.length > 0);
-        };
-
         const processNode = (node: Node) => {
             if (!(node instanceof HTMLElement)) return;
 
-            const targetProps = getTargetProperties();
+            const targetProps = this.getTargetProperties();
 
             // ============================================
             // CONTEXT 1: Metadata Properties
@@ -277,10 +271,7 @@ export default class TypifyPlugin extends Plugin {
      * @param container The metadata container element.
      */
     processMetadataContainer(container: HTMLElement) {
-        const targetProps = this.settings.targetProperty
-            .split(',')
-            .map(p => p.trim().toLowerCase())
-            .filter(p => p.length > 0);
+        const targetProps = this.getTargetProperties();
 
         const propertyRows = container.querySelectorAll('.metadata-property');
         propertyRows.forEach(row => {
@@ -300,10 +291,7 @@ export default class TypifyPlugin extends Plugin {
      * @param view The Bases view element.
      */
     processBasesView(view: HTMLElement) {
-        const targetProps = this.settings.targetProperty
-            .split(',')
-            .map(p => p.trim().toLowerCase())
-            .filter(p => p.length > 0);
+        const targetProps = this.getTargetProperties();
 
         const cells = view.querySelectorAll('.bases-td');
 
@@ -327,10 +315,7 @@ export default class TypifyPlugin extends Plugin {
      * @param view The Bases view element.
      */
     processBasesCardsView(view: HTMLElement) {
-        const targetProps = this.settings.targetProperty
-            .split(',')
-            .map(p => p.trim().toLowerCase())
-            .filter(p => p.length > 0);
+        const targetProps = this.getTargetProperties();
 
         const cardsProperties = view.querySelectorAll('.bases-cards-property');
 
@@ -377,9 +362,23 @@ export default class TypifyPlugin extends Plugin {
     }
 
     async saveSettings() {
+        this.cachedTargetProps = null; // Invalidate cache
         await this.saveData(this.settings);
         this.refreshProcessing();
         this.updateStyles();
+    }
+
+    /**
+     * Returns the parsed target properties, using cache for efficiency.
+     */
+    getTargetProperties(): string[] {
+        if (!this.cachedTargetProps) {
+            this.cachedTargetProps = this.settings.targetProperty
+                .split(',')
+                .map(p => p.trim().toLowerCase())
+                .filter(p => p.length > 0);
+        }
+        return this.cachedTargetProps;
     }
 
     /**
