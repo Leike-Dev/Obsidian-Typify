@@ -1,6 +1,8 @@
 export const ptBR = {
     // Settings Header
     'settings_title': 'Typify',
+    'section_configuration_title': 'Configurações',
+    'section_data_management_title': 'Gerenciamento de Dados',
 
     // Target Property
     'target_property_title': 'Propriedade Alvo',
@@ -25,6 +27,9 @@ export const ptBR = {
     'icon_title': 'Ícone',
     'icon_desc': 'O ícone exibido ao lado da tag de status',
     'remove_icon_tooltip': 'Remover ícone',
+    'applies_to_title': 'Aplica-se a',
+    'applies_to_desc': 'Selecione a quais propriedades este estilo deve ser aplicado. Se nenhum for selecionado, aplica-se a todos.',
+    'applies_to_all_option': 'Todas as propriedades configuradas',
 
     // Previews
     'preview_light_context': 'Visualização em Modo Claro',

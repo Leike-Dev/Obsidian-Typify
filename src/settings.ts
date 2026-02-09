@@ -37,6 +37,11 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         title.createEl('span', { text: this.plugin.manifest.version, cls: 'csi-version' });
 
         // ================================================================
+        // SECTION 1: CONFIGURATION
+        // ================================================================
+        containerEl.createEl('h3', { text: t('section_configuration_title'), cls: 'csi-section-header' });
+
+        // ================================================================
         // TARGET PROPERTY CARD
         // ================================================================
         const targetCard = containerEl.createDiv({ cls: 'csi-setting-card' });
@@ -63,6 +68,14 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         targetSetting.settingEl.style.background = 'none';
         targetSetting.infoEl.remove();
 
+        // Refresh view when input loses focus to update "Applies To" visibility
+        const inputEl = targetSetting.controlEl.querySelector('input');
+        if (inputEl) {
+            inputEl.addEventListener('blur', () => {
+                this.display();
+            });
+        }
+
         // ================================================================
         // ADD STATUS CARD
         // ================================================================
@@ -88,6 +101,30 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
             await this.plugin.saveSettings();
             this.display();
         });
+
+        // ================================================================
+        // STATUS LIST
+        // ================================================================
+        containerEl.createDiv({ cls: 'csi-status-list-header', text: t('saved_styles_title') });
+
+        const statusListEl = containerEl.createDiv({ cls: 'csi-status-list' });
+
+        if (this.plugin.settings.statusStyles.length === 0) {
+            statusListEl.createEl('p', {
+                text: t('no_styles_defined'),
+                cls: 'csi-card-description',
+                attr: { style: 'text-align: center; padding: 20px;' }
+            });
+        }
+
+        this.plugin.settings.statusStyles.forEach((style, index) => {
+            this.renderStatusItem(statusListEl, style, index);
+        });
+
+        // ================================================================
+        // SECTION 2: DATA MANAGEMENT
+        // ================================================================
+        containerEl.createEl('h3', { text: t('section_data_management_title'), cls: 'csi-section-header' });
 
         // ================================================================
         // EXPORT CARD
@@ -121,25 +158,6 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         const importButton = importCard.createEl('button', { text: t('import_button') });
         importButton.addEventListener('click', () => {
             this.importSettings();
-        });
-
-        // ================================================================
-        // STATUS LIST
-        // ================================================================
-        containerEl.createDiv({ cls: 'csi-status-list-header', text: t('saved_styles_title') });
-
-        const statusListEl = containerEl.createDiv({ cls: 'csi-status-list' });
-
-        if (this.plugin.settings.statusStyles.length === 0) {
-            statusListEl.createEl('p', {
-                text: t('no_styles_defined'),
-                cls: 'csi-card-description',
-                attr: { style: 'text-align: center; padding: 20px;' }
-            });
-        }
-
-        this.plugin.settings.statusStyles.forEach((style, index) => {
-            this.renderStatusItem(statusListEl, style, index);
         });
     }
 
@@ -259,7 +277,61 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
             await this.plugin.saveSettings();
         });
 
-        // 4. Preview (separate card, no title)
+        // 4. Applies To (Scope)
+        // Only show if multiple target properties are defined
+        const targetProperties = this.plugin.settings.targetProperty
+            .split(',')
+            .map(p => p.trim())
+            .filter(p => p.length > 0);
+
+        if (targetProperties.length > 1) {
+            const scopeCard = controlsContainer.createDiv({ cls: 'csi-control-card' });
+            const scopeInfo = scopeCard.createDiv({ cls: 'csi-card-info' });
+            scopeInfo.createDiv({ text: t('applies_to_title'), cls: 'csi-card-title' });
+            scopeInfo.createEl('p', { text: t('applies_to_desc'), cls: 'csi-card-description' });
+
+            const scopeControl = scopeCard.createDiv({ cls: 'csi-control-area' });
+
+            // Initialize appliesTo if undefined
+            if (!style.appliesTo) style.appliesTo = [];
+
+            // Determine current value
+            // If appliesTo is empty, it means "All"
+            // If appliesTo has items, we take the first one (since we moved to single select dropdown)
+            // If the item in appliesTo is not in targetProperties, we default to "All"
+            let currentValue = 'all';
+            if (style.appliesTo.length > 0) {
+                const storedValue = style.appliesTo[0];
+                if (targetProperties.includes(storedValue)) {
+                    currentValue = storedValue;
+                }
+            }
+
+            const dropdown = new Setting(scopeControl)
+                .addDropdown(dropdown => {
+                    dropdown.addOption('all', t('applies_to_all_option'));
+                    targetProperties.forEach(prop => {
+                        dropdown.addOption(prop, prop);
+                    });
+
+                    dropdown.setValue(currentValue);
+
+                    dropdown.onChange(async (value) => {
+                        if (value === 'all') {
+                            style.appliesTo = [];
+                        } else {
+                            style.appliesTo = [value];
+                        }
+                        await this.plugin.saveSettings();
+                    });
+                });
+
+            // Remove extra padding/border from setting
+            dropdown.settingEl.style.padding = '0';
+            dropdown.settingEl.style.border = 'none';
+        }
+
+        // 5. Preview (separate card, no title)
         const previewCard = body.createDiv({ cls: 'csi-preview-card' });
         const palette = generatePalette(style.baseColor);
 

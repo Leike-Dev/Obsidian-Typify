@@ -1,6 +1,8 @@
 export const en = {
     // Settings Header
     'settings_title': 'Typify',
+    'section_configuration_title': 'Configuration',
+    'section_data_management_title': 'Data Management',
 
     // Target Property
     'target_property_title': 'Target Property',
@@ -25,6 +27,9 @@ export const en = {
     'icon_title': 'Icon',
     'icon_desc': 'The icon displayed alongside the status tag',
     'remove_icon_tooltip': 'Remove icon',
+    'applies_to_title': 'Applies To',
+    'applies_to_desc': 'Select which properties this style should apply to. If none selected, applies to all.',
+    'applies_to_all_option': 'All configured properties',
 
     // Previews
     'preview_light_context': 'Light Mode View',

@@ -24,8 +24,17 @@ export default class TypifyPlugin extends Plugin {
 
         this.addSettingTab(new CustomStatusIconsSettingTab(this.app, this));
 
+        const getTargetProperties = () => {
+            return this.settings.targetProperty
+                .split(',')
+                .map(p => p.trim().toLowerCase())
+                .filter(p => p.length > 0);
+        };
+
         const processNode = (node: Node) => {
             if (!(node instanceof HTMLElement)) return;
+
+            const targetProps = getTargetProperties();
 
             // ============================================
             // CONTEXT 1: Metadata Properties
@@ -36,26 +45,29 @@ export default class TypifyPlugin extends Plugin {
 
             propertyRows.forEach(row => {
                 const propertyKey = row.getAttribute('data-property-key');
-                if (propertyKey?.toLowerCase() !== this.settings.targetProperty.toLowerCase()) return;
+                if (!propertyKey || !targetProps.includes(propertyKey.toLowerCase())) return;
 
                 const pills = row.querySelectorAll('.multi-select-pill');
-                pills.forEach((pill: Element) => this.processPill(pill));
+                pills.forEach((pill: Element) => this.processPill(pill, propertyKey));
             });
 
             // ============================================
             // CONTEXT 2: Bases Plugin (Table View)
             // ============================================
-            const basesPropertyName = `note.${this.settings.targetProperty}`.toLowerCase();
             const basesCells: NodeListOf<Element> | never[] = node.querySelectorAll
                 ? node.querySelectorAll('.bases-td')
                 : [];
 
             basesCells.forEach(cell => {
                 const dataProperty = cell.getAttribute('data-property');
-                if (dataProperty?.toLowerCase() !== basesPropertyName) return;
+                // Bases property format: "note.status"
+                if (!dataProperty) return;
+
+                const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
+                if (!match) return;
 
                 const pills = cell.querySelectorAll('.multi-select-pill');
-                pills.forEach((pill: Element) => this.processPill(pill));
+                pills.forEach((pill: Element) => this.processPill(pill, match));
             });
 
             // ============================================
@@ -67,10 +79,13 @@ export default class TypifyPlugin extends Plugin {
 
             basesCardsProperties.forEach(prop => {
                 const dataProperty = prop.getAttribute('data-property');
-                if (dataProperty?.toLowerCase() !== basesPropertyName) return;
+                if (!dataProperty) return;
+
+                const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
+                if (!match) return;
 
                 const valueElements = prop.querySelectorAll('.value-list-element');
-                valueElements.forEach((el: Element) => this.processValueListElement(el));
+                valueElements.forEach((el: Element) => this.processValueListElement(el, match));
             });
 
             // ============================================
@@ -81,8 +96,8 @@ export default class TypifyPlugin extends Plugin {
                 const metadataProperty = node.closest('.metadata-property');
                 if (metadataProperty) {
                     const propertyKey = metadataProperty.getAttribute('data-property-key');
-                    if (propertyKey?.toLowerCase() === this.settings.targetProperty.toLowerCase()) {
-                        this.processPill(node);
+                    if (propertyKey && targetProps.includes(propertyKey.toLowerCase())) {
+                        this.processPill(node, propertyKey);
                         return;
                     }
                 }
@@ -91,8 +106,11 @@ export default class TypifyPlugin extends Plugin {
                 const basesCell = node.closest('.bases-td');
                 if (basesCell) {
                     const dataProperty = basesCell.getAttribute('data-property');
-                    if (dataProperty?.toLowerCase() === basesPropertyName) {
-                        this.processPill(node);
+                    if (dataProperty) {
+                        const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
+                        if (match) {
+                            this.processPill(node, match);
+                        }
                     }
                 }
             }
@@ -102,8 +120,11 @@ export default class TypifyPlugin extends Plugin {
                 const basesCardsProp = node.closest('.bases-cards-property');
                 if (basesCardsProp) {
                     const dataProperty = basesCardsProp.getAttribute('data-property');
-                    if (dataProperty?.toLowerCase() === basesPropertyName) {
-                        this.processValueListElement(node);
+                    if (dataProperty) {
+                        const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
+                        if (match) {
+                            this.processValueListElement(node, match);
+                        }
                     }
                 }
             }
@@ -201,11 +222,20 @@ export default class TypifyPlugin extends Plugin {
     /**
      * Processes a single status, adding the custom class and data attribute.
      * @param pill The DOM element representing the status.
+     * @param propertyKey The property key (e.g., 'status') this pill belongs to.
      */
-    processPill(pill: Element) {
-        if (pill.classList.contains('custom-status-icon-pill')) return;
+    processPill(pill: Element, propertyKey: string) {
+        if (pill.classList.contains('custom-status-icon-pill')) {
+            // Update property key if it changed (unlikely but safe)
+            const currentProp = pill.getAttribute('data-property-key');
+            if (currentProp !== propertyKey) {
+                pill.setAttribute('data-property-key', propertyKey);
+            }
+            return;
+        }
 
         pill.classList.add('custom-status-icon-pill');
+        pill.setAttribute('data-property-key', propertyKey); // Store property key for CSS scoping
 
         const content = pill.querySelector('.multi-select-pill-content');
         if (content) {
@@ -220,11 +250,19 @@ export default class TypifyPlugin extends Plugin {
     /**
      * Processes a value element in the Bases Cards view.
      * @param element The DOM element representing the value.
+     * @param propertyKey The property key this element belongs to.
      */
-    processValueListElement(element: Element) {
-        if (element.classList.contains('custom-status-icon-value')) return;
+    processValueListElement(element: Element, propertyKey: string) {
+        if (element.classList.contains('custom-status-icon-value')) {
+            const currentProp = element.getAttribute('data-property-key');
+            if (currentProp !== propertyKey) {
+                element.setAttribute('data-property-key', propertyKey);
+            }
+            return;
+        }
 
         element.classList.add('custom-status-icon-value');
+        element.setAttribute('data-property-key', propertyKey);
 
         // Get the text content directly (excluding nested tags like <a class="tag">)
         const value = element.textContent?.trim() || '';
@@ -239,13 +277,18 @@ export default class TypifyPlugin extends Plugin {
      * @param container The metadata container element.
      */
     processMetadataContainer(container: HTMLElement) {
+        const targetProps = this.settings.targetProperty
+            .split(',')
+            .map(p => p.trim().toLowerCase())
+            .filter(p => p.length > 0);
+
         const propertyRows = container.querySelectorAll('.metadata-property');
         propertyRows.forEach(row => {
             const propertyKey = row.getAttribute('data-property-key');
-            if (propertyKey?.toLowerCase() !== this.settings.targetProperty.toLowerCase()) return;
+            if (!propertyKey || !targetProps.includes(propertyKey.toLowerCase())) return;
 
             const pills = row.querySelectorAll('.multi-select-pill');
-            pills.forEach(pill => this.processPill(pill));
+            pills.forEach(pill => this.processPill(pill, propertyKey));
         });
     }
 
@@ -257,15 +300,22 @@ export default class TypifyPlugin extends Plugin {
      * @param view The Bases view element.
      */
     processBasesView(view: HTMLElement) {
-        const basesPropertyName = `note.${this.settings.targetProperty}`.toLowerCase();
+        const targetProps = this.settings.targetProperty
+            .split(',')
+            .map(p => p.trim().toLowerCase())
+            .filter(p => p.length > 0);
+
         const cells = view.querySelectorAll('.bases-td');
 
         cells.forEach(cell => {
             const dataProperty = cell.getAttribute('data-property');
-            if (dataProperty?.toLowerCase() !== basesPropertyName) return;
+            if (!dataProperty) return;
+
+            const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
+            if (!match) return;
 
             const pills = cell.querySelectorAll('.multi-select-pill');
-            pills.forEach(pill => this.processPill(pill));
+            pills.forEach(pill => this.processPill(pill, match));
         });
     }
 
@@ -277,15 +327,22 @@ export default class TypifyPlugin extends Plugin {
      * @param view The Bases view element.
      */
     processBasesCardsView(view: HTMLElement) {
-        const basesPropertyName = `note.${this.settings.targetProperty}`.toLowerCase();
+        const targetProps = this.settings.targetProperty
+            .split(',')
+            .map(p => p.trim().toLowerCase())
+            .filter(p => p.length > 0);
+
         const cardsProperties = view.querySelectorAll('.bases-cards-property');
 
         cardsProperties.forEach(prop => {
             const dataProperty = prop.getAttribute('data-property');
-            if (dataProperty?.toLowerCase() !== basesPropertyName) return;
+            if (!dataProperty) return;
+
+            const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
+            if (!match) return;
 
             const valueElements = prop.querySelectorAll('.value-list-element');
-            valueElements.forEach(el => this.processValueListElement(el));
+            valueElements.forEach(el => this.processValueListElement(el, match));
         });
     }
 
@@ -306,10 +363,12 @@ export default class TypifyPlugin extends Plugin {
         document.querySelectorAll('.custom-status-icon-pill').forEach(el => {
             el.classList.remove('custom-status-icon-pill');
             el.removeAttribute('data-value');
+            el.removeAttribute('data-property-key');
         });
         document.querySelectorAll('.custom-status-icon-value').forEach(el => {
             el.classList.remove('custom-status-icon-value');
             el.removeAttribute('data-value');
+            el.removeAttribute('data-property-key');
         });
     }
 
@@ -344,9 +403,30 @@ export default class TypifyPlugin extends Plugin {
             // Sanitize name for CSS selector
             const safeName = sanitizeCssSelector(style.name);
 
+            // Determine Scope Selector
+            // If appliesTo is empty or undefined, it applies to ANY property (no attribute selector)
+            // If appliesTo has items, we generate a selector like:
+            // [data-property-key="Status"], [data-property-key="Priority"]
+            let scopeSelector = '';
+
+            if (style.appliesTo && style.appliesTo.length > 0) {
+                // We need to construct the full selector for each target
+                // Since we can't nest selectors easily in this string builder without complexity,
+                // We will just NOT add a scope selector here if it applies to all.
+                // But if it IS scoped, we need to ensure the element matches one of the properties.
+
+                // However, CSS :is() or multiple selectors is needed.
+                // Simpler approach: Include the scope in the attribute selector of the main rule?
+                // No, data-value is already there.
+
+                // Let's use :is() for cleaner CSS if supported (Obsidian is Chromium, so yes)
+                const props = style.appliesTo.map(p => `[data-property-key="${p}" i]`).join(', ');
+                scopeSelector = `:is(${props})`;
+            }
+
             // Light Mode Colors
             css += `
-body .multi-select-pill.custom-status-icon-pill[data-value="${safeName}" i] {
+body .multi-select-pill.custom-status-icon-pill${scopeSelector}[data-value="${safeName}" i] {
     --pill-background: ${palette.light.bg} !important;
     --pill-color: ${palette.light.text} !important;
     --pill-background-hover: ${palette.light.bgHover} !important;
@@ -357,7 +437,7 @@ body .multi-select-pill.custom-status-icon-pill[data-value="${safeName}" i] {
 
             // Dark Mode Colors
             css += `
-body.theme-dark .multi-select-pill.custom-status-icon-pill[data-value="${safeName}" i] {
+body.theme-dark .multi-select-pill.custom-status-icon-pill${scopeSelector}[data-value="${safeName}" i] {
     --pill-background: ${palette.dark.bg} !important;
     --pill-color: ${palette.dark.text} !important;
     --pill-background-hover: ${palette.dark.bgHover} !important;
@@ -371,7 +451,7 @@ body.theme-dark .multi-select-pill.custom-status-icon-pill[data-value="${safeNam
             // ============================================
             // Light Mode Colors
             css += `
-.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value[data-value="${safeName}" i] {
+.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value${scopeSelector}[data-value="${safeName}" i] {
     background: ${palette.light.bg} !important;
     color: ${palette.light.text} !important;
     border: 1px solid ${palette.light.border} !important;
@@ -381,7 +461,7 @@ body.theme-dark .multi-select-pill.custom-status-icon-pill[data-value="${safeNam
     align-items: center !important;
     gap: 4px !important;
 }
-.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value[data-value="${safeName}" i]:hover {
+.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value${scopeSelector}[data-value="${safeName}" i]:hover {
     background: ${palette.light.bgHover} !important;
     color: ${palette.light.textHover} !important;
 }
@@ -389,12 +469,12 @@ body.theme-dark .multi-select-pill.custom-status-icon-pill[data-value="${safeNam
 
             // Dark Mode Colors
             css += `
-body.theme-dark .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value[data-value="${safeName}" i] {
+body.theme-dark .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value${scopeSelector}[data-value="${safeName}" i] {
     background: ${palette.dark.bg} !important;
     color: ${palette.dark.text} !important;
     border: 1px solid ${palette.dark.border} !important;
 }
-body.theme-dark .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value[data-value="${safeName}" i]:hover {
+body.theme-dark .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value${scopeSelector}[data-value="${safeName}" i]:hover {
     background: ${palette.dark.bgHover} !important;
     color: ${palette.dark.textHover} !important;
 }
@@ -409,7 +489,7 @@ body.theme-dark .bases-view .bases-cards-container .bases-cards-property .value-
                 const dataUri = `url("data:image/svg+xml;charset=utf-8,${encodedSvg}")`;
 
                 css += `
-.multi-select-pill.custom-status-icon-pill[data-value="${safeName}" i] .multi-select-pill-content::before {
+.multi-select-pill.custom-status-icon-pill${scopeSelector}[data-value="${safeName}" i] .multi-select-pill-content::before {
     content: '';
     -webkit-mask-image: ${dataUri} !important;
     mask-image: ${dataUri} !important;
@@ -420,7 +500,7 @@ body.theme-dark .bases-view .bases-cards-container .bases-cards-property .value-
 
                 // Icon for Bases Cards View
                 css += `
-.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value[data-value="${safeName}" i]::before {
+.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value${scopeSelector}[data-value="${safeName}" i]::before {
     content: '';
     display: inline-block;
     width: 14px;

@@ -6,6 +6,7 @@ export interface StatusStyle {
     name: string;
     baseColor: string;
     icon: string;
+    appliesTo?: string[]; // Optional: List of properties this style applies to. If empty/undefined, applies to all.
 }
 
 export interface CustomStatusIconsSettings {
