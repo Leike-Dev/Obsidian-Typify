@@ -15,6 +15,7 @@ import { t } from './lang/helpers';
  */
 export class CustomStatusIconsSettingTab extends PluginSettingTab {
     plugin: TypifyPlugin;
+    private openIndex: number | null = null;
 
     constructor(app: App, plugin: TypifyPlugin) {
         super(app, plugin);
@@ -93,19 +94,20 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         const addButton = styleCard.createEl('button', { text: t('add_status_button') });
         addButton.setAttribute('class', 'mod-cta');
         addButton.addEventListener('click', async () => {
-            this.plugin.settings.statusStyles.push({
+            this.plugin.settings.statusStyles.unshift({
                 name: t('new_status_name'),
                 baseColor: DEFAULT_STATUS_COLOR,
                 icon: 'circle'
             });
             await this.plugin.saveSettings();
+            this.openIndex = 0;
             this.display();
         });
 
         // ================================================================
         // STATUS LIST
         // ================================================================
-        containerEl.createDiv({ cls: 'csi-status-list-header', text: t('saved_styles_title') });
+        containerEl.createEl('h3', { cls: 'csi-status-list-header', text: t('saved_styles_title') });
 
         const statusListEl = containerEl.createDiv({ cls: 'csi-status-list' });
 
@@ -169,6 +171,12 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
      */
     renderStatusItem(container: HTMLElement, style: StatusStyle, index: number): void {
         const itemEl = container.createDiv({ cls: 'csi-status-item' });
+
+        // Auto-expand if this is the newly created item
+        if (this.openIndex === index) {
+            itemEl.classList.add('is-open');
+            this.openIndex = null;
+        }
 
         // ============================================
         // ACCORDION HEADER

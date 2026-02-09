@@ -1,59 +1,57 @@
 export const ptBR = {
-    // Settings Header
+    // Cabeçalho das Configurações
     'settings_title': 'Typify',
     'section_configuration_title': 'Configurações',
-    'section_data_management_title': 'Gerenciamento de Dados',
+    'section_data_management_title': 'Gerenciamento de dados',
 
-    // Target Property
-    'target_property_title': 'Propriedade Alvo',
-    'target_property_desc': 'O nome da propriedade de metadados para aplicar estilos (ex: "Status", "status-1")',
-    'target_property_placeholder': 'Status',
+    // Propriedade Alvo
+    'target_property_title': 'Propriedade alvo',
+    'target_property_desc': 'O nome da(s) propriedade(s) para aplicar estilos (ex: "Status", "Status-1")',
+    'target_property_placeholder': 'Propriedade',
 
-    // Add Status
-    'add_status_title': 'Estilos de Status',
-    'add_status_desc': 'Defina cores e ícones personalizados para suas tags de status. Novos estilos serão adicionados abaixo.',
-    'add_status_button': '+ Adicionar Status',
+    // Criar Estilo
+    'add_status_title': 'Crie um novo estilo',
+    'add_status_desc': 'Defina cores e ícones personalizados para suas tags.',
+    'add_status_button': 'Criar estilo',
 
-    // Status List
-    'saved_styles_title': 'Estilos Salvos',
-    'no_styles_defined': 'Nenhum estilo personalizado definido ainda.',
+    // Lista de Estilos
+    'saved_styles_title': 'Estilos criados',
+    'no_styles_defined': 'Nenhum estilo criado ainda.',
     'new_status_name': 'Novo Status',
 
-    // Status Item Controls
-    'status_name_title': 'Nome do Status',
+    // Controles do Estilo
+    'status_name_title': 'Nome do estilo',
     'status_name_desc': 'O nome que será correspondido em suas propriedades',
-    'base_color_title': 'Cor Base',
+    'base_color_title': 'Cor base',
     'base_color_desc': 'A cor principal usada para gerar variantes claras e escuras',
     'icon_title': 'Ícone',
-    'icon_desc': 'O ícone exibido ao lado da tag de status',
+    'icon_desc': 'O ícone exibido ao lado da tag',
     'remove_icon_tooltip': 'Remover ícone',
     'applies_to_title': 'Aplica-se a',
-    'applies_to_desc': 'Selecione a quais propriedades este estilo deve ser aplicado. Se nenhum for selecionado, aplica-se a todos.',
-    'applies_to_all_option': 'Todas as propriedades configuradas',
+    'applies_to_desc': 'Selecione a quais propriedades este estilo deve ser aplicado.',
+    'applies_to_all_option': 'Todas as propriedades',
 
-    // Previews
-    'preview_light_context': 'Visualização em Modo Claro',
-    'preview_dark_context': 'Visualização em Modo Escuro',
+    // Visualização
+    'preview_light_context': 'Visualização em modo claro',
+    'preview_dark_context': 'Visualização em modo escuro',
 
-    // Actions
-    'actions_title': 'Ações',
-    'delete_button': 'Excluir Estilo',
-    'delete_confirm': 'Tem certeza que deseja excluir este estilo de status?',
+    // Excluir
+    'delete_button': 'Excluir estilo',
     'delete_confirm_inline': 'Clique para confirmar',
 
-    // Icon Picker Modal
+    // Seletor de Ícones
     'icon_picker_placeholder': 'Digite para buscar ícones...',
     'icon_picker_navigate': 'navegar',
     'icon_picker_select': 'selecionar',
     'icon_picker_close': 'fechar',
 
-    // Export/Import
-    'export_title': 'Exportar Configurações',
-    'export_desc': 'Exporte seus estilos de status para um arquivo JSON para backup ou compartilhamento.',
+    // Exportar/Importar
+    'export_title': 'Exportar configurações',
+    'export_desc': 'Exporte seus estilos para um arquivo JSON para backup ou compartilhamento.',
     'export_button': 'Exportar',
-    'import_title': 'Importar Configurações',
-    'import_desc': 'Importe estilos de status de um arquivo JSON exportado anteriormente.',
+    'import_title': 'Importar configurações',
+    'import_desc': 'Importe estilos de um arquivo JSON exportado anteriormente.',
     'import_button': 'Importar',
-    'import_success': 'Configurações importadas com sucesso!',
-    'import_error': 'Erro ao importar configurações. Formato de arquivo inválido.'
+    'import_success': 'Estilos importados com sucesso!',
+    'import_error': 'Erro ao importar estilos. Formato de arquivo inválido.'
 };

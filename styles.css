@@ -112,6 +112,16 @@
     border-radius: 4px;
 }
 
+/* Section Headers (unified style for all section titles) */
+h3.csi-section-header,
+h3.csi-status-list-header {
+    font-size: var(--font-ui-medium);
+    font-weight: 600;
+    color: var(--text-normal);
+    margin-top: 32px !important;
+    margin-bottom: 16px;
+}
+
 /* Cards - Using native Obsidian setting styles */
 .csi-setting-card {
     display: flex;
@@ -143,16 +153,6 @@
     font-size: 11px;
     margin: 0;
     line-height: 1.3;
-}
-
-/* Status List */
-.csi-status-list-header {
-    font-size: var(--setting-group-heading-size);
-    font-weight: var(--setting-group-heading-weight);
-    color: var(--setting-group-heading-color);
-    margin-bottom: 12px;
-    margin-top: 32px;
-    padding-left: var(--setting-items-padding);
 }
 
 .csi-status-item {
@@ -346,7 +346,6 @@
 
 /* Control area (right side of control cards) */
 .csi-control-area {
-    flex: 1 1 auto;
     text-align: end;
     display: flex;
     justify-content: flex-end;
@@ -422,8 +421,6 @@
 
 .csi-btn-remove-icon:hover {
     color: var(--text-error);
-    background-color: var(--background-modifier-error-hover);
-    border-radius: 4px;
 }
 
 

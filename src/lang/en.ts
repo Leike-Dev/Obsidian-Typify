@@ -2,58 +2,56 @@ export const en = {
     // Settings Header
     'settings_title': 'Typify',
     'section_configuration_title': 'Configuration',
-    'section_data_management_title': 'Data Management',
+    'section_data_management_title': 'Data management',
 
     // Target Property
-    'target_property_title': 'Target Property',
-    'target_property_desc': 'The metadata property name to apply custom styles to (e.g., "Status", "status-1")',
-    'target_property_placeholder': 'Status',
+    'target_property_title': 'Target property',
+    'target_property_desc': 'The property name(s) to apply styles to (e.g., "Status", "Status-1")',
+    'target_property_placeholder': 'Property',
 
-    // Add Status
-    'add_status_title': 'Status Styles',
-    'add_status_desc': 'Define custom colors and icons for your status tags. New styles will be added to the list below.',
-    'add_status_button': '+ Add Status',
+    // Create Style
+    'add_status_title': 'Create a new style',
+    'add_status_desc': 'Define custom colors and icons for your tags.',
+    'add_status_button': 'Create style',
 
-    // Status List
-    'saved_styles_title': 'Saved Styles',
-    'no_styles_defined': 'No custom styles defined yet.',
+    // Styles List
+    'saved_styles_title': 'Created styles',
+    'no_styles_defined': 'No styles created yet.',
     'new_status_name': 'New Status',
 
-    // Status Item Controls
-    'status_name_title': 'Status Name',
+    // Style Controls
+    'status_name_title': 'Style name',
     'status_name_desc': 'The name that will be matched in your properties',
-    'base_color_title': 'Base Color',
+    'base_color_title': 'Base color',
     'base_color_desc': 'The main color used to generate light and dark variants',
     'icon_title': 'Icon',
-    'icon_desc': 'The icon displayed alongside the status tag',
+    'icon_desc': 'The icon displayed alongside the tag',
     'remove_icon_tooltip': 'Remove icon',
-    'applies_to_title': 'Applies To',
-    'applies_to_desc': 'Select which properties this style should apply to. If none selected, applies to all.',
-    'applies_to_all_option': 'All configured properties',
+    'applies_to_title': 'Applies to',
+    'applies_to_desc': 'Select which properties this style should apply to.',
+    'applies_to_all_option': 'All properties',
 
-    // Previews
-    'preview_light_context': 'Light Mode View',
-    'preview_dark_context': 'Dark Mode View',
+    // Preview
+    'preview_light_context': 'Light mode view',
+    'preview_dark_context': 'Dark mode view',
 
-    // Actions
-    'actions_title': 'Actions',
-    'delete_button': 'Delete Style',
-    'delete_confirm': 'Are you sure you want to delete this status style?',
+    // Delete
+    'delete_button': 'Delete style',
     'delete_confirm_inline': 'Click to confirm',
 
-    // Icon Picker Modal
+    // Icon Picker
     'icon_picker_placeholder': 'Type to search icons...',
     'icon_picker_navigate': 'navigate',
     'icon_picker_select': 'select',
     'icon_picker_close': 'close',
 
     // Export/Import
-    'export_title': 'Export Settings',
-    'export_desc': 'Export your status styles to a JSON file for backup or sharing.',
+    'export_title': 'Export settings',
+    'export_desc': 'Export your styles to a JSON file for backup or sharing.',
     'export_button': 'Export',
-    'import_title': 'Import Settings',
-    'import_desc': 'Import status styles from a previously exported JSON file.',
+    'import_title': 'Import settings',
+    'import_desc': 'Import styles from a previously exported JSON file.',
     'import_button': 'Import',
-    'import_success': 'Settings imported successfully!',
-    'import_error': 'Error importing settings. Invalid file format.'
+    'import_success': 'Styles imported successfully!',
+    'import_error': 'Error importing styles. Invalid file format.'
 };
