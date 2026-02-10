@@ -4,7 +4,7 @@
   <img src="./assets/images/banner_1.jpg"/>
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
-   ![Version](https://img.shields.io/badge/version-1.4.2-lightgreen.svg)
+   ![Version](https://img.shields.io/badge/version-1.5.0-lightgreen.svg)
 
 </div>
 
@@ -30,34 +30,25 @@ Typify é um plugin para o Obsidian que permite que você crie estilos únicos p
 
 - **🚫 Ícones opcionais**: Suporte para pílulas apenas com texto (basta remover o ícone!).
 
+- **🧩 Ícones customizados**: Poucos ícones? Você pode usar os seus próprios de forma fácil.
+
 - **🌍 Internacionalização**: Totalmente traduzido para inglês e português (Brasil).
 
 - **💾 Exportar/Importar**: Faça backup e compartilhe suas configurações facilmente.
 
-> [!Warning]  
-> A importação de configurações **substitui todos os estilos existentes**. Estilos criados após o backup serão perdidos.
-
 ## Como Usar
 
-1. **Propriedade alvo**: Nas configurações do plugin, defina qual propriedade será o alvo.
+1. **Defina a propriedade alvo:**: Nas configurações do plugin, digite o nome da propriedade que você quer estilizar (ex: `Status`). Se quiser mais de uma, separe por vírgulas (ex: `Status, Prioridade`).
 
-> [!Tip]  
-> Você pode usar mais de uma propriedade como alvo. Apenas adicione uma vírgula entre as opções. Exemplo: `Status, Priority`.
-
-2. **Crie um estilo**:
+2. **Crie o estilo do valor**:
    - Vá em **Configurações > Typify**.
    - Clique em "Criar novo estilo".
-   - Defina o nome para corresponder ao valor da sua propriedade (ex: `Em Progresso`).
+   - No campo **Nome do estilo**, digite o texto que você quer transformar em pílula (ex: `Concluído`).
    - Escolha uma cor base e um ícone, ou deixe sem ícone.
-   - Voilá! Sua propriedade agora é uma linda pílula colorida.
 
-3. **Use seu novo estilo**: Nas propriedades da sua nota (YAML), adicione a propriedade alvo e defina um valor (ex: `Status: Em Progresso`).
+3. **Use seu novo estilo**: Nas propriedades da sua nota (YAML), use a propriedade e o valor que você configurou (ex: `Status: Em Progresso`).
 
-> [!Important]  
-> O plugin não faz distinção de maiúsculas e minúsculas. Exemplo: `Status` e `status` são a mesma propriedade.
-
-> [!Note]  
-> O efeito do estilo só é aplicado em propriedades do tipo **Lista** no Obsidian.
+Voilá! Sua propriedade agora é uma linda pílula colorida ✨
 
 ## Instalação
 
@@ -70,8 +61,24 @@ Typify é um plugin para o Obsidian que permite que você crie estilos únicos p
 
 4. Recarregue o Obsidian e ative o plugin.
 
+## Avisos
+
+> [!Important]  
+> O efeito do estilo só é aplicado em propriedades do tipo **Lista** no Obsidian.
+
+> [!Note]  
+> O plugin não faz distinção de maiúsculas e minúsculas seja no nome da propriedade ou nos valores. Exemplo: `Status` e `status` são a mesma propriedade.
+
+> [!Tip]  
+> Você pode usar mais de uma propriedade como alvo. Apenas adicione uma vírgula entre as opções. Exemplo: `Status, Priority`.
+
+> [!Warning]  
+> A importação de configurações **substitui todos os estilos existentes**. Estilos criados após o backup serão perdidos.
 
 ## Desenvolvimento
+
+Caso você queira compilar o plugin, faça o seguinte:
+
 1. Clone este repositório.
 2. Execute `npm install`.
 3. Execute `npm run dev` para iniciar a compilação em modo watch.

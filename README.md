@@ -4,7 +4,7 @@
   <img src="./docs/assets/images/banner_1.jpg"/>
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
-   ![Version](https://img.shields.io/badge/version-1.4.2-lightgreen.svg)
+   ![Version](https://img.shields.io/badge/version-1.5.0-lightgreen.svg)
 
 </div>
 
@@ -30,34 +30,25 @@ Typify is an Obsidian plugin that allows you to create unique styles for your me
 
 - **🚫 Optional Icons**: Support for text-only pills (just remove the icon!).
 
+- **🧩 Custom Icons**: Not enough icons? You can easily use your own.
+
 - **🌍 Internationalization**: Fully translated into English and Portuguese (Brazil).
 
 - **💾 Export/Import**: Easily backup and share your configurations.
 
-> [!Warning]  
-> Importing settings **replaces all existing styles**. Styles created after the backup will be lost.
-
 ## How to Use
 
-1. **Target Property**: In the plugin settings, define which property to target.
+1. **Set the target property**: In the plugin settings, type the name of the property you want to style (e.g., `Status`). For multiple properties, separate them with commas (e.g., `Status, Priority`).
 
-> [!Tip]  
-> You can use multiple properties as targets. Just add a comma between them. Example: `Status, Priority`.
-
-2. **Create a Style**:
+2. **Create the value style**:
    - Go to **Settings > Typify**.
    - Click "Create a new style".
-   - Set the name to match your property value (e.g., `In Progress`).
+   - In the **Style name** field, type the text you want to turn into a pill (e.g., `Done`).
    - Pick a base color and an icon, or leave it without an icon.
-   - Voilá! Your property is now a beautiful colored pill.
 
-3. **Use Your New Style**: In your note's Properties (YAML), add the target property and set a value (e.g., `Status: In Progress`).
+3. **Use your new style**: In your note's properties (YAML), use the property and value you configured (e.g., `Status: In Progress`).
 
-> [!Important]  
-> The plugin is case-insensitive. Example: `Status` and `status` are treated as the same property.
-
-> [!Note]  
-> The style effect only applies to properties of type **List** in Obsidian.
+Voilá! Your property is now a beautiful colored pill ✨
 
 ## Installation
 
@@ -70,8 +61,24 @@ Typify is an Obsidian plugin that allows you to create unique styles for your me
 
 4. Reload Obsidian and enable the plugin.
 
+## Notices
+
+> [!Important]  
+> The style effect only applies to properties of type **List** in Obsidian.
+
+> [!Note]  
+> The plugin is case-insensitive for both property names and values. Example: `Status` and `status` are treated as the same property.
+
+> [!Tip]  
+> You can use multiple properties as targets. Just add a comma between them. Example: `Status, Priority`.
+
+> [!Warning]  
+> Importing settings **replaces all existing styles**. Styles created after the backup will be lost.
 
 ## Development
+
+If you want to build the plugin yourself, do the following:
+
 1. Clone this repository.
 2. Run `npm install`.
 3. Run `npm run dev` to start compilation in watch mode.
