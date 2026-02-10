@@ -42,7 +42,7 @@ Typify is an Obsidian plugin that allows you to create unique styles for your me
 
 2. **Create the value style**:
    - Go to **Settings > Typify**.
-   - Click "Create a new style".
+   - Click "Create style".
    - In the **Style name** field, type the text you want to turn into a pill (e.g., `Done`).
    - Pick a base color and an icon, or leave it without an icon.
 

@@ -42,7 +42,7 @@ Typify é um plugin para o Obsidian que permite que você crie estilos únicos p
 
 2. **Crie o estilo do valor**:
    - Vá em **Configurações > Typify**.
-   - Clique em "Criar novo estilo".
+   - Clique em "Criar estilo".
    - No campo **Nome do estilo**, digite o texto que você quer transformar em pílula (ex: `Concluído`).
    - Escolha uma cor base e um ícone, ou deixe sem ícone.
 

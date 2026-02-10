@@ -17,7 +17,7 @@ export const en = {
     // Styles List
     'saved_styles_title': 'Created styles',
     'no_styles_defined': 'No styles created yet.',
-    'new_status_name': 'New Status',
+    'new_status_name': 'New style',
 
     // Style Controls
     'status_name_title': 'Style name',
@@ -26,6 +26,7 @@ export const en = {
     'base_color_desc': 'The main color used to generate light and dark variants',
     'icon_title': 'Icon',
     'icon_desc': 'The icon displayed alongside the tag',
+    'add_icon_tooltip': 'Choose icon',
     'remove_icon_tooltip': 'Remove icon',
     'applies_to_title': 'Applies to',
     'applies_to_desc': 'Select which properties this style should apply to.',
@@ -57,10 +58,10 @@ export const en = {
 
     // Custom Icons
     'custom_icons_toggle_title': 'Custom Icons',
-    'custom_icons_toggle_desc': 'Enable custom SVG icons from the plugin\'s icons/ folder.',
+    'custom_icons_toggle_desc': 'Enable custom SVG icons in the plugin.',
     'custom_icons_info': 'Only .svg files up to 100KB are supported. Place your icons in the icons/ folder inside the plugin directory.',
     'custom_icons_loaded': '{count} custom icon(s) loaded successfully!',
-    'custom_icons_empty': 'No SVG files found in the icons/ folder. Add .svg files and toggle again.',
+    'custom_icons_empty': 'No SVG files found in the icons/ folder. Add .svg files and enable again.',
     'custom_icons_error': 'Error loading custom icons.',
-    'custom_icons_missing': '{count} custom icon(s) not found: {names}. Using fallback.'
+    'custom_icons_missing': '{count} custom icon(s) not found: {names}.'
 };

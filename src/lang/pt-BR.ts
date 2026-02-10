@@ -17,7 +17,7 @@ export const ptBR = {
     // Lista de Estilos
     'saved_styles_title': 'Estilos criados',
     'no_styles_defined': 'Nenhum estilo criado ainda.',
-    'new_status_name': 'Novo Status',
+    'new_status_name': 'Novo estilo',
 
     // Controles do Estilo
     'status_name_title': 'Nome do estilo',
@@ -26,6 +26,7 @@ export const ptBR = {
     'base_color_desc': 'A cor principal usada para gerar variantes claras e escuras',
     'icon_title': 'Ícone',
     'icon_desc': 'O ícone exibido ao lado da tag',
+    'add_icon_tooltip': 'Escolher ícone',
     'remove_icon_tooltip': 'Remover ícone',
     'applies_to_title': 'Aplica-se a',
     'applies_to_desc': 'Selecione a quais propriedades este estilo deve ser aplicado.',
@@ -57,10 +58,10 @@ export const ptBR = {
 
     // Ícones Customizados
     'custom_icons_toggle_title': 'Ícones personalizados',
-    'custom_icons_toggle_desc': 'Ativa ícones SVG personalizados da pasta icons/ do plugin.',
+    'custom_icons_toggle_desc': 'Habilite ícones SVG personalizados no plugin.',
     'custom_icons_info': 'Apenas arquivos .svg de até 100KB são suportados. Coloque seus ícones na pasta icons/ dentro do diretório do plugin.',
     'custom_icons_loaded': '{count} ícone(s) personalizado(s) carregado(s) com sucesso!',
-    'custom_icons_empty': 'Nenhum arquivo SVG encontrado na pasta icons/. Adicione arquivos .svg e ative novamente.',
+    'custom_icons_empty': 'Nenhum arquivo SVG encontrado na pasta icons/. Adicione arquivos .svg e habilite novamente.',
     'custom_icons_error': 'Erro ao carregar ícones personalizados.',
-    'custom_icons_missing': '{count} ícone(s) personalizado(s) não encontrado(s): {names}. Usando fallback.'
+    'custom_icons_missing': '{count} ícone(s) personalizado(s) não encontrado(s): {names}.'
 };

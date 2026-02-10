@@ -302,7 +302,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
 
         const iconButton = iconWrapper.createEl('button', { cls: 'csi-icon-picker-btn' });
         setIcon(iconButton, 'plus');
-        iconButton.setAttribute('aria-label', t('icon_desc'));
+        iconButton.setAttribute('aria-label', t('add_icon_tooltip'));
 
         const removeIconButton = iconWrapper.createEl('button', { cls: 'csi-icon-picker-btn csi-btn-remove-icon' });
         setIcon(removeIconButton, 'x');
