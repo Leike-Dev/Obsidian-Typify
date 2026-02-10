@@ -84,7 +84,7 @@ Caso você queira compilar o plugin, faça o seguinte:
 3. Execute `npm run dev` para iniciar a compilação em modo watch.
 
 
-## Aviso
+## Disclaimer
 
 Esse plugin nasceu pelo meu desejo de ter mais opção de customização para as propriedades, igual há no Notion, mas do jeito Obsidian de ser. 
 
