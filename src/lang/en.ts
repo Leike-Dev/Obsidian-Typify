@@ -55,11 +55,10 @@ export const en = {
     'import_success': 'Styles imported successfully!',
     'import_error': 'Error importing styles. Invalid file format.',
 
-    // Experimental
-    'section_experimental_title': 'Experimental',
-    'experimental_warning': 'These features are experimental and may change or be removed in future updates.',
+    // Custom Icons
     'custom_icons_toggle_title': 'Custom Icons',
     'custom_icons_toggle_desc': 'Enable custom SVG icons from the plugin\'s icons/ folder.',
+    'custom_icons_info': 'Only .svg files up to 100KB are supported. Place your icons in the icons/ folder inside the plugin directory.',
     'custom_icons_loaded': '{count} custom icon(s) loaded successfully!',
     'custom_icons_empty': 'No SVG files found in the icons/ folder. Add .svg files and toggle again.',
     'custom_icons_error': 'Error loading custom icons.',
