@@ -13,12 +13,14 @@ export interface CustomStatusIconsSettings {
     targetProperty: string;
     statusStyles: StatusStyle[];
     recentIcons: string[];
+    enableCustomIcons: boolean;
 }
 
 export const DEFAULT_SETTINGS: CustomStatusIconsSettings = {
     targetProperty: 'Status',
     statusStyles: [],
-    recentIcons: []
+    recentIcons: [],
+    enableCustomIcons: false
 };
 
 // Default color for new status styles

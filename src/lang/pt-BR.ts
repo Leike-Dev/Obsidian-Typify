@@ -53,5 +53,15 @@ export const ptBR = {
     'import_desc': 'Importe estilos de um arquivo JSON exportado anteriormente.',
     'import_button': 'Importar',
     'import_success': 'Estilos importados com sucesso!',
-    'import_error': 'Erro ao importar estilos. Formato de arquivo inválido.'
+    'import_error': 'Erro ao importar estilos. Formato de arquivo inválido.',
+
+    // Experimental
+    'section_experimental_title': 'Experimental',
+    'experimental_warning': 'Estes recursos são experimentais e podem mudar ou ser removidos em atualizações futuras.',
+    'custom_icons_toggle_title': 'Ícones personalizados',
+    'custom_icons_toggle_desc': 'Ativa ícones SVG personalizados da pasta icons/ do plugin.',
+    'custom_icons_loaded': '{count} ícone(s) personalizado(s) carregado(s) com sucesso!',
+    'custom_icons_empty': 'Nenhum arquivo SVG encontrado na pasta icons/. Adicione arquivos .svg e ative novamente.',
+    'custom_icons_error': 'Erro ao carregar ícones personalizados.',
+    'custom_icons_missing': '{count} ícone(s) personalizado(s) não encontrado(s): {names}. Usando fallback.'
 };

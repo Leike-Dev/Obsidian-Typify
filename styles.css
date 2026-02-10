@@ -455,3 +455,37 @@ h3.csi-status-list-header {
     font-size: 8px;
     color: var(--interactive-accent);
 }
+
+/* Custom icon badge in icon picker */
+.csi-icon-custom-badge {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-on-accent);
+    background-color: var(--interactive-accent);
+    padding: 1px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Experimental Warning Card (yellow) */
+.csi-experimental-warning {
+    margin-top: 20px;
+    margin-bottom: 12px;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: rgba(var(--color-yellow-rgb), 0.1);
+    border: 1px solid rgba(var(--color-yellow-rgb), 0.3);
+}
+
+.csi-experimental-warning .warning-text {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: var(--font-ui-small);
+}
+
+/* Custom icon preview sizing */
+.csi-icon-suggestion-icon svg {
+    max-width: 18px;
+    max-height: 18px;
+}

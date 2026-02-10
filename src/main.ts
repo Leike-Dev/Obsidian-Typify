@@ -1,7 +1,9 @@
-import { Plugin, getIcon } from 'obsidian';
+import { Plugin, getIcon, Notice } from 'obsidian';
 import { CustomStatusIconsSettings, DEFAULT_SETTINGS } from './types';
 import { generatePalette, sanitizeCssSelector } from './utils';
 import { CustomStatusIconsSettingTab } from './settings';
+import { CustomIconsManager } from './custom-icons';
+import { t } from './lang/helpers';
 
 // ============================================================================
 // MAIN PLUGIN CLASS
@@ -14,6 +16,7 @@ import { CustomStatusIconsSettingTab } from './settings';
 export default class TypifyPlugin extends Plugin {
     settings: CustomStatusIconsSettings;
     observer: MutationObserver;
+    customIconsManager: CustomIconsManager;
     private cachedTargetProps: string[] | null = null;
 
     /**
@@ -22,6 +25,22 @@ export default class TypifyPlugin extends Plugin {
      */
     async onload() {
         await this.loadSettings();
+
+        // Initialize custom icons manager (cache loaded once, sync access later)
+        this.customIconsManager = new CustomIconsManager(this.app, this.manifest.id);
+        if (this.settings.enableCustomIcons) {
+            await this.customIconsManager.initialize();
+
+            // Check for missing custom icons referenced by saved styles
+            const missingIcons = this.settings.statusStyles
+                .filter(s => s.icon?.startsWith('custom:'))
+                .filter(s => !this.customIconsManager.getSvgDataUri(s.icon.replace('custom:', '')));
+
+            if (missingIcons.length > 0) {
+                const names = missingIcons.map(s => s.icon.replace('custom:', '')).join(', ');
+                new Notice(t('custom_icons_missing').replace('{count}', String(missingIcons.length)).replace('{names}', names));
+            }
+        }
 
         this.addSettingTab(new CustomStatusIconsSettingTab(this.app, this));
 
@@ -481,13 +500,32 @@ body.theme-dark .bases-view .bases-cards-container .bases-cards-property .value-
 `;
 
             // Icon Mask for Pills and Cards
-            const iconEl = getIcon(style.icon);
-            if (iconEl) {
-                // Get the SVG string and encode for data URI
-                const svgString = iconEl.outerHTML.replace(/currentColor/g, 'black');
-                const encodedSvg = encodeURIComponent(svgString);
-                const dataUri = `url("data:image/svg+xml;charset=utf-8,${encodedSvg}")`;
+            let dataUri: string | null = null;
 
+            if (style.icon && style.icon.startsWith('custom:')) {
+                // Custom icon: lookup from sync cache
+                const iconName = style.icon.replace('custom:', '');
+                dataUri = this.customIconsManager.getSvgDataUri(iconName);
+
+                // Fallback to 'square' if custom icon not found
+                if (!dataUri) {
+                    const fallbackEl = getIcon('square');
+                    if (fallbackEl) {
+                        const svg = fallbackEl.outerHTML.replace(/currentColor/g, 'black');
+                        dataUri = `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
+                    }
+                }
+            } else if (style.icon) {
+                // Lucide icon: existing behavior
+                const iconEl = getIcon(style.icon);
+                if (iconEl) {
+                    const svgString = iconEl.outerHTML.replace(/currentColor/g, 'black');
+                    const encodedSvg = encodeURIComponent(svgString);
+                    dataUri = `url("data:image/svg+xml;charset=utf-8,${encodedSvg}")`;
+                }
+            }
+
+            if (dataUri) {
                 css += `
 .multi-select-pill.custom-status-icon-pill${scopeSelector}[data-value="${safeName}" i] .multi-select-pill-content::before {
     content: '';

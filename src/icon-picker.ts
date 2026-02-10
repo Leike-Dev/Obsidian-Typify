@@ -1,6 +1,7 @@
 import { FuzzySuggestModal, App, setIcon, FuzzyMatch, getIcon } from 'obsidian';
 import { LUCIDE_ICONS } from './lucide-icons';
 import { t } from './lang/helpers';
+import { CustomIconsManager } from './custom-icons';
 
 // ============================================================================
 // ICON PICKER MODAL - Fuzzy search for Lucide icons
@@ -12,11 +13,13 @@ import { t } from './lang/helpers';
  */
 export class IconPickerModal extends FuzzySuggestModal<string> {
     private recentIcons: string[];
+    private customIconsManager: CustomIconsManager | null;
     private onChoose: (icon: string) => void;
 
-    constructor(app: App, recentIcons: string[], onChoose: (icon: string) => void) {
+    constructor(app: App, recentIcons: string[], customIconsManager: CustomIconsManager | null, onChoose: (icon: string) => void) {
         super(app);
         this.recentIcons = recentIcons || [];
+        this.customIconsManager = customIconsManager;
         this.onChoose = onChoose;
         this.setPlaceholder(t('icon_picker_placeholder'));
         this.setInstructions([
@@ -31,13 +34,21 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
      * Recent icons are shown at the top.
      */
     getItems(): string[] {
-        // Recent icons first, then all others
+        // Custom icons first (with prefix), then recent, then all Lucide
+        const customWithPrefix = this.customIconsManager
+            ? this.customIconsManager.listIcons().map(i => `custom:${i}`)
+            : [];
         const recentSet = new Set(this.recentIcons);
-        const others = LUCIDE_ICONS.filter(i => !recentSet.has(i));
-        return [...this.recentIcons, ...others];
+        const customSet = new Set(customWithPrefix);
+        const others = LUCIDE_ICONS.filter(i => !recentSet.has(i) && !customSet.has(i));
+        return [...customWithPrefix, ...this.recentIcons, ...others];
     }
 
     getItemText(item: string): string {
+        // Strip custom: prefix so users can search by icon name directly
+        if (item.startsWith('custom:')) {
+            return item.replace('custom:', '');
+        }
         return item;
     }
 
@@ -53,14 +64,28 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
 
         // Icon preview
         const iconEl = el.createSpan({ cls: 'csi-icon-suggestion-icon' });
-        setIcon(iconEl, icon);
 
-        // Icon name
-        el.createSpan({ text: icon, cls: 'csi-icon-suggestion-name' });
-
-        // Recent badge
-        if (this.recentIcons.includes(icon)) {
-            el.createSpan({ text: '●', cls: 'csi-icon-recent-badge' });
+        if (icon.startsWith('custom:')) {
+            // Custom icon: render inline SVG from cache
+            const name = icon.replace('custom:', '');
+            const svgContent = this.customIconsManager?.getSvgContent(name);
+            if (svgContent) {
+                iconEl.innerHTML = svgContent;
+            } else {
+                setIcon(iconEl, 'square');
+            }
+            // Display name without prefix
+            el.createSpan({ text: name, cls: 'csi-icon-suggestion-name' });
+            // Custom badge
+            el.createSpan({ text: 'custom', cls: 'csi-icon-custom-badge' });
+        } else {
+            setIcon(iconEl, icon);
+            // Icon name
+            el.createSpan({ text: icon, cls: 'csi-icon-suggestion-name' });
+            // Recent badge
+            if (this.recentIcons.includes(icon)) {
+                el.createSpan({ text: '●', cls: 'csi-icon-recent-badge' });
+            }
         }
     }
 

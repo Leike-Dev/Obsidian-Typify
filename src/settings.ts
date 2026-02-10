@@ -161,6 +161,60 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         importButton.addEventListener('click', () => {
             this.importSettings();
         });
+
+        // ================================================================
+        // SECTION 3: EXPERIMENTAL
+        // ================================================================
+        containerEl.createEl('h3', { text: t('section_experimental_title'), cls: 'csi-section-header' });
+
+        // Warning Card (yellow)
+        const warningCard = containerEl.createDiv({ cls: 'csi-experimental-warning' });
+        warningCard.createEl('p', {
+            text: t('experimental_warning'),
+            cls: 'warning-text'
+        });
+
+        // Custom Icons Toggle
+        const customIconsCard = containerEl.createDiv({ cls: 'csi-setting-card' });
+        const customIconsInfo = customIconsCard.createDiv({ cls: 'csi-card-info' });
+        customIconsInfo.createDiv({ text: t('custom_icons_toggle_title'), cls: 'csi-card-title' });
+        customIconsInfo.createEl('p', {
+            text: t('custom_icons_toggle_desc'),
+            cls: 'csi-card-description'
+        });
+
+        const customIconsToggle = new Setting(customIconsCard)
+            .addToggle(toggle => toggle
+                .setValue(this.plugin.settings.enableCustomIcons)
+                .onChange(async (value) => {
+                    this.plugin.settings.enableCustomIcons = value;
+                    await this.plugin.saveSettings();
+                    if (value) {
+                        try {
+                            const result = await this.plugin.customIconsManager.initialize();
+                            if (result.loaded > 0) {
+                                new Notice(t('custom_icons_loaded').replace('{count}', String(result.loaded)));
+                            } else {
+                                new Notice(t('custom_icons_empty'));
+                            }
+                            if (result.errors.length > 0) {
+                                console.warn('[Typify] Custom icon errors:', result.errors);
+                            }
+                        } catch (e) {
+                            new Notice(t('custom_icons_error'));
+                            console.error('[Typify] Custom icons error:', e);
+                        }
+                    } else {
+                        // Clear cache so custom icons stop rendering immediately
+                        this.plugin.customIconsManager.clear();
+                    }
+                    this.plugin.updateStyles();
+                    this.display();
+                }));
+        customIconsToggle.settingEl.style.padding = '0';
+        customIconsToggle.settingEl.style.border = 'none';
+        customIconsToggle.settingEl.style.background = 'none';
+        customIconsToggle.infoEl.remove();
     }
 
     /**
@@ -257,7 +311,16 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
 
         const updateIconPreview = (iconKey: string) => {
             iconPreview.empty();
-            if (iconKey) {
+            if (iconKey && iconKey.startsWith('custom:')) {
+                const name = iconKey.replace('custom:', '');
+                const svgContent = this.plugin.customIconsManager.getSvgContent(name);
+                if (svgContent) {
+                    iconPreview.innerHTML = svgContent;
+                } else {
+                    setIcon(iconPreview, 'square');
+                }
+                removeIconButton.style.display = 'flex';
+            } else if (iconKey) {
                 setIcon(iconPreview, iconKey);
                 removeIconButton.style.display = 'flex';
             } else {
@@ -267,9 +330,13 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         updateIconPreview(style.icon);
 
         iconButton.addEventListener('click', () => {
+            const customManager = this.plugin.settings.enableCustomIcons
+                ? this.plugin.customIconsManager
+                : null;
             new IconPickerModal(
                 this.app,
                 this.plugin.settings.recentIcons,
+                customManager,
                 async (icon) => {
                     style.icon = icon;
                     updateIconPreview(icon);
@@ -428,6 +495,9 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
      * Keeps the list at a maximum of 10 items.
      */
     addToRecentIcons(icon: string): void {
+        // Custom icons are already shown at the top by the manager, skip recents
+        if (icon.startsWith('custom:')) return;
+
         const recent = this.plugin.settings.recentIcons;
         // Remove if already exists
         const index = recent.indexOf(icon);
