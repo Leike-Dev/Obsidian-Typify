@@ -281,6 +281,10 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         const colorInput = colorCard.createEl('input', { type: 'color', value: style.baseColor });
 
         const updateColor = async (newColor: string) => {
+            // Normalize hex: add # if missing
+            if (/^[0-9a-fA-F]{6}$/.test(newColor)) {
+                newColor = '#' + newColor;
+            }
             style.baseColor = newColor;
             colorInput.value = newColor;
             dot.style.backgroundColor = newColor;
