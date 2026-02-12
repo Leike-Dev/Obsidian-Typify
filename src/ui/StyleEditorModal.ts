@@ -23,6 +23,7 @@ export class StyleEditorModal extends Modal {
     private baseColor = DEFAULT_STATUS_COLOR;
     private icon = '';
     private appliesTo: string[] = [];
+    private shape: 'pill' | 'rectangle' = 'pill';
 
     // DOM references for live preview updates
     private previewPillLight: HTMLElement | null = null;
@@ -41,6 +42,7 @@ export class StyleEditorModal extends Modal {
             this.baseColor = editStyle.baseColor;
             this.icon = editStyle.icon || '';
             this.appliesTo = editStyle.appliesTo ? [...editStyle.appliesTo] : [];
+            this.shape = editStyle.shape || 'pill';
         }
     }
 
@@ -113,6 +115,21 @@ export class StyleEditorModal extends Modal {
                 this.updatePreview();
             });
         });
+
+        // ============================================================
+        // SHAPE
+        // ============================================================
+        new Setting(contentEl)
+            .setName(t('shape_title'))
+            .addDropdown(dropdown => {
+                dropdown.addOption('pill', t('shape_pill'));
+                dropdown.addOption('rectangle', t('shape_rectangle'));
+                dropdown.setValue(this.shape);
+                dropdown.onChange(value => {
+                    this.shape = value as 'pill' | 'rectangle';
+                    this.updatePreview();
+                });
+            });
 
         // Applies To (Scope)
         new Setting(contentEl)
@@ -210,10 +227,12 @@ export class StyleEditorModal extends Modal {
         // Light pill
         this.previewPillLight.empty();
         this.previewPillLight.setText(displayName);
+        const previewRadius = this.shape === 'rectangle' ? '4px' : '10px';
         this.previewPillLight.setCssStyles({
             backgroundColor: palette.light.bg,
             color: palette.light.text,
-            border: `1px solid ${palette.light.border}`
+            border: `1px solid ${palette.light.border}`,
+            borderRadius: previewRadius
         });
 
         // Dark pill
@@ -222,7 +241,8 @@ export class StyleEditorModal extends Modal {
         this.previewPillDark.setCssStyles({
             backgroundColor: palette.dark.bg,
             color: palette.dark.text,
-            border: `1px solid ${palette.dark.border}`
+            border: `1px solid ${palette.dark.border}`,
+            borderRadius: previewRadius
         });
 
         // Add icon preview to pills if icon is set
@@ -338,6 +358,11 @@ export class StyleEditorModal extends Modal {
         // Only add appliesTo if scoped
         if (this.appliesTo.length > 0) {
             style.appliesTo = this.appliesTo;
+        }
+
+        // Only add shape if not the default
+        if (this.shape !== 'pill') {
+            style.shape = this.shape;
         }
 
         // Update existing or push new

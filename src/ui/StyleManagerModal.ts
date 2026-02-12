@@ -135,6 +135,12 @@ export class StyleManagerModal extends Modal {
             }
         }
 
+        // Shape info
+        if (style.shape && style.shape !== 'pill') {
+            metaRow.createSpan({ text: ' · ' });
+            metaRow.createSpan({ text: `${t('shape_label')}: ${t('shape_rectangle')}` });
+        }
+
         // Right section: action buttons
         const actionsSection = item.createDiv({ cls: 'csi-manager-actions' });
 

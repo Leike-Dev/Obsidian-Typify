@@ -422,6 +422,11 @@ export default class TypifyPlugin extends Plugin {
             // Sanitize name for CSS selector
             const safeName = sanitizeCssSelector(style.name);
 
+            // Determine shape radius
+            const isRectangle = style.shape === 'rectangle';
+            const pillRadius = isRectangle ? '4px' : 'var(--tag-radius, 14px)';
+            const cardsRadius = isRectangle ? '4px' : '12px';
+
             // Determine Scope Selector
             // If appliesTo is empty or undefined, it applies to ANY property (no attribute selector)
             // If appliesTo has items, we generate a selector like:
@@ -451,6 +456,7 @@ body .multi-select-pill.custom-status-icon-pill${scopeSelector}[data-value="${sa
     --pill-background-hover: ${palette.light.bgHover} !important;
     --pill-color-hover: ${palette.light.textHover} !important;
     --pill-border-color: ${palette.light.border} !important;
+    --pill-radius: ${pillRadius} !important;
 }
 `;
 
@@ -462,6 +468,7 @@ body.theme-dark .multi-select-pill.custom-status-icon-pill${scopeSelector}[data-
     --pill-background-hover: ${palette.dark.bgHover} !important;
     --pill-color-hover: ${palette.dark.textHover} !important;
     --pill-border-color: ${palette.dark.border} !important;
+    --pill-radius: ${pillRadius} !important;
 }
 `;
 
@@ -474,7 +481,7 @@ body.theme-dark .multi-select-pill.custom-status-icon-pill${scopeSelector}[data-
     background: ${palette.light.bg} !important;
     color: ${palette.light.text} !important;
     border: 1px solid ${palette.light.border} !important;
-    border-radius: 12px !important;
+    border-radius: ${cardsRadius} !important;
     padding: 2px 6px !important;
     display: inline-flex !important;
     align-items: center !important;

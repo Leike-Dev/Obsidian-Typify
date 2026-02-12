@@ -15,21 +15,15 @@ export const ptBR = {
     'add_status_button': 'Criar estilo',
 
     // Lista de Estilos
-    'saved_styles_title': 'Estilos criados',
-    'no_styles_defined': 'Nenhum estilo criado ainda.',
     'new_status_name': 'Novo estilo',
 
     // Controles do Estilo
     'status_name_title': 'Nome do estilo',
-    'status_name_desc': 'O nome que será correspondido em suas propriedades',
     'base_color_title': 'Cor base',
-    'base_color_desc': 'A cor principal usada para gerar variantes claras e escuras',
     'icon_title': 'Ícone',
-    'icon_desc': 'O ícone exibido ao lado da tag',
     'add_icon_tooltip': 'Escolher ícone',
     'remove_icon_tooltip': 'Remover ícone',
     'applies_to_title': 'Aplica-se a',
-    'applies_to_desc': 'Selecione a quais propriedades este estilo deve ser aplicado.',
     'applies_to_all_option': 'Todas as propriedades',
 
     // Visualização
@@ -38,7 +32,6 @@ export const ptBR = {
 
     // Excluir
     'delete_button': 'Excluir estilo',
-    'delete_confirm_inline': 'Clique para confirmar',
 
     // Seletor de Ícones
     'icon_picker_placeholder': 'Digite para buscar ícones...',
@@ -98,6 +91,12 @@ export const ptBR = {
     'scope_label': 'Escopo',
     'scope_all': 'Todas as propriedades',
     'icon_label': 'Ícone',
+
+    // Formato
+    'shape_title': 'Formato',
+    'shape_pill': 'Pílula',
+    'shape_rectangle': 'Retângulo',
+    'shape_label': 'Formato',
 
     // Editar Estilo
     'edit_style_title': 'Editar estilo',

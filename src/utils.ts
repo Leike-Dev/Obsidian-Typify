@@ -88,31 +88,37 @@ function hslToHslaString(h: number, s: number, l: number, a: number = 1): string
  * for both light and dark modes based on a single base color.
  * 
  * Logic:
+ * - Extracts H, S, L from the base color.
+ * - The user's lightness (L) partially influences the final values (30% weight),
+ *   keeping safe contrast ranges while allowing visible variation.
  * - Light Mode: Uses higher lightness and lower opacity for backgrounds.
  * - Dark Mode: Uses lower lightness/opacity for backgrounds to blend with dark themes.
- * - Text colors are calculated to ensure contrast.
  * 
  * @param baseColor The user-selected base color (Hex).
  * @returns A fully populated ColorPalette object.
  */
 export function generatePalette(baseColor: string): ColorPalette {
-    const { h, s } = hexToHSL(baseColor);
+    const { h, s, l } = hexToHSL(baseColor);
     const cap = (val: number) => Math.min(val, 100);
+    // Blend user's lightness: asymmetric to avoid readability issues with very light colors
+    // Dark colors (L<50): 30% influence | Light colors (L>50): 15% influence
+    const offset = l < 50 ? (l - 50) * 0.3 : (l - 50) * 0.15;
+    const blend = (target: number) => Math.max(5, Math.min(95, target + offset));
 
     return {
         light: {
-            bg: hslToHslaString(h, cap(s * 1.25), 60, 0.2), // 20% opacity
-            text: hslToHex(h, s, 35),
-            bgHover: hslToHslaString(h, cap(s * 1.25), 60, 0.3), // 30% opacity
-            textHover: hslToHex(h, s, 25),
-            border: hslToHslaString(h, s, 45, 0.3) // 30% opacity border
+            bg: hslToHslaString(h, cap(s * 1.25), blend(60), 0.2),
+            text: hslToHex(h, s, blend(35)),
+            bgHover: hslToHslaString(h, cap(s * 1.25), blend(60), 0.3),
+            textHover: hslToHex(h, s, blend(25)),
+            border: hslToHslaString(h, s, blend(45), 0.3)
         },
         dark: {
-            bg: hslToHslaString(h, cap(s * 0.85), 60, 0.25), // 25% opacity
-            text: hslToHex(h, s * 0.7, 75),
-            bgHover: hslToHslaString(h, cap(s * 0.85), 60, 0.35), // 35% opacity
-            textHover: hslToHex(h, s * 0.6, 85),
-            border: hslToHslaString(h, s * 0.7, 60, 0.3) // 30% opacity border
+            bg: hslToHslaString(h, cap(s * 0.85), blend(60), 0.25),
+            text: hslToHex(h, s * 0.7, blend(75)),
+            bgHover: hslToHslaString(h, cap(s * 0.85), blend(60), 0.35),
+            textHover: hslToHex(h, s * 0.6, blend(85)),
+            border: hslToHslaString(h, s * 0.7, blend(60), 0.3)
         }
     };
 }

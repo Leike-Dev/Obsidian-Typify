@@ -15,21 +15,15 @@ export const en = {
     'add_status_button': 'Create style',
 
     // Styles List
-    'saved_styles_title': 'Created styles',
-    'no_styles_defined': 'No styles created yet.',
     'new_status_name': 'New style',
 
     // Style Controls
     'status_name_title': 'Style name',
-    'status_name_desc': 'The name that will be matched in your properties',
     'base_color_title': 'Base color',
-    'base_color_desc': 'The main color used to generate light and dark variants',
     'icon_title': 'Icon',
-    'icon_desc': 'The icon displayed alongside the tag',
     'add_icon_tooltip': 'Choose icon',
     'remove_icon_tooltip': 'Remove icon',
     'applies_to_title': 'Applies to',
-    'applies_to_desc': 'Select which properties this style should apply to.',
     'applies_to_all_option': 'All properties',
 
     // Preview
@@ -38,7 +32,6 @@ export const en = {
 
     // Delete
     'delete_button': 'Delete style',
-    'delete_confirm_inline': 'Click to confirm',
 
     // Icon Picker
     'icon_picker_placeholder': 'Type to search icons...',
@@ -98,6 +91,12 @@ export const en = {
     'scope_label': 'Scope',
     'scope_all': 'All properties',
     'icon_label': 'Icon',
+
+    // Shape
+    'shape_title': 'Shape',
+    'shape_pill': 'Pill',
+    'shape_rectangle': 'Rectangle',
+    'shape_label': 'Shape',
 
     // Edit Style
     'edit_style_title': 'Edit style',

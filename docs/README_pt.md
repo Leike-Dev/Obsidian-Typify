@@ -4,7 +4,7 @@
   <img src="./assets/images/banner_1.jpg"/>
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
-   ![Version](https://img.shields.io/badge/version-1.6.0-lightgreen.svg)
+   ![Version](https://img.shields.io/badge/version-1.7.0-lightgreen.svg)
 
 </div>
 
@@ -82,6 +82,24 @@ Voilá! Sua propriedade agora é uma linda pílula colorida ✨
 
 > [!Warning]  
 > A importação de configurações **substitui todos os estilos existentes**. Estilos criados após o backup serão perdidos.
+
+## Problemas Conhecidos
+
+### Visualização Cards do Bases — Obsidian Mobile
+
+No Obsidian Mobile, as pílulas estilizadas na visualização de Cards do Bases podem aparecer levemente cortadas na parte inferior. Isso é causado por restrições de layout internas do Obsidian nos containers de propriedades dos cards, o que está fora do controle do plugin. 
+
+Pelos meus testes, é possível corrigir isso usando um css customizado para aumentar a altura da linha da propriedade do card, porém isso afeta os demais itens, não ficando limitado apenas a linha com o problema.
+
+Caso queira usar a solução que eu testei, adicione o seguinte trecho de CSS em **Configurações > Aparência > Fragmentos CSS**:
+
+```css
+.bases-view .bases-cards-container .bases-cards-item .bases-cards-property .bases-cards-line {
+    min-height: 26px !important;
+    margin-top: 4px;
+}
+```
+
 
 ## Desenvolvimento
 
