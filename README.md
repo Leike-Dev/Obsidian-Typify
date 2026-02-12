@@ -4,7 +4,7 @@
   <img src="./docs/assets/images/banner_1.jpg"/>
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
-   ![Version](https://img.shields.io/badge/version-1.5.1-lightgreen.svg)
+   ![Version](https://img.shields.io/badge/version-1.6.0-lightgreen.svg)
 
 </div>
 
@@ -36,6 +36,10 @@ Typify is an Obsidian plugin that allows you to create unique styles for your me
 
 - **💾 Export/Import**: Easily backup and share your configurations.
 
+- **📋 Bases Plugin**: Styles also apply to Bases views (table and cards).
+
+- **🎯 Scoped Styles**: Limit a style to specific properties using "Applies To".
+
 ## How to Use
 
 1. **Set the target property**: In the plugin settings, type the name of the property you want to style (e.g., `Status`). For multiple properties, separate them with commas (e.g., `Status, Priority`).
@@ -45,6 +49,7 @@ Typify is an Obsidian plugin that allows you to create unique styles for your me
    - Click "Create style".
    - In the **Style name** field, type the text you want to turn into a pill (e.g., `Done`).
    - Pick a base color and an icon, or leave it without an icon.
+   - Optionally, use **Applies To** to limit the style to specific properties.
 
 3. **Use your new style**: In your note's properties (YAML), use the property and value you configured (e.g., `Status: In Progress`).
 
@@ -68,6 +73,9 @@ Voilá! Your property is now a beautiful colored pill ✨
 
 > [!Note]  
 > The plugin is case-insensitive for both property names and values. Example: `Status` and `status` are treated as the same property.
+
+> [!Note]  
+> If two styles share the same name but have different scopes (e.g., one set to "All properties" and another to a specific property), the more specific style will take priority for that property.
 
 > [!Tip]  
 > You can use multiple properties as targets. Just add a comma between them. Example: `Status, Priority`.

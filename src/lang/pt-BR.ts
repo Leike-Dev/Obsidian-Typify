@@ -63,5 +63,45 @@ export const ptBR = {
     'custom_icons_loaded': '{count} ícone(s) personalizado(s) carregado(s) com sucesso!',
     'custom_icons_empty': 'Nenhum arquivo SVG encontrado na pasta icons/. Adicione arquivos .svg e habilite novamente.',
     'custom_icons_error': 'Erro ao carregar ícones personalizados.',
-    'custom_icons_missing': '{count} ícone(s) personalizado(s) não encontrado(s): {names}.'
+    'custom_icons_missing': '{count} ícone(s) personalizado(s) não encontrado(s): {names}.',
+
+    // Export Mensagens
+    'export_success': 'Configurações exportadas com sucesso para {file}',
+    'export_error': 'Falha ao exportar configurações.',
+
+    // Styles Management
+    'section_styles_title': 'Estilos',
+    'manage_styles_title': 'Gerenciar estilos',
+    'manage_styles_desc': 'Edite, reordene ou exclua seus estilos de status.',
+    'manage_styles_button': 'Gerenciar',
+
+    // Create Style Modal
+    'create_style_title': 'Criar estilo',
+
+    'status_name_placeholder': 'Digite o nome do estilo...',
+    'save_button': 'Salvar',
+    'cancel_button': 'Cancelar',
+    'style_name_required': 'O nome do estilo é obrigatório.',
+    'style_saved': 'Estilo "{name}" salvo!',
+    'style_duplicate': 'Já existe um estilo com esse nome para a mesma propriedade.',
+    'style_overlap_warning': 'Aviso: já existe um estilo com esse nome em outro escopo. O estilo mais específico terá prioridade.',
+
+    // Modal de Gerenciamento de Estilos
+    'manage_styles_modal_title': 'Gerenciar estilos',
+    'manage_styles_search': 'Filtrar...',
+    'manage_styles_count': 'Mostrando {count} estilo(s)',
+    'manage_styles_empty': 'Nenhum estilo criado ainda.',
+    'manage_styles_no_results': 'Nenhum estilo corresponde à busca.',
+    'delete_style_confirm': 'Excluir "{name}"?',
+    'style_deleted': 'Estilo "{name}" excluído.',
+    'confirm_button': 'Confirmar',
+    'scope_label': 'Escopo',
+    'scope_all': 'Todas as propriedades',
+    'icon_label': 'Ícone',
+
+    // Editar Estilo
+    'edit_style_title': 'Editar estilo',
+    'style_updated': 'Estilo "{name}" atualizado!'
 };
+
+

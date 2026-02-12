@@ -4,7 +4,7 @@
   <img src="./assets/images/banner_1.jpg"/>
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
-   ![Version](https://img.shields.io/badge/version-1.5.1-lightgreen.svg)
+   ![Version](https://img.shields.io/badge/version-1.6.0-lightgreen.svg)
 
 </div>
 
@@ -36,6 +36,10 @@ Typify é um plugin para o Obsidian que permite que você crie estilos únicos p
 
 - **💾 Exportar/Importar**: Faça backup e compartilhe suas configurações facilmente.
 
+- **📋 Plugin Bases**: Os estilos também funcionam nas visualizações do Bases (tabela e cards).
+
+- **🎯 Estilos por propriedade**: Limite um estilo a propriedades específicas usando "Aplica-se a".
+
 ## Como Usar
 
 1. **Defina a propriedade alvo:**: Nas configurações do plugin, digite o nome da propriedade que você quer estilizar (ex: `Status`). Se quiser mais de uma, separe por vírgulas (ex: `Status, Prioridade`).
@@ -45,6 +49,7 @@ Typify é um plugin para o Obsidian que permite que você crie estilos únicos p
    - Clique em "Criar estilo".
    - No campo **Nome do estilo**, digite o texto que você quer transformar em pílula (ex: `Concluído`).
    - Escolha uma cor base e um ícone, ou deixe sem ícone.
+   - Opcionalmente, use **Aplica-se a** para limitar o estilo a propriedades específicas.
 
 3. **Use seu novo estilo**: Nas propriedades da sua nota (YAML), use a propriedade e o valor que você configurou (ex: `Status: Em Progresso`).
 
@@ -68,6 +73,9 @@ Voilá! Sua propriedade agora é uma linda pílula colorida ✨
 
 > [!Note]  
 > O plugin não faz distinção de maiúsculas e minúsculas seja no nome da propriedade ou nos valores. Exemplo: `Status` e `status` são a mesma propriedade.
+
+> [!Note]  
+> Se dois estilos possuem o mesmo nome mas escopos diferentes (ex: um em "Todas as propriedades" e outro em uma propriedade específica), o estilo mais específico terá prioridade para aquela propriedade.
 
 > [!Tip]  
 > Você pode usar mais de uma propriedade como alvo. Apenas adicione uma vírgula entre as opções. Exemplo: `Status, Priority`.

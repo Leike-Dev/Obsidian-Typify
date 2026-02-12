@@ -18,6 +18,7 @@ export default class TypifyPlugin extends Plugin {
     observer: MutationObserver;
     customIconsManager: CustomIconsManager;
     private cachedTargetProps: string[] | null = null;
+    private debounceTimeout: ReturnType<typeof setTimeout> | null = null;
 
     /**
      * Called when the plugin is loaded.
@@ -144,10 +145,9 @@ export default class TypifyPlugin extends Plugin {
         };
 
         // Debounce function to avoid excessive processing
-        let debounceTimeout: ReturnType<typeof setTimeout> | null = null;
         const debouncedRefresh = () => {
-            if (debounceTimeout) clearTimeout(debounceTimeout);
-            debounceTimeout = setTimeout(() => {
+            if (this.debounceTimeout) clearTimeout(this.debounceTimeout);
+            this.debounceTimeout = setTimeout(() => {
                 this.refreshProcessing();
             }, 100);
         };
@@ -350,16 +350,17 @@ export default class TypifyPlugin extends Plugin {
         });
     }
 
-    // Keep old method name for backwards compatibility
-    processContainer(container: HTMLElement) {
-        this.processMetadataContainer(container);
-    }
+
 
     /**
      * Called when the plugin is disabled.
      * Cleans up observers and removes injected classes/attributes from the DOM.
      */
     onunload() {
+        if (this.debounceTimeout) {
+            clearTimeout(this.debounceTimeout);
+            this.debounceTimeout = null;
+        }
         if (this.observer) {
             this.observer.disconnect();
         }

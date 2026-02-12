@@ -63,5 +63,45 @@ export const en = {
     'custom_icons_loaded': '{count} custom icon(s) loaded successfully!',
     'custom_icons_empty': 'No SVG files found in the icons/ folder. Add .svg files and enable again.',
     'custom_icons_error': 'Error loading custom icons.',
-    'custom_icons_missing': '{count} custom icon(s) not found: {names}.'
+    'custom_icons_missing': '{count} custom icon(s) not found: {names}.',
+
+    // Export Messages
+    'export_success': 'Settings exported successfully to {file}',
+    'export_error': 'Failed to export settings.',
+
+    // Styles Management
+    'section_styles_title': 'Styles',
+    'manage_styles_title': 'Manage styles',
+    'manage_styles_desc': 'Edit, reorder, or delete your status styles.',
+    'manage_styles_button': 'Manage',
+
+    // Create Style Modal
+    'create_style_title': 'Create style',
+
+    'status_name_placeholder': 'Enter style name...',
+    'save_button': 'Save',
+    'cancel_button': 'Cancel',
+    'style_name_required': 'Style name is required.',
+    'style_saved': 'Style "{name}" saved!',
+    'style_duplicate': 'A style with this name already exists for the same property.',
+    'style_overlap_warning': 'Note: a style with this name already exists with a different scope. The more specific style will take priority.',
+
+    // Style Manager Modal
+    'manage_styles_modal_title': 'Manage Styles',
+    'manage_styles_search': 'Filter...',
+    'manage_styles_count': 'Showing {count} style(s)',
+    'manage_styles_empty': 'No styles created yet.',
+    'manage_styles_no_results': 'No styles match your search.',
+    'delete_style_confirm': 'Delete "{name}"?',
+    'style_deleted': 'Style "{name}" deleted.',
+    'confirm_button': 'Confirm',
+    'scope_label': 'Scope',
+    'scope_all': 'All properties',
+    'icon_label': 'Icon',
+
+    // Edit Style
+    'edit_style_title': 'Edit style',
+    'style_updated': 'Style "{name}" updated!'
 };
+
+

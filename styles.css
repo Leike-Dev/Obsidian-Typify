@@ -123,16 +123,10 @@ h3.csi-status-list-header {
 }
 
 /* Cards - Using native Obsidian setting styles */
-.csi-setting-card {
-    display: flex;
-    align-items: center;
-    border-radius: var(--setting-items-radius);
-    background-color: var(--setting-items-background);
-    padding: var(--setting-items-padding);
-    margin-bottom: var(--size-4-2);
-    border: var(--setting-items-border-width) solid var(--setting-items-border-color);
-    box-sizing: border-box;
-}
+/* Cards - Using native Obsidian setting styles 
+   (Refactored: .csi-setting-card removed as settings now use native components) 
+*/
+
 
 .csi-setting-card .csi-card-info {
     flex: 1;
@@ -488,4 +482,192 @@ h3.csi-status-list-header {
 .csi-icon-suggestion-icon svg {
     max-width: 18px;
     max-height: 18px;
+}
+
+/* ==========================================================================
+   STYLE MANAGER MODAL
+   ========================================================================== */
+
+.csi-manager-modal {
+    padding: 0;
+}
+
+/* Search input */
+.csi-manager-search-container {
+    margin-bottom: var(--size-4-3);
+}
+
+.csi-manager-search {
+    width: 100%;
+    padding: var(--size-4-2) var(--size-4-3);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--input-radius);
+    background: var(--background-modifier-form-field);
+    color: var(--text-normal);
+    font-size: var(--font-ui-small);
+    outline: none;
+    box-sizing: border-box;
+}
+
+.csi-manager-search:focus {
+    border-color: var(--interactive-accent);
+    box-shadow: 0 0 0 2px rgba(var(--interactive-accent-rgb), 0.2);
+}
+
+/* Count label */
+.csi-manager-count {
+    font-size: var(--font-ui-smaller);
+    color: var(--text-muted);
+    margin-bottom: var(--size-4-2);
+}
+
+/* Scrollable list */
+.csi-manager-list {
+    max-height: 400px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4-1);
+    padding-bottom: var(--size-4-4);
+}
+
+/* Individual item card */
+.csi-manager-item {
+    display: flex;
+    align-items: center;
+    gap: var(--size-4-3);
+    padding: var(--size-4-2) var(--size-4-3);
+    border-radius: var(--radius-s);
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-secondary);
+    transition: border-color 0.15s ease;
+    position: relative;
+}
+
+.csi-manager-item:hover {
+    border-color: var(--interactive-accent);
+}
+
+/* Item info (left side: dot + text) */
+.csi-manager-item-info {
+    display: flex;
+    align-items: center;
+    gap: var(--size-4-2);
+    flex: 1;
+    min-width: 0;
+}
+
+/* Color dot */
+.csi-manager-color-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.theme-dark .csi-manager-color-dot {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Text block */
+.csi-manager-item-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.csi-manager-item-name {
+    font-weight: 600;
+    font-size: var(--font-ui-small);
+    color: var(--text-normal);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Metadata row */
+.csi-manager-meta {
+    font-size: var(--font-ui-smaller);
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Icon preview in metadata */
+.csi-manager-icon-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.csi-manager-icon-preview {
+    display: inline-flex;
+    align-items: center;
+    width: 14px;
+    height: 14px;
+}
+
+.csi-manager-icon-preview svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Preview pill */
+.csi-manager-preview-pill {
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Action buttons */
+.csi-manager-actions {
+    display: flex;
+    gap: var(--size-4-1);
+    flex-shrink: 0;
+}
+
+.csi-manager-delete-btn {
+    color: var(--text-muted);
+    transition: color 0.15s ease;
+}
+
+.csi-manager-delete-btn:hover {
+    color: var(--text-error);
+}
+
+/* Inline delete confirmation */
+.csi-manager-confirm {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--size-4-3);
+    background: var(--background-secondary);
+    border-radius: var(--radius-s);
+    z-index: 1;
+    padding: var(--size-4-2) var(--size-4-3);
+}
+
+.csi-manager-confirm-text {
+    font-size: var(--font-ui-small);
+    font-weight: 500;
+    color: var(--text-normal);
+}
+
+.csi-manager-confirm-btns {
+    display: flex;
+    gap: var(--size-4-1);
+}
+
+/* Empty state */
+.csi-manager-empty {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: var(--font-ui-small);
+    padding: var(--size-4-8) var(--size-4-4);
 }
