@@ -4,7 +4,7 @@
 	"version": "1.7.0",
 	"minAppVersion": "0.15.0",
 	"description": "Create attractive and customizable status indicators with Lucide icons for your metadata properties.",
-	"author": "Leike-Dev",
-	"authorUrl": "https://github.com/Leike-Dev/Obsidian-Typify",
+	"author": "Flavio Azurita",
+	"authorUrl": "https://github.com/Leike-Dev",
 	"isDesktopOnly": false
 }

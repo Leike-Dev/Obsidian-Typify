@@ -11,7 +11,7 @@
         "commit": "node dev/commit-helper.mjs"
     },
     "keywords": [],
-    "author": "Leike-Dev",
+    "author": "Flavio Azurita",
     "license": "MIT",
     "devDependencies": {
         "@types/node": "^16.11.6",
