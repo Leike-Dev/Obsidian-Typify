@@ -216,7 +216,7 @@ export default class TypifyPlugin extends Plugin {
         // ============================================
         const metadataContainers = document.body.findAll('.metadata-container');
         metadataContainers.forEach(container => {
-            this.processMetadataContainer(container as HTMLElement);
+            this.processMetadataContainer(container);
             this.observer.observe(container, {
                 childList: true,
                 subtree: true,
@@ -230,8 +230,8 @@ export default class TypifyPlugin extends Plugin {
         // ============================================
         const basesViews = document.body.findAll('.bases-view');
         basesViews.forEach(view => {
-            this.processBasesView(view as HTMLElement);
-            this.processBasesCardsView(view as HTMLElement);
+            this.processBasesView(view);
+            this.processBasesCardsView(view);
             this.observer.observe(view, {
                 childList: true,
                 subtree: true,
@@ -329,37 +329,57 @@ export default class TypifyPlugin extends Plugin {
      */
     private applyStyle(el: HTMLElement, style: StatusStyle) {
         const data = this.getStyleData(style);
+        const styles: Record<string, string | null> = {};
 
-        // Apply CSS variables - check if changed before setting
+        // Collect CSS variables
         Object.entries(data.cssVars).forEach(([key, val]) => {
-            if (el.style.getPropertyValue(key) !== val) {
-                el.style.setProperty(key, val);
-            }
+            styles[key] = val;
         });
 
-        // Apply Icon
+        // Collect Icon variables
         if (data.iconUrl) {
-            if (el.style.getPropertyValue('--pill-icon-url') !== data.iconUrl) {
-                el.style.setProperty('--pill-icon-url', data.iconUrl);
-            }
-            if (el.style.getPropertyValue('--pill-icon-display') !== 'inline-block') {
-                el.style.setProperty('--pill-icon-display', 'inline-block');
-            }
+            styles['--pill-icon-url'] = data.iconUrl;
+            styles['--pill-icon-display'] = 'inline-block';
         } else {
-            if (el.style.getPropertyValue('--pill-icon-url')) el.style.removeProperty('--pill-icon-url');
-            if (el.style.getPropertyValue('--pill-icon-display')) el.style.removeProperty('--pill-icon-display');
+            styles['--pill-icon-url'] = null;
+            styles['--pill-icon-display'] = null;
         }
+
+        this.setCssStyles(el, styles);
+    }
+
+    /**
+     * Helper to set multiple CSS properties on an element.
+     * Abstracts direct style manipulation and handles removals.
+     */
+    private setCssStyles(el: HTMLElement, styles: Record<string, string | null>) {
+        Object.entries(styles).forEach(([key, val]) => {
+            if (val === null) {
+                if (el.style.getPropertyValue(key)) {
+                    el.style.removeProperty(key);
+                }
+            } else {
+                if (el.style.getPropertyValue(key) !== val) {
+                    el.style.setProperty(key, val);
+                }
+            }
+        });
     }
 
     /**
      * Clears custom styles from the element.
      */
     private clearStyle(el: HTMLElement) {
+        const stylesToClear: Record<string, string | null> = {};
         [
             '--pill-light-bg', '--pill-light-text', '--pill-light-bg-hover', '--pill-light-text-hover', '--pill-light-border',
             '--pill-dark-bg', '--pill-dark-text', '--pill-dark-bg-hover', '--pill-dark-text-hover', '--pill-dark-border',
             '--pill-radius', '--pill-icon-url', '--pill-icon-display'
-        ].forEach(prop => el.style.removeProperty(prop));
+        ].forEach(prop => {
+            stylesToClear[prop] = null;
+        });
+
+        this.setCssStyles(el, stylesToClear);
     }
 
     /**
