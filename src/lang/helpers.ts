@@ -22,5 +22,5 @@ const locale = window.localStorage.getItem('language') || 'en';
  */
 export function t(key: keyof typeof en): string {
     const lang = localeMap[locale.toLowerCase()] || en;
-    return (lang as any)[key] || (en as any)[key] || key;
+    return (lang as Record<string, string>)[key] || (en as Record<string, string>)[key] || key;
 }

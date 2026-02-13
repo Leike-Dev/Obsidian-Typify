@@ -35,9 +35,9 @@ export const en = {
 
     // Icon Picker
     'icon_picker_placeholder': 'Type to search icons...',
-    'icon_picker_navigate': 'navigate',
-    'icon_picker_select': 'select',
-    'icon_picker_close': 'close',
+    'icon_picker_navigate': 'Navigate',
+    'icon_picker_select': 'Select',
+    'icon_picker_close': 'Close',
 
     // Export/Import
     'export_title': 'Export settings',
@@ -50,7 +50,7 @@ export const en = {
     'import_error': 'Error importing styles. Invalid file format.',
 
     // Custom Icons
-    'custom_icons_toggle_title': 'Custom Icons',
+    'custom_icons_toggle_title': 'Custom icons',
     'custom_icons_toggle_desc': 'Enable custom SVG icons in the plugin.',
     'custom_icons_info': 'Only .svg files up to 100KB are supported. Place your icons in the icons/ folder inside the plugin directory.',
     'custom_icons_loaded': '{count} custom icon(s) loaded successfully!',
@@ -80,7 +80,7 @@ export const en = {
     'style_overlap_warning': 'Note: a style with this name already exists with a different scope. The more specific style will take priority.',
 
     // Style Manager Modal
-    'manage_styles_modal_title': 'Manage Styles',
+    'manage_styles_modal_title': 'Manage styles',
     'manage_styles_search': 'Filter...',
     'manage_styles_count': 'Showing {count} style(s)',
     'manage_styles_empty': 'No styles created yet.',

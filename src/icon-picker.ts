@@ -1,4 +1,4 @@
-import { FuzzySuggestModal, App, setIcon, FuzzyMatch, getIcon } from 'obsidian';
+import { FuzzySuggestModal, App, setIcon, FuzzyMatch } from 'obsidian';
 import { LUCIDE_ICONS } from './lucide-icons';
 import { t } from './lang/helpers';
 import { CustomIconsManager } from './custom-icons';
@@ -70,7 +70,13 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
             const name = icon.replace('custom:', '');
             const svgContent = this.customIconsManager?.getSvgContent(name);
             if (svgContent) {
-                iconEl.innerHTML = svgContent;
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(svgContent, 'image/svg+xml');
+                const svg = doc.documentElement;
+                if (svg instanceof SVGElement) {
+                    iconEl.empty();
+                    iconEl.appendChild(svg);
+                }
             } else {
                 setIcon(iconEl, 'square');
             }

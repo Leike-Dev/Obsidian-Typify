@@ -118,7 +118,7 @@ export class StyleManagerModal extends Modal {
         if (style.icon) {
             metaRow.createSpan({ text: ' · ' });
             const iconMeta = metaRow.createSpan({ cls: 'csi-manager-icon-meta' });
-            const iconLabel = iconMeta.createSpan({ text: `${t('icon_label')}: ` });
+            iconMeta.createSpan({ text: `${t('icon_label')}: ` });
 
             // Show small icon preview
             const iconPreview = iconMeta.createSpan({ cls: 'csi-manager-icon-preview' });
@@ -126,7 +126,13 @@ export class StyleManagerModal extends Modal {
                 const name = style.icon.replace('custom:', '');
                 const svgContent = this.plugin.customIconsManager?.getSvgContent(name);
                 if (svgContent) {
-                    iconPreview.innerHTML = svgContent;
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(svgContent, 'image/svg+xml');
+                    const svg = doc.documentElement;
+                    if (svg instanceof SVGElement) {
+                        iconPreview.empty();
+                        iconPreview.appendChild(svg);
+                    }
                 } else {
                     setIcon(iconPreview, 'image');
                 }
@@ -199,11 +205,13 @@ export class StyleManagerModal extends Modal {
             text: t('confirm_button'),
             cls: 'mod-warning'
         });
-        confirmBtn.addEventListener('click', async () => {
-            this.plugin.settings.statusStyles.splice(index, 1);
-            await this.plugin.saveSettings();
-            new Notice(t('style_deleted').replace('{name}', style.name));
-            this.renderList(this.searchInput?.value ?? '');
+        confirmBtn.addEventListener('click', () => {
+            void (async () => {
+                this.plugin.settings.statusStyles.splice(index, 1);
+                await this.plugin.saveSettings();
+                new Notice(t('style_deleted').replace('{name}', style.name));
+                this.renderList(this.searchInput?.value ?? '');
+            })();
         });
 
         // Cancel button

@@ -53,24 +53,20 @@ export default class TypifyPlugin extends Plugin {
             // ============================================
             // CONTEXT 1: Metadata Properties
             // ============================================
-            const propertyRows: NodeListOf<Element> | never[] = node.querySelectorAll
-                ? node.querySelectorAll('.metadata-property')
-                : [];
+            const propertyRows = node.findAll('.metadata-property');
 
             propertyRows.forEach(row => {
                 const propertyKey = row.getAttribute('data-property-key');
                 if (!propertyKey || !targetProps.includes(propertyKey.toLowerCase())) return;
 
-                const pills = row.querySelectorAll('.multi-select-pill');
+                const pills = row.findAll('.multi-select-pill');
                 pills.forEach((pill: Element) => this.processPill(pill, propertyKey));
             });
 
             // ============================================
             // CONTEXT 2: Bases Plugin (Table View)
             // ============================================
-            const basesCells: NodeListOf<Element> | never[] = node.querySelectorAll
-                ? node.querySelectorAll('.bases-td')
-                : [];
+            const basesCells = node.findAll('.bases-td');
 
             basesCells.forEach(cell => {
                 const dataProperty = cell.getAttribute('data-property');
@@ -80,16 +76,14 @@ export default class TypifyPlugin extends Plugin {
                 const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
                 if (!match) return;
 
-                const pills = cell.querySelectorAll('.multi-select-pill');
+                const pills = cell.findAll('.multi-select-pill');
                 pills.forEach((pill: Element) => this.processPill(pill, match));
             });
 
             // ============================================
             // CONTEXT 3: Bases Plugin (Cards View)
             // ============================================
-            const basesCardsProperties: NodeListOf<Element> | never[] = node.querySelectorAll
-                ? node.querySelectorAll('.bases-cards-property')
-                : [];
+            const basesCardsProperties = node.findAll('.bases-cards-property');
 
             basesCardsProperties.forEach(prop => {
                 const dataProperty = prop.getAttribute('data-property');
@@ -98,7 +92,7 @@ export default class TypifyPlugin extends Plugin {
                 const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
                 if (!match) return;
 
-                const valueElements = prop.querySelectorAll('.value-list-element');
+                const valueElements = prop.findAll('.value-list-element');
                 valueElements.forEach((el: Element) => this.processValueListElement(el, match));
             });
 
@@ -205,7 +199,7 @@ export default class TypifyPlugin extends Plugin {
         // ============================================
         // CONTEXT 1: Metadata Properties
         // ============================================
-        const metadataContainers = document.querySelectorAll('.metadata-container');
+        const metadataContainers = document.body.findAll('.metadata-container');
         metadataContainers.forEach(container => {
             this.processMetadataContainer(container as HTMLElement);
             this.observer.observe(container, {
@@ -219,7 +213,7 @@ export default class TypifyPlugin extends Plugin {
         // ============================================
         // CONTEXT 2: Bases Plugin (Table View)
         // ============================================
-        const basesViews = document.querySelectorAll('.bases-view');
+        const basesViews = document.body.findAll('.bases-view');
         basesViews.forEach(view => {
             this.processBasesView(view as HTMLElement);
             this.processBasesCardsView(view as HTMLElement);
@@ -292,12 +286,12 @@ export default class TypifyPlugin extends Plugin {
     processMetadataContainer(container: HTMLElement) {
         const targetProps = this.getTargetProperties();
 
-        const propertyRows = container.querySelectorAll('.metadata-property');
+        const propertyRows = container.findAll('.metadata-property');
         propertyRows.forEach(row => {
             const propertyKey = row.getAttribute('data-property-key');
             if (!propertyKey || !targetProps.includes(propertyKey.toLowerCase())) return;
 
-            const pills = row.querySelectorAll('.multi-select-pill');
+            const pills = row.findAll('.multi-select-pill');
             pills.forEach(pill => this.processPill(pill, propertyKey));
         });
     }
@@ -312,7 +306,7 @@ export default class TypifyPlugin extends Plugin {
     processBasesView(view: HTMLElement) {
         const targetProps = this.getTargetProperties();
 
-        const cells = view.querySelectorAll('.bases-td');
+        const cells = view.findAll('.bases-td');
 
         cells.forEach(cell => {
             const dataProperty = cell.getAttribute('data-property');
@@ -321,7 +315,7 @@ export default class TypifyPlugin extends Plugin {
             const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
             if (!match) return;
 
-            const pills = cell.querySelectorAll('.multi-select-pill');
+            const pills = cell.findAll('.multi-select-pill');
             pills.forEach(pill => this.processPill(pill, match));
         });
     }
@@ -336,7 +330,7 @@ export default class TypifyPlugin extends Plugin {
     processBasesCardsView(view: HTMLElement) {
         const targetProps = this.getTargetProperties();
 
-        const cardsProperties = view.querySelectorAll('.bases-cards-property');
+        const cardsProperties = view.findAll('.bases-cards-property');
 
         cardsProperties.forEach(prop => {
             const dataProperty = prop.getAttribute('data-property');
@@ -345,7 +339,7 @@ export default class TypifyPlugin extends Plugin {
             const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
             if (!match) return;
 
-            const valueElements = prop.querySelectorAll('.value-list-element');
+            const valueElements = prop.findAll('.value-list-element');
             valueElements.forEach(el => this.processValueListElement(el, match));
         });
     }
@@ -365,12 +359,12 @@ export default class TypifyPlugin extends Plugin {
             this.observer.disconnect();
         }
         // Remove custom classes when plugin is disabled
-        document.querySelectorAll('.custom-status-icon-pill').forEach(el => {
+        document.body.findAll('.custom-status-icon-pill').forEach(el => {
             el.classList.remove('custom-status-icon-pill');
             el.removeAttribute('data-value');
             el.removeAttribute('data-property-key');
         });
-        document.querySelectorAll('.custom-status-icon-value').forEach(el => {
+        document.body.findAll('.custom-status-icon-value').forEach(el => {
             el.classList.remove('custom-status-icon-value');
             el.removeAttribute('data-value');
             el.removeAttribute('data-property-key');
@@ -406,7 +400,7 @@ export default class TypifyPlugin extends Plugin {
      * Creates a <style> element in the document head if it doesn't exist.
      */
     updateStyles() {
-        // Find or create the style element
+        // Update the existing style element
         let styleEl = document.getElementById('custom-status-icons-css') as HTMLStyleElement;
         if (!styleEl) {
             styleEl = document.head.createEl('style', {

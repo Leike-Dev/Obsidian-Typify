@@ -183,7 +183,7 @@ export class StyleEditorModal extends Modal {
         const buttonContainer = contentEl.createDiv({ cls: 'modal-button-container' });
 
         const saveBtn = buttonContainer.createEl('button', { text: t('save_button'), cls: 'mod-cta' });
-        saveBtn.addEventListener('click', () => this.handleSave());
+        saveBtn.addEventListener('click', () => { void this.handleSave(); });
 
         const cancelBtn = buttonContainer.createEl('button', { text: t('cancel_button'), cls: 'mod-cancel' });
         cancelBtn.addEventListener('click', () => this.close());
@@ -201,7 +201,13 @@ export class StyleEditorModal extends Modal {
                 const name = this.icon.replace('custom:', '');
                 const svgContent = this.plugin.customIconsManager?.getSvgContent(name);
                 if (svgContent) {
-                    this.iconBtnEl.innerHTML = svgContent;
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(svgContent, 'image/svg+xml');
+                    const svg = doc.documentElement;
+                    if (svg instanceof SVGElement) {
+                        this.iconBtnEl.empty();
+                        this.iconBtnEl.appendChild(svg);
+                    }
                 } else {
                     setIcon(this.iconBtnEl, 'image');
                 }
@@ -270,11 +276,13 @@ export class StyleEditorModal extends Modal {
             const name = this.icon.replace('custom:', '');
             const svgContent = this.plugin.customIconsManager?.getSvgContent(name);
             if (svgContent) {
-                iconSpan.innerHTML = svgContent;
-                // Scale SVG to fit
-                const svg = iconSpan.querySelector('svg');
-                if (svg) {
-                    svg.setCssStyles({ width: '14px', height: '14px' });
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(svgContent, 'image/svg+xml');
+                const svgEl = doc.documentElement;
+                if (svgEl instanceof SVGElement) {
+                    iconSpan.empty();
+                    iconSpan.appendChild(svgEl);
+                    svgEl.setCssStyles({ width: '14px', height: '14px' });
                 }
             }
         } else {

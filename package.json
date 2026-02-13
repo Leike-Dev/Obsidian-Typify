@@ -1,6 +1,6 @@
 {
     "name": "typify",
-    "version": "1.7.0",
+    "version": "1.7.1",
     "description": "Create attractive and customizable status indicators with Lucide icons for your metadata properties.",
     "main": "main.js",
     "scripts": {
@@ -8,17 +8,20 @@
         "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
         "version": "node dev/version-bump.mjs && git add manifest.json versions.json",
         "gen-icons": "node dev/generate-icons.mjs",
-        "commit": "node dev/commit-helper.mjs"
+        "commit": "node dev/commit-helper.mjs",
+        "lint": "eslint . --ext .ts"
     },
     "keywords": [],
     "author": "Flavio Azurita",
     "license": "MIT",
     "devDependencies": {
         "@types/node": "^16.11.6",
-        "@typescript-eslint/eslint-plugin": "5.29.0",
-        "@typescript-eslint/parser": "5.29.0",
+        "@typescript-eslint/eslint-plugin": "^8.55.0",
+        "@typescript-eslint/parser": "^8.55.0",
         "builtin-modules": "3.3.0",
         "esbuild": "0.17.3",
+        "eslint": "^8.57.1",
+        "eslint-plugin-obsidianmd": "^0.1.9",
         "lucide-static": "^0.446.0",
         "obsidian": "latest",
         "tslib": "2.4.0",

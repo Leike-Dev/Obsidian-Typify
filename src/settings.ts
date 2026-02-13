@@ -31,14 +31,15 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         // ================================================================
         // HEADER
         // ================================================================
-        const header = containerEl.createDiv({ cls: 'csi-settings-header' });
-        const title = header.createEl('h2', { text: t('settings_title') });
-        title.createEl('span', { text: this.plugin.manifest.version, cls: 'csi-version' });
+        new Setting(containerEl)
+            .setName(t('settings_title'))
+            .setHeading()
+            .setDesc(`v${this.plugin.manifest.version}`);
 
         // ================================================================
         // SECTION 1: CONFIGURATION
         // ================================================================
-        containerEl.createEl('h3', { text: t('section_configuration_title'), cls: 'csi-section-header' });
+        new Setting(containerEl).setName(t('section_configuration_title')).setHeading();
 
         // ================================================================
         // TARGET PROPERTY
@@ -108,7 +109,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
 
         // SECTION: STYLES (Styles Management)
         // ================================================================
-        containerEl.createEl('h3', { text: t('section_styles_title'), cls: 'csi-section-header' });
+        new Setting(containerEl).setName(t('section_styles_title')).setHeading();
 
         // 1. ADD STATUS
         new Setting(containerEl)
@@ -136,7 +137,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         // ================================================================
         // DATA MANAGEMENT
         // ================================================================
-        containerEl.createEl('h3', { text: t('section_data_management_title'), cls: 'csi-section-header' });
+        new Setting(containerEl).setName(t('section_data_management_title')).setHeading();
 
         // EXPORT
         new Setting(containerEl)
@@ -145,7 +146,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
             .addButton(button => button
                 .setButtonText(t('export_button'))
                 .onClick(() => {
-                    this.exportSettings();
+                    void this.exportSettings();
                 }));
 
         // IMPORT
@@ -155,7 +156,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
             .addButton(button => button
                 .setButtonText(t('import_button'))
                 .onClick(() => {
-                    this.importSettings();
+                    void this.importSettings();
                 }));
 
 
@@ -203,33 +204,35 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         const input = document.createElement('input');
         input.type = 'file';
         input.accept = '.json';
-        input.addEventListener('change', async (e) => {
-            const file = (e.target as HTMLInputElement).files?.[0];
-            if (!file) return;
+        input.addEventListener('change', (e) => {
+            void (async () => {
+                const file = (e.target as HTMLInputElement).files?.[0];
+                if (!file) return;
 
-            try {
-                const text = await file.text();
-                const data = JSON.parse(text);
+                try {
+                    const text = await file.text();
+                    const data = JSON.parse(text);
 
-                // Validate imported data
-                if (!data.statusStyles || !Array.isArray(data.statusStyles)) {
-                    throw new Error('Invalid format');
+                    // Validate imported data
+                    if (!data.statusStyles || !Array.isArray(data.statusStyles)) {
+                        throw new Error('Invalid format');
+                    }
+
+                    // Import settings
+                    if (data.targetProperty) {
+                        this.plugin.settings.targetProperty = data.targetProperty;
+                    }
+                    this.plugin.settings.statusStyles = data.statusStyles;
+
+                    await this.plugin.saveSettings();
+                    this.display();
+
+                    // Show success message
+                    new Notice(t('import_success'));
+                } catch {
+                    new Notice(t('import_error'));
                 }
-
-                // Import settings
-                if (data.targetProperty) {
-                    this.plugin.settings.targetProperty = data.targetProperty;
-                }
-                this.plugin.settings.statusStyles = data.statusStyles;
-
-                await this.plugin.saveSettings();
-                this.display();
-
-                // Show success message
-                new Notice(t('import_success'));
-            } catch (error) {
-                new Notice(t('import_error'));
-            }
+            })();
         });
         input.click();
     }
