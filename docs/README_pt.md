@@ -4,7 +4,7 @@
   <img src="./assets/images/banner_1.jpg"/>
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
-   ![Version](https://img.shields.io/badge/version-1.7.3-lightgreen.svg)
+   ![Version](https://img.shields.io/badge/version-1.7.4-lightgreen.svg)
 
 </div>
 

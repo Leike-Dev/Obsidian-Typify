@@ -387,7 +387,7 @@ export default class TypifyPlugin extends Plugin {
      */
     private getStyleData(style: StatusStyle): { cssVars: Record<string, string>, iconUrl: string | null } {
         if (this.styleCache.has(style.name)) {
-            return this.styleCache.get(style.name)!;
+            return this.styleCache.get(style.name);
         }
 
         const palette = generatePalette(style.baseColor);
