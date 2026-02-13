@@ -507,6 +507,48 @@ h3.csi-status-list-header {
     background-color: currentColor;
 }
 
+/* Settings Header - version number inline with title */
+.csi-settings-container>.setting-item-heading:first-child .setting-item-info {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.csi-settings-container>.setting-item-heading:first-child .setting-item-name {
+    overflow: visible;
+    text-overflow: unset;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.csi-settings-container>.setting-item-heading:first-child .setting-item-description {
+    font-weight: var(--font-normal);
+    font-size: var(--font-ui-small);
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+/* Mobile fallback */
+@media (max-width: 300px) {
+    .csi-settings-container>.setting-item-heading:first-child .setting-item-info {
+        flex-direction: column;
+    }
+}
+
+
+.csi-experimental-warning {
+    background-color: hsla(35, 80%, 55%, 0.12);
+    border: 1px solid hsla(35, 70%, 50%, 0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 8px 0 12px 0;
+}
+
+.theme-dark .csi-experimental-warning {
+    background-color: hsla(30, 70%, 45%, 0.15);
+    border-color: hsla(30, 60%, 45%, 0.25);
+}
 
 .csi-experimental-warning .warning-text {
     margin: 0;
