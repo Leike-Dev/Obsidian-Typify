@@ -91,7 +91,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                         // Clear cache so custom icons stop rendering immediately
                         this.plugin.customIconsManager.clear();
                     }
-                    this.plugin.updateStyles();
+
                     this.display();
                 }));
 

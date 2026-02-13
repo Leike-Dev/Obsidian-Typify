@@ -6,7 +6,7 @@ export const en = {
 
     // Target Property
     'target_property_title': 'Target property',
-    'target_property_desc': 'The property name(s) to apply styles to (e.g., "Status", "Status-1")',
+    'target_property_desc': 'The property name(s) to apply styles to (e.g., "status", "priority")',
     'target_property_placeholder': 'Property',
 
     // Create Style

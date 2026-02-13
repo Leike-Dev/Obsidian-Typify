@@ -98,11 +98,11 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
     /**
      * Handler for when an item is chosen.
      */
-    onChooseSuggestion(match: FuzzyMatch<string>, evt: MouseEvent | KeyboardEvent): void {
+    onChooseSuggestion(match: FuzzyMatch<string>): void {
         this.onChoose(match.item);
     }
 
-    onChooseItem(item: string, evt: MouseEvent | KeyboardEvent): void {
+    onChooseItem(item: string): void {
         this.onChoose(item);
     }
 }

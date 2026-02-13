@@ -18,6 +18,13 @@
     --pill-padding-y: 2px;
     /* Vertical padding */
 
+    /* Theme Integration */
+    --pill-background: var(--pill-light-bg);
+    --pill-color: var(--pill-light-text);
+    --pill-background-hover: var(--pill-light-bg-hover);
+    --pill-color-hover: var(--pill-light-text-hover);
+    --pill-border-color: var(--pill-light-border);
+
     /* Layout */
     display: inline-flex !important;
     align-items: center !important;
@@ -30,6 +37,15 @@
     background-color: var(--pill-background) !important;
     color: var(--pill-color) !important;
     /* No transition on base state to avoid animation when MutationObserver reprocesses */
+}
+
+/* Dark Mode Overrides */
+.theme-dark .multi-select-pill.custom-status-icon-pill {
+    --pill-background: var(--pill-dark-bg);
+    --pill-color: var(--pill-dark-text);
+    --pill-background-hover: var(--pill-dark-bg-hover);
+    --pill-color-hover: var(--pill-dark-text-hover);
+    --pill-border-color: var(--pill-dark-border);
 }
 
 /* Hover state - transition only applies here */
@@ -62,7 +78,8 @@
 
 /* Icon - uses custom variables */
 .multi-select-pill.custom-status-icon-pill .multi-select-pill-content::before {
-    display: inline-block;
+    content: '';
+    display: var(--pill-icon-display, none);
     width: var(--icon-size);
     height: var(--icon-size);
     margin-right: var(--icon-gap);
@@ -74,6 +91,9 @@
     -webkit-mask-size: contain;
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
+    mask-image: var(--pill-icon-url);
+    -webkit-mask-image: var(--pill-icon-url);
+    border-radius: 0;
 }
 
 /* ==========================================================================
@@ -435,15 +455,58 @@ h3.csi-status-list-header {
     letter-spacing: 0.5px;
 }
 
-/* Experimental Warning Card (yellow) */
-.csi-experimental-warning {
-    margin-top: 20px;
-    margin-bottom: 12px;
-    padding: 16px;
-    border-radius: 8px;
-    background-color: rgba(var(--color-yellow-rgb), 0.1);
-    border: 1px solid rgba(var(--color-yellow-rgb), 0.3);
+/* Bases Cards View - uses custom variables */
+.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value {
+    /* Theme Integration */
+    --pill-background: var(--pill-light-bg);
+    --pill-color: var(--pill-light-text);
+    --pill-background-hover: var(--pill-light-bg-hover);
+    --pill-color-hover: var(--pill-light-text-hover);
+    --pill-border-color: var(--pill-light-border);
+
+    background: var(--pill-background) !important;
+    color: var(--pill-color) !important;
+    border: 1px solid var(--pill-border-color) !important;
+    border-radius: var(--pill-radius, 4px) !important;
+    padding: 2px 6px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    vertical-align: middle !important;
+    gap: 4px !important;
 }
+
+.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value:hover {
+    background: var(--pill-background-hover) !important;
+    color: var(--pill-color-hover) !important;
+}
+
+/* Dark Mode Overrides for Bases Cards View */
+.theme-dark .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value {
+    --pill-background: var(--pill-dark-bg);
+    --pill-color: var(--pill-dark-text);
+    --pill-background-hover: var(--pill-dark-bg-hover);
+    --pill-color-hover: var(--pill-dark-text-hover);
+    --pill-border-color: var(--pill-dark-border);
+}
+
+/* Icon for Bases Cards View */
+.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value::before {
+    content: '';
+    display: var(--pill-icon-display, none);
+    width: 14px;
+    height: 14px;
+    min-width: 14px;
+    mask-image: var(--pill-icon-url);
+    -webkit-mask-image: var(--pill-icon-url);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    background-color: currentColor;
+}
+
 
 .csi-experimental-warning .warning-text {
     margin: 0;

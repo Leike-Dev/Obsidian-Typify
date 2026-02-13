@@ -1,6 +1,6 @@
 {
     "name": "typify",
-    "version": "1.7.1",
+    "version": "1.7.2",
     "description": "Create attractive and customizable status indicators with Lucide icons for your metadata properties.",
     "main": "main.js",
     "scripts": {

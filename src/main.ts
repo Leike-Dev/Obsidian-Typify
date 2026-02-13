@@ -1,6 +1,6 @@
 import { Plugin, getIcon, Notice } from 'obsidian';
-import { CustomStatusIconsSettings, DEFAULT_SETTINGS } from './types';
-import { generatePalette, sanitizeCssSelector } from './utils';
+import { CustomStatusIconsSettings, DEFAULT_SETTINGS, StatusStyle } from './types';
+import { generatePalette } from './utils';
 import { CustomStatusIconsSettingTab } from './settings';
 import { CustomIconsManager } from './custom-icons';
 import { t } from './lang/helpers';
@@ -19,6 +19,7 @@ export default class TypifyPlugin extends Plugin {
     customIconsManager: CustomIconsManager;
     private cachedTargetProps: string[] | null = null;
     private debounceTimeout: ReturnType<typeof setTimeout> | null = null;
+    private styleCache: Map<string, { cssVars: Record<string, string>, iconUrl: string | null }> = new Map();
 
     /**
      * Called when the plugin is loaded.
@@ -154,6 +155,21 @@ export default class TypifyPlugin extends Plugin {
                     needsRefresh = true;
                 }
                 if (mutation.type === 'attributes' || mutation.type === 'characterData') {
+                    // IGNORE changes to attributes we control to prevent infinite loops
+                    if (mutation.target instanceof HTMLElement) {
+                        if (
+                            (mutation.target.classList.contains('multi-select-pill') ||
+                                mutation.target.classList.contains('value-list-element') ||
+                                mutation.target.classList.contains('custom-status-icon-pill') ||
+                                mutation.target.classList.contains('custom-status-icon-value')) &&
+                            (mutation.attributeName === 'data-value' ||
+                                mutation.attributeName === 'data-property-key' ||
+                                mutation.attributeName === 'style' ||
+                                mutation.attributeName === 'class')
+                        ) {
+                            return; // Skip this mutation
+                        }
+                    }
                     needsRefresh = true;
                 }
                 // Check Metadata container context
@@ -188,7 +204,6 @@ export default class TypifyPlugin extends Plugin {
         }));
 
         this.refreshProcessing();
-        this.updateStyles();
     }
 
     /**
@@ -232,48 +247,175 @@ export default class TypifyPlugin extends Plugin {
      * @param propertyKey The property key (e.g., 'status') this pill belongs to.
      */
     processPill(pill: Element, propertyKey: string) {
-        if (pill.classList.contains('custom-status-icon-pill')) {
-            // Update property key if it changed (unlikely but safe)
-            const currentProp = pill.getAttribute('data-property-key');
-            if (currentProp !== propertyKey) {
-                pill.setAttribute('data-property-key', propertyKey);
-            }
-            return;
+        if (!(pill instanceof HTMLElement)) return;
+
+        // Always ensure property key is set for reference
+        if (pill.getAttribute('data-property-key') !== propertyKey) {
+            pill.setAttribute('data-property-key', propertyKey);
         }
 
-        pill.classList.add('custom-status-icon-pill');
-        pill.setAttribute('data-property-key', propertyKey); // Store property key for CSS scoping
-
         const content = pill.querySelector('.multi-select-pill-content');
-        if (content) {
-            const value = content.textContent?.trim() || '';
+        const value = content?.textContent?.trim() || '';
+
+        // Update data-value
+        if (pill.getAttribute('data-value') !== value) {
             pill.setAttribute('data-value', value);
+        }
+
+        // Find and apply style
+        const style = this.findMatchingStyle(value, propertyKey);
+        if (style) {
+            pill.classList.add('custom-status-icon-pill');
+            this.applyStyle(pill, style);
+        } else {
+            pill.classList.remove('custom-status-icon-pill');
+            this.clearStyle(pill);
         }
     }
 
-    // ============================================
-    // Process value-list-element for Bases Cards View
-    // ============================================
     /**
      * Processes a value element in the Bases Cards view.
      * @param element The DOM element representing the value.
      * @param propertyKey The property key this element belongs to.
      */
     processValueListElement(element: Element, propertyKey: string) {
-        if (element.classList.contains('custom-status-icon-value')) {
-            const currentProp = element.getAttribute('data-property-key');
-            if (currentProp !== propertyKey) {
-                element.setAttribute('data-property-key', propertyKey);
-            }
-            return;
+        if (!(element instanceof HTMLElement)) return;
+
+        if (element.getAttribute('data-property-key') !== propertyKey) {
+            element.setAttribute('data-property-key', propertyKey);
         }
 
-        element.classList.add('custom-status-icon-value');
-        element.setAttribute('data-property-key', propertyKey);
-
-        // Get the text content directly (excluding nested tags like <a class="tag">)
+        // Get the text content directly (excluding nested tags like <a class="tag"> if any, though usually text node)
+        // For safety, just use textContent of the element itself
         const value = element.textContent?.trim() || '';
-        element.setAttribute('data-value', value);
+
+        if (element.getAttribute('data-value') !== value) {
+            element.setAttribute('data-value', value);
+        }
+
+        const style = this.findMatchingStyle(value, propertyKey);
+        if (style) {
+            element.classList.add('custom-status-icon-value');
+            this.applyStyle(element, style);
+        } else {
+            element.classList.remove('custom-status-icon-value');
+            this.clearStyle(element);
+        }
+    }
+
+    /**
+     * Finds the most specific matching style for a given value and property.
+     */
+    private findMatchingStyle(value: string, propertyKey: string): StatusStyle | undefined {
+        // 1. Exact match with scope
+        let match = this.settings.statusStyles.find(
+            s => s.name.toLowerCase() === value.toLowerCase() &&
+                s.appliesTo && s.appliesTo.includes(propertyKey)
+        );
+
+        if (match) return match;
+
+        // 2. Exact match global (no scope or empty scope)
+        match = this.settings.statusStyles.find(
+            s => s.name.toLowerCase() === value.toLowerCase() &&
+                (!s.appliesTo || s.appliesTo.length === 0)
+        );
+
+        return match;
+    }
+
+    /**
+     * Applies the calculated styles and variables to the element.
+     */
+    private applyStyle(el: HTMLElement, style: StatusStyle) {
+        const data = this.getStyleData(style);
+
+        // Apply CSS variables - check if changed before setting
+        Object.entries(data.cssVars).forEach(([key, val]) => {
+            if (el.style.getPropertyValue(key) !== val) {
+                el.style.setProperty(key, val);
+            }
+        });
+
+        // Apply Icon
+        if (data.iconUrl) {
+            if (el.style.getPropertyValue('--pill-icon-url') !== data.iconUrl) {
+                el.style.setProperty('--pill-icon-url', data.iconUrl);
+            }
+            if (el.style.getPropertyValue('--pill-icon-display') !== 'inline-block') {
+                el.style.setProperty('--pill-icon-display', 'inline-block');
+            }
+        } else {
+            if (el.style.getPropertyValue('--pill-icon-url')) el.style.removeProperty('--pill-icon-url');
+            if (el.style.getPropertyValue('--pill-icon-display')) el.style.removeProperty('--pill-icon-display');
+        }
+    }
+
+    /**
+     * Clears custom styles from the element.
+     */
+    private clearStyle(el: HTMLElement) {
+        [
+            '--pill-light-bg', '--pill-light-text', '--pill-light-bg-hover', '--pill-light-text-hover', '--pill-light-border',
+            '--pill-dark-bg', '--pill-dark-text', '--pill-dark-bg-hover', '--pill-dark-text-hover', '--pill-dark-border',
+            '--pill-radius', '--pill-icon-url', '--pill-icon-display'
+        ].forEach(prop => el.style.removeProperty(prop));
+    }
+
+    /**
+     * Generates or retrieves cached CSS variables and icon data.
+     */
+    private getStyleData(style: StatusStyle): { cssVars: Record<string, string>, iconUrl: string | null } {
+        if (this.styleCache.has(style.name)) {
+            return this.styleCache.get(style.name)!;
+        }
+
+        const palette = generatePalette(style.baseColor);
+        const isRectangle = style.shape === 'rectangle';
+        const pillRadius = isRectangle ? '4px' : 'var(--tag-radius, 14px)';
+
+        const cssVars: Record<string, string> = {
+            '--pill-light-bg': palette.light.bg,
+            '--pill-light-text': palette.light.text,
+            '--pill-light-bg-hover': palette.light.bgHover,
+            '--pill-light-text-hover': palette.light.textHover,
+            '--pill-light-border': palette.light.border,
+            '--pill-dark-bg': palette.dark.bg,
+            '--pill-dark-text': palette.dark.text,
+            '--pill-dark-bg-hover': palette.dark.bgHover,
+            '--pill-dark-text-hover': palette.dark.textHover,
+            '--pill-dark-border': palette.dark.border,
+            '--pill-radius': pillRadius
+        };
+
+        // Icon generation
+        let iconUrl: string | null = null;
+        if (style.icon && style.icon.startsWith('custom:')) {
+            const iconName = style.icon.replace('custom:', '');
+            // We need to access customIconsManager. It is initialized in onload.
+            if (this.customIconsManager) {
+                iconUrl = this.customIconsManager.getSvgDataUri(iconName);
+            }
+            if (!iconUrl) {
+                // Fallback square
+                const fallbackEl = getIcon('square');
+                if (fallbackEl) {
+                    const svg = fallbackEl.outerHTML.replace(/currentColor/g, 'black');
+                    iconUrl = `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
+                }
+            }
+        } else if (style.icon) {
+            const iconEl = getIcon(style.icon);
+            if (iconEl) {
+                const svgString = iconEl.outerHTML.replace(/currentColor/g, 'black');
+                const encodedSvg = encodeURIComponent(svgString);
+                iconUrl = `url("data:image/svg+xml;charset=utf-8,${encodedSvg}")`;
+            }
+        }
+
+        const data = { cssVars, iconUrl };
+        this.styleCache.set(style.name, data);
+        return data;
     }
 
     // ============================================
@@ -377,9 +519,9 @@ export default class TypifyPlugin extends Plugin {
 
     async saveSettings() {
         this.cachedTargetProps = null; // Invalidate cache
+        this.styleCache.clear(); // Invalidate style cache
         await this.saveData(this.settings);
         this.refreshProcessing();
-        this.updateStyles();
     }
 
     /**
@@ -395,171 +537,5 @@ export default class TypifyPlugin extends Plugin {
         return this.cachedTargetProps;
     }
 
-    /**
-     * Generates and injects the dynamic CSS for user-defined status styles.
-     * Creates a <style> element in the document head if it doesn't exist.
-     */
-    updateStyles() {
-        // Update the existing style element
-        let styleEl = document.getElementById('custom-status-icons-css') as HTMLStyleElement;
-        if (!styleEl) {
-            styleEl = document.head.createEl('style', {
-                attr: { id: 'custom-status-icons-css' }
-            });
-        }
 
-        let css = '/* Custom Status Icons - Dynamic Styles */\n\n';
-
-        this.settings.statusStyles.forEach(style => {
-            const palette = generatePalette(style.baseColor);
-
-            // Sanitize name for CSS selector
-            const safeName = sanitizeCssSelector(style.name);
-
-            // Determine shape radius
-            const isRectangle = style.shape === 'rectangle';
-            const pillRadius = isRectangle ? '4px' : 'var(--tag-radius, 14px)';
-            const cardsRadius = isRectangle ? '4px' : '12px';
-
-            // Determine Scope Selector
-            // If appliesTo is empty or undefined, it applies to ANY property (no attribute selector)
-            // If appliesTo has items, we generate a selector like:
-            // [data-property-key="Status"], [data-property-key="Priority"]
-            let scopeSelector = '';
-
-            if (style.appliesTo && style.appliesTo.length > 0) {
-                // We need to construct the full selector for each target
-                // Since we can't nest selectors easily in this string builder without complexity,
-                // We will just NOT add a scope selector here if it applies to all.
-                // But if it IS scoped, we need to ensure the element matches one of the properties.
-
-                // However, CSS :is() or multiple selectors is needed.
-                // Simpler approach: Include the scope in the attribute selector of the main rule?
-                // No, data-value is already there.
-
-                // Let's use :is() for cleaner CSS if supported (Obsidian is Chromium, so yes)
-                const props = style.appliesTo.map(p => `[data-property-key="${p}" i]`).join(', ');
-                scopeSelector = `:is(${props})`;
-            }
-
-            // Light Mode Colors
-            css += `
-body .multi-select-pill.custom-status-icon-pill${scopeSelector}[data-value="${safeName}" i] {
-    --pill-background: ${palette.light.bg} !important;
-    --pill-color: ${palette.light.text} !important;
-    --pill-background-hover: ${palette.light.bgHover} !important;
-    --pill-color-hover: ${palette.light.textHover} !important;
-    --pill-border-color: ${palette.light.border} !important;
-    --pill-radius: ${pillRadius} !important;
-}
-`;
-
-            // Dark Mode Colors
-            css += `
-body.theme-dark .multi-select-pill.custom-status-icon-pill${scopeSelector}[data-value="${safeName}" i] {
-    --pill-background: ${palette.dark.bg} !important;
-    --pill-color: ${palette.dark.text} !important;
-    --pill-background-hover: ${palette.dark.bgHover} !important;
-    --pill-color-hover: ${palette.dark.textHover} !important;
-    --pill-border-color: ${palette.dark.border} !important;
-    --pill-radius: ${pillRadius} !important;
-}
-`;
-
-            // ============================================
-            // CONTEXT 3: Bases Cards View Colors
-            // ============================================
-            // Light Mode Colors
-            css += `
-.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value${scopeSelector}[data-value="${safeName}" i] {
-    background: ${palette.light.bg} !important;
-    color: ${palette.light.text} !important;
-    border: 1px solid ${palette.light.border} !important;
-    border-radius: ${cardsRadius} !important;
-    padding: 2px 6px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    vertical-align: middle !important;
-    gap: 4px !important;
-}
-.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value${scopeSelector}[data-value="${safeName}" i]:hover {
-    background: ${palette.light.bgHover} !important;
-    color: ${palette.light.textHover} !important;
-}
-`;
-
-            // Dark Mode Colors
-            css += `
-body.theme-dark .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value${scopeSelector}[data-value="${safeName}" i] {
-    background: ${palette.dark.bg} !important;
-    color: ${palette.dark.text} !important;
-    border: 1px solid ${palette.dark.border} !important;
-}
-body.theme-dark .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value${scopeSelector}[data-value="${safeName}" i]:hover {
-    background: ${palette.dark.bgHover} !important;
-    color: ${palette.dark.textHover} !important;
-}
-`;
-
-            // Icon Mask for Pills and Cards
-            let dataUri: string | null = null;
-
-            if (style.icon && style.icon.startsWith('custom:')) {
-                // Custom icon: lookup from sync cache
-                const iconName = style.icon.replace('custom:', '');
-                dataUri = this.customIconsManager.getSvgDataUri(iconName);
-
-                // Fallback to 'square' if custom icon not found
-                if (!dataUri) {
-                    const fallbackEl = getIcon('square');
-                    if (fallbackEl) {
-                        const svg = fallbackEl.outerHTML.replace(/currentColor/g, 'black');
-                        dataUri = `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
-                    }
-                }
-            } else if (style.icon) {
-                // Lucide icon: existing behavior
-                const iconEl = getIcon(style.icon);
-                if (iconEl) {
-                    const svgString = iconEl.outerHTML.replace(/currentColor/g, 'black');
-                    const encodedSvg = encodeURIComponent(svgString);
-                    dataUri = `url("data:image/svg+xml;charset=utf-8,${encodedSvg}")`;
-                }
-            }
-
-            if (dataUri) {
-                css += `
-.multi-select-pill.custom-status-icon-pill${scopeSelector}[data-value="${safeName}" i] .multi-select-pill-content::before {
-    content: '';
-    -webkit-mask-image: ${dataUri} !important;
-    mask-image: ${dataUri} !important;
-    background-color: currentColor;
-    border-radius: 0;
-}
-`;
-
-                // Icon for Bases Cards View
-                css += `
-.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value${scopeSelector}[data-value="${safeName}" i]::before {
-    content: '';
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    min-width: 14px;
-    -webkit-mask-image: ${dataUri};
-    mask-image: ${dataUri};
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-    background-color: currentColor;
-}
-`;
-            }
-        });
-
-        styleEl.textContent = css;
-    }
 }
