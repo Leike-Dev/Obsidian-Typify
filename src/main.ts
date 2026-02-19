@@ -14,9 +14,9 @@ import { t } from './lang/helpers';
  * Handles the lifecycle of the plugin, settings management, and DOM observation.
  */
 export default class TypifyPlugin extends Plugin {
-    settings: CustomStatusIconsSettings;
-    observer: MutationObserver;
-    customIconsManager: CustomIconsManager;
+    settings!: CustomStatusIconsSettings;
+    observer!: MutationObserver;
+    customIconsManager!: CustomIconsManager;
     private cachedTargetProps: string[] | null = null;
     private debounceTimeout: ReturnType<typeof setTimeout> | null = null;
     private styleCache: Map<string, { cssVars: Record<string, string>, iconUrl: string | null }> = new Map();
@@ -387,7 +387,7 @@ export default class TypifyPlugin extends Plugin {
      */
     private getStyleData(style: StatusStyle): { cssVars: Record<string, string>, iconUrl: string | null } {
         if (this.styleCache.has(style.name)) {
-            return this.styleCache.get(style.name);
+            return this.styleCache.get(style.name)!;
         }
 
         const palette = generatePalette(style.baseColor);
@@ -534,7 +534,7 @@ export default class TypifyPlugin extends Plugin {
     }
 
     async loadSettings() {
-        this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+        this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData() as Partial<CustomStatusIconsSettings>);
     }
 
     async saveSettings() {

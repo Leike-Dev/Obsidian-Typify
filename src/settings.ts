@@ -2,6 +2,7 @@ import { PluginSettingTab, App, Setting, Notice } from 'obsidian';
 import { StyleEditorModal } from './ui/StyleEditorModal';
 import { StyleManagerModal } from './ui/StyleManagerModal';
 import type TypifyPlugin from './main';
+import { StatusStyle } from './types';
 import { t } from './lang/helpers';
 
 // ============================================================================
@@ -211,7 +212,10 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
 
                 try {
                     const text = await file.text();
-                    const data = JSON.parse(text);
+                    const data = JSON.parse(text) as {
+                        statusStyles?: unknown;
+                        targetProperty?: unknown;
+                    };
 
                     // Validate imported data
                     if (!data.statusStyles || !Array.isArray(data.statusStyles)) {
@@ -219,10 +223,10 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                     }
 
                     // Import settings
-                    if (data.targetProperty) {
+                    if (typeof data.targetProperty === 'string') {
                         this.plugin.settings.targetProperty = data.targetProperty;
                     }
-                    this.plugin.settings.statusStyles = data.statusStyles;
+                    this.plugin.settings.statusStyles = data.statusStyles as StatusStyle[];
 
                     await this.plugin.saveSettings();
                     this.display();
