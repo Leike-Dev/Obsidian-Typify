@@ -52,6 +52,7 @@ export class StyleManagerModal extends Modal {
 
     /**
      * Renders the style list, filtered by the given search term.
+     * Groups styles by their scope (appliesTo) with visual separators.
      */
     private renderList(filter: string): void {
         if (!this.listContainerEl || !this.countEl) return;
@@ -59,7 +60,13 @@ export class StyleManagerModal extends Modal {
 
         const lowerFilter = filter.toLowerCase();
         const styles = this.plugin.settings.statusStyles;
-        const filtered = styles.filter(s => s.name.toLowerCase().includes(lowerFilter));
+
+        // Filter by name OR scope name
+        const filtered = styles.filter(s => {
+            if (s.name.toLowerCase().includes(lowerFilter)) return true;
+            const scope = (s.appliesTo && s.appliesTo.length > 0) ? s.appliesTo[0] : '';
+            return scope.toLowerCase().includes(lowerFilter);
+        });
 
         // Update count
         this.countEl.setText(
@@ -77,10 +84,42 @@ export class StyleManagerModal extends Modal {
             return;
         }
 
-        // Render each item
-        filtered.forEach(style => {
-            this.renderItem(style, styles.indexOf(style));
+        // Group by scope
+        const groups = new Map<string, StatusStyle[]>();
+        for (const style of filtered) {
+            const key = (style.appliesTo && style.appliesTo.length > 0)
+                ? style.appliesTo[0]
+                : '__global__';
+            const group = groups.get(key);
+            if (group) {
+                group.push(style);
+            } else {
+                groups.set(key, [style]);
+            }
+        }
+
+        // Sort: global first, then scoped groups alphabetically
+        const sortedKeys = [...groups.keys()].sort((a, b) => {
+            if (a === '__global__') return -1;
+            if (b === '__global__') return 1;
+            return a.localeCompare(b);
         });
+
+        // Render each group
+        for (const key of sortedKeys) {
+            const groupStyles = groups.get(key);
+            if (!groupStyles) continue;
+
+            const label = key === '__global__' ? t('scope_all') : key;
+            this.listContainerEl.createDiv({
+                cls: 'csi-manager-group-header',
+                text: label,
+            });
+
+            for (const style of groupStyles) {
+                this.renderItem(style, styles.indexOf(style));
+            }
+        }
     }
 
     /**
@@ -108,15 +147,8 @@ export class StyleManagerModal extends Modal {
         // Metadata row
         const metaRow = textBlock.createDiv({ cls: 'csi-manager-meta' });
 
-        // Scope info
-        const scopeText = (style.appliesTo && style.appliesTo.length > 0)
-            ? style.appliesTo.join(', ')
-            : t('scope_all');
-        metaRow.createSpan({ text: `${t('scope_label')}: ${scopeText}` });
-
         // Icon info
         if (style.icon) {
-            metaRow.createSpan({ text: ' · ' });
             const iconMeta = metaRow.createSpan({ cls: 'csi-manager-icon-meta' });
             iconMeta.createSpan({ text: `${t('icon_label')}: ` });
 
@@ -142,10 +174,11 @@ export class StyleManagerModal extends Modal {
         }
 
         // Shape info
-        if (style.shape && style.shape !== 'pill') {
-            metaRow.createSpan({ text: ' · ' });
-            metaRow.createSpan({ text: `${t('shape_label')}: ${t('shape_rectangle')}` });
+        const shapeText = (style.shape && style.shape !== 'pill') ? t('shape_rectangle') : t('shape_pill');
+        if (metaRow.childElementCount > 0) {
+            metaRow.createSpan({ text: ' \u00b7 ' });
         }
+        metaRow.createSpan({ text: `${t('shape_label')}: ${shapeText}` });
 
         // Right section: action buttons
         const actionsSection = item.createDiv({ cls: 'csi-manager-actions' });

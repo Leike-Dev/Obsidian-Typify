@@ -599,6 +599,30 @@ h3.csi-status-list-header {
     margin-bottom: var(--size-4-2);
 }
 
+/* Group header separator */
+.csi-manager-group-header {
+    display: flex;
+    align-items: center;
+    gap: var(--size-4-2);
+    font-size: var(--font-ui-smaller);
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-top: var(--size-4-2);
+    margin-bottom: var(--size-4-1);
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+.csi-manager-group-header:first-child {
+    margin-top: 0;
+}
+
+.csi-manager-group-header::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
 /* Scrollable list */
 .csi-manager-list {
     max-height: 400px;

@@ -143,17 +143,15 @@ export class StyleEditorModal extends Modal {
                     .map(p => p.trim())
                     .filter(p => p.length > 0);
 
-                // Add each property as an option (only if more than one)
-                if (properties.length > 1) {
-                    properties.forEach(prop => {
-                        dropdown.addOption(prop, prop);
-                    });
-                }
+                // Add each property as an option
+                properties.forEach(prop => {
+                    dropdown.addOption(prop, prop);
+                });
 
                 // Set initial value based on current appliesTo state
                 const initialValue = (this.appliesTo.length > 0) ? this.appliesTo[0] : 'all';
                 // Fallback to 'all' if the saved value is not an available dropdown option
-                const validValue = (properties.length > 1 && properties.includes(initialValue)) ? initialValue : 'all';
+                const validValue = properties.includes(initialValue) ? initialValue : 'all';
                 dropdown.setValue(validValue);
                 dropdown.onChange(value => {
                     this.appliesTo = value === 'all' ? [] : [value];
