@@ -41,7 +41,7 @@ try {
 const badgePattern = /version-[\d.]+(-\w+)?-lightgreen/g;
 const badgeReplacement = `version-${targetVersion}-lightgreen`;
 
-const readmes = ["README.md", "docs/README_pt.md"];
+const readmes = ["README.md", "docs/README_pt.md", "docs/README_es.md", "docs/README_fr.md", "docs/README_zh-CN.md"];
 for (const file of readmes) {
     try {
         const content = readFileSync(file, "utf8");
