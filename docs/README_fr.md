@@ -83,23 +83,6 @@ Voilà ! Votre propriété est maintenant une belle pilule colorée ✨
 > [!Warning]  
 > L'importation des paramètres **remplace tous les styles existants**. Les styles créés après la sauvegarde seront perdus.
 
-## Problèmes connus
-
-### Vue Cartes du Bases — Obsidian Mobile
-
-Sur Obsidian Mobile, les pilules stylisées dans la vue Cartes du Bases peuvent apparaître légèrement tronquées en bas. Cela est dû aux contraintes de mise en page internes d'Obsidian sur les conteneurs de propriétés des cartes, ce qui échappe au contrôle du plugin.
-
-D'après mes tests, il est possible de corriger cela en utilisant du CSS personnalisé pour augmenter la hauteur de ligne de la propriété de la carte, mais cela affecte tous les éléments, pas seulement la ligne concernée.
-
-Si vous souhaitez utiliser la solution que j'ai testée, ajoutez le fragment CSS suivant dans **Paramètres > Apparence > Fragments CSS** :
-
-```css
-.bases-view .bases-cards-container .bases-cards-item .bases-cards-property .bases-cards-line {
-    min-height: 26px !important;
-    margin-top: 4px;
-}
-```
-
 ## Développement
 
 Si vous souhaitez compiler le plugin vous-même, procédez comme suit :

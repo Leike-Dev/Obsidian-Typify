@@ -83,23 +83,6 @@ Voilá! Your property is now a beautiful colored pill ✨
 > [!Warning]  
 > Importing settings **replaces all existing styles**. Styles created after the backup will be lost.
 
-## Known Issues
-
-### Bases Cards View — Obsidian Mobile
-
-On Obsidian Mobile, styled pills in the Bases Cards view may appear slightly clipped at the bottom. This is caused by Obsidian's internal layout constraints on card property containers, which is outside the plugin's control.
-
-From my tests, it is possible to fix this using custom CSS to increase the line height of the card property, but this affects all items, not just the line with the issue.
-
-If you'd like to use the workaround I tested, add the following CSS snippet in **Settings > Appearance > CSS Snippets**:
-
-```css
-.bases-view .bases-cards-container .bases-cards-item .bases-cards-property .bases-cards-line {
-    min-height: 26px !important;
-    margin-top: 4px;
-}
-```
-
 ## Development
 
 If you want to build the plugin yourself, do the following:

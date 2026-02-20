@@ -83,23 +83,6 @@ Typify 是一款 Obsidian 插件，让你可以为元数据创建独特的样式
 > [!Warning]  
 > 导入设置会**替换所有现有样式**。备份之后创建的样式将会丢失。
 
-## 已知问题
-
-### Bases 卡片视图 — Obsidian 移动端
-
-在 Obsidian 移动端，Bases 卡片视图中的样式标签底部可能会出现轻微裁剪。这是由 Obsidian 内部对卡片属性容器的布局限制导致的，超出了插件的控制范围。
-
-根据我的测试，可以通过自定义 CSS 增加卡片属性的行高来修复此问题，但这会影响所有项目，而不仅仅是有问题的行。
-
-如果你想使用我测试过的解决方案，请在 **设置 > 外观 > CSS 代码片段** 中添加以下 CSS 片段：
-
-```css
-.bases-view .bases-cards-container .bases-cards-item .bases-cards-property .bases-cards-line {
-    min-height: 26px !important;
-    margin-top: 4px;
-}
-```
-
 ## 开发
 
 如果你想自己构建插件，请执行以下操作：

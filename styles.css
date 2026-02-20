@@ -455,8 +455,9 @@ h3.csi-status-list-header {
     letter-spacing: 0.5px;
 }
 
-/* Bases Cards View - uses custom variables */
-.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value {
+/* Bases Cards View - uses custom variables (multi-value and single-value) */
+.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value,
+.bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value {
     /* Theme Integration */
     --pill-background: var(--pill-light-bg);
     --pill-color: var(--pill-light-text);
@@ -475,13 +476,15 @@ h3.csi-status-list-header {
     gap: 4px !important;
 }
 
-.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value:hover {
+.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value:hover,
+.bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value:hover {
     background: var(--pill-background-hover) !important;
     color: var(--pill-color-hover) !important;
 }
 
 /* Dark Mode Overrides for Bases Cards View */
-.theme-dark .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value {
+.theme-dark .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value,
+.theme-dark .bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value {
     --pill-background: var(--pill-dark-bg);
     --pill-color: var(--pill-dark-text);
     --pill-background-hover: var(--pill-dark-bg-hover);
@@ -490,7 +493,8 @@ h3.csi-status-list-header {
 }
 
 /* Icon for Bases Cards View */
-.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value::before {
+.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value::before,
+.bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value::before {
     content: '';
     display: var(--pill-icon-display, none);
     width: 14px;

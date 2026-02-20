@@ -94,7 +94,15 @@ export default class TypifyPlugin extends Plugin {
                 if (!match) return;
 
                 const valueElements = prop.findAll('.value-list-element');
-                valueElements.forEach((el: Element) => this.processValueListElement(el, match));
+                if (valueElements.length > 0) {
+                    valueElements.forEach((el: Element) => this.processValueListElement(el, match));
+                } else {
+                    // Single-value fallback: Bases renders single list values as .bases-rendered-value
+                    const renderedValue = prop.find('.bases-rendered-value');
+                    if (renderedValue instanceof HTMLElement) {
+                        this.processSingleCardValue(renderedValue, match);
+                    }
+                }
             });
 
             // ============================================
@@ -137,6 +145,20 @@ export default class TypifyPlugin extends Plugin {
                     }
                 }
             }
+
+            // Check if node itself is a bases-rendered-value (Bases Cards single-value)
+            if (node.classList?.contains('bases-rendered-value')) {
+                const basesCardsProp = node.closest('.bases-cards-property');
+                if (basesCardsProp) {
+                    const dataProperty = basesCardsProp.getAttribute('data-property');
+                    if (dataProperty) {
+                        const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
+                        if (match) {
+                            this.processSingleCardValue(node as HTMLElement, match);
+                        }
+                    }
+                }
+            }
         };
 
         // Debounce function to avoid excessive processing
@@ -160,6 +182,8 @@ export default class TypifyPlugin extends Plugin {
                         if (
                             (mutation.target.classList.contains('multi-select-pill') ||
                                 mutation.target.classList.contains('value-list-element') ||
+                                mutation.target.classList.contains('bases-rendered-value') ||
+                                mutation.target.classList.contains('typify-single-value') ||
                                 mutation.target.classList.contains('custom-status-icon-pill') ||
                                 mutation.target.classList.contains('custom-status-icon-value')) &&
                             (mutation.attributeName === 'data-value' ||
@@ -300,6 +324,47 @@ export default class TypifyPlugin extends Plugin {
         } else {
             element.classList.remove('custom-status-icon-value');
             this.clearStyle(element);
+        }
+    }
+
+    /**
+     * Processes a single-value Bases Cards element by wrapping text in a styled span.
+     * Unlike multi-value properties (which have .value-list-element children),
+     * single-value properties render text directly inside .bases-rendered-value.
+     * We wrap the text in a <span> to style it without breaking the card layout.
+     * @param container The .bases-rendered-value element.
+     * @param propertyKey The property key this element belongs to.
+     */
+    processSingleCardValue(container: HTMLElement, propertyKey: string) {
+        // Skip if this container already has .value-list-element children (multi-value)
+        if (container.querySelector('.value-list-element')) return;
+
+        const value = container.textContent?.trim() || '';
+        if (!value) return;
+
+        const style = this.findMatchingStyle(value, propertyKey);
+
+        // Find existing wrapper if already created
+        let wrapper = container.querySelector('.typify-single-value') as HTMLElement | null;
+
+        if (style) {
+            if (!wrapper) {
+                // Create wrapper span and move text into it
+                wrapper = document.createElement('span');
+                wrapper.classList.add('typify-single-value');
+                wrapper.textContent = value;
+                container.textContent = '';
+                container.appendChild(wrapper);
+            }
+            wrapper.classList.add('custom-status-icon-value');
+            wrapper.setAttribute('data-property-key', propertyKey);
+            wrapper.setAttribute('data-value', value);
+            this.applyStyle(wrapper, style);
+        } else if (wrapper) {
+            // No matching style — unwrap: restore original text
+            const text = wrapper.textContent || '';
+            wrapper.remove();
+            container.textContent = text;
         }
     }
 
@@ -501,7 +566,15 @@ export default class TypifyPlugin extends Plugin {
             if (!match) return;
 
             const valueElements = prop.findAll('.value-list-element');
-            valueElements.forEach(el => this.processValueListElement(el, match));
+            if (valueElements.length > 0) {
+                valueElements.forEach(el => this.processValueListElement(el, match));
+            } else {
+                // Single-value fallback: Bases renders single list values as .bases-rendered-value
+                const renderedValue = prop.find('.bases-rendered-value');
+                if (renderedValue instanceof HTMLElement) {
+                    this.processSingleCardValue(renderedValue, match);
+                }
+            }
         });
     }
 
@@ -529,6 +602,13 @@ export default class TypifyPlugin extends Plugin {
             el.classList.remove('custom-status-icon-value');
             el.removeAttribute('data-value');
             el.removeAttribute('data-property-key');
+        });
+        // Unwrap single-value wrappers: restore original text content
+        document.body.findAll('.typify-single-value').forEach(el => {
+            const parent = el.parentElement;
+            if (parent) {
+                parent.textContent = el.textContent || '';
+            }
         });
     }
 

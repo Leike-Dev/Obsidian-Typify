@@ -83,23 +83,6 @@ Typify es un plugin para Obsidian que te permite crear estilos únicos para tus 
 > [!Warning]  
 > La importación de configuraciones **reemplaza todos los estilos existentes**. Los estilos creados después del respaldo se perderán.
 
-## Problemas Conocidos
-
-### Vista de Tarjetas del Bases — Obsidian Mobile
-
-En Obsidian Mobile, las píldoras estilizadas en la vista de Tarjetas del Bases pueden aparecer ligeramente recortadas en la parte inferior. Esto es causado por restricciones de diseño internas de Obsidian en los contenedores de propiedades de las tarjetas, lo cual está fuera del control del plugin.
-
-En mis pruebas, es posible corregir esto usando CSS personalizado para aumentar la altura de línea de la propiedad de la tarjeta, pero esto afecta a todos los elementos, no solo a la línea con el problema.
-
-Si quieres usar la solución que probé, agrega el siguiente fragmento de CSS en **Configuración > Apariencia > Fragmentos CSS**:
-
-```css
-.bases-view .bases-cards-container .bases-cards-item .bases-cards-property .bases-cards-line {
-    min-height: 26px !important;
-    margin-top: 4px;
-}
-```
-
 ## Desarrollo
 
 Si quieres compilar el plugin tú mismo, haz lo siguiente:
