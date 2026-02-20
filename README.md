@@ -10,7 +10,7 @@
 
 <div align="center">
 
-   English | [Português](./docs/README_pt.md)
+   English | [Português](./docs/README_pt.md) | [Español](./docs/README_es.md) | [Français](./docs/README_fr.md) | [简体中文](./docs/README_zh-CN.md)
 
 </div>
 
@@ -32,7 +32,7 @@ Typify is an Obsidian plugin that allows you to create unique styles for your me
 
 - **🧩 Custom Icons**: Not enough icons? You can easily use your own.
 
-- **🌍 Internationalization**: Fully translated into English and Portuguese (Brazil).
+- **🌍 Internationalization**: Fully translated into English, Portuguese (Brazil), Spanish, French, and Simplified Chinese.
 
 - **💾 Export/Import**: Easily backup and share your configurations.
 
