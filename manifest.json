@@ -1,7 +1,7 @@
 {
 	"id": "typify",
 	"name": "Typify",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"minAppVersion": "0.15.0",
 	"description": "Create attractive and customizable status indicators with Lucide icons for your metadata properties.",
 	"author": "Flavio Azurita",
