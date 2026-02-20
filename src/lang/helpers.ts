@@ -5,11 +5,18 @@
 
 import { en } from './en';
 import { ptBR } from './pt-BR';
+import { es } from './es';
+import { fr } from './fr';
+import { zhCN } from './zh-CN';
 
 const localeMap: { [key: string]: Partial<typeof en> } = {
     'en': en,
     'pt': ptBR,
     'pt-br': ptBR,
+    'es': es,
+    'fr': fr,
+    'zh': zhCN,
+    'zh-cn': zhCN,
 };
 
 const locale = window.localStorage.getItem('language') || 'en';
