@@ -391,8 +391,7 @@ export default class TypifyPlugin extends Plugin {
         }
 
         const palette = generatePalette(style.baseColor);
-        const isRectangle = style.shape === 'rectangle';
-        const pillRadius = isRectangle ? '4px' : 'var(--tag-radius, 14px)';
+        const pillRadius = style.shape === 'flat' ? '0px' : style.shape === 'rectangle' ? '4px' : 'var(--tag-radius, 14px)';
 
         const cssVars: Record<string, string> = {
             '--pill-light-bg': palette.light.bg,

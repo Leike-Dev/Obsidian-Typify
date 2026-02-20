@@ -23,7 +23,7 @@ export class StyleEditorModal extends Modal {
     private baseColor = DEFAULT_STATUS_COLOR;
     private icon = '';
     private appliesTo: string[] = [];
-    private shape: 'pill' | 'rectangle' = 'pill';
+    private shape: 'pill' | 'rectangle' | 'flat' = 'pill';
 
     // DOM references for live preview updates
     private previewPillLight: HTMLElement | null = null;
@@ -124,9 +124,10 @@ export class StyleEditorModal extends Modal {
             .addDropdown(dropdown => {
                 dropdown.addOption('pill', t('shape_pill'));
                 dropdown.addOption('rectangle', t('shape_rectangle'));
+                dropdown.addOption('flat', t('shape_flat'));
                 dropdown.setValue(this.shape);
                 dropdown.onChange(value => {
-                    this.shape = value as 'pill' | 'rectangle';
+                    this.shape = value as 'pill' | 'rectangle' | 'flat';
                     this.updatePreview();
                 });
             });
@@ -231,7 +232,7 @@ export class StyleEditorModal extends Modal {
         // Light pill
         this.previewPillLight.empty();
         this.previewPillLight.setText(displayName);
-        const previewRadius = this.shape === 'rectangle' ? '4px' : '10px';
+        const previewRadius = this.shape === 'flat' ? '0px' : this.shape === 'rectangle' ? '4px' : '10px';
         this.previewPillLight.setCssStyles({
             backgroundColor: palette.light.bg,
             color: palette.light.text,

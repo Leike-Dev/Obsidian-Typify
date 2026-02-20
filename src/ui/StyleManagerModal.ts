@@ -174,7 +174,7 @@ export class StyleManagerModal extends Modal {
         }
 
         // Shape info
-        const shapeText = (style.shape && style.shape !== 'pill') ? t('shape_rectangle') : t('shape_pill');
+        const shapeText = style.shape === 'flat' ? t('shape_flat') : style.shape === 'rectangle' ? t('shape_rectangle') : t('shape_pill');
         if (metaRow.childElementCount > 0) {
             metaRow.createSpan({ text: ' \u00b7 ' });
         }

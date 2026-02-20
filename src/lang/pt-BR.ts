@@ -96,11 +96,10 @@ export const ptBR = {
     'shape_title': 'Formato',
     'shape_pill': 'Pílula',
     'shape_rectangle': 'Retângulo',
+    'shape_flat': 'Plano',
     'shape_label': 'Formato',
 
     // Editar Estilo
     'edit_style_title': 'Editar estilo',
     'style_updated': 'Estilo "{name}" atualizado!'
 };
-
-

@@ -96,11 +96,10 @@ export const en = {
     'shape_title': 'Shape',
     'shape_pill': 'Pill',
     'shape_rectangle': 'Rectangle',
+    'shape_flat': 'Flat',
     'shape_label': 'Shape',
 
     // Edit Style
     'edit_style_title': 'Edit style',
     'style_updated': 'Style "{name}" updated!'
 };
-
-
