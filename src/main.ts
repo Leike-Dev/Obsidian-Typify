@@ -154,7 +154,7 @@ export default class TypifyPlugin extends Plugin {
                     if (dataProperty) {
                         const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
                         if (match) {
-                            this.processSingleCardValue(node as HTMLElement, match);
+                            this.processSingleCardValue(node, match);
                         }
                     }
                 }
@@ -345,7 +345,7 @@ export default class TypifyPlugin extends Plugin {
         const style = this.findMatchingStyle(value, propertyKey);
 
         // Find existing wrapper if already created
-        let wrapper = container.querySelector('.typify-single-value') as HTMLElement | null;
+        let wrapper = container.querySelector<HTMLElement>('.typify-single-value');
 
         if (style) {
             if (!wrapper) {
