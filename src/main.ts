@@ -72,4 +72,13 @@ export default class TypifyPlugin extends Plugin {
         }
         return this.cachedTargetProps;
     }
+
+    /**
+     * Public API for external plugins (like Obsidian-Folio) to style pills.
+     */
+    processPill(pill: Element, propertyKey: string) {
+        if (this.domManager) {
+            this.domManager.processPill(pill, propertyKey);
+        }
+    }
 }
