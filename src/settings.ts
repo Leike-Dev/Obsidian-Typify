@@ -30,14 +30,6 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         containerEl.addClass('csi-settings-container');
 
         // ================================================================
-        // HEADER
-        // ================================================================
-        new Setting(containerEl)
-            .setName(t('settings_title'))
-            .setHeading()
-            .setDesc(`v${this.plugin.manifest.version}`);
-
-        // ================================================================
         // SECTION 1: CONFIGURATION
         // ================================================================
         new Setting(containerEl).setName(t('section_configuration_title')).setHeading();
