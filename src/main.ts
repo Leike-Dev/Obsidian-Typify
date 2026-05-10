@@ -35,6 +35,9 @@ export default class TypifyPlugin extends Plugin {
         this.addSettingTab(new CustomStatusIconsSettingTab(this.app, this));
 
         this.styleManager = new StyleManager(this);
+        // Build style cache O(1) and CSS stylesheet before parsing the DOM
+        this.styleManager.buildCache();
+
         this.domManager = new DOMManager(this, this.styleManager);
         this.domManager.init();
     }
@@ -42,6 +45,9 @@ export default class TypifyPlugin extends Plugin {
     onunload() {
         if (this.domManager) {
             this.domManager.cleanup();
+        }
+        if (this.styleManager) {
+            this.styleManager.cleanup();
         }
     }
 
@@ -51,8 +57,9 @@ export default class TypifyPlugin extends Plugin {
 
     async saveSettings() {
         this.cachedTargetProps = null; 
-        this.styleManager.clearCache(); 
         await this.saveData(this.settings);
+        // Re-build stylesheet and cache
+        this.styleManager.buildCache(); 
         this.domManager.refreshProcessing();
     }
 

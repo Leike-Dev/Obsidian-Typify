@@ -1,134 +1,153 @@
 import { getIcon } from 'obsidian';
 import TypifyPlugin from './main';
-import { StatusStyle } from './types';
 import { generatePalette } from './utils';
 
 export class StyleManager {
     private plugin: TypifyPlugin;
-    private styleCache: Map<string, { cssVars: Record<string, string>, iconUrl: string | null }> = new Map();
+    private styleElement: HTMLStyleElement | null = null;
+    // O(1) Lookup cache: key = value.toLowerCase() + '|' + propertyKey
+    private fastLookupMap: Map<string, string> = new Map();
+    // Cache for global fallbacks: key = value.toLowerCase()
+    private globalFallbackMap: Map<string, string> = new Map();
 
     constructor(plugin: TypifyPlugin) {
         this.plugin = plugin;
     }
 
-    clearCache() {
-        this.styleCache.clear();
-    }
+    /**
+     * Builds the global CSS and the O(1) lookup dictionary.
+     * Should be called on load and on save settings.
+     */
+    buildCache() {
+        this.fastLookupMap.clear();
+        this.globalFallbackMap.clear();
 
-    findMatchingStyle(value: string, propertyKey: string): StatusStyle | undefined {
-        // 1. Exact match with scope
-        let match = this.plugin.settings.statusStyles.find(
-            s => s.name.toLowerCase() === value.toLowerCase() &&
-                s.appliesTo && s.appliesTo.includes(propertyKey)
-        );
-
-        if (match) return match;
-
-        // 2. Exact match global (no scope or empty scope)
-        match = this.plugin.settings.statusStyles.find(
-            s => s.name.toLowerCase() === value.toLowerCase() &&
-                (!s.appliesTo || s.appliesTo.length === 0)
-        );
-
-        return match;
-    }
-
-    applyStyle(el: HTMLElement, style: StatusStyle) {
-        const data = this.getStyleData(style);
-        const styles: Record<string, string | null> = {};
-
-        // Collect CSS variables
-        Object.entries(data.cssVars).forEach(([key, val]) => {
-            styles[key] = val;
-        });
-
-        // Collect Icon variables
-        if (data.iconUrl) {
-            styles['--pill-icon-url'] = data.iconUrl;
-            styles['--pill-icon-display'] = 'inline-block';
-        } else {
-            styles['--pill-icon-url'] = null;
-            styles['--pill-icon-display'] = null;
+        if (this.styleElement) {
+            this.styleElement.remove();
         }
 
-        this.setCssStyles(el, styles);
-    }
+        // eslint-disable-next-line obsidianmd/no-forbidden-elements
+        this.styleElement = document.createElement('style');
+        this.styleElement.id = 'typify-dynamic-styles';
+        document.head.appendChild(this.styleElement);
 
-    setCssStyles(el: HTMLElement, styles: Record<string, string | null>) {
-        Object.entries(styles).forEach(([key, val]) => {
-            if (val === null) {
-                if (el.style.getPropertyValue(key)) {
-                    el.style.removeProperty(key);
-                }
+        let cssContent = '';
+        const styles = this.plugin.settings.statusStyles;
+
+        styles.forEach((style, index) => {
+            const className = `typify-style-${index}`;
+            const valueKey = style.name.toLowerCase();
+
+            // Populate O(1) Dictionaries
+            if (style.appliesTo && style.appliesTo.length > 0) {
+                style.appliesTo.forEach(prop => {
+                    this.fastLookupMap.set(`${valueKey}|${prop.toLowerCase()}`, className);
+                });
             } else {
-                if (el.style.getPropertyValue(key) !== val) {
-                    el.style.setProperty(key, val);
+                this.globalFallbackMap.set(valueKey, className);
+            }
+
+            // Generate CSS
+            const palette = generatePalette(style.baseColor);
+            const pillRadius = style.shape === 'flat' ? '0px' : style.shape === 'rectangle' ? '4px' : 'var(--tag-radius, 14px)';
+
+            let iconUrl: string | null = null;
+            if (style.icon && style.icon.startsWith('custom:')) {
+                const iconName = style.icon.replace('custom:', '');
+                if (this.plugin.customIconsManager) {
+                    iconUrl = this.plugin.customIconsManager.getSvgDataUri(iconName);
+                }
+                if (!iconUrl) {
+                    const fallbackEl = getIcon('square');
+                    if (fallbackEl) {
+                        const svg = fallbackEl.outerHTML.replace(/currentColor/g, 'black');
+                        iconUrl = `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
+                    }
+                }
+            } else if (style.icon) {
+                const iconEl = getIcon(style.icon);
+                if (iconEl) {
+                    const svgString = iconEl.outerHTML.replace(/currentColor/g, 'black');
+                    const encodedSvg = encodeURIComponent(svgString);
+                    iconUrl = `url("data:image/svg+xml;charset=utf-8,${encodedSvg}")`;
                 }
             }
+
+            cssContent += `
+body .${className} {
+    --pill-light-bg: ${palette.light.bg};
+    --pill-light-text: ${palette.light.text};
+    --pill-light-bg-hover: ${palette.light.bgHover};
+    --pill-light-text-hover: ${palette.light.textHover};
+    --pill-light-border: ${palette.light.border};
+    
+    --pill-dark-bg: ${palette.dark.bg};
+    --pill-dark-text: ${palette.dark.text};
+    --pill-dark-bg-hover: ${palette.dark.bgHover};
+    --pill-dark-text-hover: ${palette.dark.textHover};
+    --pill-dark-border: ${palette.dark.border};
+    
+    --pill-radius: ${pillRadius};
+`;
+            if (iconUrl) {
+                cssContent += `
+    --pill-icon-url: ${iconUrl};
+    --pill-icon-display: inline-block;
+`;
+            }
+            cssContent += `}\n`;
         });
+
+        this.styleElement.textContent = cssContent;
     }
 
+    /**
+     * Finds the matched class name in O(1) time.
+     */
+    findMatchingClass(value: string, propertyKey: string): string | undefined {
+        const valLower = value.toLowerCase();
+        const propLower = propertyKey.toLowerCase();
+        
+        // 1. Exact match with scope
+        const scopedMatch = this.fastLookupMap.get(`${valLower}|${propLower}`);
+        if (scopedMatch) return scopedMatch;
+
+        // 2. Exact match global
+        return this.globalFallbackMap.get(valLower);
+    }
+
+    /**
+     * Applies the class to the element and removes old ones.
+     */
+    applyStyle(el: HTMLElement, className: string) {
+        this.clearStyle(el);
+        el.classList.add(className);
+    }
+
+    /**
+     * Removes any existing typify dynamic classes from the element.
+     */
     clearStyle(el: HTMLElement) {
-        const stylesToClear: Record<string, string | null> = {};
-        [
-            '--pill-light-bg', '--pill-light-text', '--pill-light-bg-hover', '--pill-light-text-hover', '--pill-light-border',
-            '--pill-dark-bg', '--pill-dark-text', '--pill-dark-bg-hover', '--pill-dark-text-hover', '--pill-dark-border',
-            '--pill-radius', '--pill-icon-url', '--pill-icon-display'
-        ].forEach(prop => {
-            stylesToClear[prop] = null;
+        const classesToRemove: string[] = [];
+        el.classList.forEach(cls => {
+            if (cls.startsWith('typify-style-')) {
+                classesToRemove.push(cls);
+            }
         });
-
-        this.setCssStyles(el, stylesToClear);
+        if (classesToRemove.length > 0) {
+            el.classList.remove(...classesToRemove);
+        }
     }
 
-    getStyleData(style: StatusStyle): { cssVars: Record<string, string>, iconUrl: string | null } {
-        if (this.styleCache.has(style.name)) {
-            return this.styleCache.get(style.name)!;
+    /**
+     * Cleans up the injected stylesheet on unload.
+     */
+    cleanup() {
+        if (this.styleElement) {
+            this.styleElement.remove();
+            this.styleElement = null;
         }
-
-        const palette = generatePalette(style.baseColor);
-        const pillRadius = style.shape === 'flat' ? '0px' : style.shape === 'rectangle' ? '4px' : 'var(--tag-radius, 14px)';
-
-        const cssVars: Record<string, string> = {
-            '--pill-light-bg': palette.light.bg,
-            '--pill-light-text': palette.light.text,
-            '--pill-light-bg-hover': palette.light.bgHover,
-            '--pill-light-text-hover': palette.light.textHover,
-            '--pill-light-border': palette.light.border,
-            '--pill-dark-bg': palette.dark.bg,
-            '--pill-dark-text': palette.dark.text,
-            '--pill-dark-bg-hover': palette.dark.bgHover,
-            '--pill-dark-text-hover': palette.dark.textHover,
-            '--pill-dark-border': palette.dark.border,
-            '--pill-radius': pillRadius
-        };
-
-        // Icon generation
-        let iconUrl: string | null = null;
-        if (style.icon && style.icon.startsWith('custom:')) {
-            const iconName = style.icon.replace('custom:', '');
-            if (this.plugin.customIconsManager) {
-                iconUrl = this.plugin.customIconsManager.getSvgDataUri(iconName);
-            }
-            if (!iconUrl) {
-                // Fallback square
-                const fallbackEl = getIcon('square');
-                if (fallbackEl) {
-                    const svg = fallbackEl.outerHTML.replace(/currentColor/g, 'black');
-                    iconUrl = `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
-                }
-            }
-        } else if (style.icon) {
-            const iconEl = getIcon(style.icon);
-            if (iconEl) {
-                const svgString = iconEl.outerHTML.replace(/currentColor/g, 'black');
-                const encodedSvg = encodeURIComponent(svgString);
-                iconUrl = `url("data:image/svg+xml;charset=utf-8,${encodedSvg}")`;
-            }
-        }
-
-        const data = { cssVars, iconUrl };
-        this.styleCache.set(style.name, data);
-        return data;
+        this.fastLookupMap.clear();
+        this.globalFallbackMap.clear();
     }
 }

@@ -5,7 +5,6 @@ export class DOMManager {
     private plugin: TypifyPlugin;
     private styleManager: StyleManager;
     private observer: MutationObserver | null = null;
-    private debounceTimeout: ReturnType<typeof setTimeout> | null = null;
 
     constructor(plugin: TypifyPlugin, styleManager: StyleManager) {
         this.plugin = plugin;
@@ -18,62 +17,83 @@ export class DOMManager {
 
             const targetProps = this.plugin.getTargetProperties();
 
-            // ============================================
             // CONTEXT 1: Metadata Properties
-            // ============================================
-            const propertyRows = node.findAll('.metadata-property');
+            if (node.classList.contains('metadata-property')) {
+                const propertyKey = node.getAttribute('data-property-key');
+                if (propertyKey && targetProps.includes(propertyKey.toLowerCase())) {
+                    const pills = node.findAll('.multi-select-pill');
+                    pills.forEach((pill: Element) => this.processPill(pill, propertyKey));
+                }
+            } else {
+                const propertyRows = node.findAll('.metadata-property');
+                propertyRows.forEach(row => {
+                    const propertyKey = row.getAttribute('data-property-key');
+                    if (!propertyKey || !targetProps.includes(propertyKey.toLowerCase())) return;
+                    const pills = row.findAll('.multi-select-pill');
+                    pills.forEach((pill: Element) => this.processPill(pill, propertyKey));
+                });
+            }
 
-            propertyRows.forEach(row => {
-                const propertyKey = row.getAttribute('data-property-key');
-                if (!propertyKey || !targetProps.includes(propertyKey.toLowerCase())) return;
-
-                const pills = row.findAll('.multi-select-pill');
-                pills.forEach((pill: Element) => this.processPill(pill, propertyKey));
-            });
-
-            // ============================================
             // CONTEXT 2: Bases Plugin (Table View)
-            // ============================================
-            const basesCells = node.findAll('.bases-td');
-
-            basesCells.forEach(cell => {
-                const dataProperty = cell.getAttribute('data-property');
-                if (!dataProperty) return;
-
-                const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
-                if (!match) return;
-
-                const pills = cell.findAll('.multi-select-pill');
-                pills.forEach((pill: Element) => this.processPill(pill, match));
-            });
-
-            // ============================================
-            // CONTEXT 3: Bases Plugin (Cards View)
-            // ============================================
-            const basesCardsProperties = node.findAll('.bases-cards-property');
-
-            basesCardsProperties.forEach(prop => {
-                const dataProperty = prop.getAttribute('data-property');
-                if (!dataProperty) return;
-
-                const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
-                if (!match) return;
-
-                const valueElements = prop.findAll('.value-list-element');
-                if (valueElements.length > 0) {
-                    valueElements.forEach((el: Element) => this.processValueListElement(el, match));
-                } else {
-                    const renderedValue = prop.find('.bases-rendered-value');
-                    if (renderedValue instanceof HTMLElement) {
-                        this.processSingleCardValue(renderedValue, match);
+            if (node.classList.contains('bases-td')) {
+                const dataProperty = node.getAttribute('data-property');
+                if (dataProperty) {
+                    const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
+                    if (match) {
+                        const pills = node.findAll('.multi-select-pill');
+                        pills.forEach((pill: Element) => this.processPill(pill, match));
                     }
                 }
-            });
+            } else {
+                const basesCells = node.findAll('.bases-td');
+                basesCells.forEach(cell => {
+                    const dataProperty = cell.getAttribute('data-property');
+                    if (!dataProperty) return;
+                    const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
+                    if (!match) return;
+                    const pills = cell.findAll('.multi-select-pill');
+                    pills.forEach((pill: Element) => this.processPill(pill, match));
+                });
+            }
 
-            // ============================================
-            // Check if node itself is a pill or value-list-element
-            // ============================================
-            if (node.classList?.contains('multi-select-pill')) {
+            // CONTEXT 3: Bases Plugin (Cards View)
+            if (node.classList.contains('bases-cards-property')) {
+                const dataProperty = node.getAttribute('data-property');
+                if (dataProperty) {
+                    const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
+                    if (match) {
+                        const valueElements = node.findAll('.value-list-element');
+                        if (valueElements.length > 0) {
+                            valueElements.forEach((el: Element) => this.processValueListElement(el, match));
+                        } else {
+                            const renderedValue = node.find('.bases-rendered-value');
+                            if (renderedValue instanceof HTMLElement) {
+                                this.processSingleCardValue(renderedValue, match);
+                            }
+                        }
+                    }
+                }
+            } else {
+                const basesCardsProperties = node.findAll('.bases-cards-property');
+                basesCardsProperties.forEach(prop => {
+                    const dataProperty = prop.getAttribute('data-property');
+                    if (!dataProperty) return;
+                    const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
+                    if (!match) return;
+                    const valueElements = prop.findAll('.value-list-element');
+                    if (valueElements.length > 0) {
+                        valueElements.forEach((el: Element) => this.processValueListElement(el, match));
+                    } else {
+                        const renderedValue = prop.find('.bases-rendered-value');
+                        if (renderedValue instanceof HTMLElement) {
+                            this.processSingleCardValue(renderedValue, match);
+                        }
+                    }
+                });
+            }
+
+            // Leaf nodes itself
+            if (node.classList.contains('multi-select-pill')) {
                 const metadataProperty = node.closest('.metadata-property');
                 if (metadataProperty) {
                     const propertyKey = metadataProperty.getAttribute('data-property-key');
@@ -82,7 +102,6 @@ export class DOMManager {
                         return;
                     }
                 }
-
                 const basesCell = node.closest('.bases-td');
                 if (basesCell) {
                     const dataProperty = basesCell.getAttribute('data-property');
@@ -95,7 +114,7 @@ export class DOMManager {
                 }
             }
 
-            if (node.classList?.contains('value-list-element')) {
+            if (node.classList.contains('value-list-element')) {
                 const basesCardsProp = node.closest('.bases-cards-property');
                 if (basesCardsProp) {
                     const dataProperty = basesCardsProp.getAttribute('data-property');
@@ -108,7 +127,7 @@ export class DOMManager {
                 }
             }
 
-            if (node.classList?.contains('bases-rendered-value')) {
+            if (node.classList.contains('bases-rendered-value')) {
                 const basesCardsProp = node.closest('.bases-cards-property');
                 if (basesCardsProp) {
                     const dataProperty = basesCardsProp.getAttribute('data-property');
@@ -122,19 +141,10 @@ export class DOMManager {
             }
         };
 
-        const debouncedRefresh = () => {
-            if (this.debounceTimeout) clearTimeout(this.debounceTimeout);
-            this.debounceTimeout = setTimeout(() => {
-                this.refreshProcessing();
-            }, 100);
-        };
-
         this.observer = new MutationObserver((mutations) => {
-            let needsRefresh = false;
             mutations.forEach((mutation) => {
                 if (mutation.type === 'childList') {
                     mutation.addedNodes.forEach(node => processNode(node));
-                    needsRefresh = true;
                 }
                 if (mutation.type === 'attributes' || mutation.type === 'characterData') {
                     if (mutation.target instanceof HTMLElement) {
@@ -147,33 +157,14 @@ export class DOMManager {
                                 mutation.target.classList.contains('custom-status-icon-value')) &&
                             (mutation.attributeName === 'data-value' ||
                                 mutation.attributeName === 'data-property-key' ||
-                                mutation.attributeName === 'style' ||
                                 mutation.attributeName === 'class')
                         ) {
                             return; 
                         }
+                        processNode(mutation.target);
                     }
-                    needsRefresh = true;
-                }
-                if (mutation.target instanceof HTMLElement &&
-                    (mutation.target.classList.contains('metadata-properties') ||
-                        mutation.target.classList.contains('metadata-container') ||
-                        mutation.target.closest('.metadata-container'))) {
-                    processNode(mutation.target);
-                    needsRefresh = true;
-                }
-                if (mutation.target instanceof HTMLElement &&
-                    (mutation.target.classList.contains('bases-view') ||
-                        mutation.target.classList.contains('bases-tbody') ||
-                        mutation.target.classList.contains('bases-cards-container') ||
-                        mutation.target.closest('.bases-view'))) {
-                    processNode(mutation.target);
-                    needsRefresh = true;
                 }
             });
-            if (needsRefresh) {
-                debouncedRefresh();
-            }
         });
 
         this.plugin.registerEvent(this.plugin.app.workspace.on('layout-change', () => {
@@ -193,24 +184,31 @@ export class DOMManager {
         const metadataContainers = document.body.findAll('.metadata-container');
         metadataContainers.forEach(container => {
             this.processMetadataContainer(container);
-            this.observer!.observe(container, {
-                childList: true,
-                subtree: true,
-                attributes: true,
-                characterData: true
-            });
+            // Avoid re-observing the same element multiple times
+            if (!container.hasAttribute('data-typify-observed')) {
+                container.setAttribute('data-typify-observed', 'true');
+                this.observer!.observe(container, {
+                    childList: true,
+                    subtree: true,
+                    attributes: true,
+                    characterData: true
+                });
+            }
         });
 
         const basesViews = document.body.findAll('.bases-view');
         basesViews.forEach(view => {
             this.processBasesView(view);
             this.processBasesCardsView(view);
-            this.observer!.observe(view, {
-                childList: true,
-                subtree: true,
-                attributes: true,
-                characterData: true
-            });
+            if (!view.hasAttribute('data-typify-observed')) {
+                view.setAttribute('data-typify-observed', 'true');
+                this.observer!.observe(view, {
+                    childList: true,
+                    subtree: true,
+                    attributes: true,
+                    characterData: true
+                });
+            }
         });
     }
 
@@ -228,10 +226,10 @@ export class DOMManager {
             pill.setAttribute('data-value', value);
         }
 
-        const style = this.styleManager.findMatchingStyle(value, propertyKey);
-        if (style) {
+        const matchedClass = this.styleManager.findMatchingClass(value, propertyKey);
+        if (matchedClass) {
             pill.classList.add('custom-status-icon-pill');
-            this.styleManager.applyStyle(pill, style);
+            this.styleManager.applyStyle(pill, matchedClass);
         } else {
             pill.classList.remove('custom-status-icon-pill');
             this.styleManager.clearStyle(pill);
@@ -251,10 +249,10 @@ export class DOMManager {
             element.setAttribute('data-value', value);
         }
 
-        const style = this.styleManager.findMatchingStyle(value, propertyKey);
-        if (style) {
+        const matchedClass = this.styleManager.findMatchingClass(value, propertyKey);
+        if (matchedClass) {
             element.classList.add('custom-status-icon-value');
-            this.styleManager.applyStyle(element, style);
+            this.styleManager.applyStyle(element, matchedClass);
         } else {
             element.classList.remove('custom-status-icon-value');
             this.styleManager.clearStyle(element);
@@ -267,11 +265,11 @@ export class DOMManager {
         const value = container.textContent?.trim() || '';
         if (!value) return;
 
-        const style = this.styleManager.findMatchingStyle(value, propertyKey);
+        const matchedClass = this.styleManager.findMatchingClass(value, propertyKey);
 
         let wrapper = container.querySelector<HTMLElement>('.typify-single-value');
 
-        if (style) {
+        if (matchedClass) {
             if (!wrapper) {
                 wrapper = document.createElement('span');
                 wrapper.classList.add('typify-single-value');
@@ -282,7 +280,7 @@ export class DOMManager {
             wrapper.classList.add('custom-status-icon-value');
             wrapper.setAttribute('data-property-key', propertyKey);
             wrapper.setAttribute('data-value', value);
-            this.styleManager.applyStyle(wrapper, style);
+            this.styleManager.applyStyle(wrapper, matchedClass);
         } else if (wrapper) {
             const text = wrapper.textContent || '';
             wrapper.remove();
@@ -292,7 +290,6 @@ export class DOMManager {
 
     processMetadataContainer(container: HTMLElement) {
         const targetProps = this.plugin.getTargetProperties();
-
         const propertyRows = container.findAll('.metadata-property');
         propertyRows.forEach(row => {
             const propertyKey = row.getAttribute('data-property-key');
@@ -305,9 +302,7 @@ export class DOMManager {
 
     processBasesView(view: HTMLElement) {
         const targetProps = this.plugin.getTargetProperties();
-
         const cells = view.findAll('.bases-td');
-
         cells.forEach(cell => {
             const dataProperty = cell.getAttribute('data-property');
             if (!dataProperty) return;
@@ -322,9 +317,7 @@ export class DOMManager {
 
     processBasesCardsView(view: HTMLElement) {
         const targetProps = this.plugin.getTargetProperties();
-
         const cardsProperties = view.findAll('.bases-cards-property');
-
         cardsProperties.forEach(prop => {
             const dataProperty = prop.getAttribute('data-property');
             if (!dataProperty) return;
@@ -345,23 +338,24 @@ export class DOMManager {
     }
 
     cleanup() {
-        if (this.debounceTimeout) {
-            clearTimeout(this.debounceTimeout);
-            this.debounceTimeout = null;
-        }
         if (this.observer) {
             this.observer.disconnect();
             this.observer = null;
         }
+        document.body.findAll('[data-typify-observed]').forEach(el => {
+            el.removeAttribute('data-typify-observed');
+        });
         document.body.findAll('.custom-status-icon-pill').forEach(el => {
             el.classList.remove('custom-status-icon-pill');
             el.removeAttribute('data-value');
             el.removeAttribute('data-property-key');
+            this.styleManager.clearStyle(el);
         });
         document.body.findAll('.custom-status-icon-value').forEach(el => {
             el.classList.remove('custom-status-icon-value');
             el.removeAttribute('data-value');
             el.removeAttribute('data-property-key');
+            this.styleManager.clearStyle(el);
         });
         document.body.findAll('.typify-single-value').forEach(el => {
             const parent = el.parentElement;
