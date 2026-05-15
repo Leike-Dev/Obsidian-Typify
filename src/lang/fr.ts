@@ -41,10 +41,10 @@ export const fr = {
 
     // Exporter/Importer
     'export_title': 'Exporter les paramètres',
-    'export_desc': 'Exportez vos styles dans un fichier JSON pour sauvegarde ou partage.',
+    'export_desc': 'Copiez votre configuration de styles pour la partager ou la sauvegarder.',
     'export_button': 'Exporter',
     'import_title': 'Importer les paramètres',
-    'import_desc': 'Importez des styles depuis un fichier JSON précédemment exporté.',
+    'import_desc': 'Collez un JSON précédemment exporté pour restaurer vos styles.',
     'import_button': 'Importer',
     'import_success': 'Styles importés avec succès !',
     'import_error': 'Erreur lors de l\'importation des styles. Format de fichier invalide.',
@@ -59,8 +59,19 @@ export const fr = {
     'custom_icons_missing': '{count} icône(s) personnalisée(s) introuvable(s) : {names}.',
 
     // Messages d'Exportation
-    'export_success': 'Paramètres exportés avec succès vers {file}',
+    'export_success': 'Paramètres copiés dans le presse-papiers.',
     'export_error': 'Échec de l\'exportation des paramètres.',
+
+    // Modales d'Exportation/Importation
+    'export_modal_title': 'Exporter les paramètres',
+    'copy_clipboard_button': 'Copier dans le presse-papiers',
+    'copy_clipboard_success': 'Paramètres copiés dans le presse-papiers !',
+    'import_modal_title': 'Importer les paramètres',
+    'import_paste_placeholder': 'Collez votre configuration JSON ici...',
+    'import_empty_notice': 'Veuillez d\'abord coller votre configuration.',
+    'import_invalid_json': 'Format JSON invalide. Vérifiez vos données et réessayez.',
+    'import_no_valid_styles': 'Aucun style valide trouvé dans les données importées.',
+    'import_partial_success': '{imported} style(s) importé(s). {skipped} style(s) invalide(s) ont été ignorés.',
 
     // Gestion des Styles
     'section_styles_title': 'Styles',

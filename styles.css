@@ -777,3 +777,39 @@ h3.csi-status-list-header {
     font-size: var(--font-ui-small);
     padding: var(--size-4-8) var(--size-4-4);
 }
+
+/* ==========================================================================
+   EXPORT / IMPORT DATA MODALS
+   ========================================================================== */
+
+.typify-data-text-container {
+    margin-bottom: var(--size-4-3);
+}
+
+.typify-data-textarea {
+    width: 100%;
+    min-height: 200px;
+    max-height: 400px;
+    resize: vertical;
+    padding: var(--size-4-2) var(--size-4-3);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--input-radius);
+    background: var(--background-modifier-form-field);
+    color: var(--text-normal);
+    font-family: var(--font-monospace);
+    font-size: var(--font-ui-smaller);
+    line-height: 1.5;
+    box-sizing: border-box;
+    outline: none;
+    tab-size: 2;
+}
+
+.typify-data-textarea:focus {
+    border-color: var(--interactive-accent);
+    box-shadow: 0 0 0 2px rgba(var(--interactive-accent-rgb), 0.2);
+}
+
+.typify-data-textarea[readonly] {
+    cursor: default;
+    opacity: 0.85;
+}

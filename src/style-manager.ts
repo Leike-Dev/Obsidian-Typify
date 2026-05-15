@@ -26,7 +26,7 @@ export class StyleManager {
             this.styleElement.remove();
         }
 
-        this.styleElement = createEl('style') as HTMLStyleElement;
+        this.styleElement = createEl('style');
         this.styleElement.id = 'typify-dynamic-styles';
         activeDocument.head.appendChild(this.styleElement);
 

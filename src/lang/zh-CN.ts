@@ -41,10 +41,10 @@ export const zhCN = {
 
     // 导出/导入
     'export_title': '导出设置',
-    'export_desc': '将你的样式导出为 JSON 文件，用于备份或分享。',
+    'export_desc': '复制样式配置以便分享或备份。',
     'export_button': '导出',
     'import_title': '导入设置',
-    'import_desc': '从之前导出的 JSON 文件中导入样式。',
+    'import_desc': '粘贴之前导出的 JSON 来恢复样式。',
     'import_button': '导入',
     'import_success': '样式导入成功！',
     'import_error': '导入样式时出错。文件格式无效。',
@@ -59,8 +59,19 @@ export const zhCN = {
     'custom_icons_missing': '{count} 个自定义图标未找到：{names}。',
 
     // 导出消息
-    'export_success': '设置已成功导出到 {file}',
+    'export_success': '设置已复制到剪贴板。',
     'export_error': '导出设置失败。',
+
+    // 导出/导入弹窗
+    'export_modal_title': '导出设置',
+    'copy_clipboard_button': '复制到剪贴板',
+    'copy_clipboard_success': '设置已成功复制到剪贴板！',
+    'import_modal_title': '导入设置',
+    'import_paste_placeholder': '在此粘贴 JSON 配置…',
+    'import_empty_notice': '请先粘贴您的配置。',
+    'import_invalid_json': 'JSON 格式无效。请检查数据后重试。',
+    'import_no_valid_styles': '导入的数据中未找到有效样式。',
+    'import_partial_success': '已导入 {imported} 个样式。{skipped} 个无效样式已跳过。',
 
     // 样式管理
     'section_styles_title': '样式',

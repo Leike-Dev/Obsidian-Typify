@@ -41,10 +41,10 @@ export const es = {
 
     // Exportar/Importar
     'export_title': 'Exportar configuración',
-    'export_desc': 'Exporta tus estilos a un archivo JSON para respaldo o compartir.',
+    'export_desc': 'Copia tu configuración de estilos para compartir o respaldar.',
     'export_button': 'Exportar',
     'import_title': 'Importar configuración',
-    'import_desc': 'Importa estilos desde un archivo JSON exportado previamente.',
+    'import_desc': 'Pega un JSON exportado previamente para restaurar tus estilos.',
     'import_button': 'Importar',
     'import_success': '¡Estilos importados exitosamente!',
     'import_error': 'Error al importar estilos. Formato de archivo inválido.',
@@ -59,8 +59,19 @@ export const es = {
     'custom_icons_missing': '{count} ícono(s) personalizado(s) no encontrado(s): {names}.',
 
     // Mensajes de Exportación
-    'export_success': 'Configuración exportada exitosamente a {file}',
+    'export_success': 'Configuración copiada al portapapeles.',
     'export_error': 'Error al exportar configuración.',
+
+    // Modales de Exportar/Importar
+    'export_modal_title': 'Exportar configuración',
+    'copy_clipboard_button': 'Copiar al portapapeles',
+    'copy_clipboard_success': '¡Configuración copiada al portapapeles!',
+    'import_modal_title': 'Importar configuración',
+    'import_paste_placeholder': 'Pega tu configuración JSON aquí...',
+    'import_empty_notice': 'Pega tu configuración primero.',
+    'import_invalid_json': 'Formato JSON inválido. Verifica los datos e intenta de nuevo.',
+    'import_no_valid_styles': 'No se encontraron estilos válidos en los datos importados.',
+    'import_partial_success': '{imported} estilo(s) importado(s). {skipped} estilo(s) inválido(s) fueron omitidos.',
 
     // Gestión de Estilos
     'section_styles_title': 'Estilos',

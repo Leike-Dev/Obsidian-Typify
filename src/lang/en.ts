@@ -41,10 +41,10 @@ export const en = {
 
     // Export/Import
     'export_title': 'Export settings',
-    'export_desc': 'Export your styles to a JSON file for backup or sharing.',
+    'export_desc': 'Copy your styles configuration to share or backup.',
     'export_button': 'Export',
     'import_title': 'Import settings',
-    'import_desc': 'Import styles from a previously exported JSON file.',
+    'import_desc': 'Paste a previously exported JSON to restore your styles.',
     'import_button': 'Import',
     'import_success': 'Styles imported successfully!',
     'import_error': 'Error importing styles. Invalid file format.',
@@ -59,8 +59,19 @@ export const en = {
     'custom_icons_missing': '{count} custom icon(s) not found: {names}.',
 
     // Export Messages
-    'export_success': 'Settings exported successfully to {file}',
+    'export_success': 'Settings copied to clipboard.',
     'export_error': 'Failed to export settings.',
+
+    // Export/Import Modals
+    'export_modal_title': 'Export settings',
+    'copy_clipboard_button': 'Copy to clipboard',
+    'copy_clipboard_success': 'Settings copied to clipboard!',
+    'import_modal_title': 'Import settings',
+    'import_paste_placeholder': 'Paste your JSON configuration here...',
+    'import_empty_notice': 'Please paste your configuration first.',
+    'import_invalid_json': 'Invalid JSON format. Check your data and try again.',
+    'import_no_valid_styles': 'No valid styles found in the imported data.',
+    'import_partial_success': '{imported} style(s) imported. {skipped} invalid style(s) were skipped.',
 
     // Styles Management
     'section_styles_title': 'Styles',
