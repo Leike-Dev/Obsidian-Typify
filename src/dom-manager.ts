@@ -13,7 +13,7 @@ export class DOMManager {
 
     init() {
         const processNode = (node: Node) => {
-            if (!(node instanceof HTMLElement)) return;
+            if (!node.instanceOf(HTMLElement)) return;
 
             const targetProps = this.plugin.getTargetProperties();
 
@@ -67,7 +67,7 @@ export class DOMManager {
                             valueElements.forEach((el: Element) => this.processValueListElement(el, match));
                         } else {
                             const renderedValue = node.find('.bases-rendered-value');
-                            if (renderedValue instanceof HTMLElement) {
+                            if (renderedValue.instanceOf(HTMLElement)) {
                                 this.processSingleCardValue(renderedValue, match);
                             }
                         }
@@ -85,7 +85,7 @@ export class DOMManager {
                         valueElements.forEach((el: Element) => this.processValueListElement(el, match));
                     } else {
                         const renderedValue = prop.find('.bases-rendered-value');
-                        if (renderedValue instanceof HTMLElement) {
+                        if (renderedValue.instanceOf(HTMLElement)) {
                             this.processSingleCardValue(renderedValue, match);
                         }
                     }
@@ -147,7 +147,7 @@ export class DOMManager {
                     mutation.addedNodes.forEach(node => processNode(node));
                 }
                 if (mutation.type === 'attributes' || mutation.type === 'characterData') {
-                    if (mutation.target instanceof HTMLElement) {
+                    if (mutation.target.instanceOf(HTMLElement)) {
                         if (
                             (mutation.target.classList.contains('multi-select-pill') ||
                                 mutation.target.classList.contains('value-list-element') ||
@@ -181,7 +181,7 @@ export class DOMManager {
     refreshProcessing() {
         if (!this.observer) return;
 
-        const metadataContainers = document.body.findAll('.metadata-container');
+        const metadataContainers = activeDocument.body.findAll('.metadata-container');
         metadataContainers.forEach(container => {
             this.processMetadataContainer(container);
             // Avoid re-observing the same element multiple times
@@ -196,7 +196,7 @@ export class DOMManager {
             }
         });
 
-        const basesViews = document.body.findAll('.bases-view');
+        const basesViews = activeDocument.body.findAll('.bases-view');
         basesViews.forEach(view => {
             this.processBasesView(view);
             this.processBasesCardsView(view);
@@ -213,7 +213,7 @@ export class DOMManager {
     }
 
     processPill(pill: Element, propertyKey: string) {
-        if (!(pill instanceof HTMLElement)) return;
+        if (!pill.instanceOf(HTMLElement)) return;
 
         if (pill.getAttribute('data-property-key') !== propertyKey) {
             pill.setAttribute('data-property-key', propertyKey);
@@ -237,7 +237,7 @@ export class DOMManager {
     }
 
     processValueListElement(element: Element, propertyKey: string) {
-        if (!(element instanceof HTMLElement)) return;
+        if (!element.instanceOf(HTMLElement)) return;
 
         if (element.getAttribute('data-property-key') !== propertyKey) {
             element.setAttribute('data-property-key', propertyKey);
@@ -271,7 +271,7 @@ export class DOMManager {
 
         if (matchedClass) {
             if (!wrapper) {
-                wrapper = document.createElement('span');
+                wrapper = createSpan();
                 wrapper.classList.add('typify-single-value');
                 wrapper.textContent = value;
                 container.textContent = '';
@@ -330,7 +330,7 @@ export class DOMManager {
                 valueElements.forEach(el => this.processValueListElement(el, match));
             } else {
                 const renderedValue = prop.find('.bases-rendered-value');
-                if (renderedValue instanceof HTMLElement) {
+                if (renderedValue.instanceOf(HTMLElement)) {
                     this.processSingleCardValue(renderedValue, match);
                 }
             }
@@ -342,22 +342,22 @@ export class DOMManager {
             this.observer.disconnect();
             this.observer = null;
         }
-        document.body.findAll('[data-typify-observed]').forEach(el => {
+        activeDocument.body.findAll('[data-typify-observed]').forEach(el => {
             el.removeAttribute('data-typify-observed');
         });
-        document.body.findAll('.custom-status-icon-pill').forEach(el => {
+        activeDocument.body.findAll('.custom-status-icon-pill').forEach(el => {
             el.classList.remove('custom-status-icon-pill');
             el.removeAttribute('data-value');
             el.removeAttribute('data-property-key');
             this.styleManager.clearStyle(el);
         });
-        document.body.findAll('.custom-status-icon-value').forEach(el => {
+        activeDocument.body.findAll('.custom-status-icon-value').forEach(el => {
             el.classList.remove('custom-status-icon-value');
             el.removeAttribute('data-value');
             el.removeAttribute('data-property-key');
             this.styleManager.clearStyle(el);
         });
-        document.body.findAll('.typify-single-value').forEach(el => {
+        activeDocument.body.findAll('.typify-single-value').forEach(el => {
             const parent = el.parentElement;
             if (parent) {
                 parent.textContent = el.textContent || '';

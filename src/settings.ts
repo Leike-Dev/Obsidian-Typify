@@ -194,7 +194,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
      * Validates the file format before applying.
      */
     importSettings(): void {
-        const input = document.createElement('input');
+        const input = createEl('input');
         input.type = 'file';
         input.accept = '.json';
         input.addEventListener('change', (e) => {

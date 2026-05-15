@@ -73,7 +73,7 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(svgContent, 'image/svg+xml');
                 const svg = doc.documentElement;
-                if (svg instanceof SVGElement) {
+                if (svg.instanceOf(SVGElement)) {
                     iconEl.empty();
                     iconEl.appendChild(svg);
                 }

@@ -161,7 +161,7 @@ export class StyleManagerModal extends Modal {
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(svgContent, 'image/svg+xml');
                     const svg = doc.documentElement;
-                    if (svg instanceof SVGElement) {
+                    if (svg.instanceOf(SVGElement)) {
                         iconPreview.empty();
                         iconPreview.appendChild(svg);
                     }

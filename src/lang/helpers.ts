@@ -8,6 +8,7 @@ import { ptBR } from './pt-BR';
 import { es } from './es';
 import { fr } from './fr';
 import { zhCN } from './zh-CN';
+import { getLanguage } from 'obsidian';
 
 const localeMap: { [key: string]: Partial<typeof en> } = {
     'en': en,
@@ -19,7 +20,7 @@ const localeMap: { [key: string]: Partial<typeof en> } = {
     'zh-cn': zhCN,
 };
 
-const locale = window.localStorage.getItem('language') || 'en';
+const locale = getLanguage() || 'en';
 
 /**
  * Returns the localized string for the given translation key.

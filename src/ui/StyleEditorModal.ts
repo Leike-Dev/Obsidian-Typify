@@ -203,7 +203,7 @@ export class StyleEditorModal extends Modal {
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(svgContent, 'image/svg+xml');
                     const svg = doc.documentElement;
-                    if (svg instanceof SVGElement) {
+                    if (svg.instanceOf(SVGElement)) {
                         this.iconBtnEl.empty();
                         this.iconBtnEl.appendChild(svg);
                     }
@@ -278,7 +278,7 @@ export class StyleEditorModal extends Modal {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(svgContent, 'image/svg+xml');
                 const svgEl = doc.documentElement;
-                if (svgEl instanceof SVGElement) {
+                if (svgEl.instanceOf(SVGElement)) {
                     iconSpan.empty();
                     iconSpan.appendChild(svgEl);
                     svgEl.setCssStyles({ width: '14px', height: '14px' });

@@ -26,12 +26,9 @@ export class StyleManager {
             this.styleElement.remove();
         }
 
-        // We create the style element dynamically using a variable to bypass the 'no-forbidden-elements'
-        // literal AST check. We must inject dynamic CSS for user-defined styling which cannot be static.
-        const tagName = 'style';
-        this.styleElement = document.createElement(tagName as keyof HTMLElementTagNameMap) as HTMLStyleElement;
+        this.styleElement = createEl('style') as HTMLStyleElement;
         this.styleElement.id = 'typify-dynamic-styles';
-        document.head.appendChild(this.styleElement);
+        activeDocument.head.appendChild(this.styleElement);
 
         let cssContent = '';
         const styles = this.plugin.settings.statusStyles;
