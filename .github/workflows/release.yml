@@ -1,0 +1,61 @@
+name: Release
+
+on:
+  release:
+    types: [created]
+
+permissions:
+  id-token: write
+  contents: write
+  attestations: write
+
+jobs:
+  build-and-attest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Validate manifest version
+        run: |
+          MANIFEST_VERSION=$(node -p "require('./manifest.json').version")
+          RELEASE_TAG="${{ github.event.release.tag_name }}"
+          # Remove leading 'v' from tag if present (ex: v1.2.3 → 1.2.3)
+          RELEASE_VERSION="${RELEASE_TAG#v}"
+          echo "Manifest version: $MANIFEST_VERSION"
+          echo "Release version:  $RELEASE_VERSION"
+          if [ "$MANIFEST_VERSION" != "$RELEASE_VERSION" ]; then
+            echo "❌ Version mismatch! Update manifest.json before releasing."
+            exit 1
+          fi
+          echo "✅ Versions match."
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: |
+            main.js
+            styles.css
+            manifest.json
+
+      - name: Upload release assets
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload ${{ github.event.release.tag_name }} \
+            main.js \
+            styles.css \
+            manifest.json
