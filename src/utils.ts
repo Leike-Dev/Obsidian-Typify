@@ -97,13 +97,32 @@ function hslToHslaString(h: number, s: number, l: number, a: number = 1): string
  * @param baseColor The user-selected base color (Hex).
  * @returns A fully populated ColorPalette object.
  */
-export function generatePalette(baseColor: string): ColorPalette {
+export function generatePalette(baseColor: string, colorMode: 'subtle' | 'solid' = 'subtle'): ColorPalette {
     const { h, s, l } = hexToHSL(baseColor);
     const cap = (val: number) => Math.min(val, 100);
     // Blend user's lightness: asymmetric to avoid readability issues with very light colors
     // Dark colors (L<50): 30% influence | Light colors (L>50): 15% influence
     const offset = l < 50 ? (l - 50) * 0.3 : (l - 50) * 0.15;
     const blend = (target: number) => Math.max(5, Math.min(95, target + offset));
+
+    if (colorMode === 'solid') {
+        return {
+            light: {
+                bg: hslToHex(h, cap(s * 1.1), blend(72)),
+                text: hslToHex(h, cap(s * 1.2), blend(18)),
+                bgHover: hslToHex(h, cap(s * 1.15), blend(65)),
+                textHover: hslToHex(h, cap(s * 1.2), blend(12)),
+                border: hslToHex(h, cap(s * 1.0), blend(60))
+            },
+            dark: {
+                bg: hslToHex(h, cap(s * 0.85), blend(35)),
+                text: hslToHex(h, s * 0.5, blend(88)),
+                bgHover: hslToHex(h, cap(s * 0.9), blend(42)),
+                textHover: hslToHex(h, s * 0.4, blend(93)),
+                border: hslToHex(h, cap(s * 0.7), blend(48))
+            }
+        };
+    }
 
     return {
         light: {

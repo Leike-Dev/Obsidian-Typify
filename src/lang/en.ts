@@ -99,6 +99,12 @@ export const en = {
     'shape_flat': 'Flat',
     'shape_label': 'Shape',
 
+    // Color Mode
+    'color_mode_title': 'Color mode',
+    'color_mode_subtle': 'Subtle',
+    'color_mode_solid': 'Solid',
+    'color_mode_label': 'Color',
+
     // Edit Style
     'edit_style_title': 'Edit style',
     'style_updated': 'Style "{name}" updated!'

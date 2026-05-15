@@ -8,6 +8,7 @@ export interface StatusStyle {
     icon: string;
     appliesTo?: string[]; // Optional: List of properties this style applies to. If empty/undefined, applies to all.
     shape?: 'pill' | 'rectangle' | 'flat'; // Optional: Visual shape. Default is 'pill'.
+    colorMode?: 'subtle' | 'solid'; // Optional: Color intensity. Default is 'subtle' (transparent).
 }
 
 export interface CustomStatusIconsSettings {

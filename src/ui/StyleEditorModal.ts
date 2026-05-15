@@ -24,6 +24,7 @@ export class StyleEditorModal extends Modal {
     private icon = '';
     private appliesTo: string[] = [];
     private shape: 'pill' | 'rectangle' | 'flat' = 'pill';
+    private colorMode: 'subtle' | 'solid' = 'subtle';
 
     // DOM references for live preview updates
     private previewPillLight: HTMLElement | null = null;
@@ -43,6 +44,7 @@ export class StyleEditorModal extends Modal {
             this.icon = editStyle.icon || '';
             this.appliesTo = editStyle.appliesTo ? [...editStyle.appliesTo] : [];
             this.shape = editStyle.shape || 'pill';
+            this.colorMode = editStyle.colorMode || 'subtle';
         }
     }
 
@@ -128,6 +130,19 @@ export class StyleEditorModal extends Modal {
                 dropdown.setValue(this.shape);
                 dropdown.onChange(value => {
                     this.shape = value as 'pill' | 'rectangle' | 'flat';
+                    this.updatePreview();
+                });
+            });
+
+        // Color Mode
+        new Setting(contentEl)
+            .setName(t('color_mode_title'))
+            .addDropdown(dropdown => {
+                dropdown.addOption('subtle', t('color_mode_subtle'));
+                dropdown.addOption('solid', t('color_mode_solid'));
+                dropdown.setValue(this.colorMode);
+                dropdown.onChange(value => {
+                    this.colorMode = value as 'subtle' | 'solid';
                     this.updatePreview();
                 });
             });
@@ -226,7 +241,7 @@ export class StyleEditorModal extends Modal {
     private updatePreview(): void {
         if (!this.previewPillLight || !this.previewPillDark) return;
 
-        const palette = generatePalette(this.baseColor);
+        const palette = generatePalette(this.baseColor, this.colorMode);
         const displayName = this.styleName || t('new_status_name');
 
         // Light pill
@@ -370,6 +385,11 @@ export class StyleEditorModal extends Modal {
         // Only add shape if not the default
         if (this.shape !== 'pill') {
             style.shape = this.shape;
+        }
+
+        // Only add colorMode if not the default
+        if (this.colorMode !== 'subtle') {
+            style.colorMode = this.colorMode;
         }
 
         // Update existing or push new

@@ -99,6 +99,12 @@ export const ptBR = {
     'shape_flat': 'Plano',
     'shape_label': 'Formato',
 
+    // Modo de Cor
+    'color_mode_title': 'Modo de cor',
+    'color_mode_subtle': 'Suave',
+    'color_mode_solid': 'Sólido',
+    'color_mode_label': 'Cor',
+
     // Editar Estilo
     'edit_style_title': 'Editar estilo',
     'style_updated': 'Estilo "{name}" atualizado!'

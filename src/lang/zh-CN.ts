@@ -99,6 +99,12 @@ export const zhCN = {
     'shape_flat': '直角矩形',
     'shape_label': '形状',
 
+    // 颜色模式
+    'color_mode_title': '颜色模式',
+    'color_mode_subtle': '柔和',
+    'color_mode_solid': '纯色',
+    'color_mode_label': '颜色',
+
     // 编辑样式
     'edit_style_title': '编辑样式',
     'style_updated': '样式「{name}」已更新！'

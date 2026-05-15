@@ -180,6 +180,11 @@ export class StyleManagerModal extends Modal {
         }
         metaRow.createSpan({ text: `${t('shape_label')}: ${shapeText}` });
 
+        // Color mode info
+        const modeText = style.colorMode === 'solid' ? t('color_mode_solid') : t('color_mode_subtle');
+        metaRow.createSpan({ text: ' \u00b7 ' });
+        metaRow.createSpan({ text: `${t('color_mode_label')}: ${modeText}` });
+
         // Right section: action buttons
         const actionsSection = item.createDiv({ cls: 'csi-manager-actions' });
 

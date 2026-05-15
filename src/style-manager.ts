@@ -47,7 +47,7 @@ export class StyleManager {
             }
 
             // Generate CSS
-            const palette = generatePalette(style.baseColor);
+            const palette = generatePalette(style.baseColor, style.colorMode || 'subtle');
             const pillRadius = style.shape === 'flat' ? '0px' : style.shape === 'rectangle' ? '4px' : 'var(--tag-radius, 14px)';
 
             let iconUrl: string | null = null;
