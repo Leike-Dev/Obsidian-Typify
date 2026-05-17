@@ -3,7 +3,7 @@
    ========================================================================== */
 
 /* Base styling - using more specific selector to override Obsidian defaults */
-.multi-select-pill.custom-status-icon-pill {
+body .multi-select-pill.custom-status-icon-pill {
     /* ============================================
        CUSTOM VARIABLES - Edit these to control sizing
        ============================================ */
@@ -26,16 +26,16 @@
     --pill-border-color: var(--pill-light-border);
 
     /* Layout */
-    display: inline-flex !important;
-    align-items: center !important;
-    padding: var(--pill-padding-y) var(--pill-padding-x) !important;
-    line-height: 1.2 !important;
+    display: inline-flex;
+    align-items: center;
+    padding: var(--pill-padding-y) var(--pill-padding-x);
+    line-height: 1.2;
     /* Custom styled border */
-    border: 1px solid var(--pill-border-color) !important;
-    box-shadow: none !important;
-    border-radius: var(--pill-radius, var(--tag-radius, 14px)) !important;
-    background-color: var(--pill-background) !important;
-    color: var(--pill-color) !important;
+    border: 1px solid var(--pill-border-color);
+    box-shadow: none;
+    border-radius: var(--pill-radius, var(--tag-radius, 14px));
+    background-color: var(--pill-background);
+    color: var(--pill-color);
     /* No transition on base state to avoid animation when MutationObserver reprocesses */
 }
 
@@ -49,24 +49,24 @@
 }
 
 /* Hover state - transition only applies here */
-.multi-select-pill.custom-status-icon-pill:hover {
-    background-color: var(--pill-background-hover) !important;
-    color: var(--pill-color-hover) !important;
-    border-color: var(--pill-border-color) !important;
-    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
+body .multi-select-pill.custom-status-icon-pill:hover {
+    background-color: var(--pill-background-hover);
+    color: var(--pill-color-hover);
+    border-color: var(--pill-border-color);
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 /* Remove button (X) - uses status color */
-.multi-select-pill.custom-status-icon-pill .multi-select-pill-remove-button {
-    color: var(--pill-color) !important;
+body .multi-select-pill.custom-status-icon-pill .multi-select-pill-remove-button {
+    color: var(--pill-color);
     opacity: 0.7;
     margin-left: 2.5px;
 }
 
-.multi-select-pill.custom-status-icon-pill .multi-select-pill-remove-button:hover {
-    color: var(--pill-color-hover) !important;
+body .multi-select-pill.custom-status-icon-pill .multi-select-pill-remove-button:hover {
+    color: var(--pill-color-hover);
     opacity: 1;
-    transition: color 0.15s ease, opacity 0.15s ease !important;
+    transition: color 0.15s ease, opacity 0.15s ease;
 }
 
 /* Pill content - uses custom variables */
@@ -133,12 +133,12 @@
 }
 
 /* Section Headers (unified style for all section titles) */
-h3.csi-section-header,
-h3.csi-status-list-header {
+.csi-settings-container h3.csi-section-header,
+.csi-settings-container h3.csi-status-list-header {
     font-size: var(--font-ui-medium);
     font-weight: 600;
     color: var(--text-normal);
-    margin-top: 32px !important;
+    margin-top: 32px;
     margin-bottom: 16px;
 }
 
@@ -430,6 +430,8 @@ h3.csi-status-list-header {
 .csi-icon-suggestion-icon svg {
     width: 18px;
     height: 18px;
+    max-width: 18px;
+    max-height: 18px;
 }
 
 .csi-icon-suggestion-name {
@@ -456,8 +458,8 @@ h3.csi-status-list-header {
 }
 
 /* Bases Cards View - uses custom variables (multi-value and single-value) */
-.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value,
-.bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value {
+body .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value,
+body .bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value {
     /* Theme Integration */
     --pill-background: var(--pill-light-bg);
     --pill-color: var(--pill-light-text);
@@ -465,21 +467,21 @@ h3.csi-status-list-header {
     --pill-color-hover: var(--pill-light-text-hover);
     --pill-border-color: var(--pill-light-border);
 
-    background: var(--pill-background) !important;
-    color: var(--pill-color) !important;
-    border: 1px solid var(--pill-border-color) !important;
-    border-radius: var(--pill-radius, 4px) !important;
-    padding: 2px 6px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    vertical-align: middle !important;
-    gap: 4px !important;
+    background: var(--pill-background);
+    color: var(--pill-color);
+    border: 1px solid var(--pill-border-color);
+    border-radius: var(--pill-radius, 4px);
+    padding: 2px 6px;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    gap: 4px;
 }
 
-.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value:hover,
-.bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value:hover {
-    background: var(--pill-background-hover) !important;
-    color: var(--pill-color-hover) !important;
+body .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value:hover,
+body .bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value:hover {
+    background: var(--pill-background-hover);
+    color: var(--pill-color-hover);
 }
 
 /* Dark Mode Overrides for Bases Cards View */
@@ -560,11 +562,7 @@ h3.csi-status-list-header {
     font-size: var(--font-ui-small);
 }
 
-/* Custom icon preview sizing */
-.csi-icon-suggestion-icon svg {
-    max-width: 18px;
-    max-height: 18px;
-}
+
 
 /* ==========================================================================
    STYLE MANAGER MODAL
