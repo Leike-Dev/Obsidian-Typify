@@ -118,5 +118,13 @@ export const ptBR = {
 
     // Editar Estilo
     'edit_style_title': 'Editar estilo',
-    'style_updated': 'Estilo "{name}" atualizado!'
+    'style_updated': 'Estilo "{name}" atualizado!',
+
+    // Hide Remove Button
+    'hide_remove_button_title': 'Ocultar botão "×" das tags',
+    'hide_remove_button_desc': 'Esconde o ícone de remoção para um visual mais limpo e discreto.',
+    'hide_remove_button_none': 'Nenhum (Padrão)',
+    'hide_remove_button_properties': 'Apenas nas Propriedades',
+    'hide_remove_button_bases': 'Apenas no Bases',
+    'hide_remove_button_both': 'Em ambos'
 };

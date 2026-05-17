@@ -97,6 +97,8 @@ body .${className} {
             cssContent += `}\n`;
         });
 
+
+
         this.styleElement.textContent = cssContent;
     }
 

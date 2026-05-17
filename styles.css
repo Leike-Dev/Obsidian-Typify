@@ -811,3 +811,22 @@ body .bases-view .bases-cards-container .bases-cards-property .typify-single-val
     cursor: default;
     opacity: 0.85;
 }
+/* Hide Remove Button Settings */
+body.typify-hide-x-properties .metadata-container .multi-select-pill.custom-status-icon-pill .multi-select-pill-remove-button,
+body.typify-hide-x-both .metadata-container .multi-select-pill.custom-status-icon-pill .multi-select-pill-remove-button {
+    display: none;
+}
+body.typify-hide-x-properties .metadata-container .multi-select-pill.custom-status-icon-pill,
+body.typify-hide-x-both .metadata-container .multi-select-pill.custom-status-icon-pill {
+    padding-right: 12px;
+}
+
+body.typify-hide-x-bases .bases-view .multi-select-pill.custom-status-icon-pill .multi-select-pill-remove-button,
+body.typify-hide-x-both .bases-view .multi-select-pill.custom-status-icon-pill .multi-select-pill-remove-button {
+    display: none;
+}
+body.typify-hide-x-bases .bases-view .multi-select-pill.custom-status-icon-pill,
+body.typify-hide-x-both .bases-view .multi-select-pill.custom-status-icon-pill {
+    padding-right: 12px;
+}
+

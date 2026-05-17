@@ -118,5 +118,13 @@ export const en = {
 
     // Edit Style
     'edit_style_title': 'Edit style',
-    'style_updated': 'Style "{name}" updated!'
+    'style_updated': 'Style "{name}" updated!',
+
+    // Hide Remove Button
+    'hide_remove_button_title': 'Hide "×" button on tags',
+    'hide_remove_button_desc': 'Hides the remove icon for a cleaner and more discreet look.',
+    'hide_remove_button_none': 'None (Default)',
+    'hide_remove_button_properties': 'Only in Properties',
+    'hide_remove_button_bases': 'Only in Bases',
+    'hide_remove_button_both': 'In both'
 };

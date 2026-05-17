@@ -16,13 +16,15 @@ export interface CustomStatusIconsSettings {
     statusStyles: StatusStyle[];
     recentIcons: string[];
     enableCustomIcons: boolean;
+    hideRemoveButton: 'none' | 'properties' | 'bases' | 'both';
 }
 
 export const DEFAULT_SETTINGS: CustomStatusIconsSettings = {
     targetProperty: 'Status',
     statusStyles: [],
     recentIcons: [],
-    enableCustomIcons: false
+    enableCustomIcons: false,
+    hideRemoveButton: 'none'
 };
 
 // Default color for new status styles

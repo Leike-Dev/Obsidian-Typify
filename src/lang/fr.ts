@@ -118,5 +118,13 @@ export const fr = {
 
     // Modifier le Style
     'edit_style_title': 'Modifier le style',
-    'style_updated': 'Style « {name} » mis à jour !'
+    'style_updated': 'Style « {name} » mis à jour !',
+
+    // Hide Remove Button
+    'hide_remove_button_title': 'Masquer le bouton "×" sur les étiquettes',
+    'hide_remove_button_desc': 'Masque l\'icône de suppression pour un aspect plus épuré et discret.',
+    'hide_remove_button_none': 'Aucun (Par défaut)',
+    'hide_remove_button_properties': 'Uniquement dans Propriétés',
+    'hide_remove_button_bases': 'Uniquement dans Bases',
+    'hide_remove_button_both': 'Dans les deux'
 };

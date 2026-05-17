@@ -40,6 +40,8 @@ export default class TypifyPlugin extends Plugin {
 
         this.domManager = new DOMManager(this, this.styleManager);
         this.domManager.init();
+
+        this.updateBodyClasses();
     }
 
     onunload() {
@@ -49,6 +51,7 @@ export default class TypifyPlugin extends Plugin {
         if (this.styleManager) {
             this.styleManager.cleanup();
         }
+        document.body.classList.remove('typify-hide-x-none', 'typify-hide-x-properties', 'typify-hide-x-bases', 'typify-hide-x-both');
     }
 
     async loadSettings() {
@@ -61,6 +64,7 @@ export default class TypifyPlugin extends Plugin {
         // Re-build stylesheet and cache
         this.styleManager.buildCache(); 
         this.domManager.refreshProcessing();
+        this.updateBodyClasses();
     }
 
     getTargetProperties(): string[] {
@@ -71,6 +75,13 @@ export default class TypifyPlugin extends Plugin {
                 .filter(p => p.length > 0);
         }
         return this.cachedTargetProps;
+    }
+
+    private updateBodyClasses() {
+        document.body.classList.remove('typify-hide-x-none', 'typify-hide-x-properties', 'typify-hide-x-bases', 'typify-hide-x-both');
+        if (this.settings.hideRemoveButton && this.settings.hideRemoveButton !== 'none') {
+            document.body.classList.add(`typify-hide-x-${this.settings.hideRemoveButton}`);
+        }
     }
 
     /**

@@ -126,7 +126,23 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                     new StyleManagerModal(this.app, this.plugin, () => this.display()).open();
                 }));
 
-
+        // 3. HIDE REMOVE BUTTON (X)
+        new Setting(containerEl)
+            .setName(t('hide_remove_button_title'))
+            .setDesc(t('hide_remove_button_desc'))
+            .addDropdown(dropdown => {
+                dropdown.addOption('none', t('hide_remove_button_none'));
+                dropdown.addOption('properties', t('hide_remove_button_properties'));
+                dropdown.addOption('bases', t('hide_remove_button_bases'));
+                dropdown.addOption('both', t('hide_remove_button_both'));
+                
+                dropdown.setValue(this.plugin.settings.hideRemoveButton);
+                
+                dropdown.onChange(async (value) => {
+                    this.plugin.settings.hideRemoveButton = value as 'none' | 'properties' | 'bases' | 'both';
+                    await this.plugin.saveSettings();
+                });
+            });
 
         // ================================================================
         // DATA MANAGEMENT

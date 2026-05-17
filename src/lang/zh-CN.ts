@@ -118,5 +118,13 @@ export const zhCN = {
 
     // 编辑样式
     'edit_style_title': '编辑样式',
-    'style_updated': '样式「{name}」已更新！'
+    'style_updated': '样式「{name}」已更新！',
+
+    // Hide Remove Button
+    'hide_remove_button_title': '隐藏标签上的“×”按钮',
+    'hide_remove_button_desc': '隐藏删除图标，以获得更简洁的外观。',
+    'hide_remove_button_none': '无（默认）',
+    'hide_remove_button_properties': '仅在属性中',
+    'hide_remove_button_bases': '仅在 Bases 中',
+    'hide_remove_button_both': '两者都有'
 };
