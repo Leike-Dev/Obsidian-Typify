@@ -4,7 +4,7 @@
   <img src="./docs/assets/images/banner_1.jpg"/>
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
-   ![Version](https://img.shields.io/badge/version-1.1.3-lightgreen.svg)
+   ![Version](https://img.shields.io/badge/version-1.2.0-lightgreen.svg)
 
 </div>
 
@@ -39,6 +39,12 @@ Typify is an Obsidian plugin that allows you to create unique styles for your me
 - **📋 Bases Plugin**: Styles also apply to Bases views (table and cards).
 
 - **🎯 Scoped Styles**: Limit a style to specific properties using "Applies To".
+
+- **🖼️ Image Tags**: Upload your own local images (PNG, JPG, SVG) to use as contact avatars or custom icons.
+
+- **👁️ Hide Remove Button**: Aesthetically hide the 'X' button globally or per view to create read-only badges.
+
+- **♾️ Canvas Support**: Fully compatible with Obsidian Canvas, rendering styles dynamically.
 
 ## How to Use
 
@@ -79,6 +85,9 @@ Voilá! Your property is now a beautiful colored pill ✨
 
 > [!Tip]  
 > You can use multiple properties as targets. Just add a comma between them. Example: `Status, Priority`.
+
+> [!Note]  
+> Custom image tags in the **Bases Cards** view are intentionally rendered slightly smaller (14px instead of 18px) to prevent layout clipping caused by the strict fixed-height constraints of the card container.
 
 > [!Warning]  
 > Importing settings **replaces all existing styles**. Styles created after the backup will be lost.

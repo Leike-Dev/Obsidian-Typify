@@ -4,7 +4,7 @@
   <img src="./assets/images/banner_1.jpg"/>
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
-   ![Version](https://img.shields.io/badge/version-1.1.3-lightgreen.svg)
+   ![Version](https://img.shields.io/badge/version-1.2.0-lightgreen.svg)
 
 </div>
 
@@ -39,6 +39,12 @@ Typify est un plugin pour Obsidian qui vous permet de créer des styles uniques 
 - **📋 Plugin Bases** : Les styles s'appliquent aussi aux vues Bases (tableau et cartes).
 
 - **🎯 Styles ciblés** : Limitez un style à des propriétés spécifiques avec « S'applique à ».
+
+- **🖼️ Étiquettes d'images** : Téléchargez vos propres images locales (PNG, JPG, SVG) pour les utiliser comme avatars de contact ou icônes personnalisées.
+
+- **👁️ Masquer le bouton de suppression** : Masquez esthétiquement le bouton « X » globalement ou par vue pour créer des pilules en lecture seule.
+
+- **♾️ Support Canvas** : Entièrement compatible avec Obsidian Canvas, avec un rendu dynamique des styles.
 
 ## Comment utiliser
 
@@ -79,6 +85,9 @@ Voilà ! Votre propriété est maintenant une belle pilule colorée ✨
 
 > [!Tip]  
 > Vous pouvez utiliser plusieurs propriétés comme cibles. Ajoutez simplement une virgule entre elles. Exemple : `Status, Priority`.
+
+> [!Note]  
+> Les images personnalisées dans la vue **Bases Cards** sont intentionnellement rendues un peu plus petites (14px au lieu de 18px) pour éviter les coupures de mise en page dues aux restrictions strictes de hauteur fixe du conteneur de la carte.
 
 > [!Warning]  
 > L'importation des paramètres **remplace tous les styles existants**. Les styles créés après la sauvegarde seront perdus.

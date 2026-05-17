@@ -4,7 +4,7 @@
   <img src="./assets/images/banner_1.jpg"/>
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
-   ![Version](https://img.shields.io/badge/version-1.1.3-lightgreen.svg)
+   ![Version](https://img.shields.io/badge/version-1.2.0-lightgreen.svg)
 
 </div>
 
@@ -39,6 +39,12 @@ Typify 是一款 Obsidian 插件，让你可以为元数据创建独特的样式
 - **📋 Bases 插件**：样式同样适用于 Bases 视图（表格和卡片）。
 
 - **🎯 范围样式**：使用"应用于"将样式限定到特定属性。
+
+- **🖼️ 图片标签**：上传你自己的本地图片（PNG、JPG、SVG），用作联系人头像或自定义图标。
+
+- **👁️ 隐藏移除按钮**：全局或按视图隐藏“X”按钮，以创建只读的标签外观。
+
+- **♾️ Canvas 支持**：完全兼容 Obsidian Canvas，动态渲染样式。
 
 ## 使用方法
 
@@ -79,6 +85,9 @@ Typify 是一款 Obsidian 插件，让你可以为元数据创建独特的样式
 
 > [!Tip]  
 > 你可以使用多个目标属性。只需在属性之间添加逗号。例如：`Status, Priority`。
+
+> [!Note]  
+> **Bases Cards** 视图中的自定义图片标签会故意渲染得稍小一些（14px 而不是 18px），这是为了防止由于卡片容器严格的固定高度限制而导致布局被裁剪。
 
 > [!Warning]  
 > 导入设置会**替换所有现有样式**。备份之后创建的样式将会丢失。
