@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "node esbuild.config.mjs",
         "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
-        "version": "node dev/version-bump.mjs && git add manifest.json versions.json package-lock.json README.md docs/README_pt.md docs/README_es.md docs/README_fr.md docs/README_zh-CN.md",
+        "version": "node dev/version-bump.mjs",
         "gen-icons": "node dev/generate-icons.mjs",
         "commit": "node dev/commit-helper.mjs",
         "lint": "eslint ."
