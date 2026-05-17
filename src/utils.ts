@@ -80,7 +80,7 @@ function hslToHex(h: number, s: number, l: number): string {
  * @returns CSS hsla() string.
  */
 function hslToHslaString(h: number, s: number, l: number, a: number = 1): string {
-    return `hsla(${Math.round(h)}, ${Math.round(s)}%, ${Math.round(l)}%, ${a})`;
+    return `hsla(${String(Math.round(h))}, ${String(Math.round(s))}%, ${String(Math.round(l))}%, ${String(a)})`;
 }
 
 /**

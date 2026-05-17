@@ -22,7 +22,7 @@ export class DOMManager {
                 const propertyKey = node.getAttribute('data-property-key');
                 if (propertyKey && targetProps.includes(propertyKey.toLowerCase())) {
                     const pills = node.findAll('.multi-select-pill');
-                    pills.forEach((pill: Element) => this.processPill(pill, propertyKey));
+                    pills.forEach((pill: Element) => { this.processPill(pill, propertyKey); });
                 }
             } else {
                 const propertyRows = node.findAll('.metadata-property');
@@ -30,7 +30,7 @@ export class DOMManager {
                     const propertyKey = row.getAttribute('data-property-key');
                     if (!propertyKey || !targetProps.includes(propertyKey.toLowerCase())) return;
                     const pills = row.findAll('.multi-select-pill');
-                    pills.forEach((pill: Element) => this.processPill(pill, propertyKey));
+                    pills.forEach((pill: Element) => { this.processPill(pill, propertyKey); });
                 });
             }
 
@@ -41,7 +41,7 @@ export class DOMManager {
                     const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
                     if (match) {
                         const pills = node.findAll('.multi-select-pill');
-                        pills.forEach((pill: Element) => this.processPill(pill, match));
+                        pills.forEach((pill: Element) => { this.processPill(pill, match); });
                     }
                 }
             } else {
@@ -52,7 +52,7 @@ export class DOMManager {
                     const match = targetProps.find(p => dataProperty.toLowerCase() === `note.${p}`);
                     if (!match) return;
                     const pills = cell.findAll('.multi-select-pill');
-                    pills.forEach((pill: Element) => this.processPill(pill, match));
+                    pills.forEach((pill: Element) => { this.processPill(pill, match); });
                 });
             }
 
@@ -64,7 +64,7 @@ export class DOMManager {
                     if (match) {
                         const valueElements = node.findAll('.value-list-element');
                         if (valueElements.length > 0) {
-                            valueElements.forEach((el: Element) => this.processValueListElement(el, match));
+                            valueElements.forEach((el: Element) => { this.processValueListElement(el, match); });
                         } else {
                             const renderedValue = node.find('.bases-rendered-value');
                             if (renderedValue.instanceOf(HTMLElement)) {
@@ -82,7 +82,7 @@ export class DOMManager {
                     if (!match) return;
                     const valueElements = prop.findAll('.value-list-element');
                     if (valueElements.length > 0) {
-                        valueElements.forEach((el: Element) => this.processValueListElement(el, match));
+                        valueElements.forEach((el: Element) => { this.processValueListElement(el, match); });
                     } else {
                         const renderedValue = prop.find('.bases-rendered-value');
                         if (renderedValue.instanceOf(HTMLElement)) {
@@ -144,7 +144,7 @@ export class DOMManager {
         this.observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (mutation.type === 'childList') {
-                    mutation.addedNodes.forEach(node => processNode(node));
+                    mutation.addedNodes.forEach(node => { processNode(node); });
                 }
                 if (mutation.type === 'attributes' || mutation.type === 'characterData') {
                     if (mutation.target.instanceOf(HTMLElement)) {
@@ -187,7 +187,7 @@ export class DOMManager {
             // Avoid re-observing the same element multiple times
             if (!container.hasAttribute('data-typify-observed')) {
                 container.setAttribute('data-typify-observed', 'true');
-                this.observer!.observe(container, {
+                this.observer?.observe(container, {
                     childList: true,
                     subtree: true,
                     attributes: true,
@@ -202,7 +202,7 @@ export class DOMManager {
             this.processBasesCardsView(view);
             if (!view.hasAttribute('data-typify-observed')) {
                 view.setAttribute('data-typify-observed', 'true');
-                this.observer!.observe(view, {
+                this.observer?.observe(view, {
                     childList: true,
                     subtree: true,
                     attributes: true,
@@ -296,7 +296,7 @@ export class DOMManager {
             if (!propertyKey || !targetProps.includes(propertyKey.toLowerCase())) return;
 
             const pills = row.findAll('.multi-select-pill');
-            pills.forEach(pill => this.processPill(pill, propertyKey));
+            pills.forEach(pill => { this.processPill(pill, propertyKey); });
         });
     }
 
@@ -311,7 +311,7 @@ export class DOMManager {
             if (!match) return;
 
             const pills = cell.findAll('.multi-select-pill');
-            pills.forEach(pill => this.processPill(pill, match));
+            pills.forEach(pill => { this.processPill(pill, match); });
         });
     }
 
@@ -327,7 +327,7 @@ export class DOMManager {
 
             const valueElements = prop.findAll('.value-list-element');
             if (valueElements.length > 0) {
-                valueElements.forEach(el => this.processValueListElement(el, match));
+                valueElements.forEach(el => { this.processValueListElement(el, match); });
             } else {
                 const renderedValue = prop.find('.bases-rendered-value');
                 if (renderedValue.instanceOf(HTMLElement)) {

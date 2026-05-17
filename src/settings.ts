@@ -113,7 +113,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                 .setButtonText(t('add_status_button'))
                 .setCta()
                 .onClick(() => {
-                    new StyleEditorModal(this.app, this.plugin, () => this.display()).open();
+                    new StyleEditorModal(this.app, this.plugin, () => { this.display(); }).open();
                 }));
 
         // 2. MANAGE STYLES (New Button)
@@ -123,7 +123,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
             .addButton(button => button
                 .setButtonText(t('manage_styles_button'))
                 .onClick(() => {
-                    new StyleManagerModal(this.app, this.plugin, () => this.display()).open();
+                    new StyleManagerModal(this.app, this.plugin, () => { this.display(); }).open();
                 }));
 
         // 3. HIDE REMOVE BUTTON (X)
@@ -166,7 +166,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
             .addButton(button => button
                 .setButtonText(t('import_button'))
                 .onClick(() => {
-                    new ImportSettingsModal(this.app, this.plugin, () => this.display()).open();
+                    new ImportSettingsModal(this.app, this.plugin, () => { this.display(); }).open();
                 }));
 
 

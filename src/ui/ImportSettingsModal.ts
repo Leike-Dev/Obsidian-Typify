@@ -46,7 +46,7 @@ export class ImportSettingsModal extends Modal {
             text: t('cancel_button'),
             cls: 'mod-cancel'
         });
-        cancelBtn.addEventListener('click', () => this.close());
+        cancelBtn.addEventListener('click', () => { this.close(); });
     }
 
     /**
