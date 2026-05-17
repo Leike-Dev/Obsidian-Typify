@@ -154,7 +154,18 @@ export class StyleManagerModal extends Modal {
 
             // Show small icon preview
             const iconPreview = iconMeta.createSpan({ cls: 'csi-manager-icon-preview' });
-            if (style.icon.startsWith('custom:')) {
+            
+            if (style.icon.startsWith('img:')) {
+                const name = style.icon.replace('img:', '');
+                const dataUri = this.plugin.customImagesManager?.getImageDataUri(name);
+                if (dataUri) {
+                    iconPreview.addClass('typify-img-preview', 'typify-img-manager-preview');
+                    iconPreview.setCssProps({ '--typify-bg-image': dataUri });
+                    iconPreview.setCssStyles({ backgroundImage: 'var(--typify-bg-image)' });
+                } else {
+                    setIcon(iconPreview, 'image');
+                }
+            } else if (style.icon.startsWith('custom:')) {
                 const name = style.icon.replace('custom:', '');
                 const svgContent = this.plugin.customIconsManager?.getSvgContent(name);
                 if (svgContent) {

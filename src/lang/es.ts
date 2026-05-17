@@ -58,6 +58,10 @@ export const es = {
     'custom_icons_error': 'Error al cargar íconos personalizados.',
     'custom_icons_missing': '{count} ícono(s) personalizado(s) no encontrado(s): {names}.',
 
+    // Imágenes Personalizadas
+    'custom_images_oversized': '{count} imagen(es) omitida(s) (excede el límite de 50KB): {names}',
+    'custom_images_missing': '{count} imagen(es) no encontrada(s) en la carpeta img/: {names}.',
+
     // Mensajes de Exportación
     'export_success': 'Configuración copiada al portapapeles.',
     'export_error': 'Error al exportar configuración.',
@@ -109,6 +113,11 @@ export const es = {
     'shape_rectangle': 'Rectángulo',
     'shape_flat': 'Plano',
     'shape_label': 'Forma',
+
+    // Tabs
+    'tab_icons': 'Iconos',
+    'tab_custom': 'Personalizados',
+    'tab_images': 'Imágenes',
 
     // Modo de Color
     'color_mode_title': 'Modo de color',

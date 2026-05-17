@@ -58,6 +58,10 @@ export const ptBR = {
     'custom_icons_error': 'Erro ao carregar ícones personalizados.',
     'custom_icons_missing': '{count} ícone(s) personalizado(s) não encontrado(s): {names}.',
 
+    // Imagens Personalizadas
+    'custom_images_oversized': '{count} imagem(ns) ignorada(s) (excede o limite de 50KB): {names}',
+    'custom_images_missing': '{count} imagem(ns) não encontrada(s) na pasta img/: {names}.',
+
     // Export Mensagens
     'export_success': 'Configurações copiadas para a área de transferência.',
     'export_error': 'Falha ao exportar configurações.',
@@ -109,6 +113,11 @@ export const ptBR = {
     'shape_rectangle': 'Retângulo',
     'shape_flat': 'Plano',
     'shape_label': 'Formato',
+
+    // Tabs
+    'tab_icons': 'Ícones',
+    'tab_custom': 'Personalizados',
+    'tab_images': 'Imagens',
 
     // Modo de Cor
     'color_mode_title': 'Modo de cor',

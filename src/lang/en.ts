@@ -58,6 +58,10 @@ export const en = {
     'custom_icons_error': 'Error loading custom icons.',
     'custom_icons_missing': '{count} custom icon(s) not found: {names}.',
 
+    // Custom Images
+    'custom_images_oversized': '{count} image(s) skipped (exceeds 50KB limit): {names}',
+    'custom_images_missing': '{count} image(s) not found in img/ folder: {names}.',
+
     // Export Messages
     'export_success': 'Settings copied to clipboard.',
     'export_error': 'Failed to export settings.',
@@ -109,6 +113,11 @@ export const en = {
     'shape_rectangle': 'Rectangle',
     'shape_flat': 'Flat',
     'shape_label': 'Shape',
+
+    // Tabs
+    'tab_icons': 'Icons',
+    'tab_custom': 'Custom',
+    'tab_images': 'Images',
 
     // Color Mode
     'color_mode_title': 'Color mode',

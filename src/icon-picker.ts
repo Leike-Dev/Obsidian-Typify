@@ -2,9 +2,10 @@ import { FuzzySuggestModal, App, setIcon, FuzzyMatch } from 'obsidian';
 import { LUCIDE_ICONS } from './lucide-icons';
 import { t } from './lang/helpers';
 import { CustomIconsManager } from './custom-icons';
+import { CustomImagesManager } from './custom-images';
 
 // ============================================================================
-// ICON PICKER MODAL - Fuzzy search for Lucide icons
+// ICON PICKER MODAL - Fuzzy search for icons and images
 // ============================================================================
 
 /**
@@ -14,12 +15,22 @@ import { CustomIconsManager } from './custom-icons';
 export class IconPickerModal extends FuzzySuggestModal<string> {
     private recentIcons: string[];
     private customIconsManager: CustomIconsManager | null;
+    private customImagesManager: CustomImagesManager | null;
     private onChoose: (icon: string) => void;
+    private currentTab: 'lucide' | 'custom' | 'images' = 'lucide';
+    private tabsContainerEl: HTMLElement | null = null;
 
-    constructor(app: App, recentIcons: string[], customIconsManager: CustomIconsManager | null, onChoose: (icon: string) => void) {
+    constructor(
+        app: App, 
+        recentIcons: string[], 
+        customIconsManager: CustomIconsManager | null, 
+        customImagesManager: CustomImagesManager | null,
+        onChoose: (icon: string) => void
+    ) {
         super(app);
         this.recentIcons = recentIcons || [];
         this.customIconsManager = customIconsManager;
+        this.customImagesManager = customImagesManager;
         this.onChoose = onChoose;
         this.setPlaceholder(t('icon_picker_placeholder'));
         this.setInstructions([
@@ -29,25 +40,79 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
         ]);
     }
 
+    onOpen() {
+        void super.onOpen();
+        this.renderTabs();
+    }
+
+    private renderTabs() {
+        const inputContainer = this.modalEl.querySelector('.prompt-input-container');
+        if (!inputContainer) return;
+
+        this.tabsContainerEl = createDiv('typify-icon-tabs');
+
+        const tabs = [
+            { id: 'lucide', label: t('tab_icons') },
+            { id: 'custom', label: t('tab_custom') },
+            { id: 'images', label: t('tab_images') }
+        ];
+
+        tabs.forEach(tab => {
+            const tabEl = this.tabsContainerEl?.createDiv('typify-icon-tab');
+            if (!tabEl) return;
+            tabEl.setText(tab.label);
+            if (this.currentTab === tab.id) {
+                tabEl.addClass('is-active');
+            }
+            
+            tabEl.addEventListener('click', () => {
+                if (this.currentTab === tab.id) return;
+                
+                // Update active class
+                this.tabsContainerEl?.querySelectorAll('.typify-icon-tab').forEach(el => { el.removeClass('is-active'); });
+                tabEl.addClass('is-active');
+                
+                // Switch tab and refresh suggestions
+                this.currentTab = tab.id as 'lucide' | 'custom' | 'images';
+                
+                // Trigger input event to force FuzzySuggestModal to re-render getItems()
+                this.inputEl.dispatchEvent(new Event('input'));
+            });
+        });
+
+        inputContainer.insertAdjacentElement('afterend', this.tabsContainerEl);
+    }
+
     /**
      * Returns the list of items to search.
      * Recent icons are shown at the top.
      */
     getItems(): string[] {
-        // Custom icons first (with prefix), then recent, then all Lucide
-        const customWithPrefix = this.customIconsManager
-            ? this.customIconsManager.listIcons().map(i => `custom:${i}`)
-            : [];
+        if (this.currentTab === 'images') {
+            return this.customImagesManager
+                ? this.customImagesManager.listImages().map(i => `img:${i}`)
+                : [];
+        }
+
+        if (this.currentTab === 'custom') {
+            return this.customIconsManager
+                ? this.customIconsManager.listIcons().map(i => `custom:${i}`)
+                : [];
+        }
+
+        // Default tab: Lucide + Recent (which can be Lucide or Custom, we can filter them)
         const recentSet = new Set(this.recentIcons);
-        const customSet = new Set(customWithPrefix);
-        const others = LUCIDE_ICONS.filter(i => !recentSet.has(i) && !customSet.has(i));
-        return [...customWithPrefix, ...this.recentIcons, ...others];
+        const others = LUCIDE_ICONS.filter(i => !recentSet.has(i));
+        return [...this.recentIcons, ...others];
     }
 
     getItemText(item: string): string {
-        // Strip custom: prefix so users can search by icon name directly
+        // Strip custom: or img: prefix so users can search by name directly
         if (item.startsWith('custom:')) {
             return item.replace('custom:', '');
+        }
+        if (item.startsWith('img:')) {
+            return item.replace('img:', '');
         }
         return item;
     }
@@ -65,7 +130,20 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
         // Icon preview
         const iconEl = el.createSpan({ cls: 'csi-icon-suggestion-icon' });
 
-        if (icon.startsWith('custom:')) {
+        if (icon.startsWith('img:')) {
+            // Image: render as circular background
+            const name = icon.replace('img:', '');
+            const dataUri = this.customImagesManager?.getImageDataUri(name);
+            if (dataUri) {
+                iconEl.addClass('typify-img-preview', 'typify-img-picker-preview');
+                iconEl.setCssProps({ '--typify-bg-image': dataUri });
+                iconEl.setCssStyles({ backgroundImage: 'var(--typify-bg-image)' });
+            } else {
+                setIcon(iconEl, 'image'); // fallback
+            }
+            el.createSpan({ text: name, cls: 'csi-icon-suggestion-name' });
+            el.createSpan({ text: 'img', cls: 'csi-icon-custom-badge' });
+        } else if (icon.startsWith('custom:')) {
             // Custom icon: render inline SVG from cache
             const name = icon.replace('custom:', '');
             const svgContent = this.customIconsManager?.getSvgContent(name);

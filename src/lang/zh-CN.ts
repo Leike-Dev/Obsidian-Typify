@@ -58,6 +58,10 @@ export const zhCN = {
     'custom_icons_error': '加载自定义图标时出错。',
     'custom_icons_missing': '{count} 个自定义图标未找到：{names}。',
 
+    // 自定义图片
+    'custom_images_oversized': '{count} 张图片已跳过（超过 50KB 限制）：{names}',
+    'custom_images_missing': '{count} 张图片未在 img/ 文件夹中找到：{names}。',
+
     // 导出消息
     'export_success': '设置已复制到剪贴板。',
     'export_error': '导出设置失败。',
@@ -109,6 +113,11 @@ export const zhCN = {
     'shape_rectangle': '圆角矩形',
     'shape_flat': '直角矩形',
     'shape_label': '形状',
+
+    // Tabs
+    'tab_icons': '图标',
+    'tab_custom': '自定义',
+    'tab_images': '图片',
 
     // 颜色模式
     'color_mode_title': '颜色模式',

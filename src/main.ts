@@ -2,6 +2,7 @@ import { Plugin, Notice } from 'obsidian';
 import { CustomStatusIconsSettings, DEFAULT_SETTINGS } from './types';
 import { CustomStatusIconsSettingTab } from './settings';
 import { CustomIconsManager } from './custom-icons';
+import { CustomImagesManager } from './custom-images';
 import { t } from './lang/helpers';
 import { StyleManager } from './style-manager';
 import { DOMManager } from './dom-manager';
@@ -9,6 +10,7 @@ import { DOMManager } from './dom-manager';
 export default class TypifyPlugin extends Plugin {
     settings!: CustomStatusIconsSettings;
     customIconsManager!: CustomIconsManager;
+    customImagesManager!: CustomImagesManager;
     styleManager!: StyleManager;
     domManager!: DOMManager;
     private cachedTargetProps: string[] | null = null;
@@ -30,6 +32,33 @@ export default class TypifyPlugin extends Plugin {
                 const names = missingIcons.map(s => s.icon.replace('custom:', '')).join(', ');
                 new Notice(t('custom_icons_missing').replace('{count}', String(missingIcons.length)).replace('{names}', names));
             }
+        }
+
+        // Initialize custom images manager (always loaded as it doesn't have a toggle yet)
+        this.customImagesManager = new CustomImagesManager(this.app, this.manifest.id);
+        const imgResult = await this.customImagesManager.initialize();
+
+        // Warn about oversized images that were skipped
+        if (imgResult.errors.length > 0) {
+            new Notice(
+                t('custom_images_oversized')
+                    .replace('{count}', String(imgResult.errors.length))
+                    .replace('{names}', imgResult.errors.join('; '))
+            );
+        }
+
+        // Warn about missing images referenced in styles
+        const missingImages = this.settings.statusStyles
+            .filter(s => s.icon?.startsWith('img:'))
+            .filter(s => !this.customImagesManager.getImageDataUri(s.icon.replace('img:', '')));
+
+        if (missingImages.length > 0) {
+            const names = missingImages.map(s => s.icon.replace('img:', '')).join(', ');
+            new Notice(
+                t('custom_images_missing')
+                    .replace('{count}', String(missingImages.length))
+                    .replace('{names}', names)
+            );
         }
 
         this.addSettingTab(new CustomStatusIconsSettingTab(this.app, this));

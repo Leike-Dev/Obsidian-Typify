@@ -58,6 +58,10 @@ export const fr = {
     'custom_icons_error': 'Erreur lors du chargement des icônes personnalisées.',
     'custom_icons_missing': '{count} icône(s) personnalisée(s) introuvable(s) : {names}.',
 
+    // Images personnalisées
+    'custom_images_oversized': '{count} image(s) ignorée(s) (dépasse la limite de 50 Ko) : {names}',
+    'custom_images_missing': '{count} image(s) introuvable(s) dans le dossier img/ : {names}.',
+
     // Messages d'Exportation
     'export_success': 'Paramètres copiés dans le presse-papiers.',
     'export_error': 'Échec de l\'exportation des paramètres.',
@@ -109,6 +113,11 @@ export const fr = {
     'shape_rectangle': 'Rectangle',
     'shape_flat': 'Plat',
     'shape_label': 'Forme',
+
+    // Tabs
+    'tab_icons': 'Icônes',
+    'tab_custom': 'Personnalisés',
+    'tab_images': 'Images',
 
     // Mode de Couleur
     'color_mode_title': 'Mode de couleur',

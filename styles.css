@@ -830,3 +830,113 @@ body.typify-hide-x-both .bases-view .multi-select-pill.custom-status-icon-pill {
     padding-right: 12px;
 }
 
+/* ==========================================================================
+   Icon Picker Tabs
+   ========================================================================== */
+
+.typify-icon-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--background-modifier-border);
+    margin: 10px 10px 0 10px;
+}
+
+.typify-icon-tab {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    cursor: pointer;
+    font-size: var(--font-ui-small);
+    color: var(--text-muted);
+    transition: color 0.15s ease, border-color 0.15s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.typify-icon-tab:hover {
+    color: var(--text-normal);
+}
+
+.typify-icon-tab.is-active {
+    color: var(--text-normal);
+    border-bottom-color: var(--interactive-accent);
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   Image Tag Styles
+   ========================================================================== */
+body .multi-select-pill.custom-status-icon-pill.typify-is-image .multi-select-pill-content::before,
+body .custom-status-icon-value.typify-is-image::before {
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+    background-image: var(--pill-image-url) !important;
+    background-color: transparent !important;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    width: 18px !important;
+    height: 18px !important;
+    margin-right: 6px !important;
+    vertical-align: middle;
+}
+
+/* Reduce image size in card view to match standard icon and prevent clipping */
+body .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value.typify-is-image::before,
+body .bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value.typify-is-image::before {
+    width: 14px !important;
+    height: 14px !important;
+}
+
+/* ==========================================================================
+   Image Preview Classes (Modals & Pickers)
+   ========================================================================== */
+
+/* Shared base for all circular image previews */
+.typify-img-preview {
+    display: inline-block;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+}
+
+/* Icon button in StyleEditorModal (24px avatar) */
+.typify-img-btn-preview {
+    width: 24px;
+    height: 24px;
+}
+
+/* Icon preview inside preview pills (18px) */
+.typify-img-pill-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-right: 4px;
+}
+
+/* Icon preview in StyleManagerModal list (18px) */
+.typify-img-manager-preview {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+}
+
+/* Image preview in icon picker suggestion list */
+.typify-img-picker-preview {
+    width: 1em;
+    height: 1em;
+}
+
+/* Pill icon span in preview (standard icon sizing) */
+.csi-preview-pill-icon {
+    display: inline-flex;
+    align-items: center;
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
+    flex-shrink: 0;
+}
+
+.csi-preview-pill-icon svg {
+    width: 14px;
+    height: 14px;
+}
+

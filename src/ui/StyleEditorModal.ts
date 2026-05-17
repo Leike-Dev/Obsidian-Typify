@@ -97,6 +97,7 @@ export class StyleEditorModal extends Modal {
                     this.plugin.settings.enableCustomIcons
                         ? this.plugin.customIconsManager
                         : null,
+                    this.plugin.customImagesManager,
                     (chosenIcon: string) => {
                         this.icon = chosenIcon;
                         this.renderIconButton();
@@ -200,7 +201,7 @@ export class StyleEditorModal extends Modal {
         saveBtn.addEventListener('click', () => { void this.handleSave(); });
 
         const cancelBtn = buttonContainer.createEl('button', { text: t('cancel_button'), cls: 'mod-cancel' });
-        cancelBtn.addEventListener('click', () => this.close());
+        cancelBtn.addEventListener('click', () => { this.close(); });
     }
 
     /**
@@ -209,9 +210,22 @@ export class StyleEditorModal extends Modal {
     private renderIconButton(): void {
         if (!this.iconBtnEl) return;
         this.iconBtnEl.empty();
+        this.iconBtnEl.removeClass('typify-img-preview', 'typify-img-btn-preview');
+        this.iconBtnEl.setCssProps({ '--typify-bg-image': '' });
 
         if (this.icon) {
-            if (this.icon.startsWith('custom:')) {
+            if (this.icon.startsWith('img:')) {
+                const name = this.icon.replace('img:', '');
+                const dataUri = this.plugin.customImagesManager?.getImageDataUri(name);
+                if (dataUri) {
+                    const span = this.iconBtnEl.createSpan();
+                    span.addClass('typify-img-preview', 'typify-img-btn-preview');
+                    span.setCssProps({ '--typify-bg-image': dataUri });
+                    span.setCssStyles({ backgroundImage: 'var(--typify-bg-image)' });
+                } else {
+                    setIcon(this.iconBtnEl, 'image');
+                }
+            } else if (this.icon.startsWith('custom:')) {
                 const name = this.icon.replace('custom:', '');
                 const svgContent = this.plugin.customIconsManager?.getSvgContent(name);
                 if (svgContent) {
@@ -277,16 +291,20 @@ export class StyleEditorModal extends Modal {
      */
     private addIconToPill(pill: HTMLElement): void {
         const iconSpan = createSpan();
-        iconSpan.setCssStyles({
-            display: 'inline-flex',
-            alignItems: 'center',
-            width: '14px',
-            height: '14px',
-            marginRight: '4px',
-            flexShrink: '0'
-        });
 
-        if (this.icon.startsWith('custom:')) {
+        if (this.icon.startsWith('img:')) {
+            const name = this.icon.replace('img:', '');
+            const dataUri = this.plugin.customImagesManager?.getImageDataUri(name);
+            if (dataUri) {
+                iconSpan.addClass('typify-img-preview', 'typify-img-pill-icon');
+                iconSpan.setCssProps({ '--typify-bg-image': dataUri });
+                iconSpan.setCssStyles({ backgroundImage: 'var(--typify-bg-image)' });
+            } else {
+                iconSpan.addClass('csi-preview-pill-icon');
+                setIcon(iconSpan, 'image');
+            }
+        } else if (this.icon.startsWith('custom:')) {
+            iconSpan.addClass('csi-preview-pill-icon');
             const name = this.icon.replace('custom:', '');
             const svgContent = this.plugin.customIconsManager?.getSvgContent(name);
             if (svgContent) {
@@ -296,15 +314,11 @@ export class StyleEditorModal extends Modal {
                 if (svgEl.instanceOf(SVGElement)) {
                     iconSpan.empty();
                     iconSpan.appendChild(svgEl);
-                    svgEl.setCssStyles({ width: '14px', height: '14px' });
                 }
             }
         } else {
+            iconSpan.addClass('csi-preview-pill-icon');
             setIcon(iconSpan, this.icon);
-            const svg = iconSpan.querySelector('svg');
-            if (svg) {
-                svg.setCssStyles({ width: '14px', height: '14px' });
-            }
         }
 
         pill.prepend(iconSpan);

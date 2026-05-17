@@ -33,17 +33,47 @@ export class StyleManager {
         let cssContent = '';
         const styles = this.plugin.settings.statusStyles;
 
+        // 1. Image Deduplication in :root
+        const uniqueImages = new Set<string>();
+        styles.forEach(style => {
+            if (style.icon && style.icon.startsWith('img:')) {
+                uniqueImages.add(style.icon.replace('img:', ''));
+            }
+        });
+
+        if (uniqueImages.size > 0) {
+            cssContent += `:root {\n`;
+            uniqueImages.forEach(imgName => {
+                const dataUri = this.plugin.customImagesManager?.getImageDataUri(imgName);
+                if (dataUri) {
+                    const safeVarName = this.sanitizeCssVarName(imgName);
+                    cssContent += `    --typify-img-${safeVarName}: ${dataUri};\n`;
+                }
+            });
+            cssContent += `}\n\n`;
+        }
+
         styles.forEach((style, index) => {
-            const className = `typify-style-${index}`;
+            const className = `typify-style-${String(index)}`;
             const valueKey = style.name.toLowerCase();
+
+            let isImage = false;
+            if (style.icon && style.icon.startsWith('img:')) {
+                const imgName = style.icon.replace('img:', '');
+                if (this.plugin.customImagesManager?.getImageDataUri(imgName)) {
+                    isImage = true;
+                }
+            }
+
+            const classString = isImage ? `${className} typify-is-image` : className;
 
             // Populate O(1) Dictionaries
             if (style.appliesTo && style.appliesTo.length > 0) {
                 style.appliesTo.forEach(prop => {
-                    this.fastLookupMap.set(`${valueKey}|${prop.toLowerCase()}`, className);
+                    this.fastLookupMap.set(`${valueKey}|${prop.toLowerCase()}`, classString);
                 });
             } else {
-                this.globalFallbackMap.set(valueKey, className);
+                this.globalFallbackMap.set(valueKey, classString);
             }
 
             // Generate CSS
@@ -51,6 +81,7 @@ export class StyleManager {
             const pillRadius = style.shape === 'flat' ? '0px' : style.shape === 'rectangle' ? '4px' : 'var(--tag-radius, 14px)';
 
             let iconUrl: string | null = null;
+            
             if (style.icon && style.icon.startsWith('custom:')) {
                 const iconName = style.icon.replace('custom:', '');
                 if (this.plugin.customIconsManager) {
@@ -62,6 +93,12 @@ export class StyleManager {
                         const svg = fallbackEl.outerHTML.replace(/currentColor/g, 'black');
                         iconUrl = `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
                     }
+                }
+            } else if (style.icon && style.icon.startsWith('img:')) {
+                const imgName = style.icon.replace('img:', '');
+                const safeVarName = this.sanitizeCssVarName(imgName);
+                if (this.plugin.customImagesManager?.getImageDataUri(imgName)) {
+                    iconUrl = `var(--typify-img-${safeVarName})`;
                 }
             } else if (style.icon) {
                 const iconEl = getIcon(style.icon);
@@ -89,10 +126,17 @@ body .${className} {
     --pill-radius: ${pillRadius};
 `;
             if (iconUrl) {
-                cssContent += `
+                if (isImage) {
+                    cssContent += `
+    --pill-image-url: ${iconUrl};
+    --pill-icon-display: inline-block;
+`;
+                } else {
+                    cssContent += `
     --pill-icon-url: ${iconUrl};
     --pill-icon-display: inline-block;
 `;
+                }
             }
             cssContent += `}\n`;
         });
@@ -100,6 +144,10 @@ body .${className} {
 
 
         this.styleElement.textContent = cssContent;
+    }
+
+    private sanitizeCssVarName(filename: string): string {
+        return filename.toLowerCase().replace(/[^a-z0-9-]/g, '_');
     }
 
     /**
@@ -120,9 +168,10 @@ body .${className} {
     /**
      * Applies the class to the element and removes old ones.
      */
-    applyStyle(el: HTMLElement, className: string) {
+    applyStyle(el: HTMLElement, classString: string) {
         this.clearStyle(el);
-        el.classList.add(className);
+        const classes = classString.split(' ');
+        el.classList.add(...classes);
     }
 
     /**
@@ -131,7 +180,7 @@ body .${className} {
     clearStyle(el: HTMLElement) {
         const classesToRemove: string[] = [];
         el.classList.forEach(cls => {
-            if (cls.startsWith('typify-style-')) {
+            if (cls.startsWith('typify-style-') || cls === 'typify-is-image') {
                 classesToRemove.push(cls);
             }
         });
