@@ -89,6 +89,9 @@ Voilá! Sua propriedade agora é uma linda pílula colorida ✨
 > [!Note]  
 > As imagens personalizadas na visualização **Bases Cards** são intencionalmente renderizadas um pouco menores (14px em vez de 18px) para evitar cortes no layout, devido à restrição de altura fixa imposta pelo contêiner dos cartões.
 
+> [!Note]  
+> Ícones personalizados e imagens devem ser adicionados manualmente por fora do Obsidian. Coloque seus arquivos SVG na pasta `.obsidian/plugins/typify/custom-icons/` e seus arquivos de imagem (PNG, JPG, etc.) na pasta `.obsidian/plugins/typify/custom-images/`.
+
 > [!Warning]  
 > A importação de configurações **substitui todos os estilos existentes**. Estilos criados após o backup serão perdidos.
 

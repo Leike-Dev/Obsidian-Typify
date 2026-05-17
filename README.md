@@ -89,6 +89,9 @@ Voilá! Your property is now a beautiful colored pill ✨
 > [!Note]  
 > Custom image tags in the **Bases Cards** view are intentionally rendered slightly smaller (14px instead of 18px) to prevent layout clipping caused by the strict fixed-height constraints of the card container.
 
+> [!Note]  
+> Custom icons and images must be added manually outside of Obsidian. Place your SVG files in the `.obsidian/plugins/typify/custom-icons/` folder, and your image files (PNG, JPG, etc.) in the `.obsidian/plugins/typify/custom-images/` folder.
+
 > [!Warning]  
 > Importing settings **replaces all existing styles**. Styles created after the backup will be lost.
 
