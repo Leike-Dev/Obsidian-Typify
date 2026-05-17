@@ -175,40 +175,41 @@ export class DOMManager {
             this.refreshProcessing();
         }));
 
+        // Robust fallback for dynamic views like Canvas that lazy-load elements without triggering workspace events
+        this.plugin.registerInterval(window.setInterval(() => {
+            this.refreshProcessing();
+        }, 1500));
+
         this.refreshProcessing();
     }
 
     refreshProcessing() {
         if (!this.observer) return;
 
-        const metadataContainers = activeDocument.body.findAll('.metadata-container');
-        metadataContainers.forEach(container => {
+        // Only query elements that haven't been observed yet to keep the polling extremely lightweight
+        const unobservedContainers = activeDocument.body.findAll('.metadata-container:not([data-typify-observed])');
+        unobservedContainers.forEach(container => {
             this.processMetadataContainer(container);
-            // Avoid re-observing the same element multiple times
-            if (!container.hasAttribute('data-typify-observed')) {
-                container.setAttribute('data-typify-observed', 'true');
-                this.observer?.observe(container, {
-                    childList: true,
-                    subtree: true,
-                    attributes: true,
-                    characterData: true
-                });
-            }
+            container.setAttribute('data-typify-observed', 'true');
+            this.observer?.observe(container, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                characterData: true
+            });
         });
 
-        const basesViews = activeDocument.body.findAll('.bases-view');
-        basesViews.forEach(view => {
+        const unobservedBasesViews = activeDocument.body.findAll('.bases-view:not([data-typify-observed])');
+        unobservedBasesViews.forEach(view => {
             this.processBasesView(view);
             this.processBasesCardsView(view);
-            if (!view.hasAttribute('data-typify-observed')) {
-                view.setAttribute('data-typify-observed', 'true');
-                this.observer?.observe(view, {
-                    childList: true,
-                    subtree: true,
-                    attributes: true,
-                    characterData: true
-                });
-            }
+            view.setAttribute('data-typify-observed', 'true');
+            this.observer?.observe(view, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                characterData: true
+            });
         });
     }
 
