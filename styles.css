@@ -866,24 +866,24 @@ body.typify-hide-x-both .bases-view .multi-select-pill.custom-status-icon-pill {
    ========================================================================== */
 body .multi-select-pill.custom-status-icon-pill.typify-is-image .multi-select-pill-content::before,
 body .custom-status-icon-value.typify-is-image::before {
-    mask-image: none !important;
-    -webkit-mask-image: none !important;
-    background-image: var(--pill-image-url) !important;
-    background-color: transparent !important;
+    mask-image: none;
+    -webkit-mask-image: none;
+    background-image: var(--pill-image-url);
+    background-color: transparent;
     background-size: cover;
     background-position: center;
     border-radius: 50%;
-    width: 18px !important;
-    height: 18px !important;
-    margin-right: 6px !important;
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
     vertical-align: middle;
 }
 
 /* Reduce image size in card view to match standard icon and prevent clipping */
 body .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value.typify-is-image::before,
 body .bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value.typify-is-image::before {
-    width: 14px !important;
-    height: 14px !important;
+    width: 14px;
+    height: 14px;
 }
 
 /* ==========================================================================
