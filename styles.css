@@ -469,9 +469,9 @@ body .bases-view .bases-cards-container .bases-cards-property .typify-single-val
 
     background: var(--pill-background);
     color: var(--pill-color);
-    box-shadow: inset 0 0 0 1px var(--pill-border-color);
+    border: 1px solid var(--pill-border-color);
     border-radius: var(--pill-radius, 4px);
-    padding: 3px 6px;
+    padding: 2px 6px;
     display: inline-flex;
     align-items: center;
     vertical-align: middle;
@@ -497,7 +497,7 @@ body .bases-view .bases-cards-container .bases-cards-property .typify-single-val
 /* Mobile: tighter vertical padding to prevent clipping in strict card containers */
 body.is-mobile .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value,
 body.is-mobile .bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value {
-    padding: 1.5px 6px;
+    padding: 1px 6px;
 }
 
 /* Icon for Bases Cards View */
