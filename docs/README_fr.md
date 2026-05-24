@@ -90,7 +90,7 @@ Voilà ! Votre propriété est maintenant une belle pilule colorée ✨
 > Les images personnalisées dans la vue **Bases Cards** sont intentionnellement rendues un peu plus petites (14px au lieu de 18px) pour éviter les coupures de mise en page dues aux restrictions strictes de hauteur fixe du conteneur de la carte.
 
 > [!Note]  
-> Les icônes personnalisées et les images doivent être ajoutées manuellement en dehors d'Obsidian. Placez vos fichiers SVG dans le dossier `.obsidian/plugins/typify/custom-icons/` et vos fichiers d'images (PNG, JPG, etc.) dans le dossier `.obsidian/plugins/typify/custom-images/`.
+> Les icônes personnalisées et les images doivent être ajoutées manuellement en dehors d'Obsidian. Placez vos fichiers SVG dans le dossier `.obsidian/plugins/typify/icons/` et vos fichiers d'images (PNG, JPG, etc.) dans le dossier `.obsidian/plugins/typify/img/`.
 
 > [!Warning]  
 > L'importation des paramètres **remplace tous les styles existants**. Les styles créés après la sauvegarde seront perdus.

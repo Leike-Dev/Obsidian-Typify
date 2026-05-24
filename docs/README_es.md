@@ -90,7 +90,7 @@ Typify es un plugin para Obsidian que te permite crear estilos únicos para tus 
 > Las imágenes personalizadas en la vista **Bases Cards** se renderizan intencionalmente un poco más pequeñas (14px en lugar de 18px) para evitar recortes en el diseño debido a las estrictas restricciones de altura fija del contenedor de la tarjeta.
 
 > [!Note]  
-> Los íconos personalizados y las imágenes deben agregarse manualmente fuera de Obsidian. Coloca tus archivos SVG en la carpeta `.obsidian/plugins/typify/custom-icons/` y tus archivos de imagen (PNG, JPG, etc.) en la carpeta `.obsidian/plugins/typify/custom-images/`.
+> Los íconos personalizados y las imágenes deben agregarse manualmente fuera de Obsidian. Coloca tus archivos SVG en la carpeta `.obsidian/plugins/typify/icons/` y tus archivos de imagen (PNG, JPG, etc.) en la carpeta `.obsidian/plugins/typify/img/`.
 
 > [!Warning]  
 > La importación de configuraciones **reemplaza todos los estilos existentes**. Los estilos creados después del respaldo se perderán.

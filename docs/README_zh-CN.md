@@ -90,7 +90,7 @@ Typify 是一款 Obsidian 插件，让你可以为元数据创建独特的样式
 > **Bases Cards** 视图中的自定义图片标签会故意渲染得稍小一些（14px 而不是 18px），这是为了防止由于卡片容器严格的固定高度限制而导致布局被裁剪。
 
 > [!Note]  
-> 自定义图标和图片必须在 Obsidian 外部手动添加。请将 SVG 文件放置在 `.obsidian/plugins/typify/custom-icons/` 文件夹中，并将图片文件（PNG、JPG 等）放置在 `.obsidian/plugins/typify/custom-images/` 文件夹中。
+> 自定义图标和图片必须在 Obsidian 外部手动添加。请将 SVG 文件放置在 `.obsidian/plugins/typify/icons/` 文件夹中，并将图片文件（PNG、JPG 等）放置在 `.obsidian/plugins/typify/img/` 文件夹中。
 
 > [!Warning]  
 > 导入设置会**替换所有现有样式**。备份之后创建的样式将会丢失。
