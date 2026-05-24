@@ -167,17 +167,21 @@ body .${className} {
 
     /**
      * Applies the class to the element and removes old ones.
+     * Skips DOM operations if the element already has the correct class.
      */
     applyStyle(el: HTMLElement, classString: string) {
+        if (el.dataset.typifyClass === classString) return;
         this.clearStyle(el);
         const classes = classString.split(' ');
         el.classList.add(...classes);
+        el.dataset.typifyClass = classString;
     }
 
     /**
      * Removes any existing typify dynamic classes from the element.
      */
     clearStyle(el: HTMLElement) {
+        delete el.dataset.typifyClass;
         const classesToRemove: string[] = [];
         el.classList.forEach(cls => {
             if (cls.startsWith('typify-style-') || cls === 'typify-is-image') {
