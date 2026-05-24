@@ -500,6 +500,13 @@ body.is-mobile .bases-view .bases-cards-container .bases-cards-property .typify-
     padding: 1px 6px;
 }
 
+/* Minimal theme compat: tighter vertical padding to prevent clipping
+   in cards where Minimal's smaller font causes tighter heights */
+body.typify-compat-minimal .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value,
+body.typify-compat-minimal .bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value {
+    padding: 1px 6px;
+}
+
 /* Icon for Bases Cards View */
 .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value::before,
 .bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value::before {

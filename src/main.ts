@@ -71,6 +71,12 @@ export default class TypifyPlugin extends Plugin {
         this.domManager.init();
 
         this.updateBodyClasses();
+        this.updateThemeCompat();
+
+        // Re-check theme compat when user switches themes
+        this.registerEvent(this.app.workspace.on('css-change', () => {
+            this.updateThemeCompat();
+        }));
     }
 
     onunload() {
@@ -80,7 +86,11 @@ export default class TypifyPlugin extends Plugin {
         if (this.styleManager) {
             this.styleManager.cleanup();
         }
-        document.body.classList.remove('typify-hide-x-none', 'typify-hide-x-properties', 'typify-hide-x-bases', 'typify-hide-x-both');
+        document.body.classList.remove(
+            'typify-hide-x-none', 'typify-hide-x-properties',
+            'typify-hide-x-bases', 'typify-hide-x-both',
+            'typify-compat-minimal'
+        );
     }
 
     async loadSettings() {
@@ -111,6 +121,19 @@ export default class TypifyPlugin extends Plugin {
         if (this.settings.hideRemoveButton && this.settings.hideRemoveButton !== 'none') {
             document.body.classList.add(`typify-hide-x-${this.settings.hideRemoveButton}`);
         }
+    }
+
+    /**
+     * Detects theme-specific quirks and toggles compat body classes.
+     * Currently handles Minimal theme's tighter Bases card heights.
+     */
+    private updateThemeCompat() {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const cssTheme: string = (this.app.vault as any).getConfig?.('cssTheme') ?? '';
+        document.body.classList.toggle(
+            'typify-compat-minimal',
+            cssTheme.toLowerCase().includes('minimal')
+        );
     }
 
     /**
