@@ -186,6 +186,9 @@ export class DOMManager {
     refreshProcessing() {
         if (!this.observer) return;
 
+        // Re-attach <style> if it was removed externally
+        this.styleManager.ensureAttached();
+
         // Only query elements that haven't been observed yet to keep the polling extremely lightweight
         const unobservedContainers = activeDocument.body.findAll('.metadata-container:not([data-typify-observed])');
         unobservedContainers.forEach(container => {

@@ -190,6 +190,15 @@ body .${className} {
     }
 
     /**
+     * Ensures the <style> element is still attached to the DOM.
+     * Re-injects it into the active document if it was removed externally.
+     */
+    ensureAttached(): void {
+        if (!this.styleElement || this.styleElement.isConnected) return;
+        activeDocument.head.appendChild(this.styleElement);
+    }
+
+    /**
      * Cleans up the injected stylesheet on unload.
      */
     cleanup() {
