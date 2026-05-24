@@ -529,10 +529,11 @@ body.typify-compat-minimal .bases-view .bases-cards-container .bases-cards-prope
     font-size: var(--font-smaller);
 }
 
-/* Minimal theme compat: normalize pill font-size in list view.
+/* Minimal theme compat: normalize pill font-size in Bases list view.
    Minimal sets body font-size to --font-text-size, inflating the
-   em context. This reduction step restores proportional sizing. */
-body.typify-compat-minimal .multi-select-pill.custom-status-icon-pill {
+   em context. This reduction step restores proportional sizing.
+   Scoped to bases-view only — metadata pills keep normal sizing. */
+body.typify-compat-minimal .bases-view .multi-select-pill.custom-status-icon-pill {
     font-size: var(--font-smaller);
 }
 
