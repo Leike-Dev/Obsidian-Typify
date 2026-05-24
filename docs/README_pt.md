@@ -95,6 +95,9 @@ Voilá! Sua propriedade agora é uma linda pílula colorida ✨
 > [!Warning]  
 > A importação de configurações **substitui todos os estilos existentes**. Estilos criados após o backup serão perdidos.
 
+> [!Warning]  
+> O tema **Minimal** possui algumas inconsistências de layout conhecidas quando utilizado em conjunto com o plugin Typify (como tamanhos desproporcionais de fontes ou cortes de elementos). Embora eu esteja trabalhando ativamente para mitigar e resolver essas limitações em cada atualização, recomendo utilizá-lo ciente destas inconsistências temporárias.
+
 
 ## Roadmap
 

@@ -95,6 +95,9 @@ Voilà ! Votre propriété est maintenant une belle pilule colorée ✨
 > [!Warning]  
 > L'importation des paramètres **remplace tous les styles existants**. Les styles créés après la sauvegarde seront perdus.
 
+> [!Warning]  
+> Le thème **Minimal** présente des incohérences de mise en page connues lorsqu'il est utilisé avec Typify (telles que des tailles de police disproportionnées ou des éléments tronqués). Bien que je travaille activement à atténuer et à résoudre ces limitations dans chaque mise à jour, veuillez être conscient de ces incohérences temporaires lors de l'utilisation de ce thème.
+
 ## Roadmap
 
 Voici quelques-unes des fonctionnalités et améliorations planifiées pour de futures mises à jour :

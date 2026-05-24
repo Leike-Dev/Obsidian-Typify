@@ -95,6 +95,9 @@ Typify es un plugin para Obsidian que te permite crear estilos únicos para tus 
 > [!Warning]  
 > La importación de configuraciones **reemplaza todos los estilos existentes**. Los estilos creados después del respaldo se perderán.
 
+> [!Warning]  
+> El tema **Minimal** presenta algunas inconsistencias de diseño conocidas cuando se usa junto con Typify (como tamaños de fuente desproporcionados o elementos recortados). Aunque estoy trabajando activamente para mitigar y resolver estas limitaciones en cada actualización, tenga en cuenta estas inconsistencias temporales al usar este tema.
+
 ## Roadmap
 
 Aquí están algunas de las características y mejoras planificadas para futuras actualizaciones:

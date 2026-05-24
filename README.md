@@ -95,6 +95,9 @@ Voilá! Your property is now a beautiful colored pill ✨
 > [!Warning]  
 > Importing settings **replaces all existing styles**. Styles created after the backup will be lost.
 
+> [!Warning]  
+> The **Minimal** theme has some known layout inconsistencies when used alongside Typify (such as disproportionate font sizes or clipped elements). While I am actively working to mitigate and resolve these limitations in each update, please be aware of these temporary inconsistencies when using this theme.
+
 ## Roadmap
 
 Here are some of the planned features and improvements under consideration for future releases:
