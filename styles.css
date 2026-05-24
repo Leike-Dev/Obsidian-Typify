@@ -96,13 +96,9 @@ body .multi-select-pill.custom-status-icon-pill .multi-select-pill-content.exter
     margin-right: var(--icon-gap);
     flex-shrink: 0;
     background-color: currentColor;
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-position: center;
     -webkit-mask-size: contain;
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
-    mask-image: var(--pill-icon-url);
     -webkit-mask-image: var(--pill-icon-url);
     border-radius: 0;
 }
@@ -545,14 +541,10 @@ body.typify-compat-minimal .bases-view .multi-select-pill.custom-status-icon-pil
     width: 14px;
     height: 14px;
     min-width: 14px;
-    mask-image: var(--pill-icon-url);
     -webkit-mask-image: var(--pill-icon-url);
     -webkit-mask-size: contain;
-    mask-size: contain;
     -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
     -webkit-mask-position: center;
-    mask-position: center;
     background-color: currentColor;
 }
 
@@ -912,7 +904,6 @@ body.typify-hide-x-both .bases-view .multi-select-pill.custom-status-icon-pill {
    ========================================================================== */
 body .multi-select-pill.custom-status-icon-pill.typify-is-image .multi-select-pill-content::before,
 body .custom-status-icon-value.typify-is-image::before {
-    mask-image: none;
     -webkit-mask-image: none;
     background-image: var(--pill-image-url);
     background-color: transparent;
