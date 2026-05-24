@@ -505,6 +505,14 @@ body.is-mobile .bases-view .bases-cards-container .bases-cards-property .typify-
 body.typify-compat-minimal .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value,
 body.typify-compat-minimal .bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value {
     padding: 1px 6px;
+    font-size: var(--font-smaller);
+}
+
+/* Minimal theme compat: normalize pill font-size in list view.
+   Minimal sets body font-size to --font-text-size, inflating the
+   em context. This reduction step restores proportional sizing. */
+body.typify-compat-minimal .multi-select-pill.custom-status-icon-pill {
+    font-size: var(--font-smaller);
 }
 
 /* Icon for Bases Cards View */
