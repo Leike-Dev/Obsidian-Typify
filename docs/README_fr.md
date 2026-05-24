@@ -95,6 +95,17 @@ Voilà ! Votre propriété est maintenant une belle pilule colorée ✨
 > [!Warning]  
 > L'importation des paramètres **remplace tous les styles existants**. Les styles créés après la sauvegarde seront perdus.
 
+## Roadmap
+
+Voici quelques-unes des fonctionnalités et améliorations planifiées pour de futures mises à jour :
+
+- **📊 Pilules de Référence** : Afficher le nombre total de références que cette information possède dans votre coffre au lieu d'une icône (ex : une pilule d'auteur affichant « X » références).
+- **🔗 Simplification des Liens** : Nettoyer et raccourcir automatiquement les URL externes affichées dans les pilules (ex : `www.google.com` simplifié en `google.com`).
+- **🌐 Prise en charge des Favicons** : Option pour récupérer et afficher automatiquement le favicon du site pour les liens externes sans icône personnalisée configurée.
+- **🎨 Pilules Simples** : Styles minimalistes et sans couleur. Ils peuvent être configurés ou appliqués automatiquement aux valeurs non définies dans les propriétés stylisées.
+- **🗂️ Nouvelle Interface de Gestion** : Remplacer la longue liste de styles par une disposition par onglets (tabs) similaire à celle du modal de recherche d'icônes, avec prise en charge du défilement horizontal.
+- **😀 Icônes d'Emojis** : Permettre de sélectionner et d'utiliser directement des emojis natifs comme icônes sur les pilules.
+
 ## Développement
 
 Si vous souhaitez compiler le plugin vous-même, procédez comme suit :

@@ -95,6 +95,17 @@ Voilá! Your property is now a beautiful colored pill ✨
 > [!Warning]  
 > Importing settings **replaces all existing styles**. Styles created after the backup will be lost.
 
+## Roadmap
+
+Here are some of the planned features and improvements under consideration for future releases:
+
+- **📊 Reference Pills**: Display the total number of references that specific metadata has across your vault instead of an icon (e.g., an author pill displaying "X" references).
+- **🔗 Link Simplification**: Automatically clean and shorten external URLs displayed inside pills (e.g., `www.google.com` simplified to `google.com`).
+- **🌐 Favicon Support**: Automatically fetch and display website favicons for external links that do not have a custom icon configured.
+- **🎨 Simple Pills**: Introduce minimal, color-free styling options. These can be customized or automatically applied to undefined values in styled properties.
+- **🗂️ Tabbed Management UI**: Overhaul the settings panel to replace the long list of styles with a tab-based organization system (matching the icon search layout), complete with horizontal scrolling.
+- **😀 Emoji Icons**: Support selecting and using native emojis as pill icons directly.
+
 ## Development
 
 If you want to build the plugin yourself, do the following:

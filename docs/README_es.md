@@ -95,6 +95,17 @@ Typify es un plugin para Obsidian que te permite crear estilos únicos para tus 
 > [!Warning]  
 > La importación de configuraciones **reemplaza todos los estilos existentes**. Los estilos creados después del respaldo se perderán.
 
+## Roadmap
+
+Aquí están algunas de las características y mejoras planificadas para futuras actualizaciones:
+
+- **📊 Píldoras de Referencia**: Mostrar la cantidad total de referencias que tiene esa información en tu bóveda en lugar de mostrar un icono (ej: una etiqueta de autor que muestre "X" referencias).
+- **🔗 Simplificación de Enlaces**: Limpiar y acortar URLs externas mostradas en las píldoras de forma automática (ej: `www.google.com` simplificado a `google.com`).
+- **🌐 Iconos de Favicon**: Opción para buscar y mostrar automáticamente el favicon de un sitio web para enlaces externos que no tengan un icono personalizado configurado.
+- **🎨 Píldoras Simples**: Estilos minimalistas y sin color. Se pueden configurar o aplicar automáticamente a valores no definidos en propiedades estilizadas.
+- **🗂️ Nueva Interfaz de Gestión**: Reemplazar la larga lista de estilos por un diseño basado en pestañas (tabs) similar al utilizado en el modal de búsqueda de iconos, con soporte para desplazamiento horizontal.
+- **😀 Iconos de Emojis**: Soporte para seleccionar y utilizar emojis nativos directamente como iconos en las píldoras.
+
 ## Desarrollo
 
 Si quieres compilar el plugin tú mismo, haz lo siguiente:
