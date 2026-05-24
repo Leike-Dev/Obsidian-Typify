@@ -76,6 +76,17 @@ body .multi-select-pill.custom-status-icon-pill .multi-select-pill-remove-button
     font-size: var(--pill-font-size);
 }
 
+/* External links inside pills: inherit pill color, keep clickable */
+body .multi-select-pill.custom-status-icon-pill .multi-select-pill-content.external-link {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+body .multi-select-pill.custom-status-icon-pill .multi-select-pill-content.external-link:hover {
+    text-decoration: underline;
+}
+
 /* Icon - uses custom variables */
 .multi-select-pill.custom-status-icon-pill .multi-select-pill-content::before {
     content: '';
@@ -254,6 +265,8 @@ body .multi-select-pill.custom-status-icon-pill .multi-select-pill-remove-button
     border-radius: 8px;
     border: 1px solid var(--background-modifier-border);
     gap: 8px;
+    overflow: hidden;
+    min-width: 0;
 }
 
 .csi-preview-label {
@@ -324,6 +337,14 @@ body .multi-select-pill.custom-status-icon-pill .multi-select-pill-remove-button
     display: inline-flex;
     align-items: center;
     gap: 4px;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.csi-preview-pill-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* Inputs within settings */

@@ -260,7 +260,7 @@ export class StyleEditorModal extends Modal {
 
         // Light pill
         this.previewPillLight.empty();
-        this.previewPillLight.setText(displayName);
+        this.previewPillLight.createSpan({ text: displayName, cls: 'csi-preview-pill-text' });
         const previewRadius = this.shape === 'flat' ? '0px' : this.shape === 'rectangle' ? '4px' : '10px';
         this.previewPillLight.setCssStyles({
             backgroundColor: palette.light.bg,
@@ -271,7 +271,7 @@ export class StyleEditorModal extends Modal {
 
         // Dark pill
         this.previewPillDark.empty();
-        this.previewPillDark.setText(displayName);
+        this.previewPillDark.createSpan({ text: displayName, cls: 'csi-preview-pill-text' });
         this.previewPillDark.setCssStyles({
             backgroundColor: palette.dark.bg,
             color: palette.dark.text,
