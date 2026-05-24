@@ -33,7 +33,7 @@ body .multi-select-pill.custom-status-icon-pill {
     /* Custom styled border */
     border: 1px solid var(--pill-border-color);
     box-shadow: none;
-    border-radius: var(--pill-radius, var(--tag-radius, 14px));
+    border-radius: var(--pill-radius, 14px);
     background-color: var(--pill-background);
     color: var(--pill-color);
     /* No transition on base state to avoid animation when MutationObserver reprocesses */
