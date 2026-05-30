@@ -133,7 +133,16 @@ export const es = {
     'hide_remove_button_title': 'Ocultar botón "×" de las etiquetas',
     'hide_remove_button_desc': 'Oculta el icono de eliminación para un aspecto más limpio y discreto.',
     'hide_remove_button_none': 'Ninguno (Predeterminado)',
+
     'hide_remove_button_properties': 'Solo en Propiedades',
     'hide_remove_button_bases': 'Solo en Bases',
-    'hide_remove_button_both': 'En ambos'
+    'hide_remove_button_both': 'En ambos',
+
+    // Enlaces Asociados
+    'link_styles_toggle_title': 'Enlaces asociados',
+    'link_styles_toggle_desc': 'Reemplaza las URL en las píldoras por el nombre del estilo, manteniendo el comportamiento de clic nativo.',
+    'link_url_title': 'Enlace asociado',
+    // UI Components
+    'ui_components_title': 'Otros estilos',
+    'ui_components_desc': 'Habilita o deshabilita componentes visuales de las etiquetas.'
 };

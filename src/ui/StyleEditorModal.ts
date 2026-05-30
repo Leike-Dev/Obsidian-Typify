@@ -25,6 +25,7 @@ export class StyleEditorModal extends Modal {
     private appliesTo: string[] = [];
     private shape: 'pill' | 'rectangle' | 'flat' = 'pill';
     private colorMode: 'subtle' | 'solid' = 'subtle';
+    private matchValue = '';
 
     // DOM references for live preview updates
     private previewPillLight: HTMLElement | null = null;
@@ -45,6 +46,7 @@ export class StyleEditorModal extends Modal {
             this.appliesTo = editStyle.appliesTo ? [...editStyle.appliesTo] : [];
             this.shape = editStyle.shape || 'pill';
             this.colorMode = editStyle.colorMode || 'subtle';
+            this.matchValue = editStyle.matchValue || '';
         }
     }
 
@@ -174,6 +176,20 @@ export class StyleEditorModal extends Modal {
                     this.appliesTo = value === 'all' ? [] : [value];
                 });
             });
+
+        // Link URL (only shown when link styles are enabled)
+        if (this.plugin.settings.enableLinkStyles) {
+            new Setting(contentEl)
+                .setName(t('link_url_title'))
+                .addText(text => {
+                    // eslint-disable-next-line obsidianmd/ui/sentence-case
+                    text.setPlaceholder('https://...')
+                        .setValue(this.matchValue)
+                        .onChange(value => {
+                            this.matchValue = value;
+                        });
+                });
+        }
 
         // ============================================================
         // PREVIEW
@@ -384,12 +400,16 @@ export class StyleEditorModal extends Modal {
             new Notice(t('style_overlap_warning'));
         }
 
-        // Create the style object
         const style: StatusStyle = {
             name: name,
             baseColor: this.baseColor,
             icon: this.icon
         };
+
+        // Only add matchValue if set
+        if (this.matchValue.trim()) {
+            style.matchValue = this.matchValue.trim();
+        }
 
         // Only add appliesTo if scoped
         if (this.appliesTo.length > 0) {

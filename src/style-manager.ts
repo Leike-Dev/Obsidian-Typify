@@ -9,6 +9,8 @@ export class StyleManager {
     private fastLookupMap: Map<string, string> = new Map();
     // Cache for global fallbacks: key = value.toLowerCase()
     private globalFallbackMap: Map<string, string> = new Map();
+    // Display info cache: className → { name, hasMatchValue }
+    private styleInfoMap: Map<string, { name: string; hasMatchValue: boolean }> = new Map();
 
     constructor(plugin: TypifyPlugin) {
         this.plugin = plugin;
@@ -21,6 +23,7 @@ export class StyleManager {
     buildCache() {
         this.fastLookupMap.clear();
         this.globalFallbackMap.clear();
+        this.styleInfoMap.clear();
 
         if (this.styleElement) {
             this.styleElement.remove();
@@ -55,7 +58,7 @@ export class StyleManager {
 
         styles.forEach((style, index) => {
             const className = `typify-style-${String(index)}`;
-            const valueKey = style.name.toLowerCase();
+            const valueKey = (style.matchValue || style.name).toLowerCase();
 
             let isImage = false;
             if (style.icon && style.icon.startsWith('img:')) {
@@ -75,6 +78,12 @@ export class StyleManager {
             } else {
                 this.globalFallbackMap.set(valueKey, classString);
             }
+
+            // Populate display info map
+            this.styleInfoMap.set(classString, {
+                name: style.name,
+                hasMatchValue: !!style.matchValue
+            });
 
             // Generate CSS
             const palette = generatePalette(style.baseColor, style.colorMode || 'subtle');
@@ -166,6 +175,13 @@ body .${className} {
     }
 
     /**
+     * Returns display info for a matched class string.
+     */
+    getStyleInfo(classString: string): { name: string; hasMatchValue: boolean } | undefined {
+        return this.styleInfoMap.get(classString);
+    }
+
+    /**
      * Applies the class to the element and removes old ones.
      * Skips DOM operations if the element already has the correct class.
      */
@@ -212,5 +228,6 @@ body .${className} {
         }
         this.fastLookupMap.clear();
         this.globalFallbackMap.clear();
+        this.styleInfoMap.clear();
     }
 }

@@ -1,4 +1,4 @@
-import { PluginSettingTab, App, Setting, Notice } from 'obsidian';
+import { PluginSettingTab, App, Setting, Notice, setIcon } from 'obsidian';
 import { StyleEditorModal } from './ui/StyleEditorModal';
 import { StyleManagerModal } from './ui/StyleManagerModal';
 import { ExportSettingsModal } from './ui/ExportSettingsModal';
@@ -16,6 +16,7 @@ import { t } from './lang/helpers';
  */
 export class CustomStatusIconsSettingTab extends PluginSettingTab {
     plugin: TypifyPlugin;
+    togglesExpanded: boolean = false;
 
     constructor(app: App, plugin: TypifyPlugin) {
         super(app, plugin);
@@ -126,8 +127,42 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                     new StyleManagerModal(this.app, this.plugin, () => { this.display(); }).open();
                 }));
 
+        // ================================================================
+        // COLLAPSIBLE UI COMPONENTS SECTION
+        // ================================================================
+        const isTogglesOpen = this.togglesExpanded;
+
+        const togglesHeader = new Setting(containerEl)
+            .setName(t('ui_components_title'))
+            .setDesc(t('ui_components_desc'));
+
+        togglesHeader.settingEl.classList.add("csi-dropdown-header");
+        if (isTogglesOpen) {
+            togglesHeader.settingEl.classList.add("is-expanded");
+        }
+
+        const toggleIconToggles = togglesHeader.controlEl.createSpan({ cls: "csi-dropdown-icon" });
+        setIcon(toggleIconToggles, isTogglesOpen ? "chevron-down" : "chevron-right");
+        togglesHeader.settingEl.classList.add("csi-clickable-header");
+
+        const togglesContainer = containerEl.createDiv({ cls: "csi-dropdown-container" });
+        togglesContainer.style.display = isTogglesOpen ? "block" : "none";
+
+        togglesHeader.settingEl.addEventListener("click", () => {
+            const newState = !this.togglesExpanded;
+            this.togglesExpanded = newState;
+            togglesContainer.style.display = newState ? "block" : "none";
+            toggleIconToggles.empty();
+            setIcon(toggleIconToggles, newState ? "chevron-down" : "chevron-right");
+            if (newState) {
+                togglesHeader.settingEl.classList.add("is-expanded");
+            } else {
+                togglesHeader.settingEl.classList.remove("is-expanded");
+            }
+        });
+
         // 3. HIDE REMOVE BUTTON (X)
-        new Setting(containerEl)
+        new Setting(togglesContainer)
             .setName(t('hide_remove_button_title'))
             .setDesc(t('hide_remove_button_desc'))
             .addDropdown(dropdown => {
@@ -143,6 +178,19 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                     await this.plugin.saveSettings();
                 });
             });
+
+        // ================================================================
+        // LINK STYLES
+        // ================================================================
+        new Setting(togglesContainer)
+            .setName(t('link_styles_toggle_title'))
+            .setDesc(t('link_styles_toggle_desc'))
+            .addToggle(toggle => toggle
+                .setValue(this.plugin.settings.enableLinkStyles)
+                .onChange(async (value) => {
+                    this.plugin.settings.enableLinkStyles = value;
+                    await this.plugin.saveSettings();
+                }));
 
         // ================================================================
         // DATA MANAGEMENT

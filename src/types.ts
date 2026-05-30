@@ -4,6 +4,7 @@
 
 export interface StatusStyle {
     name: string;
+    matchValue?: string; // Optional: Value used for matching instead of name (e.g., a URL). Display uses name.
     baseColor: string;
     icon: string;
     appliesTo?: string[]; // Optional: List of properties this style applies to. If empty/undefined, applies to all.
@@ -17,6 +18,7 @@ export interface CustomStatusIconsSettings {
     recentIcons: string[];
     enableCustomIcons: boolean;
     hideRemoveButton: 'none' | 'properties' | 'bases' | 'both';
+    enableLinkStyles: boolean;
 }
 
 export const DEFAULT_SETTINGS: CustomStatusIconsSettings = {
@@ -24,7 +26,8 @@ export const DEFAULT_SETTINGS: CustomStatusIconsSettings = {
     statusStyles: [],
     recentIcons: [],
     enableCustomIcons: false,
-    hideRemoveButton: 'none'
+    hideRemoveButton: 'none',
+    enableLinkStyles: false
 };
 
 // Default color for new status styles

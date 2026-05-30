@@ -135,5 +135,13 @@ export const fr = {
     'hide_remove_button_none': 'Aucun (Par défaut)',
     'hide_remove_button_properties': 'Uniquement dans Propriétés',
     'hide_remove_button_bases': 'Uniquement dans Bases',
-    'hide_remove_button_both': 'Dans les deux'
+    'hide_remove_button_both': 'Dans les deux',
+
+    // Liens Associés
+    'link_styles_toggle_title': 'Liens associés',
+    'link_styles_toggle_desc': 'Remplace les URL dans les pilules par le nom du style, en conservant le comportement de clic natif du lien.',
+    'link_url_title': 'Lien associé',
+    // UI Components
+    'ui_components_title': 'Autres styles',
+    'ui_components_desc': 'Activer ou désactiver les composants visuels des étiquettes.'
 };

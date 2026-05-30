@@ -224,7 +224,13 @@ export class DOMManager {
         }
 
         const content = pill.querySelector('.multi-select-pill-content');
-        const value = content?.textContent?.trim() || '';
+        // For external links, use data-href (set by Obsidian, immutable) to avoid
+        // MutationObserver loops after text replacement
+        const isExternalLink = content?.classList.contains('external-link');
+        const value = (isExternalLink
+            ? content?.getAttribute('data-href')
+            : content?.textContent?.trim()
+        ) || '';
 
         if (pill.getAttribute('data-value') !== value) {
             pill.setAttribute('data-value', value);
@@ -234,9 +240,34 @@ export class DOMManager {
         if (matchedClass) {
             pill.classList.add('custom-status-icon-pill');
             this.styleManager.applyStyle(pill, matchedClass);
+
+            // Link text replacement: swap URL for display name
+            const info = this.styleManager.getStyleInfo(matchedClass);
+
+            if (this.plugin.settings.enableLinkStyles && info?.hasMatchValue && isExternalLink && content?.instanceOf(HTMLElement)) {
+                // Replace URL text with style display name
+                if (content.textContent?.trim() !== info.name) {
+                    content.textContent = info.name;
+                }
+            } else {
+                // Toggle off or style lost matchValue — restore original URL
+                if (isExternalLink && content?.instanceOf(HTMLElement)) {
+                    const href = content.getAttribute('data-href');
+                    if (href && content.textContent?.trim() !== href) {
+                        content.textContent = href;
+                    }
+                }
+            }
         } else {
             pill.classList.remove('custom-status-icon-pill');
             this.styleManager.clearStyle(pill);
+            // Restore original URL if text was replaced by a now-removed style
+            if (isExternalLink && content?.instanceOf(HTMLElement)) {
+                const href = content.getAttribute('data-href');
+                if (href && content.textContent?.trim() !== href) {
+                    content.textContent = href;
+                }
+            }
         }
     }
 
@@ -354,6 +385,15 @@ export class DOMManager {
             el.removeAttribute('data-value');
             el.removeAttribute('data-property-key');
             this.styleManager.clearStyle(el);
+
+            // Restore external link text if it was modified
+            const linkContent = el.querySelector('.multi-select-pill-content.external-link');
+            if (linkContent instanceof HTMLElement) {
+                const href = linkContent.getAttribute('data-href');
+                if (href && linkContent.textContent?.trim() !== href) {
+                    linkContent.textContent = href;
+                }
+            }
         });
         activeDocument.body.findAll('.custom-status-icon-value').forEach(el => {
             el.classList.remove('custom-status-icon-value');

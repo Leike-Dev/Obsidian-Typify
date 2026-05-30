@@ -133,7 +133,16 @@ export const en = {
     'hide_remove_button_title': 'Hide "×" button on tags',
     'hide_remove_button_desc': 'Hides the remove icon for a cleaner and more discreet look.',
     'hide_remove_button_none': 'None (Default)',
+
     'hide_remove_button_properties': 'Only in Properties',
     'hide_remove_button_bases': 'Only in Bases',
-    'hide_remove_button_both': 'In both'
+    'hide_remove_button_both': 'In both',
+
+// Link Styles
+    'link_styles_toggle_title': 'Associated links',
+    'link_styles_toggle_desc': 'Replaces URLs in pills with the style name, keeping the native link click behavior.',
+    'link_url_title': 'Associated Link',
+    // UI Components
+    'ui_components_title': 'Other styles',
+    'ui_components_desc': 'Enable or disable visual components for the tags.'
 };

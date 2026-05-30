@@ -133,7 +133,16 @@ export const ptBR = {
     'hide_remove_button_title': 'Ocultar botão "×" das tags',
     'hide_remove_button_desc': 'Esconde o ícone de remoção para um visual mais limpo e discreto.',
     'hide_remove_button_none': 'Nenhum (Padrão)',
+
     'hide_remove_button_properties': 'Apenas nas Propriedades',
     'hide_remove_button_bases': 'Apenas no Bases',
-    'hide_remove_button_both': 'Em ambos'
+    'hide_remove_button_both': 'Em ambos',
+
+    // Links Associados
+    'link_styles_toggle_title': 'Links associados',
+    'link_styles_toggle_desc': 'Substitui URLs nas pílulas pelo nome do estilo, mantendo o clique nativo do link.',
+    'link_url_title': 'Link associado',
+    // UI Components
+    'ui_components_title': 'Outros estilos',
+    'ui_components_desc': 'Ative ou desative os componentes visuais das tags.'
 };

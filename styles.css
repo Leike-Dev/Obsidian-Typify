@@ -107,6 +107,16 @@ body .multi-select-pill.custom-status-icon-pill .multi-select-pill-content.exter
     border-radius: 0;
 }
 
+/* Hide native Obsidian external link icon on our custom pills */
+body .multi-select-pill.custom-status-icon-pill .multi-select-pill-content.external-link {
+    background-image: none;
+    padding-right: 0;
+}
+
+body .multi-select-pill.custom-status-icon-pill .multi-select-pill-content.external-link::after {
+    display: none;
+}
+
 /* ==========================================================================
    SETTINGS TAB STYLES
    ========================================================================== */
@@ -131,6 +141,85 @@ body .multi-select-pill.custom-status-icon-pill .multi-select-pill-content.exter
     font-weight: 700;
     letter-spacing: -0.5px;
 }
+
+/* =========================================================================
+   DROPDOWN SETTINGS GROUP (Collapsible)
+   ========================================================================= */
+
+/* When expanded, the header loses its bottom margin and bottom rounding */
+.mod-settings .setting-item.csi-dropdown-header.is-expanded {
+    margin-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: none;
+}
+
+/* The container holding the sub-items */
+.csi-dropdown-container {
+    margin-bottom: var(--size-4-5);
+}
+
+/* The options inside the container */
+.mod-settings .csi-dropdown-container .setting-item {
+    border: none;
+    border-top: var(--border-width) solid var(--background-modifier-border);
+    border-radius: 0;
+    padding: var(--size-4-4) var(--size-4-4);
+    margin-bottom: 0;
+    box-shadow: none;
+}
+
+.mod-settings .csi-dropdown-container .setting-item:last-child {
+    border-bottom-left-radius: var(--radius-s);
+    border-bottom-right-radius: var(--radius-s);
+}
+
+.mod-settings .csi-dropdown-container .setting-item:first-child {
+    border-top: var(--border-width) solid var(--background-modifier-border);
+}
+
+/* Explicitly guarantee visual deactivation (fading) for disabled settings */
+.mod-settings .csi-dropdown-container .setting-item.is-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Mobile optimizations */
+body.is-phone .mod-settings .setting-item.csi-dropdown-header {
+    flex-direction: row;
+    align-items: center;
+}
+
+body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-info {
+    flex: 1 1 auto;
+    margin-right: 12px;
+}
+
+body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-control {
+    width: auto;
+    margin-top: 0;
+    justify-content: flex-end;
+}
+
+/* Dropdown icon styling */
+.csi-dropdown-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+}
+
+.csi-dropdown-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2px;
+}
+
+.csi-clickable-header {
+    cursor: pointer;
+}
+
+/* ========================================================================== */
 
 .csi-version {
     font-size: 12px;
