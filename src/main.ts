@@ -102,7 +102,11 @@ export default class TypifyPlugin extends Plugin {
         await this.saveData(this.settings);
         // Re-build stylesheet and cache
         this.styleManager.buildCache(); 
-        this.domManager.refreshProcessing();
+        
+        if (this.domManager) {
+            this.domManager.reprocessAllPills();
+            this.domManager.refreshProcessing();
+        }
         this.updateBodyClasses();
     }
 

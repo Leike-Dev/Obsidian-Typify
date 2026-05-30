@@ -183,6 +183,25 @@ export class DOMManager {
         this.refreshProcessing();
     }
 
+    /**
+     * Forces a re-evaluation of all existing pills.
+     * This is useful when settings/styles change and we need to update classes (e.g. adding typify-is-image).
+     */
+    reprocessAllPills() {
+        activeDocument.body.findAll('.custom-status-icon-pill').forEach(pill => {
+            const propertyKey = pill.getAttribute('data-property-key');
+            if (propertyKey) {
+                this.processPill(pill, propertyKey);
+            }
+        });
+        activeDocument.body.findAll('.custom-status-icon-value').forEach(el => {
+            const propertyKey = el.getAttribute('data-property-key');
+            if (propertyKey) {
+                this.processValueListElement(el, propertyKey);
+            }
+        });
+    }
+
     refreshProcessing() {
         if (!this.observer) return;
 
