@@ -97,9 +97,13 @@ body .multi-select-pill.custom-status-icon-pill .multi-select-pill-content.exter
     flex-shrink: 0;
     background-color: currentColor;
     -webkit-mask-size: contain;
+    mask-size: contain;
     -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
     -webkit-mask-position: center;
+    mask-position: center;
     -webkit-mask-image: var(--pill-icon-url);
+    mask-image: var(--pill-icon-url);
     border-radius: 0;
 }
 
@@ -542,9 +546,13 @@ body.typify-compat-minimal .bases-view .multi-select-pill.custom-status-icon-pil
     height: 14px;
     min-width: 14px;
     -webkit-mask-image: var(--pill-icon-url);
+    mask-image: var(--pill-icon-url);
     -webkit-mask-size: contain;
+    mask-size: contain;
     -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
     -webkit-mask-position: center;
+    mask-position: center;
     background-color: currentColor;
 }
 
@@ -681,13 +689,15 @@ body.typify-compat-minimal .bases-view .multi-select-pill.custom-status-icon-pil
     background: var(--background-secondary);
     transition: border-color 0.15s ease;
     position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
 .csi-manager-item:hover {
     border-color: var(--interactive-accent);
 }
 
-/* Item info (left side: dot + text) */
+/* Item info (left side: text) */
 .csi-manager-item-info {
     display: flex;
     align-items: center;
@@ -696,17 +706,18 @@ body.typify-compat-minimal .bases-view .multi-select-pill.custom-status-icon-pil
     min-width: 0;
 }
 
-/* Color dot */
+/* Color bar on the left edge */
 .csi-manager-color-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    border: none;
 }
 
 .theme-dark .csi-manager-color-dot {
-    border-color: rgba(255, 255, 255, 0.15);
+    border: none;
 }
 
 /* Text block */
@@ -905,6 +916,7 @@ body.typify-hide-x-both .bases-view .multi-select-pill.custom-status-icon-pill {
 body .multi-select-pill.custom-status-icon-pill.typify-is-image .multi-select-pill-content::before,
 body .custom-status-icon-value.typify-is-image::before {
     -webkit-mask-image: none;
+    mask-image: none;
     background-image: var(--pill-image-url);
     background-color: transparent;
     background-size: cover;
