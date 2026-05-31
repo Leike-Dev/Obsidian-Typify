@@ -297,7 +297,12 @@ export class DOMManager {
             element.setAttribute('data-property-key', propertyKey);
         }
 
-        const value = element.textContent?.trim() || '';
+        const linkContent = element.querySelector('.external-link');
+        const isExternalLink = !!linkContent;
+        const value = (isExternalLink
+            ? linkContent?.getAttribute('href')
+            : element.textContent?.trim()
+        ) || '';
 
         if (element.getAttribute('data-value') !== value) {
             element.setAttribute('data-value', value);
@@ -307,9 +312,30 @@ export class DOMManager {
         if (matchedClass) {
             element.classList.add('custom-status-icon-value');
             this.styleManager.applyStyle(element, matchedClass);
+
+            const info = this.styleManager.getStyleInfo(matchedClass);
+            if (this.plugin.settings.enableLinkStyles && info?.hasMatchValue && isExternalLink && linkContent?.instanceOf(HTMLElement)) {
+                if (linkContent.textContent?.trim() !== info.name) {
+                    linkContent.textContent = info.name;
+                }
+            } else {
+                if (isExternalLink && linkContent?.instanceOf(HTMLElement)) {
+                    const href = linkContent.getAttribute('href');
+                    if (href && linkContent.textContent?.trim() !== href) {
+                        linkContent.textContent = href;
+                    }
+                }
+            }
         } else {
             element.classList.remove('custom-status-icon-value');
             this.styleManager.clearStyle(element);
+
+            if (isExternalLink && linkContent?.instanceOf(HTMLElement)) {
+                const href = linkContent.getAttribute('href');
+                if (href && linkContent.textContent?.trim() !== href) {
+                    linkContent.textContent = href;
+                }
+            }
         }
     }
 
@@ -419,6 +445,14 @@ export class DOMManager {
             el.removeAttribute('data-value');
             el.removeAttribute('data-property-key');
             this.styleManager.clearStyle(el);
+
+            const linkContent = el.querySelector('.external-link');
+            if (linkContent instanceof HTMLElement) {
+                const href = linkContent.getAttribute('href');
+                if (href && linkContent.textContent?.trim() !== href) {
+                    linkContent.textContent = href;
+                }
+            }
         });
         activeDocument.body.findAll('.typify-single-value').forEach(el => {
             const parent = el.parentElement;
