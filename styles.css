@@ -764,11 +764,11 @@ body.typify-compat-minimal .bases-view .multi-select-pill.custom-status-icon-pil
     display: flex;
     flex-direction: column;
     gap: var(--size-4-1);
-    
+
     /* Padding so items are not blurred when scrolled to the very top/bottom */
     padding-top: 12px;
     padding-bottom: 12px;
-    
+
     /* Fade effect at the top and bottom edges */
     -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 12px, black calc(100% - 12px), transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0, black 12px, black calc(100% - 12px), transparent 100%);
@@ -933,7 +933,7 @@ body.typify-compat-minimal .bases-view .multi-select-pill.custom-status-icon-pil
     resize: vertical;
     padding: var(--size-4-2) var(--size-4-3);
     border: 1px solid var(--background-modifier-border);
-    border-radius: var(--input-radius);
+    border-radius: var(--radius-s);
     background: var(--background-modifier-form-field);
     color: var(--text-normal);
     font-family: var(--font-monospace);
