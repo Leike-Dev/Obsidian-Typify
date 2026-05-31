@@ -46,6 +46,10 @@ Typify est un plugin pour Obsidian qui vous permet de créer des styles uniques 
 
 - **♾️ Support Canvas** : Entièrement compatible avec Obsidian Canvas, avec un rendu dynamique des styles.
 
+- **🔗 Liens Associés** : Remplace les URL dans les pilules par le nom du style, en conservant le comportement de clic natif du lien.
+
+- **😀 Icônes d'Emojis** : Permettre de sélectionner et d'utiliser directement des emojis natifs comme icônes sur les pilules.
+
 ## Comment utiliser
 
 1. **Définissez la propriété cible** : Dans les paramètres du plugin, tapez le nom de la propriété que vous souhaitez styliser (ex : `Status`). Pour plusieurs propriétés, séparez-les par des virgules (ex : `Status, Priority`).
