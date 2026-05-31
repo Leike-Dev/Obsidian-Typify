@@ -32,6 +32,6 @@ ${iconNames.map(name => `    '${name}'`).join(',\n')}
 ];
 `;
 
-// Write to src/lucide-icons.ts
-writeFileSync(join('src', 'lucide-icons.ts'), content);
-console.log('Generated src/lucide-icons.ts successfully!');
+// Write to src/constants/lucide-icons.ts
+writeFileSync(join('src', 'constants', 'lucide-icons.ts'), content);
+console.log('Generated src/constants/lucide-icons.ts successfully!');
