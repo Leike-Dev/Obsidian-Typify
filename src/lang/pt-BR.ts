@@ -21,6 +21,7 @@ export const ptBR = {
     'status_name_title': 'Nome do estilo',
     'base_color_title': 'Cor base',
     'icon_title': 'Ícone',
+    'icon_desc_or_emoji': 'Escolha um ícone ou digite um emoji',
     'add_icon_tooltip': 'Escolher ícone',
     'remove_icon_tooltip': 'Remover ícone',
     'applies_to_title': 'Aplica-se a',
@@ -116,6 +117,7 @@ export const ptBR = {
 
     // Tabs
     'tab_icons': 'Ícones',
+    'tab_emoji': 'Emojis',
     'tab_custom': 'Personalizados',
     'tab_images': 'Imagens',
 

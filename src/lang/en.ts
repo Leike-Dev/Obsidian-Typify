@@ -21,6 +21,7 @@ export const en = {
     'status_name_title': 'Style name',
     'base_color_title': 'Base color',
     'icon_title': 'Icon',
+    'icon_desc_or_emoji': 'Choose an icon or type an emoji',
     'add_icon_tooltip': 'Choose icon',
     'remove_icon_tooltip': 'Remove icon',
     'applies_to_title': 'Applies to',
@@ -116,6 +117,7 @@ export const en = {
 
     // Tabs
     'tab_icons': 'Icons',
+    'tab_emoji': 'Emojis',
     'tab_custom': 'Custom',
     'tab_images': 'Images',
 
@@ -128,7 +130,6 @@ export const en = {
     // Edit Style
     'edit_style_title': 'Edit style',
     'style_updated': 'Style "{name}" updated!',
-
     // Hide Remove Button
     'hide_remove_button_title': 'Hide "×" button on tags',
     'hide_remove_button_desc': 'Hides the remove icon for a cleaner and more discreet look.',
