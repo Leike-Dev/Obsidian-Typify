@@ -21,6 +21,7 @@ export const fr = {
     'status_name_title': 'Nom du style',
     'base_color_title': 'Couleur de base',
     'icon_title': 'Icône',
+    'icon_desc_or_emoji': 'Choisissez une icône ou tapez un emoji',
     'add_icon_tooltip': 'Choisir une icône',
     'remove_icon_tooltip': 'Supprimer l\'icône',
     'applies_to_title': 'S\'applique à',
@@ -116,6 +117,7 @@ export const fr = {
 
     // Tabs
     'tab_icons': 'Icônes',
+    'tab_emoji': 'Emojis',
     'tab_custom': 'Personnalisés',
     'tab_images': 'Images',
 

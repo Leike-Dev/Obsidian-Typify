@@ -21,6 +21,7 @@ export const zhCN = {
     'status_name_title': '样式名称',
     'base_color_title': '基础颜色',
     'icon_title': '图标',
+    'icon_desc_or_emoji': '选择一个图标或输入一个表情符号',
     'add_icon_tooltip': '选择图标',
     'remove_icon_tooltip': '移除图标',
     'applies_to_title': '应用于',
@@ -116,6 +117,7 @@ export const zhCN = {
 
     // Tabs
     'tab_icons': '图标',
+    'tab_emoji': '表情符号',
     'tab_custom': '自定义',
     'tab_images': '图片',
 
