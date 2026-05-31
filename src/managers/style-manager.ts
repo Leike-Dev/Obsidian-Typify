@@ -154,8 +154,10 @@ body .${className} {
 `;
                 }
             } else if (isEmoji) {
+                // Escape quotes and backslashes to prevent CSS injection
+                const safeEmojiChar = emojiChar.replace(/(["\\])/g, '\\$1');
                 cssContent += `
-    --pill-emoji: "${emojiChar}";
+    --pill-emoji: "${safeEmojiChar}";
     --pill-icon-display: inline-block;
 `;
             }
