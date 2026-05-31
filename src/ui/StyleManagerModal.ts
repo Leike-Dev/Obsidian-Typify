@@ -15,7 +15,11 @@ export class StyleManagerModal extends Modal {
     // DOM refs
     private listContainerEl: HTMLElement | null = null;
     private searchInput: HTMLInputElement | null = null;
+    private scopeSelect: HTMLSelectElement | null = null;
     private countEl: HTMLElement | null = null;
+
+    // Filter state
+    private selectedScope = '__all__';
 
     constructor(app: App, plugin: TypifyPlugin, onClose?: () => void) {
         super(app);
@@ -30,15 +34,26 @@ export class StyleManagerModal extends Modal {
 
         this.setTitle(t('manage_styles_modal_title'));
 
-        // Search input
+        // Search + scope filter row
         const searchContainer = contentEl.createDiv({ cls: 'csi-manager-search-container' });
+
         this.searchInput = searchContainer.createEl('input', {
             type: 'text',
             placeholder: t('manage_styles_search'),
             cls: 'csi-manager-search',
         });
         this.searchInput.addEventListener('input', () => {
-            this.renderList(this.searchInput?.value ?? '');
+            this.refreshList();
+        });
+
+        // Scope dropdown
+        this.scopeSelect = searchContainer.createEl('select', {
+            cls: 'csi-manager-scope-select dropdown',
+        });
+        this.populateScopeOptions();
+        this.scopeSelect.addEventListener('change', () => {
+            this.selectedScope = this.scopeSelect?.value ?? '__all__';
+            this.refreshList();
         });
 
         // Count label
@@ -47,25 +62,75 @@ export class StyleManagerModal extends Modal {
         // List container
         this.listContainerEl = contentEl.createDiv({ cls: 'csi-manager-list' });
 
-        this.renderList('');
+        this.refreshList();
     }
 
     /**
-     * Renders the style list, filtered by the given search term.
-     * Groups styles by their scope (appliesTo) with visual separators.
+     * Builds the scope dropdown options from target properties + existing style scopes.
      */
-    private renderList(filter: string): void {
+    private populateScopeOptions(): void {
+        if (!this.scopeSelect) return;
+        this.scopeSelect.empty();
+
+        // "All" option
+        const allOpt = this.scopeSelect.createEl('option', { text: t('scope_all'), value: '__all__' });
+        allOpt.value = '__all__';
+
+        // Collect unique scopes: from settings targetProperty + from existing styles
+        const scopes = new Set<string>();
+
+        // From configured target properties
+        const targetProps = this.plugin.settings.targetProperty
+            .split(',')
+            .map(p => p.trim())
+            .filter(p => p.length > 0);
+        targetProps.forEach(p => scopes.add(p));
+
+        // From existing style scopes
+        for (const style of this.plugin.settings.statusStyles) {
+            if (style.appliesTo && style.appliesTo.length > 0) {
+                scopes.add(style.appliesTo[0]);
+            }
+        }
+
+        // Sort alphabetically and add to dropdown
+        const sorted = [...scopes].sort((a, b) => a.localeCompare(b));
+        for (const scope of sorted) {
+            const opt = this.scopeSelect.createEl('option', { text: scope, value: scope });
+            opt.value = scope;
+        }
+    }
+
+    /**
+     * Convenience: re-renders the list using current filter state.
+     */
+    private refreshList(): void {
+        this.renderList(this.searchInput?.value ?? '', this.selectedScope);
+    }
+
+    /**
+     * Renders the style list, filtered by the given search term and scope.
+     * The scope dropdown determines which group to show; no group headers needed.
+     */
+    private renderList(filter: string, scope: string): void {
         if (!this.listContainerEl || !this.countEl) return;
         this.listContainerEl.empty();
 
         const lowerFilter = filter.toLowerCase();
         const styles = this.plugin.settings.statusStyles;
 
-        // Filter by name OR scope name
+        // Filter by text (name only) AND by selected scope
         const filtered = styles.filter(s => {
-            if (s.name.toLowerCase().includes(lowerFilter)) return true;
-            const scope = (s.appliesTo && s.appliesTo.length > 0) ? s.appliesTo[0] : '';
-            return scope.toLowerCase().includes(lowerFilter);
+            // Text filter (name only — scope is handled by the dropdown)
+            if (lowerFilter !== '' && !s.name.toLowerCase().includes(lowerFilter)) {
+                return false;
+            }
+
+            // Scope filter: __all__ matches styles without appliesTo (global)
+            const styleScope = (s.appliesTo && s.appliesTo.length > 0)
+                ? s.appliesTo[0].toLowerCase()
+                : '__all__';
+            return styleScope === scope.toLowerCase();
         });
 
         // Update count
@@ -84,41 +149,9 @@ export class StyleManagerModal extends Modal {
             return;
         }
 
-        // Group by scope
-        const groups = new Map<string, StatusStyle[]>();
+        // Render items (no group headers — the dropdown determines the scope)
         for (const style of filtered) {
-            const key = (style.appliesTo && style.appliesTo.length > 0)
-                ? style.appliesTo[0]
-                : '__global__';
-            const group = groups.get(key);
-            if (group) {
-                group.push(style);
-            } else {
-                groups.set(key, [style]);
-            }
-        }
-
-        // Sort: global first, then scoped groups alphabetically
-        const sortedKeys = [...groups.keys()].sort((a, b) => {
-            if (a === '__global__') return -1;
-            if (b === '__global__') return 1;
-            return a.localeCompare(b);
-        });
-
-        // Render each group
-        for (const key of sortedKeys) {
-            const groupStyles = groups.get(key);
-            if (!groupStyles) continue;
-
-            const label = key === '__global__' ? t('scope_all') : key;
-            this.listContainerEl.createDiv({
-                cls: 'csi-manager-group-header',
-                text: label,
-            });
-
-            for (const style of groupStyles) {
-                this.renderItem(style, styles.indexOf(style));
-            }
+            this.renderItem(style, styles.indexOf(style));
         }
     }
 
@@ -259,7 +292,8 @@ export class StyleManagerModal extends Modal {
                 this.plugin.settings.statusStyles.splice(index, 1);
                 await this.plugin.saveSettings();
                 new Notice(t('style_deleted').replace('{name}', style.name));
-                this.renderList(this.searchInput?.value ?? '');
+                this.populateScopeOptions();
+                this.refreshList();
             })();
         });
 

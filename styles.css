@@ -704,13 +704,17 @@ body.typify-compat-minimal .bases-view .multi-select-pill.custom-status-icon-pil
     padding: 0;
 }
 
-/* Search input */
+/* Search + scope filter row */
 .csi-manager-search-container {
+    display: flex;
+    align-items: center;
+    gap: var(--size-4-2);
     margin-bottom: var(--size-4-3);
 }
 
 .csi-manager-search {
-    width: 100%;
+    flex: 1;
+    min-width: 0;
     padding: var(--size-4-2) var(--size-4-3);
     border: 1px solid var(--background-modifier-border);
     border-radius: var(--input-radius);
@@ -724,6 +728,13 @@ body.typify-compat-minimal .bases-view .multi-select-pill.custom-status-icon-pil
 .csi-manager-search:focus {
     border-color: var(--interactive-accent);
     box-shadow: 0 0 0 2px rgba(var(--interactive-accent-rgb), 0.2);
+}
+
+/* Scope dropdown */
+.csi-manager-scope-select {
+    flex-shrink: 0;
+    max-width: 40%;
+    font-size: var(--font-ui-small);
 }
 
 /* Count label */
@@ -764,7 +775,14 @@ body.typify-compat-minimal .bases-view .multi-select-pill.custom-status-icon-pil
     display: flex;
     flex-direction: column;
     gap: var(--size-4-1);
-    padding-bottom: var(--size-4-4);
+    
+    /* Padding so items are not blurred when scrolled to the very top/bottom */
+    padding-top: 12px;
+    padding-bottom: 12px;
+    
+    /* Fade effect at the top and bottom edges */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 12px, black calc(100% - 12px), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, black 12px, black calc(100% - 12px), transparent 100%);
 }
 
 /* Individual item card */
