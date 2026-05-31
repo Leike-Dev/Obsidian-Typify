@@ -3,6 +3,7 @@ import { LUCIDE_ICONS } from './lucide-icons';
 import { t } from './lang/helpers';
 import { CustomIconsManager } from './custom-icons';
 import { CustomImagesManager } from './custom-images';
+import { EMOJIS } from './emojis';
 
 // ============================================================================
 // ICON PICKER MODAL - Fuzzy search for icons and images
@@ -17,7 +18,7 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
     private customIconsManager: CustomIconsManager | null;
     private customImagesManager: CustomImagesManager | null;
     private onChoose: (icon: string) => void;
-    private currentTab: 'lucide' | 'custom' | 'images' = 'lucide';
+    private currentTab: 'lucide' | 'emoji' | 'custom' | 'images' = 'lucide';
     private tabsContainerEl: HTMLElement | null = null;
 
     constructor(
@@ -53,6 +54,7 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
 
         const tabs = [
             { id: 'lucide', label: t('tab_icons') },
+            { id: 'emoji', label: t('tab_emoji') || 'Emojis' },
             { id: 'custom', label: t('tab_custom') },
             { id: 'images', label: t('tab_images') }
         ];
@@ -73,7 +75,7 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
                 tabEl.addClass('is-active');
                 
                 // Switch tab and refresh suggestions
-                this.currentTab = tab.id as 'lucide' | 'custom' | 'images';
+                this.currentTab = tab.id as 'lucide' | 'emoji' | 'custom' | 'images';
                 
                 // Trigger input event to force FuzzySuggestModal to re-render getItems()
                 this.inputEl.dispatchEvent(new Event('input'));
@@ -88,6 +90,10 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
      * Recent icons are shown at the top.
      */
     getItems(): string[] {
+        if (this.currentTab === 'emoji') {
+            return EMOJIS.map(e => `emoji:${e.char}|${e.name}|${e.search}`);
+        }
+
         if (this.currentTab === 'images') {
             return this.customImagesManager
                 ? this.customImagesManager.listImages().map(i => `img:${i}`)
@@ -107,6 +113,11 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
     }
 
     getItemText(item: string): string {
+        if (item.startsWith('emoji:')) {
+            const [prefixChar, name, search] = item.split('|');
+            const char = prefixChar.replace('emoji:', '');
+            return `${char} ${name} ${search || ''}`;
+        }
         // Strip custom: or img: prefix so users can search by name directly
         if (item.startsWith('custom:')) {
             return item.replace('custom:', '');
@@ -143,6 +154,15 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
             }
             el.createSpan({ text: name, cls: 'csi-icon-suggestion-name' });
             el.createSpan({ text: 'img', cls: 'csi-icon-custom-badge' });
+        } else if (icon.startsWith('emoji:')) {
+            const [prefixChar, name] = icon.split('|');
+            const char = prefixChar.replace('emoji:', '');
+            
+            iconEl.textContent = char;
+            iconEl.style.fontSize = '16px';
+            
+            el.createSpan({ text: name, cls: 'csi-icon-suggestion-name' });
+            el.createSpan({ text: 'emoji', cls: 'csi-icon-custom-badge' });
         } else if (icon.startsWith('custom:')) {
             // Custom icon: render inline SVG from cache
             const name = icon.replace('custom:', '');
@@ -177,10 +197,19 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
      * Handler for when an item is chosen.
      */
     onChooseSuggestion(match: FuzzyMatch<string>): void {
-        this.onChoose(match.item);
+        this.handleChoose(match.item);
     }
 
     onChooseItem(item: string): void {
-        this.onChoose(item);
+        this.handleChoose(item);
+    }
+
+    private handleChoose(item: string): void {
+        if (item.startsWith('emoji:')) {
+            // Extract just the emoji part before '|'
+            this.onChoose(item.split('|')[0]);
+        } else {
+            this.onChoose(item);
+        }
     }
 }

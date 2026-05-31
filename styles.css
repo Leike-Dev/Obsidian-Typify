@@ -117,6 +117,21 @@ body .multi-select-pill.custom-status-icon-pill .multi-select-pill-content.exter
     display: none;
 }
 
+/* Emojis */
+body .multi-select-pill.custom-status-icon-pill.typify-is-emoji .multi-select-pill-content::before {
+    content: var(--pill-emoji);
+    display: var(--pill-icon-display, inline-block);
+    width: auto;
+    height: auto;
+    margin-right: var(--icon-gap);
+    flex-shrink: 0;
+    background-color: transparent;
+    -webkit-mask-image: none;
+    mask-image: none;
+    font-size: var(--icon-size);
+    line-height: 1;
+}
+
 /* ==========================================================================
    SETTINGS TAB STYLES
    ========================================================================== */
@@ -632,6 +647,21 @@ body.typify-compat-minimal .bases-view .multi-select-pill.custom-status-icon-pil
     -webkit-mask-position: center;
     mask-position: center;
     background-color: currentColor;
+}
+
+/* Bases Cards View - Emoji support */
+.bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value.typify-is-emoji::before,
+.bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value.typify-is-emoji::before {
+    content: var(--pill-emoji);
+    display: var(--pill-icon-display, inline-block);
+    width: auto;
+    height: auto;
+    min-width: auto;
+    background-color: transparent;
+    -webkit-mask-image: none;
+    mask-image: none;
+    font-size: 12px;
+    line-height: 1;
 }
 
 /* Settings Header - version number inline with title */

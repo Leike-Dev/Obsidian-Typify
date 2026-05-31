@@ -61,14 +61,19 @@ export class StyleManager {
             const valueKey = (style.matchValue || style.name).toLowerCase();
 
             let isImage = false;
+            let isEmoji = false;
+            let emojiChar = '';
             if (style.icon && style.icon.startsWith('img:')) {
                 const imgName = style.icon.replace('img:', '');
                 if (this.plugin.customImagesManager?.getImageDataUri(imgName)) {
                     isImage = true;
                 }
+            } else if (style.icon && style.icon.startsWith('emoji:')) {
+                isEmoji = true;
+                emojiChar = style.icon.replace('emoji:', '');
             }
 
-            const classString = isImage ? `${className} typify-is-image` : className;
+            const classString = isImage ? `${className} typify-is-image` : isEmoji ? `${className} typify-is-emoji` : className;
 
             // Populate O(1) Dictionaries
             if (style.appliesTo && style.appliesTo.length > 0) {
@@ -146,6 +151,11 @@ body .${className} {
     --pill-icon-display: inline-block;
 `;
                 }
+            } else if (isEmoji) {
+                cssContent += `
+    --pill-emoji: "${emojiChar}";
+    --pill-icon-display: inline-block;
+`;
             }
             cssContent += `}\n`;
         });
@@ -200,7 +210,7 @@ body .${className} {
         delete el.dataset.typifyClass;
         const classesToRemove: string[] = [];
         el.classList.forEach(cls => {
-            if (cls.startsWith('typify-style-') || cls === 'typify-is-image') {
+            if (cls.startsWith('typify-style-') || cls === 'typify-is-image' || cls === 'typify-is-emoji') {
                 classesToRemove.push(cls);
             }
         });

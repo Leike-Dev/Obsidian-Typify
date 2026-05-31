@@ -230,9 +230,14 @@ export class StyleEditorModal extends Modal {
         this.iconBtnEl.empty();
         this.iconBtnEl.removeClass('typify-img-preview', 'typify-img-btn-preview');
         this.iconBtnEl.setCssProps({ '--typify-bg-image': '' });
+        this.iconBtnEl.style.fontSize = '';
 
         if (this.icon) {
-            if (this.icon.startsWith('img:')) {
+            if (this.icon.startsWith('emoji:')) {
+                const emoji = this.icon.replace('emoji:', '');
+                this.iconBtnEl.textContent = emoji;
+                this.iconBtnEl.style.fontSize = '16px';
+            } else if (this.icon.startsWith('img:')) {
                 const name = this.icon.replace('img:', '');
                 const dataUri = this.plugin.customImagesManager?.getImageDataUri(name);
                 if (dataUri) {
@@ -310,7 +315,13 @@ export class StyleEditorModal extends Modal {
     private addIconToPill(pill: HTMLElement): void {
         const iconSpan = createSpan();
 
-        if (this.icon.startsWith('img:')) {
+        if (this.icon.startsWith('emoji:')) {
+            const emoji = this.icon.replace('emoji:', '');
+            iconSpan.addClass('csi-preview-pill-icon');
+            iconSpan.textContent = emoji;
+            iconSpan.style.backgroundColor = 'transparent';
+            iconSpan.style.webkitMaskImage = 'none';
+        } else if (this.icon.startsWith('img:')) {
             const name = this.icon.replace('img:', '');
             const dataUri = this.plugin.customImagesManager?.getImageDataUri(name);
             if (dataUri) {
