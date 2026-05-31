@@ -664,6 +664,26 @@ body.typify-compat-minimal .bases-view .multi-select-pill.custom-status-icon-pil
     line-height: 1;
 }
 
+/* External links inside Bases Cards pills: inherit pill color, hide native icon */
+body .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value .external-link,
+body .bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value .external-link {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    background-image: none;
+    padding-right: 0;
+}
+
+body .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value .external-link:hover,
+body .bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value .external-link:hover {
+    text-decoration: underline;
+}
+
+body .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value .external-link::after,
+body .bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value .external-link::after {
+    display: none;
+}
+
 /* Settings Header - version number inline with title */
 .csi-settings-container>.setting-item-heading:first-child .setting-item-info {
     display: flex;
@@ -1059,6 +1079,7 @@ body .bases-view .bases-cards-container .bases-cards-property .value-list-elemen
 body .bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value.typify-is-image::before {
     width: 14px;
     height: 14px;
+    margin-right: 0;
 }
 
 /* ==========================================================================
