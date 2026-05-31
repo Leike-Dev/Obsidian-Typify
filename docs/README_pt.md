@@ -103,12 +103,12 @@ Voilá! Sua propriedade agora é uma linda pílula colorida ✨
 
 Aqui estão alguns dos recursos e melhorias planejados para futuras atualizações:
 
-- **📊 Pílulas de Referência**: Exibir a quantidade total de referências que aquela informação possui no seu cofre em vez de mostrar um ícone (ex: uma tag de autor exibindo "X" referências).
-- **🔗 Simplificação de Links**: Limpar e encurtar URLs externas exibidas nas pílulas de forma automática (ex: `www.google.com` simplificado para `google.com`).
-- **🌐 Ícones de Favicon**: Opção de buscar e exibir automaticamente o favicon do site para links externos que não tenham um ícone personalizado configurado.
+- ~~**📊 Pílulas de Referência**: Exibir a quantidade total de referências que aquela informação possui no seu cofre em vez de mostrar um ícone (ex: uma tag de autor exibindo "X" referências).~~ --> Inviável :/ (Devido a limitações de performance)
+- ~~**🔗 Simplificação de Links**: Limpar e encurtar URLs externas exibidas nas pílulas de forma automática (ex: `www.google.com` simplificado para `google.com`).~~ --> Implementado de outra forma! :D
+- ~~**🌐 Ícones de Favicon**: Opção de buscar e exibir automaticamente o favicon do site para links externos que não tenham um ícone personalizado configurado.~~ --> Descontinuado por restrições :/
 - **🎨 Pílulas Simples**: Estilos minimalistas e sem cor. Podem ser configurados ou aplicados automaticamente a valores não definidos em propriedades estilizadas.
-- **🗂️ Nova Tela de Gerenciamento**: Substituir a longa lista de estilos por um esquema de abas (tabs) igual ao usado no modal de busca, incluindo suporte a rolagem horizontal quando houver muitas abas.
-- **😀 Ícones de Emojis**: Suporte para selecionar e utilizar emojis nativos diretamente como ícones nas pílulas.
+- ~~**🗂️ Nova Tela de Gerenciamento**: Substituir a longa lista de estilos por um esquema de abas (tabs) igual ao usado no modal de busca, incluindo suporte a rolagem horizontal quando houver muitas abas.~~~ Implementado! :D
+- ~~**😀 Ícones de Emojis**: Suporte para selecionar e utilizar emojis nativos diretamente como ícones nas pílulas.~~ --> Implementado! :3
 
 ## Desenvolvimento
 

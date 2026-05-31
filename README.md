@@ -102,12 +102,12 @@ Voilá! Your property is now a beautiful colored pill ✨
 
 Here are some of the planned features and improvements under consideration for future releases:
 
-- **📊 Reference Pills**: Display the total number of references that specific metadata has across your vault instead of an icon (e.g., an author pill displaying "X" references).
-- **🔗 Link Simplification**: Automatically clean and shorten external URLs displayed inside pills (e.g., `www.google.com` simplified to `google.com`).
-- **🌐 Favicon Support**: Automatically fetch and display website favicons for external links that do not have a custom icon configured.
+- ~~**📊 Reference Pills**: Display the total number of references that specific metadata has across your vault instead of an icon (e.g., an author pill displaying "X" references).~~ --> Unfeasible :/ (Due to performance limitations)
+- ~~**🔗 Link Simplification**: Automatically clean and shorten external URLs displayed inside pills (e.g., `www.google.com` simplified to `google.com`).~~ --> Implemented differently! :D
+- ~~**🌐 Favicon Support**: Automatically fetch and display website favicons for external links that do not have a custom icon configured.~~ --> Discontinued due to restrictions :/
 - **🎨 Simple Pills**: Introduce minimal, color-free styling options. These can be customized or automatically applied to undefined values in styled properties.
-- **🗂️ Tabbed Management UI**: Overhaul the settings panel to replace the long list of styles with a tab-based organization system (matching the icon search layout), complete with horizontal scrolling.
-- **😀 Emoji Icons**: Support selecting and using native emojis as pill icons directly.
+- ~~**🗂️ Tabbed Management UI**: Overhaul the settings panel to replace the long list of styles with a tab-based organization system (matching the icon search layout), complete with horizontal scrolling.~~ --> Implemented! :D
+- ~~**😀 Emoji Icons**: Support selecting and using native emojis as pill icons directly.~~ --> Implemented! :3
 
 ## Development
 
