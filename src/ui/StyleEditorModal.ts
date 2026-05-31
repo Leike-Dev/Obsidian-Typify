@@ -53,6 +53,7 @@ export class StyleEditorModal extends Modal {
     onOpen() {
         const { contentEl } = this;
         contentEl.empty();
+        contentEl.addClass('csi-editor-modal');
 
         // Header
         this.setTitle(this.editIndex !== null ? t('edit_style_title') : t('create_style_title'));
@@ -75,6 +76,7 @@ export class StyleEditorModal extends Modal {
 
         // Base Color
         new Setting(contentEl)
+            .setClass('csi-color-picker-setting')
             .setName(t('base_color_title'))
             .addColorPicker(color => {
                 color.setValue(this.baseColor);
