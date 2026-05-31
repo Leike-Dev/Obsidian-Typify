@@ -1,6 +1,6 @@
 import { getIcon } from 'obsidian';
-import TypifyPlugin from './main';
-import { generatePalette } from './utils';
+import TypifyPlugin from '../main';
+import { generatePalette } from '../utils';
 
 export class StyleManager {
     private plugin: TypifyPlugin;
@@ -30,8 +30,10 @@ export class StyleManager {
         }
 
         this.styleElement = createEl('style');
-        this.styleElement.id = 'typify-dynamic-styles';
-        activeDocument.head.appendChild(this.styleElement);
+        if (this.styleElement) {
+            this.styleElement.id = 'typify-dynamic-styles';
+            activeDocument.head.appendChild(this.styleElement);
+        }
 
         let cssContent = '';
         const styles = this.plugin.settings.statusStyles;
@@ -162,7 +164,9 @@ body .${className} {
 
 
 
-        this.styleElement.textContent = cssContent;
+        if (this.styleElement) {
+            this.styleElement.textContent = cssContent;
+        }
     }
 
     private sanitizeCssVarName(filename: string): string {

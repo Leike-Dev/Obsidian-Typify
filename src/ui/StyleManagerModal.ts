@@ -1,5 +1,5 @@
 import { App, Modal, Notice, setIcon } from 'obsidian';
-import type TypifyPlugin from '../main';
+import TypifyPlugin from '../main';
 import { StatusStyle } from '../types';
 import { StyleEditorModal } from './StyleEditorModal';
 import { t } from '../lang/helpers';

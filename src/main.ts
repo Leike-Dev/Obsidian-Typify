@@ -1,11 +1,11 @@
 import { Plugin, Notice } from 'obsidian';
 import { CustomStatusIconsSettings, DEFAULT_SETTINGS } from './types';
 import { CustomStatusIconsSettingTab } from './settings';
-import { CustomIconsManager } from './custom-icons';
-import { CustomImagesManager } from './custom-images';
+import { CustomIconsManager } from './managers/custom-icons';
+import { CustomImagesManager } from './managers/custom-images';
 import { t } from './lang/helpers';
-import { StyleManager } from './style-manager';
-import { DOMManager } from './dom-manager';
+import { StyleManager } from './managers/style-manager';
+import { DOMManager } from './managers/dom-manager';
 
 export default class TypifyPlugin extends Plugin {
     settings!: CustomStatusIconsSettings;

@@ -1,4 +1,4 @@
-import TypifyPlugin from './main';
+import TypifyPlugin from '../main';
 import { StyleManager } from './style-manager';
 
 export class DOMManager {

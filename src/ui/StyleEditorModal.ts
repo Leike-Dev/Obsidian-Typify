@@ -1,9 +1,9 @@
 import { App, Modal, Notice, Setting, setIcon } from 'obsidian';
 import type TypifyPlugin from '../main';
 import { StatusStyle, DEFAULT_STATUS_COLOR } from '../types';
-import { IconPickerModal } from '../icon-picker';
 import { generatePalette } from '../utils';
 import { t } from '../lang/helpers';
+import { IconPickerModal } from './icon-picker';
 
 /**
  * Modal for creating or editing a status style.
@@ -230,13 +230,13 @@ export class StyleEditorModal extends Modal {
         this.iconBtnEl.empty();
         this.iconBtnEl.removeClass('typify-img-preview', 'typify-img-btn-preview');
         this.iconBtnEl.setCssProps({ '--typify-bg-image': '' });
-        this.iconBtnEl.style.fontSize = '';
+        this.iconBtnEl.setCssStyles({ fontSize: '' });
 
         if (this.icon) {
             if (this.icon.startsWith('emoji:')) {
                 const emoji = this.icon.replace('emoji:', '');
                 this.iconBtnEl.textContent = emoji;
-                this.iconBtnEl.style.fontSize = '16px';
+                this.iconBtnEl.setCssStyles({ fontSize: '16px' });
             } else if (this.icon.startsWith('img:')) {
                 const name = this.icon.replace('img:', '');
                 const dataUri = this.plugin.customImagesManager?.getImageDataUri(name);
@@ -319,8 +319,7 @@ export class StyleEditorModal extends Modal {
             const emoji = this.icon.replace('emoji:', '');
             iconSpan.addClass('csi-preview-pill-icon');
             iconSpan.textContent = emoji;
-            iconSpan.style.backgroundColor = 'transparent';
-            iconSpan.style.webkitMaskImage = 'none';
+            iconSpan.setCssStyles({ backgroundColor: 'transparent', maskImage: 'none' });
         } else if (this.icon.startsWith('img:')) {
             const name = this.icon.replace('img:', '');
             const dataUri = this.plugin.customImagesManager?.getImageDataUri(name);

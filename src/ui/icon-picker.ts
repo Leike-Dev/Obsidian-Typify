@@ -1,9 +1,9 @@
 import { FuzzySuggestModal, App, setIcon, FuzzyMatch } from 'obsidian';
-import { LUCIDE_ICONS } from './lucide-icons';
-import { t } from './lang/helpers';
-import { CustomIconsManager } from './custom-icons';
-import { CustomImagesManager } from './custom-images';
-import { EMOJIS } from './emojis';
+import { LUCIDE_ICONS } from '../constants/lucide-icons';
+import { t } from '../lang/helpers';
+import { CustomIconsManager } from '../managers/custom-icons';
+import { CustomImagesManager } from '../managers/custom-images';
+import { EMOJIS } from '../constants/emojis';
 
 // ============================================================================
 // ICON PICKER MODAL - Fuzzy search for icons and images
@@ -159,7 +159,7 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
             const char = prefixChar.replace('emoji:', '');
             
             iconEl.textContent = char;
-            iconEl.style.fontSize = '16px';
+            iconEl.setCssStyles({ fontSize: '16px' });
             
             el.createSpan({ text: name, cls: 'csi-icon-suggestion-name' });
             el.createSpan({ text: 'emoji', cls: 'csi-icon-custom-badge' });
