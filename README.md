@@ -52,18 +52,13 @@ Typify is an Obsidian plugin that allows you to create unique styles for your me
 
 ## How to Use
 
-1. **Set the target property**: In the plugin settings, type the name of the property you want to style (e.g., `Status`). For multiple properties, separate them with commas (e.g., `Status, Priority`).
+It's very simple to transform your properties!
 
-2. **Create the value style**:
-   - Go to **Settings > Typify**.
-   - Click "Create style".
-   - In the **Style name** field, type the text you want to turn into a pill (e.g., `Done`).
-   - Pick a base color and an icon, or leave it without an icon.
-   - Optionally, use **Applies To** to limit the style to specific properties.
+1. **In Typify Settings:** Add the property for which you will create custom styles (e.g., `Status`).
+2. **Customize:** Click **Create style** and define the name that will be used for the tag, as well as the color, icon (Lucide, emoji or image), shape, and many more options.
+3. **In your Notes:** Using the target property defined earlier, insert the created style name next to it and the magic happens instantly! ✨
 
-3. **Use your new style**: In your note's properties (YAML), use the property and value you configured (e.g., `Status: In Progress`).
-
-Voilá! Your property is now a beautiful colored pill ✨
+![How to Use Typify](docs/assets/how-to-use-demo.gif)
 
 ### 🔗 Associated Links (New!)
 

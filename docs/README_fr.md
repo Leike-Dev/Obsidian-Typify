@@ -52,18 +52,13 @@ Typify est un plugin pour Obsidian qui vous permet de créer des styles uniques 
 
 ## Comment utiliser
 
-1. **Définissez la propriété cible** : Dans les paramètres du plugin, tapez le nom de la propriété que vous souhaitez styliser (ex : `Status`). Pour plusieurs propriétés, séparez-les par des virgules (ex : `Status, Priority`).
+C'est très simple de transformer vos propriétés !
 
-2. **Créez le style de la valeur** :
-   - Allez dans **Paramètres > Typify**.
-   - Cliquez sur « Créer un style ».
-   - Dans le champ **Nom du style**, tapez le texte que vous souhaitez transformer en pilule (ex : `Terminé`).
-   - Choisissez une couleur de base et une icône, ou laissez sans icône.
-   - Optionnellement, utilisez **S'applique à** pour limiter le style à des propriétés spécifiques.
+1. **Dans les paramètres Typify :** Ajoutez la propriété pour laquelle vous allez créer des styles personnalisés (ex: `Statut`).
+2. **Personnalisez :** Cliquez sur **Créer un style** et définissez le nom qui sera utilisé pour l'étiquette, ainsi que la couleur, l'icône (Lucide, emoji ou image), la forme et bien d'autres options.
+3. **Dans vos Notes :** En utilisant la propriété cible définie précédemment, insérez à côté d'elle le nom du style créé et la magie opère instantanément ! ✨
 
-3. **Utilisez votre nouveau style** : Dans les propriétés de votre note (YAML), utilisez la propriété et la valeur que vous avez configurées (ex : `Status: En cours`).
-
-Voilà ! Votre propriété est maintenant une belle pilule colorée ✨
+![Comment utiliser Typify](assets/how-to-use-demo.gif)
 
 ### 🔗 Liens Associés (Nouveau !)
 
