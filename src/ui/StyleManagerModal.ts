@@ -212,6 +212,10 @@ export class StyleManagerModal extends Modal {
                 } else {
                     setIcon(iconPreview, 'image');
                 }
+            } else if (style.icon.startsWith('emoji:')) {
+                const emoji = style.icon.replace('emoji:', '');
+                iconPreview.textContent = emoji;
+                iconPreview.setCssStyles({ fontSize: '14px' });
             } else {
                 setIcon(iconPreview, style.icon);
             }
