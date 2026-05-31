@@ -65,6 +65,13 @@ Typify 是一款 Obsidian 插件，让你可以为元数据创建独特的样式
 
 大功告成！你的属性现在变成了漂亮的彩色标签 ✨
 
+### 🔗 关联链接 (新功能!)
+
+Typify允许您创建更清晰的属性链接。 您无需查看难看的 `https://...` URL，而是可以将其与样式关联起来！
+如果您的样式名称为 "Google 翻译"，并且在 *匹配值* 中的关联值为 URL `https://translate.google.com/`，该插件将隐藏该 URL，并完美呈现可点击的胶囊状名称 "Google 翻译"。
+
+![关联链接演示](assets/associated-links-demo.gif)
+
 ## 安装
 
 ### 手动安装

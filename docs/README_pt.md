@@ -65,6 +65,13 @@ Typify é um plugin para o Obsidian que permite que você crie estilos únicos p
 
 Voilá! Sua propriedade agora é uma linda pílula colorida ✨
 
+### 🔗 Links Associados (Novo!)
+
+O Typify permite que você crie links de propriedades muito mais bonitos. Em vez de ver uma URL feia `https://...`, você pode associá-la a um Estilo!
+Se o nome do estilo for, por exemplo, "Google Tradutor" e o valor configurado no campo *Valor Correspondente* for a URL `https://translate.google.com/`, o plugin esconderá a URL e renderizará o nome "Google Tradutor" perfeitamente na pílula clicável.
+
+![Demonstração de Link Associado](assets/associated-links-demo.gif)
+
 ## Instalação
 
 ### Instalação Manual
