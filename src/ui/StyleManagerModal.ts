@@ -183,7 +183,6 @@ export class StyleManagerModal extends Modal {
         // Icon info
         if (style.icon) {
             const iconMeta = metaRow.createSpan({ cls: 'csi-manager-icon-meta' });
-            iconMeta.createSpan({ text: `${t('icon_label')}: ` });
 
             // Show small icon preview
             const iconPreview = iconMeta.createSpan({ cls: 'csi-manager-icon-preview' });
@@ -226,12 +225,18 @@ export class StyleManagerModal extends Modal {
         if (metaRow.childElementCount > 0) {
             metaRow.createSpan({ text: ' \u00b7 ' });
         }
-        metaRow.createSpan({ text: `${t('shape_label')}: ${shapeText}` });
+        metaRow.createSpan({ text: shapeText });
 
         // Color mode info
         const modeText = style.colorMode === 'solid' ? t('color_mode_solid') : t('color_mode_subtle');
         metaRow.createSpan({ text: ' \u00b7 ' });
-        metaRow.createSpan({ text: `${t('color_mode_label')}: ${modeText}` });
+        metaRow.createSpan({ text: modeText });
+
+        // Associated link info
+        if (style.matchValue) {
+            metaRow.createSpan({ text: ' \u00b7 ' });
+            metaRow.createSpan({ text: t('link_url_title') });
+        }
 
         // Right section: action buttons
         const actionsSection = item.createDiv({ cls: 'csi-manager-actions' });

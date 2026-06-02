@@ -895,11 +895,13 @@ body .bases-view .bases-cards-container .bases-cards-property .typify-single-val
     display: inline-flex;
     align-items: center;
     gap: 2px;
+    vertical-align: text-bottom;
 }
 
 .csi-manager-icon-preview {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     width: 14px;
     height: 14px;
 }
@@ -1108,10 +1110,10 @@ body .bases-view .bases-cards-container .bases-cards-property .typify-single-val
     margin-right: 4px;
 }
 
-/* Icon preview in StyleManagerModal list (18px) */
+/* Icon preview in StyleManagerModal list (14px) */
 .typify-img-manager-preview {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
     vertical-align: middle;
 }
 
