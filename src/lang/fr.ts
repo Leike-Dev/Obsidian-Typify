@@ -146,5 +146,30 @@ export const fr = {
     'link_url_title': 'Lien associé',
     // UI Components
     'ui_components_title': 'Autres styles',
-    'ui_components_desc': 'Activer ou désactiver les composants visuels des étiquettes.'
+    'ui_components_desc': 'Activer ou désactiver les composants visuels des étiquettes.',
+
+    // Expérimental / Palette
+    'section_experimental_title': 'Expérimental',
+    'experimental_tag': 'Expérimental',
+    'custom_palette_toggle_title': 'Palette de couleurs personnalisée',
+    'custom_palette_toggle_desc': 'Affiche des raccourcis de couleur dans le modal de création de style.',
+    'palette_title': 'Palette de couleurs',
+    'palette_your_colors': 'VOS COULEURS',
+    'palette_saved_count': 'Couleurs enregistrées : {count} / {max}',
+    'palette_add_color': 'Ajouter',
+    'palette_remove_color': 'Supprimer la couleur',
+    'palette_max_reached': 'Maximum de {max} couleurs atteint.',
+    'palette_clear_title': 'Effacer la palette',
+    'palette_clear_desc': 'Supprime toutes les couleurs enregistrées.',
+    'palette_clear_button': 'Effacer',
+    'palette_harmony_title': 'GÉNÉRER PAR HARMONIE',
+    'palette_harmony_heading': 'Harmonie des couleurs',
+    'palette_harmony_desc': 'Génère automatiquement des couleurs harmonieuses.',
+    'palette_harmony_analogous': 'Analogues',
+    'palette_harmony_complementary': 'Complémentaires',
+    'palette_harmony_triadic': 'Triadiques',
+    'palette_harmony_random': 'Aléatoires',
+    'palette_generate_button': 'Générer',
+    'palette_add_all_button': 'Ajouter',
+    'palette_apply_button': 'Appliquer'
 };

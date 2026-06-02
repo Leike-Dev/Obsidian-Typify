@@ -147,5 +147,30 @@ export const ptBR = {
     'link_url_title': 'Link associado',
     // UI Components
     'ui_components_title': 'Outros estilos',
-    'ui_components_desc': 'Ative ou desative os componentes visuais das tags.'
+    'ui_components_desc': 'Ative ou desative os componentes visuais das tags.',
+
+    // Experimental / Paleta
+    'section_experimental_title': 'Experimental',
+    'experimental_tag': 'Experimental',
+    'custom_palette_toggle_title': 'Paleta de cores personalizada',
+    'custom_palette_toggle_desc': 'Exibe atalhos de cor no modal de criação de estilo.',
+    'palette_title': 'Paleta de cores',
+    'palette_your_colors': 'SUAS CORES',
+    'palette_saved_count': 'Cores salvas: {count} / {max}',
+    'palette_add_color': 'Adicionar',
+    'palette_remove_color': 'Remover cor',
+    'palette_max_reached': 'Máximo de {max} cores atingido.',
+    'palette_clear_title': 'Limpar paleta',
+    'palette_clear_desc': 'Remove todas as cores salvas.',
+    'palette_clear_button': 'Limpar',
+    'palette_harmony_title': 'GERAR POR HARMONIA',
+    'palette_harmony_heading': 'Harmonia de cores',
+    'palette_harmony_desc': 'Gera automaticamente cores que combinam entre si.',
+    'palette_harmony_analogous': 'Análogas',
+    'palette_harmony_complementary': 'Complementares',
+    'palette_harmony_triadic': 'Triádicas',
+    'palette_harmony_random': 'Aleatórias',
+    'palette_generate_button': 'Gerar',
+    'palette_add_all_button': 'Adicionar',
+    'palette_apply_button': 'Aplicar'
 };

@@ -146,5 +146,30 @@ export const en = {
     'link_url_title': 'Associated Link',
     // UI Components
     'ui_components_title': 'Other styles',
-    'ui_components_desc': 'Enable or disable visual components for the tags.'
+    'ui_components_desc': 'Enable or disable visual components for the tags.',
+
+    // Experimental / Palette
+    'section_experimental_title': 'Experimental',
+    'experimental_tag': 'Experimental',
+    'custom_palette_toggle_title': 'Custom color palette',
+    'custom_palette_toggle_desc': 'Shows color shortcuts in the style creation modal.',
+    'palette_title': 'Color palette',
+    'palette_your_colors': 'YOUR COLORS',
+    'palette_saved_count': 'Saved colors: {count} / {max}',
+    'palette_add_color': 'Add',
+    'palette_remove_color': 'Remove color',
+    'palette_max_reached': 'Maximum of {max} colors reached.',
+    'palette_clear_title': 'Clear palette',
+    'palette_clear_desc': 'Removes all saved colors.',
+    'palette_clear_button': 'Clear',
+    'palette_harmony_title': 'GENERATE BY HARMONY',
+    'palette_harmony_heading': 'Color harmony',
+    'palette_harmony_desc': 'Automatically generates colors that harmonize.',
+    'palette_harmony_analogous': 'Analogous',
+    'palette_harmony_complementary': 'Complementary',
+    'palette_harmony_triadic': 'Triadic',
+    'palette_harmony_random': 'Random',
+    'palette_generate_button': 'Generate',
+    'palette_add_all_button': 'Add',
+    'palette_apply_button': 'Apply'
 };

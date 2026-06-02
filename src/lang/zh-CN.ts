@@ -146,5 +146,30 @@ export const zhCN = {
     'link_url_title': '关联链接',
     // UI Components
     'ui_components_title': '其他样式',
-    'ui_components_desc': '启用或禁用标签的视觉组件。'
+    'ui_components_desc': '启用或禁用标签的视觉组件。',
+
+    // 实验性 / 调色板
+    'section_experimental_title': '实验性',
+    'experimental_tag': '实验性',
+    'custom_palette_toggle_title': '自定义调色板',
+    'custom_palette_toggle_desc': '在样式创建弹窗中显示颜色快捷方式。',
+    'palette_title': '调色板',
+    'palette_your_colors': '您的颜色',
+    'palette_saved_count': '已保存颜色：{count} / {max}',
+    'palette_add_color': '添加',
+    'palette_remove_color': '删除颜色',
+    'palette_max_reached': '已达到 {max} 种颜色的上限。',
+    'palette_clear_title': '清空调色板',
+    'palette_clear_desc': '删除所有已保存的颜色。',
+    'palette_clear_button': '清空',
+    'palette_harmony_title': '按和谐生成',
+    'palette_harmony_heading': '色彩和谐',
+    'palette_harmony_desc': '自动生成相互协调的颜色。',
+    'palette_harmony_analogous': '类似色',
+    'palette_harmony_complementary': '互补色',
+    'palette_harmony_triadic': '三色组',
+    'palette_harmony_random': '随机',
+    'palette_generate_button': '生成',
+    'palette_add_all_button': '添加',
+    'palette_apply_button': '应用'
 };
