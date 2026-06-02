@@ -634,6 +634,194 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
 }
 
 /* ==========================================================================
+   EXPERIMENTAL TAG BADGE
+   ========================================================================== */
+
+.typify-experimental-tag {
+    display: inline-block;
+    font-size: var(--font-ui-smaller);
+    font-weight: 500;
+    color: var(--interactive-accent);
+    background: color-mix(in srgb, var(--interactive-accent) 15%, transparent);
+    padding: 1px 7px;
+    border-radius: var(--radius-s);
+    vertical-align: middle;
+    line-height: 1.4;
+}
+
+/* ==========================================================================
+   PALETTE SECTION (Settings)
+   ========================================================================== */
+
+.typify-palette-section-label {
+    font-size: var(--font-ui-smaller);
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    margin: 16px 0 8px 0;
+}
+
+.typify-palette-colors-box {
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--radius-m);
+    padding: 12px;
+    margin-bottom: 4px;
+}
+
+.typify-palette-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.typify-palette-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 72px;
+    border-radius: var(--radius-m);
+    overflow: hidden;
+    background: var(--background-secondary);
+    transition: box-shadow 0.15s ease;
+}
+
+.typify-palette-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.typify-palette-swatch {
+    width: 100%;
+    height: 60px;
+}
+
+.typify-palette-card-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 2px 4px;
+    gap: 2px;
+}
+
+.typify-palette-card-hex {
+    font-size: 10px;
+    color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.typify-palette-card-remove {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    padding: 0 2px;
+    opacity: 0.6;
+    transition: opacity 0.1s ease;
+}
+
+.typify-palette-card-remove:hover {
+    opacity: 1;
+    color: var(--text-error);
+}
+
+/* Add card */
+.typify-palette-add-card {
+    border: 2px dashed var(--background-modifier-border);
+    background: transparent;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+    transition: border-color 0.15s ease;
+}
+
+.typify-palette-add-card:hover {
+    border-color: var(--text-muted);
+}
+
+.typify-palette-add-icon {
+    font-size: 24px;
+    color: var(--text-muted);
+    line-height: 1;
+}
+
+.typify-palette-hidden-input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.typify-palette-counter {
+    font-size: var(--font-ui-smaller);
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* Harmony section */
+.typify-palette-harmony-box {
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--radius-m);
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.typify-palette-preview {
+    display: flex;
+    gap: 6px;
+    margin: 10px 0;
+    min-height: 28px;
+    align-items: center;
+}
+
+.typify-palette-preview-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    transition: transform 0.1s ease;
+}
+
+.typify-palette-preview-dot:hover {
+    transform: scale(1.15);
+}
+
+.typify-palette-harmony-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.typify-palette-gen-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.typify-palette-add-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--background-secondary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--radius-s);
+    padding: 4px 12px;
+    color: var(--text-normal);
+    cursor: pointer;
+    font-size: var(--font-ui-small);
+    transition: background-color 0.15s ease;
+}
+
+.typify-palette-add-all-btn:hover {
+    background: var(--background-modifier-hover);
+}
+
+/* ==========================================================================
    ICON PICKER MODAL
    ========================================================================== */
 
@@ -1264,4 +1452,8 @@ body .bases-view .bases-cards-container .bases-cards-property .typify-single-val
 .csi-preview-pill-icon svg {
     width: 14px;
     height: 14px;
+}
+
+.typify-palette-add-all-btn.is-hidden {
+    display: none;
 }

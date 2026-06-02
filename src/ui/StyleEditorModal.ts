@@ -95,16 +95,33 @@ export class StyleEditorModal extends Modal {
         });
 
         // Base Color
-        new Setting(contentEl)
+        const colorSetting = new Setting(contentEl)
             .setClass('csi-color-picker-setting')
-            .setName(t('base_color_title'))
-            .addColorPicker(color => {
-                color.setValue(this.baseColor);
-                color.onChange(value => {
-                    this.baseColor = value;
-                    this.updatePreview();
-                });
+            .setName(t('base_color_title'));
+
+        colorSetting.addColorPicker(color => {
+            color.setValue(this.baseColor);
+
+            // Native datalist for color palette shortcuts
+            const paletteColors = this.plugin.settings.customPalette;
+            if (this.plugin.settings.enableCustomPalette && paletteColors.length > 0) {
+                const datalistId = 'typify-palette-list-' + Math.random().toString(36).substring(7);
+                const datalist = contentEl.createEl('datalist', { attr: { id: datalistId } });
+                for (const hex of paletteColors) {
+                    datalist.createEl('option', { value: hex });
+                }
+
+                const pickerInput = colorSetting.controlEl.querySelector('input[type="color"]');
+                if (pickerInput instanceof HTMLInputElement) {
+                    pickerInput.setAttribute('list', datalistId);
+                }
+            }
+
+            color.onChange(value => {
+                this.baseColor = value;
+                this.updatePreview();
             });
+        });
 
         // Icon
         const iconSetting = new Setting(contentEl)
