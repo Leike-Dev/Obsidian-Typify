@@ -521,6 +521,12 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
     border-top: none;
 }
 
+.modal-content.csi-editor-modal .setting-item-name {
+    font-weight: normal;
+    font-size: var(--font-ui-small);
+    color: var(--text-normal);
+}
+
 .typify-card-section-title {
     font-weight: normal;
     font-size: var(--font-ui-small);
