@@ -649,25 +649,37 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
     line-height: 1.4;
 }
 
-/* ==========================================================================
-   PALETTE SECTION (Settings)
-   ========================================================================== */
+/* Palette utility classes to replace inline styles */
+.mod-settings .csi-dropdown-container .setting-item.typify-palette-section-heading {
+    border-top: none;
+    padding-bottom: 0;
+}
 
-.typify-palette-section-label {
-    font-size: var(--font-ui-smaller);
-    font-weight: 600;
-    color: var(--text-muted);
+.mod-settings .csi-dropdown-container .setting-item.typify-palette-section-heading .setting-item-name {
+    font-size: var(--font-ui-smaller) !important;
+    font-weight: 600 !important;
+    color: var(--text-muted) !important;
     letter-spacing: 0.05em;
-    margin: 16px 0 8px 0;
 }
 
-.typify-palette-colors-box {
-    border: 1px solid var(--background-modifier-border);
-    border-radius: var(--radius-m);
-    padding: 12px;
-    margin-bottom: 4px;
+.mod-settings .csi-dropdown-container .setting-item.typify-palette-grid-row {
+    display: block;
 }
 
+.typify-palette-counter-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.mod-settings .csi-dropdown-container .setting-item.typify-palette-preview-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Color grid */
 .typify-palette-grid {
     display: flex;
     flex-wrap: wrap;
@@ -679,10 +691,11 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 72px;
-    border-radius: var(--radius-m);
+    width: 68px;
+    border-radius: var(--radius-s);
     overflow: hidden;
     background: var(--background-secondary);
+    border: 1px solid var(--background-modifier-border);
     transition: box-shadow 0.15s ease;
 }
 
@@ -692,7 +705,7 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
 
 .typify-palette-swatch {
     width: 100%;
-    height: 60px;
+    height: 48px;
 }
 
 .typify-palette-card-info {
@@ -701,7 +714,8 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
     justify-content: space-between;
     width: 100%;
     padding: 2px 4px;
-    gap: 2px;
+    background: var(--background-primary);
+    border-top: 1px solid var(--background-modifier-border);
 }
 
 .typify-palette-card-hex {
@@ -765,12 +779,6 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
 }
 
 /* Harmony section */
-.typify-palette-harmony-box {
-    border: 1px solid var(--background-modifier-border);
-    border-radius: var(--radius-m);
-    padding: 12px;
-    margin-bottom: 12px;
-}
 
 .typify-palette-preview {
     display: flex;

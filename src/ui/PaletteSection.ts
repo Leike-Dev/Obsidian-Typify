@@ -4,7 +4,7 @@
 
 import { Setting, Notice } from 'obsidian';
 import type TypifyPlugin from '../main';
-import { t, type TranslationKey } from '../lang/helpers';
+import { t } from '../lang/helpers';
 import { HARMONY_GENERATORS, type HarmonyType } from './color-harmony';
 
 const MAX_PALETTE_COLORS = 10;
@@ -23,13 +23,16 @@ export function renderPaletteSection(
     // ================================================================
     // YOUR COLORS
     // ================================================================
-    containerEl.createDiv({
-        text: t('palette_your_colors'),
-        cls: 'typify-palette-section-label'
-    });
+    new Setting(containerEl)
+        .setName(t('palette_your_colors').toUpperCase())
+        .setHeading()
+        .settingEl.addClass('typify-palette-section-heading');
 
-    const colorsContainer = containerEl.createDiv({ cls: 'typify-palette-colors-box' });
-    const grid = colorsContainer.createDiv({ cls: 'typify-palette-grid' });
+    const gridSetting = new Setting(containerEl);
+    gridSetting.infoEl.remove(); // We just want the grid to span full width
+    gridSetting.settingEl.addClass('typify-palette-grid-row');
+    
+    const grid = gridSetting.settingEl.createDiv({ cls: 'typify-palette-grid' });
 
     // Render existing color cards
     for (let i = 0; i < palette.length; i++) {
@@ -74,62 +77,18 @@ export function renderPaletteSection(
         });
     }
 
-    // Counter
-    colorsContainer.createDiv({
+    // Counter and Add All button row
+    const counterRow = gridSetting.settingEl.createDiv({ cls: 'typify-palette-counter-row' });
+
+    counterRow.createSpan({
         text: t('palette_saved_count')
             .replace('{count}', String(palette.length))
             .replace('{max}', String(MAX_PALETTE_COLORS)),
         cls: 'typify-palette-counter'
     });
 
-    // ================================================================
-    // GENERATE BY HARMONY
-    // ================================================================
-    containerEl.createDiv({
-        text: t('palette_harmony_title'),
-        cls: 'typify-palette-section-label'
-    });
-
-    const harmonyBox = containerEl.createDiv({ cls: 'typify-palette-harmony-box' });
-
-    // State for harmony generation
-    let selectedHarmony: HarmonyType = 'analogous';
-    let previewColors: string[] = [];
-
-    const harmonySetting = new Setting(harmonyBox)
-        .setName(t('palette_harmony_heading'))
-        .setDesc(t('palette_harmony_desc'));
-
-    // Dropdown for harmony type
-    harmonySetting.addDropdown(dropdown => {
-        const harmonies: HarmonyType[] = ['analogous', 'complementary', 'triadic', 'random'];
-        for (const h of harmonies) {
-            dropdown.addOption(h, t(`palette_harmony_${h}` as TranslationKey));
-        }
-        dropdown.setValue(selectedHarmony);
-        dropdown.onChange((value) => {
-            selectedHarmony = value as HarmonyType;
-        });
-    });
-
-    // Preview area
-    const previewRow = harmonyBox.createDiv({ cls: 'typify-palette-preview' });
-
-    // Buttons row
-    const buttonsRow = harmonyBox.createDiv({ cls: 'typify-palette-harmony-buttons' });
-
-    // Generate button
-    const generateBtn = buttonsRow.createEl('button', { cls: 'mod-cta typify-palette-gen-btn' });
-    generateBtn.textContent = `✦ ${t('palette_generate_button')}`;
-    generateBtn.addEventListener('click', () => {
-        const generator = HARMONY_GENERATORS[selectedHarmony];
-        previewColors = generator(5);
-        renderPreviewDots(previewRow, previewColors);
-        addAllBtn.removeClass('is-hidden');
-    });
-
     // Add all button (hidden until colors are generated)
-    const addAllBtn = buttonsRow.createEl('button', { cls: 'typify-palette-add-all-btn is-hidden' });
+    const addAllBtn = counterRow.createEl('button', { cls: 'typify-palette-add-all-btn is-hidden' });
     addAllBtn.textContent = `+ ${t('palette_add_all_button')}`;
     addAllBtn.addEventListener('click', () => {
         const remaining = MAX_PALETTE_COLORS - palette.length;
@@ -137,21 +96,68 @@ export function renderPaletteSection(
             new Notice(t('palette_max_reached').replace('{max}', String(MAX_PALETTE_COLORS)));
             return;
         }
+        // Ensure previewColors exists and has items
+        if (!previewColors || previewColors.length === 0) return;
+        
         const toAdd = previewColors.slice(0, remaining);
         palette.push(...toAdd);
         void plugin.saveSettings().then(onUpdate);
     });
 
     // ================================================================
-    // CLEAR PALETTE
+    // GENERATE BY HARMONY
+    // ================================================================
+    new Setting(containerEl)
+        .setName(t('palette_harmony_title').toUpperCase())
+        .setHeading()
+        .settingEl.addClass('typify-palette-section-heading');
+
+    // State for harmony generation
+    let selectedHarmony: HarmonyType = 'analogous';
+    let previewColors: string[] = [];
+
+    new Setting(containerEl)
+        .setName(t('palette_harmony_heading'))
+        .setDesc(t('palette_harmony_desc'))
+        .addDropdown(dropdown => {
+            dropdown.addOption('analogous', t('palette_harmony_analogous'));
+            dropdown.addOption('complementary', t('palette_harmony_complementary'));
+            dropdown.addOption('triadic', t('palette_harmony_triadic'));
+            dropdown.addOption('random', t('palette_harmony_random'));
+            dropdown.setValue(selectedHarmony);
+            dropdown.onChange((value) => {
+                selectedHarmony = value as HarmonyType;
+            });
+        })
+        .addButton(btn => btn
+            .setButtonText(`✦ ${t('palette_generate_button')}`)
+            .setCta()
+            .onClick(() => {
+                const generator = HARMONY_GENERATORS[selectedHarmony];
+                previewColors = generator(5);
+                renderPreviewDots(previewRow, previewColors);
+                addAllBtn.removeClass('is-hidden');
+            }));
+
+    const previewSetting = new Setting(containerEl);
+    previewSetting.settingEl.addClass('typify-palette-preview-row');
+    previewSetting.infoEl.remove(); // No need for title
+
+    // Preview area (spans full width now)
+    const previewRow = previewSetting.settingEl.createDiv({ cls: 'typify-palette-preview' });
+
+    // ================================================================
+    // DANGER ZONE (Clear)
     // ================================================================
     new Setting(containerEl)
         .setName(t('palette_clear_title'))
         .setDesc(t('palette_clear_desc'))
-        .addButton(btn => btn
+        .addButton(button => button
             .setButtonText(t('palette_clear_button'))
             .setWarning()
             .onClick(() => {
+                if (palette.length === 0) return;
+                // Ask for confirmation (optional, but good UX)
                 plugin.settings.customPalette = [];
                 void plugin.saveSettings().then(onUpdate);
             }));
