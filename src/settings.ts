@@ -3,6 +3,7 @@ import { StyleEditorModal } from './ui/StyleEditorModal';
 import { StyleManagerModal } from './ui/StyleManagerModal';
 import { ExportSettingsModal } from './ui/ExportSettingsModal';
 import { ImportSettingsModal } from './ui/ImportSettingsModal';
+import { renderPaletteSection } from './ui/PaletteSection';
 import type TypifyPlugin from './main';
 import { t } from './lang/helpers';
 
@@ -17,6 +18,7 @@ import { t } from './lang/helpers';
 export class CustomStatusIconsSettingTab extends PluginSettingTab {
     plugin: TypifyPlugin;
     togglesExpanded: boolean = false;
+    paletteExpanded: boolean = false;
 
     constructor(app: App, plugin: TypifyPlugin) {
         super(app, plugin);
@@ -191,6 +193,63 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                     this.plugin.settings.enableLinkStyles = value;
                     await this.plugin.saveSettings();
                 }));
+
+        // CUSTOM PALETTE TOGGLE (with Experimental badge)
+        const paletteSetting = new Setting(togglesContainer)
+            .setDesc(t('custom_palette_toggle_desc'))
+            .addToggle(toggle => toggle
+                .setValue(this.plugin.settings.enableCustomPalette)
+                .onChange(async (value) => {
+                    this.plugin.settings.enableCustomPalette = value;
+                    await this.plugin.saveSettings();
+                    this.display();
+                }));
+
+        // Set name with experimental badge
+        const nameEl = paletteSetting.nameEl;
+        nameEl.setText(t('custom_palette_toggle_title') + ' ');
+        nameEl.createSpan({ text: t('experimental_tag'), cls: 'typify-experimental-tag' });
+
+        // ================================================================
+        // SECTION: EXPERIMENTAL (visible only when palette is enabled)
+        // ================================================================
+        if (this.plugin.settings.enableCustomPalette) {
+            new Setting(containerEl).setName(t('section_experimental_title')).setHeading();
+
+            // Palette dropdown (collapsible, like "Outros estilos")
+            const isPaletteOpen = this.paletteExpanded;
+
+            const paletteHeader = new Setting(containerEl)
+                .setName(t('palette_title'));
+
+            paletteHeader.settingEl.classList.add('csi-dropdown-header');
+            if (isPaletteOpen) {
+                paletteHeader.settingEl.classList.add('is-expanded');
+            }
+
+            const paletteIcon = paletteHeader.controlEl.createSpan({ cls: 'csi-dropdown-icon' });
+            setIcon(paletteIcon, isPaletteOpen ? 'chevron-down' : 'chevron-right');
+            paletteHeader.settingEl.classList.add('csi-clickable-header');
+
+            const paletteContainer = containerEl.createDiv({ cls: 'csi-dropdown-container' });
+            paletteContainer.style.display = isPaletteOpen ? 'block' : 'none';
+
+            paletteHeader.settingEl.addEventListener('click', () => {
+                const newState = !this.paletteExpanded;
+                this.paletteExpanded = newState;
+                paletteContainer.style.display = newState ? 'block' : 'none';
+                paletteIcon.empty();
+                setIcon(paletteIcon, newState ? 'chevron-down' : 'chevron-right');
+                if (newState) {
+                    paletteHeader.settingEl.classList.add('is-expanded');
+                } else {
+                    paletteHeader.settingEl.classList.remove('is-expanded');
+                }
+            });
+
+            // Render the palette content inside the dropdown
+            renderPaletteSection(paletteContainer, this.plugin, () => this.display());
+        }
 
         // ================================================================
         // DATA MANAGEMENT
