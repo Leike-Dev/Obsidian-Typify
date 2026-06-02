@@ -2,8 +2,9 @@ import { App, Modal, Notice, Setting, setIcon } from 'obsidian';
 import type TypifyPlugin from '../main';
 import { StatusStyle, DEFAULT_STATUS_COLOR } from '../types';
 import { generatePalette } from '../utils';
-import { t } from '../lang/helpers';
+import { t, type TranslationKey } from '../lang/helpers';
 import { IconPickerModal } from './icon-picker';
+import { THUMB_PILL, THUMB_RECT, THUMB_FLAT, THUMB_SOFT, THUMB_SOLID } from './format-thumbs';
 
 /**
  * Modal for creating or editing a status style.
@@ -23,8 +24,8 @@ export class StyleEditorModal extends Modal {
     private baseColor = DEFAULT_STATUS_COLOR;
     private icon = '';
     private appliesTo: string[] = [];
-    private shape: 'pill' | 'rectangle' | 'flat' = 'pill';
-    private colorMode: 'subtle' | 'solid' = 'subtle';
+    private shape: 'pill' | 'rectangle' | 'flat' | '' = '';
+    private colorMode: 'subtle' | 'solid' | '' = '';
     private matchValue = '';
 
     // DOM references for live preview updates
@@ -74,6 +75,25 @@ export class StyleEditorModal extends Modal {
                     this.updatePreview();
                 }));
 
+        // Shape — card grid
+        this.renderCardSection(contentEl, 'shape_title', [
+            { key: 'pill',      labelKey: 'shape_pill',      svg: THUMB_PILL },
+            { key: 'rectangle', labelKey: 'shape_rectangle', svg: THUMB_RECT },
+            { key: 'flat',      labelKey: 'shape_flat',      svg: THUMB_FLAT },
+        ], this.shape, (key) => {
+            this.shape = key as 'pill' | 'rectangle' | 'flat';
+            this.updatePreview();
+        });
+
+        // Color Mode — card grid
+        this.renderCardSection(contentEl, 'color_mode_title', [
+            { key: 'subtle', labelKey: 'color_mode_subtle', svg: THUMB_SOFT },
+            { key: 'solid',  labelKey: 'color_mode_solid',  svg: THUMB_SOLID },
+        ], this.colorMode, (key) => {
+            this.colorMode = key as 'subtle' | 'solid';
+            this.updatePreview();
+        });
+
         // Base Color
         new Setting(contentEl)
             .setClass('csi-color-picker-setting')
@@ -122,35 +142,6 @@ export class StyleEditorModal extends Modal {
                 this.updatePreview();
             });
         });
-
-        // ============================================================
-        // SHAPE
-        // ============================================================
-        new Setting(contentEl)
-            .setName(t('shape_title'))
-            .addDropdown(dropdown => {
-                dropdown.addOption('pill', t('shape_pill'));
-                dropdown.addOption('rectangle', t('shape_rectangle'));
-                dropdown.addOption('flat', t('shape_flat'));
-                dropdown.setValue(this.shape);
-                dropdown.onChange(value => {
-                    this.shape = value as 'pill' | 'rectangle' | 'flat';
-                    this.updatePreview();
-                });
-            });
-
-        // Color Mode
-        new Setting(contentEl)
-            .setName(t('color_mode_title'))
-            .addDropdown(dropdown => {
-                dropdown.addOption('subtle', t('color_mode_subtle'));
-                dropdown.addOption('solid', t('color_mode_solid'));
-                dropdown.setValue(this.colorMode);
-                dropdown.onChange(value => {
-                    this.colorMode = value as 'subtle' | 'solid';
-                    this.updatePreview();
-                });
-            });
 
         // Applies To (Scope)
         new Setting(contentEl)
@@ -278,7 +269,8 @@ export class StyleEditorModal extends Modal {
     private updatePreview(): void {
         if (!this.previewPillLight || !this.previewPillDark) return;
 
-        const palette = generatePalette(this.baseColor, this.colorMode);
+        const previewMode: 'subtle' | 'solid' = this.colorMode === 'solid' ? 'solid' : 'subtle';
+        const palette = generatePalette(this.baseColor, previewMode);
         const displayName = this.styleName || t('new_status_name');
 
         // Light pill
@@ -363,6 +355,10 @@ export class StyleEditorModal extends Modal {
             new Notice(t('style_name_required'));
             return;
         }
+        if (this.shape === '' || this.colorMode === '') {
+            new Notice(t('shape_color_required'));
+            return;
+        }
         // Check for conflicts: same name with overlapping or identical scope
         const newScope = this.appliesTo;
         let hasExactDuplicate = false;
@@ -430,12 +426,12 @@ export class StyleEditorModal extends Modal {
 
         // Only add shape if not the default
         if (this.shape !== 'pill') {
-            style.shape = this.shape;
+            style.shape = this.shape as 'pill' | 'rectangle' | 'flat';
         }
 
         // Only add colorMode if not the default
         if (this.colorMode !== 'subtle') {
-            style.colorMode = this.colorMode;
+            style.colorMode = this.colorMode as 'subtle' | 'solid';
         }
 
         // Update existing or push new
@@ -453,6 +449,51 @@ export class StyleEditorModal extends Modal {
         this.onSave?.();
 
         this.close();
+    }
+
+    /**
+     * Renders a card-selection section (title + description + grid of SVG cards).
+     */
+    private renderCardSection(
+        parent: HTMLElement,
+        titleKey: TranslationKey,
+        options: Array<{ key: string; labelKey: TranslationKey; svg: string }>,
+        currentValue: string,
+        onChange: (key: string) => void
+    ): void {
+        const section = parent.createDiv({ cls: 'typify-card-section' });
+        section.createDiv({ text: t(titleKey), cls: 'typify-card-section-title' });
+
+        const grid = section.createDiv({ cls: 'typify-card-grid' });
+
+        for (const opt of options) {
+            const card = grid.createDiv({ cls: 'typify-fmt-card' });
+            if (currentValue === opt.key) card.addClass('is-selected');
+
+            const thumb = card.createDiv({ cls: 'typify-fmt-thumb' });
+            // eslint-disable-next-line @microsoft/sdl/no-inner-html -- trusted static SVG constant
+            thumb.innerHTML = opt.svg;
+
+            card.createEl('span', { text: t(opt.labelKey), cls: 'typify-fmt-label' });
+
+            card.setAttribute('role', 'button');
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('aria-label', t(opt.labelKey));
+
+            const selectCard = () => {
+                grid.findAll('.typify-fmt-card').forEach(c => c.removeClass('is-selected'));
+                card.addClass('is-selected');
+                onChange(opt.key);
+            };
+
+            card.addEventListener('click', selectCard);
+            card.addEventListener('keydown', (e: KeyboardEvent) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    selectCard();
+                }
+            });
+        }
     }
 
     onClose() {
