@@ -15,7 +15,7 @@ export interface ColorPalette {
  * @param hex The hex color string (e.g., "#ffffff" or "ffffff").
  * @returns An object containing hue (h), saturation (s), and lightness (l).
  */
-function hexToHSL(hex: string): { h: number; s: number; l: number } {
+export function hexToHSL(hex: string): { h: number; s: number; l: number } {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     if (!result) return { h: 0, s: 0, l: 50 };
 
@@ -47,7 +47,7 @@ function hexToHSL(hex: string): { h: number; s: number; l: number } {
  * @param l Lightness (0-100)
  * @returns The hex color string (e.g., "#ffffff").
  */
-function hslToHex(h: number, s: number, l: number): string {
+export function hslToHex(h: number, s: number, l: number): string {
     s /= 100;
     l /= 100;
 
