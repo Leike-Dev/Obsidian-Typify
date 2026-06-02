@@ -91,6 +91,7 @@ export const fr = {
     'save_button': 'Enregistrer',
     'cancel_button': 'Annuler',
     'style_name_required': 'Le nom du style est requis.',
+    'shape_color_required': 'Veuillez s\u00e9lectionner une forme et un mode de couleur.',
     'style_saved': 'Style « {name} » enregistré !',
     'style_duplicate': 'Un style avec ce nom existe déjà pour la même propriété.',
     'style_overlap_warning': 'Note : un style avec ce nom existe déjà dans une autre portée. Le style le plus spécifique aura la priorité.',

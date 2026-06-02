@@ -22,13 +22,16 @@ const localeMap: { [key: string]: Partial<typeof en> } = {
 
 const locale = getLanguage() || 'en';
 
+/** Type alias for valid translation keys derived from the English locale. */
+export type TranslationKey = keyof typeof en;
+
 /**
  * Returns the localized string for the given translation key.
  * Fallback chain: user's locale → English → raw key name.
  * @param key A valid translation key from the English locale file.
  * @returns The translated string, or the key itself if no translation is found.
  */
-export function t(key: keyof typeof en): string {
+export function t(key: TranslationKey): string {
     const lang = localeMap[locale.toLowerCase()] || en;
     return (lang as Record<string, string>)[key] || (en as Record<string, string>)[key] || key;
 }

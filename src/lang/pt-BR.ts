@@ -91,6 +91,7 @@ export const ptBR = {
     'save_button': 'Salvar',
     'cancel_button': 'Cancelar',
     'style_name_required': 'O nome do estilo é obrigatório.',
+    'shape_color_required': 'Selecione um formato e um modo de cor.',
     'style_saved': 'Estilo "{name}" salvo!',
     'style_duplicate': 'Já existe um estilo com esse nome para a mesma propriedade.',
     'style_overlap_warning': 'Aviso: já existe um estilo com esse nome em outro escopo. O estilo mais específico terá prioridade.',

@@ -91,6 +91,7 @@ export const zhCN = {
     'save_button': '保存',
     'cancel_button': '取消',
     'style_name_required': '样式名称不能为空。',
+    'shape_color_required': '请选择形状和颜色模式。',
     'style_saved': '样式「{name}」已保存！',
     'style_duplicate': '相同属性下已存在同名样式。',
     'style_overlap_warning': '注意：已存在同名样式但作用域不同。更具体的样式将优先应用。',

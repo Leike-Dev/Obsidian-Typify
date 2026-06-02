@@ -91,6 +91,7 @@ export const es = {
     'save_button': 'Guardar',
     'cancel_button': 'Cancelar',
     'style_name_required': 'El nombre del estilo es obligatorio.',
+    'shape_color_required': 'Selecciona una forma y un modo de color.',
     'style_saved': '¡Estilo "{name}" guardado!',
     'style_duplicate': 'Ya existe un estilo con este nombre para la misma propiedad.',
     'style_overlap_warning': 'Nota: ya existe un estilo con este nombre en otro ámbito. El estilo más específico tendrá prioridad.',

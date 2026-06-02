@@ -91,6 +91,7 @@ export const en = {
     'save_button': 'Save',
     'cancel_button': 'Cancel',
     'style_name_required': 'Style name is required.',
+    'shape_color_required': 'Please select a shape and color mode.',
     'style_saved': 'Style "{name}" saved!',
     'style_duplicate': 'A style with this name already exists for the same property.',
     'style_overlap_warning': 'Note: a style with this name already exists with a different scope. The more specific style will take priority.',
