@@ -19,6 +19,8 @@ export interface CustomStatusIconsSettings {
     enableCustomIcons: boolean;
     hideRemoveButton: 'none' | 'properties' | 'bases' | 'both';
     enableLinkStyles: boolean;
+    enableCustomPalette: boolean;
+    customPalette: string[];
 }
 
 export const DEFAULT_SETTINGS: CustomStatusIconsSettings = {
@@ -27,7 +29,9 @@ export const DEFAULT_SETTINGS: CustomStatusIconsSettings = {
     recentIcons: [],
     enableCustomIcons: false,
     hideRemoveButton: 'none',
-    enableLinkStyles: false
+    enableLinkStyles: false,
+    enableCustomPalette: false,
+    customPalette: []
 };
 
 // Default color for new status styles
