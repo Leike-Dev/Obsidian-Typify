@@ -133,8 +133,10 @@ export const es = {
     'style_updated': '¡Estilo "{name}" actualizado!',
 
     // Hide Remove Button
-    'hide_remove_button_title': 'Ocultar botón "×" de las etiquetas',
+    'hide_remove_button_title': 'Ocultar botón "x" de las etiquetas',
     'hide_remove_button_desc': 'Oculta el icono de eliminación para un aspecto más limpio y discreto.',
+    'hide_remove_button_hover_title': 'Revelar botón "x" al pasar el ratón',
+    'hide_remove_button_hover_desc': 'Si está activado, el botón de eliminación aparecerá cuando pases el ratón sobre la etiqueta.',
     'hide_remove_button_none': 'Ninguno (Predeterminado)',
 
     'hide_remove_button_properties': 'Solo en Propiedades',

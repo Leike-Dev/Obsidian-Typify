@@ -133,8 +133,10 @@ export const zhCN = {
     'style_updated': '样式「{name}」已更新！',
 
     // Hide Remove Button
-    'hide_remove_button_title': '隐藏标签上的“×”按钮',
+    'hide_remove_button_title': '隐藏标签上的"x"按钮',
     'hide_remove_button_desc': '隐藏删除图标，以获得更简洁的外观。',
+    'hide_remove_button_hover_title': '悬停时显示"x"按钮',
+    'hide_remove_button_hover_desc': '启用后，当鼠标悬停在标签上时将显示移除按钮。',
     'hide_remove_button_none': '无（默认）',
     'hide_remove_button_properties': '仅在属性中',
     'hide_remove_button_bases': '仅在 Bases 中',

@@ -132,8 +132,10 @@ export const en = {
     'edit_style_title': 'Edit style',
     'style_updated': 'Style "{name}" updated!',
     // Hide Remove Button
-    'hide_remove_button_title': 'Hide "×" button on tags',
+    'hide_remove_button_title': 'Hide "x" button on tags',
     'hide_remove_button_desc': 'Hides the remove icon for a cleaner and more discreet look.',
+    'hide_remove_button_hover_title': 'Reveal remove button on hover',
+    'hide_remove_button_hover_desc': 'If enabled, the remove button will appear when you hover over the tag.',
     'hide_remove_button_none': 'None (Default)',
 
     'hide_remove_button_properties': 'Only in Properties',

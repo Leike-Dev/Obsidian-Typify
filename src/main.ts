@@ -120,10 +120,14 @@ export default class TypifyPlugin extends Plugin {
         return this.cachedTargetProps;
     }
 
-    private updateBodyClasses() {
-        document.body.classList.remove('typify-hide-x-none', 'typify-hide-x-properties', 'typify-hide-x-bases', 'typify-hide-x-both');
+    public updateBodyClasses() {
+        document.body.classList.remove('typify-hide-x-none', 'typify-hide-x-properties', 'typify-hide-x-bases', 'typify-hide-x-both', 'typify-reveal-x-on-hover');
         if (this.settings.hideRemoveButton && this.settings.hideRemoveButton !== 'none') {
             document.body.classList.add(`typify-hide-x-${this.settings.hideRemoveButton}`);
+            
+            if (this.settings.hideRemoveButtonHover) {
+                document.body.classList.add('typify-reveal-x-on-hover');
+            }
         }
     }
 

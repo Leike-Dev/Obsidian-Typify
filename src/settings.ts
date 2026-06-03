@@ -181,6 +181,17 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                 });
             });
 
+        new Setting(togglesContainer)
+            .setName(t('hide_remove_button_hover_title'))
+            .setDesc(t('hide_remove_button_hover_desc'))
+            .addToggle(toggle => toggle
+                .setValue(this.plugin.settings.hideRemoveButtonHover)
+                .onChange(async (value) => {
+                    this.plugin.settings.hideRemoveButtonHover = value;
+                    await this.plugin.saveSettings();
+                    this.plugin.updateBodyClasses();
+                }));
+
         // ================================================================
         // LINK STYLES
         // ================================================================

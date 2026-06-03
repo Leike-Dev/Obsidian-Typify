@@ -18,6 +18,7 @@ export interface CustomStatusIconsSettings {
     recentIcons: string[];
     enableCustomIcons: boolean;
     hideRemoveButton: 'none' | 'properties' | 'bases' | 'both';
+    hideRemoveButtonHover: boolean;
     enableLinkStyles: boolean;
     enableCustomPalette: boolean;
     customPalette: string[];
@@ -29,6 +30,7 @@ export const DEFAULT_SETTINGS: CustomStatusIconsSettings = {
     recentIcons: [],
     enableCustomIcons: false,
     hideRemoveButton: 'none',
+    hideRemoveButtonHover: false,
     enableLinkStyles: false,
     enableCustomPalette: false,
     customPalette: []

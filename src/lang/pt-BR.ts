@@ -133,8 +133,10 @@ export const ptBR = {
     'style_updated': 'Estilo "{name}" atualizado!',
 
     // Hide Remove Button
-    'hide_remove_button_title': 'Ocultar botão "×" das tags',
+    'hide_remove_button_title': 'Ocultar botão "x" das tags',
     'hide_remove_button_desc': 'Esconde o ícone de remoção para um visual mais limpo e discreto.',
+    'hide_remove_button_hover_title': 'Revelar botão "x" ao passar o mouse',
+    'hide_remove_button_hover_desc': 'Se ativado, o botão de remoção voltará a aparecer quando você passar o mouse por cima da tag.',
     'hide_remove_button_none': 'Nenhum (Padrão)',
 
     'hide_remove_button_properties': 'Apenas nas Propriedades',

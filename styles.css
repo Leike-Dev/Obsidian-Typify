@@ -1478,6 +1478,17 @@ body.typify-hide-x-both .bases-view .multi-select-pill.custom-status-icon-pill {
     padding-right: 12px;
 }
 
+/* Reveal Remove Button on Hover if setting is enabled */
+body.typify-reveal-x-on-hover .metadata-container .multi-select-pill.custom-status-icon-pill:hover .multi-select-pill-remove-button,
+body.typify-reveal-x-on-hover .bases-view .multi-select-pill.custom-status-icon-pill:hover .multi-select-pill-remove-button {
+    display: flex;
+}
+
+body.typify-reveal-x-on-hover .metadata-container .multi-select-pill.custom-status-icon-pill:hover,
+body.typify-reveal-x-on-hover .bases-view .multi-select-pill.custom-status-icon-pill:hover {
+    padding-right: var(--pill-padding-x);
+}
+
 /* ==========================================================================
    Icon Picker Tabs
    ========================================================================== */
