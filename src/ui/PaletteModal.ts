@@ -27,7 +27,6 @@ export class PaletteModal extends Modal {
         contentEl.addClass('typify-palette-modal');
 
         this.setTitle(t('palette_title'));
-        this.modalEl.addClass('mod-confirmation');
 
         // Render palette content inside the modal
         renderPaletteSection(contentEl, this.plugin, () => {
