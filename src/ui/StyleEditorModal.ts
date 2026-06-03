@@ -58,7 +58,6 @@ export class StyleEditorModal extends Modal {
 
         // Header
         this.setTitle(this.editIndex !== null ? t('edit_style_title') : t('create_style_title'));
-        this.modalEl.addClass('mod-confirmation');
 
         // ============================================================
         // INPUTS
