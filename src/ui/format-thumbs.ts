@@ -45,35 +45,34 @@ export const THUMB_SOLID = `<svg width="88" height="36" viewBox="0 0 88 36" fill
 
 /** Shades (Degradê): monochromatic lightness variations */
 export const THUMB_SHADES = `<svg width="88" height="48" viewBox="0 0 88 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="4" y="8" width="80" height="32" rx="12" fill="#EEEDFE"/>
-  <circle cx="26" cy="24" r="8" fill="#CECBF6"/>
-  <circle cx="38" cy="24" r="8" fill="#AFA9EC"/>
-  <circle cx="50" cy="24" r="8" fill="#7F77DD"/>
-  <circle cx="62" cy="24" r="8" fill="#534AB7"/>
+  <rect x="4" y="8" width="80" height="32" rx="12" class="svg-bg"/>
+  <circle cx="26" cy="24" r="8" class="svg-fg" opacity="0.25"/>
+  <circle cx="38" cy="24" r="8" class="svg-fg" opacity="0.5"/>
+  <circle cx="50" cy="24" r="8" class="svg-fg" opacity="0.75"/>
+  <circle cx="62" cy="24" r="8" class="svg-fg" opacity="1"/>
 </svg>`;
 
 /** Analogous: adjacent colors on the color wheel */
 export const THUMB_ANALOGOUS = `<svg width="88" height="48" viewBox="0 0 88 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="4" y="8" width="80" height="32" rx="12" fill="#EEEDFE"></rect>
-  <circle cx="38" cy="28.5" r="8" fill="#CECBF6" stroke="#EEEDFE" stroke-width="1.5"></circle>
-  <circle cx="50" cy="28.5" r="8" fill="#7F77DD" stroke="#EEEDFE" stroke-width="1.5"></circle>
-  <circle cx="44" cy="19.5" r="8" fill="#AFA9EC" stroke="#EEEDFE" stroke-width="1.5"></circle>
+  <rect x="4" y="8" width="80" height="32" rx="12" class="svg-bg"></rect>
+  <circle cx="38" cy="28.5" r="8" class="svg-fg svg-stroke" opacity="0.3" stroke-width="1.5"></circle>
+  <circle cx="50" cy="28.5" r="8" class="svg-fg svg-stroke" opacity="1" stroke-width="1.5"></circle>
+  <circle cx="44" cy="19.5" r="8" class="svg-fg svg-stroke" opacity="0.6" stroke-width="1.5"></circle>
 </svg>`;
 
 /** Complementary: opposite hues with separator */
 export const THUMB_COMPLEMENTARY = `<svg width="88" height="48" viewBox="0 0 88 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="4" y="8" width="80" height="32" rx="12" fill="#F1EFE8"/>
-  <circle cx="32" cy="24" r="10" fill="#AFA9EC"/>
-  <circle cx="56" cy="24" r="10" fill="#B4B2A9"/>
-  <rect x="42" y="10" width="4" height="28" rx="2" fill="#F1EFE8"/>
+  <rect x="4" y="8" width="80" height="32" rx="12" class="svg-bg"/>
+  <circle cx="32" cy="24" r="10" class="svg-fg"/>
+  <circle cx="56" cy="24" r="10" class="svg-fg" opacity="0.3"/>
 </svg>`;
 
 /** Random: scattered colors */
 export const THUMB_RANDOM = `<svg width="88" height="48" viewBox="0 0 88 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="4" y="8" width="80" height="32" rx="12" fill="#EEEDFE"/>
-  <circle cx="26" cy="24" r="8" fill="#534AB7"/>
-  <circle cx="38" cy="24" r="8" fill="#CECBF6"/>
-  <circle cx="62" cy="24" r="8" fill="#7F77DD"/>
-  <circle cx="50" cy="24" r="8" fill="#AFA9EC"/>
+  <rect x="4" y="8" width="80" height="32" rx="12" class="svg-bg"/>
+  <circle cx="26" cy="24" r="8" class="svg-fg" opacity="1"/>
+  <circle cx="38" cy="24" r="8" class="svg-fg" opacity="0.3"/>
+  <circle cx="62" cy="24" r="8" class="svg-fg" opacity="0.8"/>
+  <circle cx="50" cy="24" r="8" class="svg-fg" opacity="0.5"/>
 </svg>`;
 

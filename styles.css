@@ -595,12 +595,21 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
     transition: fill 0.15s ease;
 }
 
+.typify-fmt-thumb svg .svg-stroke {
+    stroke: color-mix(in srgb, var(--text-normal) 10%, transparent);
+    transition: stroke 0.15s ease;
+}
+
 .typify-fmt-card.is-selected .typify-fmt-thumb svg .svg-bg {
     fill: color-mix(in srgb, var(--interactive-accent) 25%, transparent);
 }
 
 .typify-fmt-card.is-selected .typify-fmt-thumb svg .svg-fg {
     fill: var(--interactive-accent);
+}
+
+.typify-fmt-card.is-selected .typify-fmt-thumb svg .svg-stroke {
+    stroke: color-mix(in srgb, var(--interactive-accent) 25%, transparent);
 }
 
 .typify-fmt-thumb svg .svg-solid-bg {
