@@ -789,16 +789,16 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
 /* Custom flat color picker input */
 .typify-palette-color-picker {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-self: stretch;
+    align-items: stretch;
 }
 
 .typify-palette-color-picker input[type="color"] {
     display: block;
     -webkit-appearance: none;
     appearance: none;
-    width: var(--input-height);
-    height: var(--input-height);
+    height: auto;
+    width: auto;
     aspect-ratio: 1;
     background-color: transparent;
     border: none;
