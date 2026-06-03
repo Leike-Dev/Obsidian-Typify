@@ -217,7 +217,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
 
             new Setting(containerEl)
                 .setName(t('palette_title'))
-                .setDesc(t('custom_palette_toggle_desc'))
+                .setDesc(t('palette_manager_desc'))
                 .addButton(button => button
                     .setButtonText(t('manage_styles_button'))
                     .onClick(() => {
