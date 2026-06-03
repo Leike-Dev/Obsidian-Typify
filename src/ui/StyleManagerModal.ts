@@ -89,7 +89,7 @@ export class StyleManagerModal extends Modal {
         // From existing style scopes
         for (const style of this.plugin.settings.statusStyles) {
             if (style.appliesTo && style.appliesTo.length > 0) {
-                scopes.add(style.appliesTo[0]);
+                scopes.add(style.appliesTo[0]!);
             }
         }
 
@@ -128,7 +128,7 @@ export class StyleManagerModal extends Modal {
 
             // Scope filter: __all__ matches styles without appliesTo (global)
             const styleScope = (s.appliesTo && s.appliesTo.length > 0)
-                ? s.appliesTo[0].toLowerCase()
+                ? s.appliesTo[0]!.toLowerCase()
                 : '__all__';
             return styleScope === scope.toLowerCase();
         });

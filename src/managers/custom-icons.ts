@@ -121,7 +121,7 @@ export class CustomIconsManager {
      */
     private filePathToName(filePath: string): string {
         const parts = filePath.split('/');
-        const fileName = parts[parts.length - 1];
+        const fileName = parts[parts.length - 1]!;
         return fileName.replace(/\.svg$/i, '');
     }
 }

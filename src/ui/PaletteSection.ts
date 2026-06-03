@@ -47,7 +47,6 @@ export function renderPaletteSection(
     ];
 
     let selectedHarmony: HarmonyType | null = null;
-    // eslint-disable-next-line prefer-const
     let generateBtn: HTMLButtonElement;
 
     for (const opt of harmonyOptions) {
@@ -176,7 +175,7 @@ export function renderPaletteSection(
 
         // Render existing color cards
         for (let i = 0; i < palette.length; i++) {
-            renderColorCard(gridContainer, palette[i], () => {
+            renderColorCard(gridContainer, palette[i]!, () => {
                 palette.splice(i, 1);
                 void plugin.saveSettings().then(refreshYourColors);
             });

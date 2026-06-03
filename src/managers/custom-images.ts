@@ -104,7 +104,7 @@ export class CustomImagesManager {
      */
     private filePathToName(filePath: string): string {
         const parts = filePath.split('/');
-        return parts[parts.length - 1]; // Keep extension so we distinguish joao.png vs joao.jpg
+        return parts[parts.length - 1]!; // Keep extension so we distinguish joao.png vs joao.jpg
     }
 
     private getMimeType(filePath: string): string {
@@ -121,7 +121,7 @@ export class CustomImagesManager {
         const bytes = new Uint8Array(buffer);
         const len = bytes.byteLength;
         for (let i = 0; i < len; i++) {
-            binary += String.fromCharCode(bytes[i]);
+            binary += String.fromCharCode(bytes[i]!);
         }
         return btoa(binary);
     }

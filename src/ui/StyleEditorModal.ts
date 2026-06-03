@@ -177,7 +177,7 @@ export class StyleEditorModal extends Modal {
                 });
 
                 // Set initial value based on current appliesTo state
-                const initialValue = (this.appliesTo.length > 0) ? this.appliesTo[0] : 'all';
+                const initialValue = (this.appliesTo.length > 0) ? this.appliesTo[0]! : 'all';
                 // Fallback to 'all' if the saved value is not an available dropdown option
                 const validValue = properties.includes(initialValue) ? initialValue : 'all';
                 dropdown.setValue(validValue);

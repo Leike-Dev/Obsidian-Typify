@@ -115,8 +115,8 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
     getItemText(item: string): string {
         if (item.startsWith('emoji:')) {
             const [prefixChar, name, search] = item.split('|||');
-            const char = prefixChar.replace('emoji:', '');
-            return `${char} ${name} ${search || ''}`;
+            const char = prefixChar!.replace('emoji:', '');
+            return `${char} ${name ?? ''} ${search ?? ''}`;
         }
         // Strip custom: or img: prefix so users can search by name directly
         if (item.startsWith('custom:')) {
@@ -156,7 +156,7 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
             el.createSpan({ text: 'img', cls: 'csi-icon-custom-badge' });
         } else if (icon.startsWith('emoji:')) {
             const [prefixChar, name] = icon.split('|||');
-            const char = prefixChar.replace('emoji:', '');
+            const char = prefixChar!.replace('emoji:', '');
             
             iconEl.textContent = char;
             iconEl.setCssStyles({ fontSize: '16px' });
@@ -207,7 +207,7 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
     private handleChoose(item: string): void {
         if (item.startsWith('emoji:')) {
             // Extract just the emoji part before '|||'
-            this.onChoose(item.split('|||')[0]);
+            this.onChoose(item.split('|||')[0]!);
         } else {
             this.onChoose(item);
         }
