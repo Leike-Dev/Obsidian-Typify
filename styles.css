@@ -649,108 +649,208 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
     line-height: 1.4;
 }
 
-/* Palette utility classes to replace inline styles */
-.mod-settings .csi-dropdown-container .setting-item.typify-palette-section-heading {
+/* ==========================================================================
+   PALETTE SECTION (Modal)
+   ========================================================================== */
+
+/* Remove borders between setting items inside palette modal */
+.modal-content.typify-palette-modal .setting-item,
+.modal-content.typify-palette-modal .setting-item+.setting-item,
+.modal-content.typify-palette-modal .setting-item:not(:first-child) {
+    border: none;
     border-top: none;
-    padding-bottom: 0;
 }
 
-.mod-settings .csi-dropdown-container .setting-item.typify-palette-section-heading .setting-item-name {
-    font-size: var(--font-ui-smaller) !important;
-    font-weight: 600 !important;
-    color: var(--text-muted) !important;
-    letter-spacing: 0.05em;
-}
-
-.mod-settings .csi-dropdown-container .setting-item.typify-palette-grid-row {
-    display: block;
-}
-
-.typify-palette-counter-row {
+/* "Your colors" heading row — title + clear button */
+.typify-palette-your-colors-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     margin-top: 8px;
+    margin-bottom: 15px;
 }
 
-.mod-settings .csi-dropdown-container .setting-item.typify-palette-preview-row {
+.typify-palette-your-colors-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.typify-palette-your-colors-left .typify-card-section-title {
+    margin-bottom: 0;
+}
+
+/* Clear button (inline with heading) */
+.typify-palette-clear-btn {
+    color: var(--text-muted);
+    opacity: 0.7;
+    transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+.typify-palette-clear-btn:hover {
+    color: var(--text-error);
+    opacity: 1;
+}
+
+/* Card section inside palette (reuses .typify-card-grid / .typify-fmt-card) */
+.typify-palette-card-section {
+    padding: 0 0 4px 0;
+    margin-bottom: 10px;
+}
+
+/* Counter — inline with heading */
+.typify-palette-counter {
+    font-size: var(--font-ui-smaller);
+    color: var(--text-muted);
+}
+
+/* Preview container — visible bordered box */
+.typify-palette-preview-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 8px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--radius-m);
+    padding: 8px 12px;
+    margin-bottom: 16px;
+    min-height: 40px;
+    background: var(--background-secondary);
 }
 
-/* Color grid */
+/* Preview dots area */
+.typify-palette-preview {
+    display: flex;
+    gap: 6px;
+    min-height: 24px;
+    align-items: center;
+    flex: 1;
+}
+
+.typify-palette-preview-dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    transition: transform 0.15s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.typify-palette-preview-dot:hover {
+    transform: scale(1.15);
+}
+
+/* Add all button — always visible */
+.typify-palette-add-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--interactive-accent);
+    border: none;
+    border-radius: var(--radius-s);
+    padding: 6px 16px;
+    color: var(--text-on-accent);
+    cursor: pointer;
+    font-size: var(--font-ui-small);
+    font-weight: 500;
+    transition: opacity 0.15s ease, background-color 0.15s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.typify-palette-add-all-btn:hover {
+    opacity: 0.9;
+}
+
+/* Faded/disabled state when no colors generated */
+.typify-palette-add-all-btn.is-disabled {
+    opacity: 0.35;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   PALETTE COLOR GRID
+   ========================================================================== */
+
 .typify-palette-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 8px;
 }
 
+/* Color card — tall rectangle layout */
 .typify-palette-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 68px;
-    border-radius: var(--radius-s);
+    width: 56px;
+    border-radius: var(--radius-m);
     overflow: hidden;
     background: var(--background-secondary);
     border: 1px solid var(--background-modifier-border);
     transition: box-shadow 0.15s ease;
 }
 
-.typify-palette-card:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-}
-
+/* Swatch on top */
 .typify-palette-swatch {
     width: 100%;
-    height: 48px;
-}
-
-.typify-palette-card-info {
+    height: 72px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 2px 4px;
-    background: var(--background-primary);
-    border-top: 1px solid var(--background-modifier-border);
-}
-
-.typify-palette-card-hex {
-    font-size: 10px;
-    color: var(--text-muted);
+    justify-content: flex-end;
+    padding-bottom: 6px;
+    position: relative;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
-.typify-palette-card-remove {
-    background: none;
+/* Hex label — horizontal at bottom of swatch */
+.typify-palette-card-hex {
+    font-size: 9px;
+    font-family: var(--font-monospace);
+    color: rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+/* Remove button below the swatch */
+.typify-palette-modal .typify-palette-card button.typify-palette-card-remove {
+    width: 100%;
+    height: 24px;
+    background: var(--background-primary);
     border: none;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
     color: var(--text-muted);
     cursor: pointer;
-    font-size: 14px;
     line-height: 1;
-    padding: 0 2px;
-    opacity: 0.6;
-    transition: opacity 0.1s ease;
+    padding: 0;
+    transition: color 0.15s ease, background-color 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.typify-palette-card-remove:hover {
-    opacity: 1;
+.typify-palette-modal .typify-palette-card button.typify-palette-card-remove svg {
+    width: 12px;
+    height: 12px;
+}
+
+.typify-palette-modal .typify-palette-card button.typify-palette-card-remove:hover {
     color: var(--text-error);
+    background: var(--background-secondary-alt);
 }
 
-/* Add card */
+/* Add card — just the + icon */
 .typify-palette-add-card {
+    width: 56px;
+    min-height: 96px;
     border: 2px dashed var(--background-modifier-border);
     background: transparent;
     cursor: pointer;
     justify-content: center;
     align-items: center;
-    min-height: 80px;
     transition: border-color 0.15s ease;
 }
 
@@ -772,62 +872,6 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
     pointer-events: none;
 }
 
-.typify-palette-counter {
-    font-size: var(--font-ui-smaller);
-    color: var(--text-muted);
-    margin-top: 4px;
-}
-
-/* Harmony section */
-
-.typify-palette-preview {
-    display: flex;
-    gap: 6px;
-    margin: 10px 0;
-    min-height: 28px;
-    align-items: center;
-}
-
-.typify-palette-preview-dot {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    transition: transform 0.1s ease;
-}
-
-.typify-palette-preview-dot:hover {
-    transform: scale(1.15);
-}
-
-.typify-palette-harmony-buttons {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-
-.typify-palette-gen-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.typify-palette-add-all-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    background: var(--background-secondary);
-    border: 1px solid var(--background-modifier-border);
-    border-radius: var(--radius-s);
-    padding: 4px 12px;
-    color: var(--text-normal);
-    cursor: pointer;
-    font-size: var(--font-ui-small);
-    transition: background-color 0.15s ease;
-}
-
-.typify-palette-add-all-btn:hover {
-    background: var(--background-modifier-hover);
-}
 
 /* ==========================================================================
    ICON PICKER MODAL
