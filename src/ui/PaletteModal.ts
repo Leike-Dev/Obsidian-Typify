@@ -29,10 +29,7 @@ export class PaletteModal extends Modal {
         this.setTitle(t('palette_title'));
 
         // Render palette content inside the modal
-        renderPaletteSection(contentEl, this.plugin, () => {
-            // Re-render content on updates (add/remove/clear)
-            this.onOpen();
-        });
+        renderPaletteSection(contentEl, this.plugin);
     }
 
     onClose() {

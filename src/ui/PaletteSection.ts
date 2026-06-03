@@ -21,8 +21,7 @@ const MAX_PALETTE_COLORS = 10;
  */
 export function renderPaletteSection(
     containerEl: HTMLElement,
-    plugin: TypifyPlugin,
-    onUpdate: () => void
+    plugin: TypifyPlugin
 ): void {
     const palette = plugin.settings.customPalette;
 
