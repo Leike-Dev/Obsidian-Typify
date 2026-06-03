@@ -1592,3 +1592,42 @@ body .bases-view .bases-cards-container .bases-cards-property .typify-single-val
 .typify-palette-add-all-btn.is-hidden {
     display: none;
 }
+
+/* ==========================================================================
+   MOBILE GLOBAL OVERRIDES (Dropdowns & Buttons fallback)
+   ========================================================================== */
+body.is-mobile .csi-settings-container select,
+body.is-mobile .typify-palette-modal select,
+body.is-mobile .csi-manager-modal select,
+body.is-mobile .csi-editor-modal select,
+body.is-mobile .typify-import-modal select,
+body.is-mobile .typify-export-modal select {
+    background-color: var(--background-modifier-form-field);
+    border: 1px solid var(--background-modifier-border);
+}
+
+body.is-mobile .csi-settings-container button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon),
+body.is-mobile .typify-palette-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon),
+body.is-mobile .csi-manager-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon),
+body.is-mobile .csi-editor-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon),
+body.is-mobile .typify-import-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon),
+body.is-mobile .typify-export-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon) {
+    background-color: var(--background-modifier-form-field);
+    border: 1px solid var(--background-modifier-border);
+}
+
+body.is-mobile .csi-settings-container select:hover,
+body.is-mobile .typify-palette-modal select:hover,
+body.is-mobile .csi-manager-modal select:hover,
+body.is-mobile .csi-editor-modal select:hover,
+body.is-mobile .typify-import-modal select:hover,
+body.is-mobile .typify-export-modal select:hover,
+body.is-mobile .csi-settings-container button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
+body.is-mobile .typify-palette-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
+body.is-mobile .csi-manager-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
+body.is-mobile .csi-editor-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
+body.is-mobile .typify-import-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
+body.is-mobile .typify-export-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon):hover {
+    background-color: var(--background-modifier-hover);
+    border-color: var(--background-modifier-border-hover);
+}
