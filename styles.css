@@ -540,7 +540,8 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
 }
 
 .typify-card-grid {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: var(--size-4-2);
 }
 
@@ -625,6 +626,9 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
     color: var(--text-muted);
     text-align: center;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
     transition: color 0.15s ease;
 }
 
@@ -773,8 +777,9 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
    ========================================================================== */
 
 .typify-palette-grid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 56px);
+    justify-content: space-between;
     gap: 8px;
 }
 
