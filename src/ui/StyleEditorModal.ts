@@ -473,7 +473,7 @@ export class StyleEditorModal extends Modal {
     private renderCardSection(
         parent: HTMLElement,
         titleKey: TranslationKey,
-        options: Array<{ key: string; labelKey: TranslationKey; svg: string }>,
+        options: { key: string; labelKey: TranslationKey; svg: string }[],
         currentValue: string,
         onChange: (key: string) => void
     ): void {
@@ -497,7 +497,7 @@ export class StyleEditorModal extends Modal {
             card.setAttribute('aria-label', t(opt.labelKey));
 
             const selectCard = () => {
-                grid.findAll('.typify-fmt-card').forEach(c => c.removeClass('is-selected'));
+                grid.findAll('.typify-fmt-card').forEach(c => { c.removeClass('is-selected'); });
                 card.addClass('is-selected');
                 onChange(opt.key);
             };

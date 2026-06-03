@@ -10,7 +10,7 @@ const IMAGES_FOLDER = 'img';
 const MAX_IMAGE_SIZE = 50 * 1024; // 50KB limit per image file
 
 export class CustomImagesManager {
-    private dataUriCache: Map<string, string> = new Map(); // name → data URI (Base64)
+    private dataUriCache = new Map<string, string>(); // name → data URI (Base64)
     private app: App;
     private basePath: string;
 

@@ -10,7 +10,7 @@ import { fr } from './fr';
 import { zhCN } from './zh-CN';
 import { getLanguage } from 'obsidian';
 
-const localeMap: { [key: string]: Partial<typeof en> } = {
+const localeMap: Record<string, Partial<typeof en>> = {
     'en': en,
     'pt': ptBR,
     'pt-br': ptBR,

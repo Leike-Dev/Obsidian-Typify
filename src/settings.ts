@@ -17,7 +17,7 @@ import { t } from './lang/helpers';
  */
 export class CustomStatusIconsSettingTab extends PluginSettingTab {
     plugin: TypifyPlugin;
-    togglesExpanded: boolean = false;
+    togglesExpanded = false;
 
     constructor(app: App, plugin: TypifyPlugin) {
         super(app, plugin);

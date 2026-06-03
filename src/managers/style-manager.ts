@@ -6,11 +6,11 @@ export class StyleManager {
     private plugin: TypifyPlugin;
     private styleElement: HTMLStyleElement | null = null;
     // O(1) Lookup cache: key = value.toLowerCase() + '|' + propertyKey
-    private fastLookupMap: Map<string, string> = new Map();
+    private fastLookupMap = new Map<string, string>();
     // Cache for global fallbacks: key = value.toLowerCase()
-    private globalFallbackMap: Map<string, string> = new Map();
+    private globalFallbackMap = new Map<string, string>();
     // Display info cache: className → { name, hasMatchValue }
-    private styleInfoMap: Map<string, { name: string; hasMatchValue: boolean }> = new Map();
+    private styleInfoMap = new Map<string, { name: string; hasMatchValue: boolean }>();
 
     constructor(plugin: TypifyPlugin) {
         this.plugin = plugin;

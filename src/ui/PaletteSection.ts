@@ -39,7 +39,7 @@ export function renderPaletteSection(
     const cardSection = containerEl.createDiv({ cls: 'typify-card-section typify-palette-card-section' });
     const cardGrid = cardSection.createDiv({ cls: 'typify-card-grid' });
 
-    const harmonyOptions: Array<{ key: HarmonyType; labelKey: TranslationKey; svg: string }> = [
+    const harmonyOptions: { key: HarmonyType; labelKey: TranslationKey; svg: string }[] = [
         { key: 'shades',        labelKey: 'palette_harmony_shades',        svg: THUMB_SHADES },
         { key: 'analogous',     labelKey: 'palette_harmony_analogous',     svg: THUMB_ANALOGOUS },
         { key: 'complementary', labelKey: 'palette_harmony_complementary', svg: THUMB_COMPLEMENTARY },
@@ -64,7 +64,7 @@ export function renderPaletteSection(
         card.setAttribute('aria-label', t(opt.labelKey));
 
         const selectCard = () => {
-            cardGrid.findAll('.typify-fmt-card').forEach(c => c.removeClass('is-selected'));
+            cardGrid.findAll('.typify-fmt-card').forEach(c => { c.removeClass('is-selected'); });
             card.addClass('is-selected');
             selectedHarmony = opt.key;
 
@@ -93,7 +93,7 @@ export function renderPaletteSection(
     // Controls Row
     const controlsContainer = previewContainer.createDiv({ cls: 'typify-palette-actions-row' });
 
-    let refreshYourColorsCb: () => void = () => {};
+    let refreshYourColorsCb: () => void = () => { /* noop */ };
 
     // 1. "Adicionar" button
     const addAllBtn = controlsContainer.createEl('button', {
@@ -115,7 +115,7 @@ export function renderPaletteSection(
         renderPreviewDots(previewBox, previewColors);
         addAllBtn.addClass('is-disabled');
 
-        void plugin.saveSettings().then(() => refreshYourColorsCb());
+        void plugin.saveSettings().then(() => { refreshYourColorsCb(); });
     });
 
     // 2. "Gerar" button
@@ -197,7 +197,7 @@ export function renderPaletteSection(
             colorInput.addClass('typify-palette-hidden-input');
             colorInput.value = '#6366f1';
 
-            const openPicker = () => colorInput.click();
+            const openPicker = () => { colorInput.click(); };
             addCard.addEventListener('click', openPicker);
             addCard.addEventListener('keydown', (e: KeyboardEvent) => {
                 if (e.key === 'Enter' || e.key === ' ') {

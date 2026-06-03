@@ -10,8 +10,8 @@ const ICONS_FOLDER = 'icons';
 const MAX_SVG_SIZE = 100 * 1024; // 100KB limit per SVG file
 
 export class CustomIconsManager {
-    private cache: Map<string, string> = new Map();       // name → raw SVG string
-    private dataUriCache: Map<string, string> = new Map(); // name → data URI
+    private cache = new Map<string, string>();       // name → raw SVG string
+    private dataUriCache = new Map<string, string>(); // name → data URI
     private app: App;
     private basePath: string;
 
@@ -48,7 +48,7 @@ export class CustomIconsManager {
                 const stat = await adapter.stat(filePath);
                 if (stat && stat.size > MAX_SVG_SIZE) {
                     const name = this.filePathToName(filePath);
-                    errors.push(`${name}: file too large (${Math.round(stat.size / 1024)}KB > 100KB)`);
+                    errors.push(`${name}: file too large (${String(Math.round(stat.size / 1024))}KB > 100KB)`);
                     continue;
                 }
 
