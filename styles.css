@@ -662,6 +662,10 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
     line-height: 1.4;
 }
 
+.typify-experimental-heading {
+    margin-top: 24px;
+}
+
 /* ==========================================================================
    PALETTE SECTION (Modal)
    ========================================================================== */

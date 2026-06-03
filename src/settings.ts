@@ -220,7 +220,8 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         this.experimentalSectionEl = containerEl.createDiv();
         this.experimentalSectionEl.style.display = this.plugin.settings.enableCustomPalette ? "block" : "none";
 
-        new Setting(this.experimentalSectionEl).setName(t('section_experimental_title')).setHeading();
+        const experimentalHeading = new Setting(this.experimentalSectionEl).setName(t('section_experimental_title')).setHeading();
+        experimentalHeading.settingEl.addClass('typify-experimental-heading');
 
         new Setting(this.experimentalSectionEl)
             .setName(t('palette_title'))
