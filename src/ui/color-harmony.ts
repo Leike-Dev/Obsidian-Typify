@@ -52,19 +52,17 @@ export function generateComplementary(count = 5, baseColorHex?: string): string[
 }
 
 /**
- * Triadic: three equidistant hues (120° apart) with variations.
+ * Shades (Degradê): monochromatic lightness variations of the same hue.
+ * Goes from the lightest to the darkest.
  */
-export function generateTriadic(count = 5, baseColorHex?: string): string[] {
+export function generateShades(count = 5, baseColorHex?: string): string[] {
     const base = getBaseHSL(baseColorHex);
-    const hues = [base.h, wrapHue(base.h + 120), wrapHue(base.h + 240)];
-    const colors: string[] = [];
-
-    for (let i = 0; i < count; i++) {
-        const hue = hues[i % 3];
-        const lShift = Math.floor(i / 3) * 10;
-        colors.push(hslToHex(hue, base.s, Math.min(75, base.l + lShift)));
-    }
-    return colors;
+    const lStart = 85;
+    const lEnd = 20;
+    const lStep = count > 1 ? (lStart - lEnd) / (count - 1) : 0;
+    return Array.from({ length: count }, (_, i) =>
+        hslToHex(base.h, base.s, lStart - lStep * i)
+    );
 }
 
 /**
@@ -79,11 +77,11 @@ export function generateRandom(count = 5, baseColorHex?: string): string[] {
 }
 
 /** All harmony types mapped by key */
-export type HarmonyType = 'analogous' | 'complementary' | 'triadic' | 'random';
+export type HarmonyType = 'shades' | 'analogous' | 'complementary' | 'random';
 
 export const HARMONY_GENERATORS: Record<HarmonyType, (count?: number, baseColorHex?: string) => string[]> = {
+    shades: generateShades,
     analogous: generateAnalogous,
     complementary: generateComplementary,
-    triadic: generateTriadic,
     random: generateRandom
 };

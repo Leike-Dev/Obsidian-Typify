@@ -43,13 +43,21 @@ export const THUMB_SOLID = `<svg width="88" height="36" viewBox="0 0 88 36" fill
 // Fixed colors to visually communicate the harmony concept.
 // ============================================================================
 
-/** Analogous: adjacent colors on the color wheel */
-export const THUMB_ANALOGOUS = `<svg width="88" height="48" viewBox="0 0 88 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+/** Shades (Degradê): monochromatic lightness variations */
+export const THUMB_SHADES = `<svg width="88" height="48" viewBox="0 0 88 48" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect x="4" y="8" width="80" height="32" rx="12" fill="#EEEDFE"/>
   <circle cx="26" cy="24" r="8" fill="#CECBF6"/>
   <circle cx="38" cy="24" r="8" fill="#AFA9EC"/>
   <circle cx="50" cy="24" r="8" fill="#7F77DD"/>
   <circle cx="62" cy="24" r="8" fill="#534AB7"/>
+</svg>`;
+
+/** Analogous: adjacent colors on the color wheel */
+export const THUMB_ANALOGOUS = `<svg width="88" height="48" viewBox="0 0 88 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="4" y="8" width="80" height="32" rx="12" fill="#EEEDFE"></rect>
+  <circle cx="38" cy="28.5" r="8" fill="#CECBF6" stroke="#EEEDFE" stroke-width="1.5"></circle>
+  <circle cx="50" cy="28.5" r="8" fill="#7F77DD" stroke="#EEEDFE" stroke-width="1.5"></circle>
+  <circle cx="44" cy="19.5" r="8" fill="#AFA9EC" stroke="#EEEDFE" stroke-width="1.5"></circle>
 </svg>`;
 
 /** Complementary: opposite hues with separator */
@@ -58,15 +66,6 @@ export const THUMB_COMPLEMENTARY = `<svg width="88" height="48" viewBox="0 0 88 
   <circle cx="32" cy="24" r="10" fill="#AFA9EC"/>
   <circle cx="56" cy="24" r="10" fill="#B4B2A9"/>
   <rect x="42" y="10" width="4" height="28" rx="2" fill="#F1EFE8"/>
-</svg>`;
-
-/** Triadic: three equidistant hues */
-export const THUMB_TRIADIC = `<svg width="88" height="48" viewBox="0 0 88 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="4" y="8" width="80" height="32" rx="12" fill="#EEEDFE"/>
-  <path d="M44 24 L44 12 A12 12 0 0 1 54.4 30 Z" fill="#CECBF6"/>
-  <path d="M44 24 L54.4 30 A12 12 0 0 1 33.6 30 Z" fill="#7F77DD"/>
-  <path d="M44 24 L33.6 30 A12 12 0 0 1 44 12 Z" fill="#AFA9EC"/>
-  <circle cx="44" cy="24" r="5" fill="#EEEDFE"/>
 </svg>`;
 
 /** Random: scattered colors */

@@ -167,7 +167,7 @@ export const ptBR = {
     'palette_harmony_desc': 'Escolha um tipo de harmonia e gere cores instantaneamente.',
     'palette_harmony_analogous': 'Análogas',
     'palette_harmony_complementary': 'Complementares',
-    'palette_harmony_triadic': 'Triádicas',
+    'palette_harmony_shades': 'Degradê',
     'palette_harmony_random': 'Aleatórias',
     'palette_generate_button': 'Gerar',
     'palette_add_all_button': 'Adicionar',

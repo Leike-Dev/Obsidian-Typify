@@ -166,7 +166,7 @@ export const zhCN = {
     'palette_harmony_desc': '选择色彩和谐类型，即时生成颜色。',
     'palette_harmony_analogous': '类似色',
     'palette_harmony_complementary': '互补色',
-    'palette_harmony_triadic': '三色组',
+    'palette_harmony_shades': '渐变',
     'palette_harmony_random': '随机',
     'palette_generate_button': '生成',
     'palette_add_all_button': '添加',

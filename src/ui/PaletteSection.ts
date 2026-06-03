@@ -7,9 +7,9 @@ import type TypifyPlugin from '../main';
 import { t, type TranslationKey } from '../lang/helpers';
 import { HARMONY_GENERATORS, type HarmonyType } from './color-harmony';
 import {
+    THUMB_SHADES,
     THUMB_ANALOGOUS,
     THUMB_COMPLEMENTARY,
-    THUMB_TRIADIC,
     THUMB_RANDOM
 } from './format-thumbs';
 
@@ -41,9 +41,9 @@ export function renderPaletteSection(
     const cardGrid = cardSection.createDiv({ cls: 'typify-card-grid' });
 
     const harmonyOptions: Array<{ key: HarmonyType; labelKey: TranslationKey; svg: string }> = [
+        { key: 'shades',        labelKey: 'palette_harmony_shades',        svg: THUMB_SHADES },
         { key: 'analogous',     labelKey: 'palette_harmony_analogous',     svg: THUMB_ANALOGOUS },
         { key: 'complementary', labelKey: 'palette_harmony_complementary', svg: THUMB_COMPLEMENTARY },
-        { key: 'triadic',       labelKey: 'palette_harmony_triadic',       svg: THUMB_TRIADIC },
         { key: 'random',        labelKey: 'palette_harmony_random',        svg: THUMB_RANDOM },
     ];
 

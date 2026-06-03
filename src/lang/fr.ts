@@ -166,7 +166,7 @@ export const fr = {
     'palette_harmony_desc': 'Choisissez un type d\'harmonie et générez des couleurs instantanément.',
     'palette_harmony_analogous': 'Analogues',
     'palette_harmony_complementary': 'Complémentaires',
-    'palette_harmony_triadic': 'Triadiques',
+    'palette_harmony_shades': 'Nuances',
     'palette_harmony_random': 'Aléatoires',
     'palette_generate_button': 'Générer',
     'palette_add_all_button': 'Ajouter',
