@@ -711,9 +711,10 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
 /* Preview container — visible bordered box */
 .typify-palette-preview-container {
     display: flex;
-    align-items: center;
+    flex-wrap: nowrap;
     justify-content: space-between;
-    gap: 8px;
+    align-items: center;
+    gap: 12px;
     border: 1px solid var(--background-modifier-border);
     border-radius: var(--radius-m);
     padding: 8px 12px;
@@ -725,10 +726,13 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
 /* Preview dots area */
 .typify-palette-preview {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     gap: 6px;
     min-height: 24px;
     align-items: center;
-    flex: 1;
+    flex-shrink: 1;
+    min-width: 0;
 }
 
 .typify-palette-preview-dot {
@@ -743,34 +747,63 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
     transform: scale(1.15);
 }
 
-/* Add all button — always visible */
-.typify-palette-add-all-btn {
-    display: inline-flex;
+/* Actions Row (Add, Generate, ColorPicker) */
+.typify-palette-actions-row {
+    display: flex;
     align-items: center;
-    gap: 4px;
-    background: var(--interactive-accent);
-    border: none;
-    border-radius: var(--radius-s);
-    padding: 6px 16px;
-    color: var(--text-on-accent);
-    cursor: pointer;
-    font-size: var(--font-ui-small);
-    font-weight: 500;
-    transition: opacity 0.15s ease, background-color 0.15s ease;
+    flex-wrap: nowrap;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+/* Let Obsidian's native theme handle the button colors, borders, and weights.
+   We just need them to not wrap their text. */
+.typify-palette-add-all-btn,
+.typify-palette-generate-btn {
     white-space: nowrap;
     flex-shrink: 0;
 }
 
-.typify-palette-add-all-btn:hover {
+.typify-palette-add-all-btn:hover,
+.typify-palette-generate-btn:hover {
     opacity: 0.9;
 }
 
-/* Faded/disabled state when no colors generated */
-.typify-palette-add-all-btn.is-disabled {
+/* Base button disabled states */
+.typify-palette-add-all-btn.is-disabled,
+.typify-palette-generate-btn.is-disabled {
     opacity: 0.35;
     cursor: default;
     pointer-events: none;
 }
+
+/* Custom flat color picker input */
+.typify-palette-color-picker input[type="color"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 32px;
+    height: 32px;
+    aspect-ratio: 1;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    cursor: var(--cursor);
+    padding: 0;
+    flex-shrink: 0;
+}
+.typify-palette-color-picker input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+.typify-palette-color-picker input[type="color"]::-webkit-color-swatch {
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+}
+.typify-palette-color-picker input[type="color"]::-moz-color-swatch {
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+}
+
+
 
 /* ==========================================================================
    PALETTE COLOR GRID
