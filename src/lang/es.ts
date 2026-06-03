@@ -155,7 +155,7 @@ export const es = {
     'custom_palette_toggle_title': 'Paleta de colores personalizada',
     'custom_palette_toggle_desc': 'Muestra atajos de color en el modal de creación de estilo.',
     'palette_title': 'Paleta de colores',
-    'palette_your_colors': 'TUS COLORES',
+    'palette_your_colors': 'Tus colores',
     'palette_saved_count': 'Colores guardados: {count} / {max}',
     'palette_add_color': 'Añadir',
     'palette_remove_color': 'Eliminar color',
@@ -163,14 +163,14 @@ export const es = {
     'palette_clear_title': 'Limpiar paleta',
     'palette_clear_desc': 'Elimina todos los colores guardados.',
     'palette_clear_button': 'Limpiar',
-    'palette_harmony_title': 'GENERAR POR ARMONÍA',
-    'palette_harmony_heading': 'Armonía de colores',
-    'palette_harmony_desc': 'Genera automáticamente colores que armonizan entre sí.',
+    'palette_harmony_heading': 'Generar paleta de colores',
+    'palette_harmony_desc': 'Elige un tipo de armonía y genera colores al instante.',
     'palette_harmony_analogous': 'Análogos',
     'palette_harmony_complementary': 'Complementarios',
     'palette_harmony_triadic': 'Triádicos',
     'palette_harmony_random': 'Aleatorios',
     'palette_generate_button': 'Generar',
     'palette_add_all_button': 'Añadir',
-    'palette_apply_button': 'Aplicar'
+    'palette_apply_button': 'Aplicar',
+    'palette_clear_tooltip': 'Limpiar todo'
 };

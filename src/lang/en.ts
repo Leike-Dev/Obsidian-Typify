@@ -154,7 +154,7 @@ export const en = {
     'custom_palette_toggle_title': 'Custom color palette',
     'custom_palette_toggle_desc': 'Shows color shortcuts in the style creation modal.',
     'palette_title': 'Color palette',
-    'palette_your_colors': 'YOUR COLORS',
+    'palette_your_colors': 'Your colors',
     'palette_saved_count': 'Saved colors: {count} / {max}',
     'palette_add_color': 'Add',
     'palette_remove_color': 'Remove color',
@@ -162,14 +162,14 @@ export const en = {
     'palette_clear_title': 'Clear palette',
     'palette_clear_desc': 'Removes all saved colors.',
     'palette_clear_button': 'Clear',
-    'palette_harmony_title': 'GENERATE BY HARMONY',
-    'palette_harmony_heading': 'Color harmony',
-    'palette_harmony_desc': 'Automatically generates colors that harmonize.',
+    'palette_harmony_heading': 'Generate color palette',
+    'palette_harmony_desc': 'Choose a harmony type and generate colors instantly.',
     'palette_harmony_analogous': 'Analogous',
     'palette_harmony_complementary': 'Complementary',
     'palette_harmony_triadic': 'Triadic',
     'palette_harmony_random': 'Random',
     'palette_generate_button': 'Generate',
     'palette_add_all_button': 'Add',
-    'palette_apply_button': 'Apply'
+    'palette_apply_button': 'Apply',
+    'palette_clear_tooltip': 'Clear all'
 };

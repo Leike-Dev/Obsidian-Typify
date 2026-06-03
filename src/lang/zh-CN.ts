@@ -162,14 +162,14 @@ export const zhCN = {
     'palette_clear_title': '清空调色板',
     'palette_clear_desc': '删除所有已保存的颜色。',
     'palette_clear_button': '清空',
-    'palette_harmony_title': '按和谐生成',
-    'palette_harmony_heading': '色彩和谐',
-    'palette_harmony_desc': '自动生成相互协调的颜色。',
+    'palette_harmony_heading': '生成调色板',
+    'palette_harmony_desc': '选择色彩和谐类型，即时生成颜色。',
     'palette_harmony_analogous': '类似色',
     'palette_harmony_complementary': '互补色',
     'palette_harmony_triadic': '三色组',
     'palette_harmony_random': '随机',
     'palette_generate_button': '生成',
     'palette_add_all_button': '添加',
-    'palette_apply_button': '应用'
+    'palette_apply_button': '应用',
+    'palette_clear_tooltip': '全部清除'
 };

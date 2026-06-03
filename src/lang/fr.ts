@@ -154,7 +154,7 @@ export const fr = {
     'custom_palette_toggle_title': 'Palette de couleurs personnalisée',
     'custom_palette_toggle_desc': 'Affiche des raccourcis de couleur dans le modal de création de style.',
     'palette_title': 'Palette de couleurs',
-    'palette_your_colors': 'VOS COULEURS',
+    'palette_your_colors': 'Vos couleurs',
     'palette_saved_count': 'Couleurs enregistrées : {count} / {max}',
     'palette_add_color': 'Ajouter',
     'palette_remove_color': 'Supprimer la couleur',
@@ -162,14 +162,14 @@ export const fr = {
     'palette_clear_title': 'Effacer la palette',
     'palette_clear_desc': 'Supprime toutes les couleurs enregistrées.',
     'palette_clear_button': 'Effacer',
-    'palette_harmony_title': 'GÉNÉRER PAR HARMONIE',
-    'palette_harmony_heading': 'Harmonie des couleurs',
-    'palette_harmony_desc': 'Génère automatiquement des couleurs harmonieuses.',
+    'palette_harmony_heading': 'Générer une palette de couleurs',
+    'palette_harmony_desc': 'Choisissez un type d\'harmonie et générez des couleurs instantanément.',
     'palette_harmony_analogous': 'Analogues',
     'palette_harmony_complementary': 'Complémentaires',
     'palette_harmony_triadic': 'Triadiques',
     'palette_harmony_random': 'Aléatoires',
     'palette_generate_button': 'Générer',
     'palette_add_all_button': 'Ajouter',
-    'palette_apply_button': 'Appliquer'
+    'palette_apply_button': 'Appliquer',
+    'palette_clear_tooltip': 'Tout effacer'
 };
