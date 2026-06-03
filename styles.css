@@ -574,6 +574,28 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
     box-shadow: none;
 }
 
+/* Mobile Overrides: On mobile, --background-secondary often blends into the modal background. 
+   We use form-field backgrounds and a border to make the cards visible. */
+body.is-mobile .typify-fmt-card {
+    border: none;
+    background-color: var(--background-modifier-form-field);
+}
+
+body.is-mobile .typify-fmt-card:hover {
+    box-shadow: none;
+    background-color: var(--background-modifier-hover);
+}
+
+body.is-mobile .typify-fmt-card:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--background-modifier-border-focus);
+}
+
+body.is-mobile .typify-fmt-card.is-selected {
+    box-shadow: none;
+    background-color: color-mix(in srgb, var(--interactive-accent) 25%, transparent);
+}
+
 .typify-fmt-thumb {
     display: flex;
     align-items: center;
@@ -811,13 +833,16 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
     padding: 0;
     flex-shrink: 0;
 }
+
 .typify-palette-color-picker input[type="color"]::-webkit-color-swatch-wrapper {
     padding: 0;
 }
+
 .typify-palette-color-picker input[type="color"]::-webkit-color-swatch {
     border: 1px solid var(--background-modifier-border);
     border-radius: 4px;
 }
+
 .typify-palette-color-picker input[type="color"]::-moz-color-swatch {
     border: 1px solid var(--background-modifier-border);
     border-radius: 4px;
