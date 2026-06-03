@@ -18,6 +18,7 @@ import { t } from './lang/helpers';
 export class CustomStatusIconsSettingTab extends PluginSettingTab {
     plugin: TypifyPlugin;
     togglesExpanded = false;
+    experimentalSectionEl: HTMLElement | null = null;
 
     constructor(app: App, plugin: TypifyPlugin) {
         super(app, plugin);
@@ -201,7 +202,11 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                 .onChange(async (value) => {
                     this.plugin.settings.enableCustomPalette = value;
                     await this.plugin.saveSettings();
-                    this.display();
+                    
+                    // Show/hide experimental section fluidly without full re-render
+                    if (this.experimentalSectionEl) {
+                        this.experimentalSectionEl.style.display = value ? "block" : "none";
+                    }
                 }));
 
         // Set name with experimental badge
@@ -212,18 +217,19 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         // ================================================================
         // SECTION: EXPERIMENTAL (visible only when palette is enabled)
         // ================================================================
-        if (this.plugin.settings.enableCustomPalette) {
-            new Setting(containerEl).setName(t('section_experimental_title')).setHeading();
+        this.experimentalSectionEl = containerEl.createDiv();
+        this.experimentalSectionEl.style.display = this.plugin.settings.enableCustomPalette ? "block" : "none";
 
-            new Setting(containerEl)
-                .setName(t('palette_title'))
-                .setDesc(t('palette_manager_desc'))
-                .addButton(button => button
-                    .setButtonText(t('manage_styles_button'))
-                    .onClick(() => {
-                        new PaletteModal(this.app, this.plugin, () => { this.display(); }).open();
-                    }));
-        }
+        new Setting(this.experimentalSectionEl).setName(t('section_experimental_title')).setHeading();
+
+        new Setting(this.experimentalSectionEl)
+            .setName(t('palette_title'))
+            .setDesc(t('palette_manager_desc'))
+            .addButton(button => button
+                .setButtonText(t('manage_styles_button'))
+                .onClick(() => {
+                    new PaletteModal(this.app, this.plugin, () => { this.display(); }).open();
+                }));
 
         // ================================================================
         // DATA MANAGEMENT
