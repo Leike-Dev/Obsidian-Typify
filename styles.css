@@ -750,9 +750,8 @@ body.is-mobile .typify-fmt-card.is-selected {
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-    border: 1px solid var(--background-modifier-border);
     border-radius: var(--radius-m);
-    padding: 8px 12px;
+    padding: 10px 12px;
     margin-bottom: 16px;
     min-height: 40px;
     background: var(--background-secondary);
