@@ -1586,11 +1586,11 @@ body.is-mobile .typify-export-modal button:not(.mod-cta):not(.clickable-icon):no
 }
 
 .typify-swatch-seg {
-    border: none !important;
-    background-image: none !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    margin: 0 !important;
+    border: none;
+    background-image: none;
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
     cursor: pointer;
     position: relative;
     transition: flex 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -1632,12 +1632,12 @@ body.is-mobile .typify-export-modal button:not(.mod-cta):not(.clickable-icon):no
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--interactive-normal) !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    margin: 0 !important;
-    border-left: 1px solid var(--background-modifier-border) !important;
+    background: var(--interactive-normal);
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    border-left: 1px solid var(--background-modifier-border);
     cursor: pointer;
     color: var(--text-normal);
     font-size: 20px;
@@ -1645,7 +1645,7 @@ body.is-mobile .typify-export-modal button:not(.mod-cta):not(.clickable-icon):no
 }
 
 .typify-swatch-add:hover {
-    background: var(--interactive-hover) !important;
+    background: var(--interactive-hover);
 }
 
 .typify-swatch-panel {
