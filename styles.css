@@ -505,6 +505,21 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
     border-radius: 4px;
 }
 
+/* --- Mobile Fallbacks (Dropdowns & Buttons) --- */
+body.is-mobile .csi-settings-container select {
+    background-color: var(--background-modifier-form-field);
+}
+
+body.is-mobile .csi-settings-container button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon) {
+    background-color: var(--background-modifier-form-field);
+}
+
+body.is-mobile .csi-settings-container select:hover,
+body.is-mobile .csi-settings-container button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover {
+    background-color: var(--background-modifier-hover);
+    border-color: var(--background-modifier-border-hover);
+}
+
 /* ==========================================================================
    CARD SELECTOR (Shape & Color Mode)
    ========================================================================== */
@@ -667,6 +682,21 @@ body.is-mobile .typify-fmt-card.is-selected {
 .typify-fmt-card.is-selected .typify-fmt-label {
     color: var(--text-normal);
     font-weight: 500;
+}
+
+/* --- Mobile Fallbacks (Dropdowns & Buttons) --- */
+body.is-mobile .csi-editor-modal select {
+    background-color: var(--background-modifier-form-field);
+}
+
+body.is-mobile .csi-editor-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon) {
+    background-color: var(--background-modifier-form-field);
+}
+
+body.is-mobile .csi-editor-modal select:hover,
+body.is-mobile .csi-editor-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover {
+    background-color: var(--background-modifier-hover);
+    border-color: var(--background-modifier-border-hover);
 }
 
 /* ==========================================================================
@@ -859,6 +889,25 @@ body.is-mobile .typify-fmt-card.is-selected {
 .typify-palette-color-picker input[type="color"]::-moz-color-swatch {
     border: 1px solid var(--background-modifier-border);
     border-radius: 4px;
+}
+
+/* --- Mobile Fallbacks (Dropdowns, Buttons & Preview) --- */
+body.is-mobile .typify-palette-preview-container {
+    background-color: var(--background-modifier-form-field);
+}
+
+body.is-mobile .typify-palette-modal select {
+    background-color: var(--background-modifier-form-field);
+}
+
+body.is-mobile .typify-palette-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon) {
+    background-color: var(--background-modifier-form-field);
+}
+
+body.is-mobile .typify-palette-modal select:hover,
+body.is-mobile .typify-palette-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover {
+    background-color: var(--background-modifier-hover);
+    border-color: var(--background-modifier-border-hover);
 }
 
 
@@ -1330,6 +1379,21 @@ body .bases-view .bases-cards-container .bases-cards-property .typify-single-val
     padding: var(--size-4-8) var(--size-4-4);
 }
 
+/* --- Mobile Fallbacks (Dropdowns & Buttons) --- */
+body.is-mobile .csi-manager-modal select {
+    background-color: var(--background-modifier-form-field);
+}
+
+body.is-mobile .csi-manager-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon) {
+    background-color: var(--background-modifier-form-field);
+}
+
+body.is-mobile .csi-manager-modal select:hover,
+body.is-mobile .csi-manager-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover {
+    background-color: var(--background-modifier-hover);
+    border-color: var(--background-modifier-border-hover);
+}
+
 /* ==========================================================================
    EXPORT / IMPORT DATA MODALS
    ========================================================================== */
@@ -1396,6 +1460,25 @@ body.typify-reveal-x-on-hover .bases-view .multi-select-pill.custom-status-icon-
 body.typify-reveal-x-on-hover .metadata-container .multi-select-pill.custom-status-icon-pill:hover,
 body.typify-reveal-x-on-hover .bases-view .multi-select-pill.custom-status-icon-pill:hover {
     padding-right: var(--pill-padding-x);
+}
+
+/* --- Mobile Fallbacks (Dropdowns & Buttons) --- */
+body.is-mobile .typify-import-modal select,
+body.is-mobile .typify-export-modal select {
+    background-color: var(--background-modifier-form-field);
+}
+
+body.is-mobile .typify-import-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
+body.is-mobile .typify-export-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon) {
+    background-color: var(--background-modifier-form-field);
+}
+
+body.is-mobile .typify-import-modal select:hover,
+body.is-mobile .typify-export-modal select:hover,
+body.is-mobile .typify-import-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
+body.is-mobile .typify-export-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover {
+    background-color: var(--background-modifier-hover);
+    border-color: var(--background-modifier-border-hover);
 }
 
 /* ==========================================================================
@@ -1511,48 +1594,6 @@ body .bases-view .bases-cards-container .bases-cards-property .typify-single-val
 
 .typify-palette-add-all-btn.is-hidden {
     display: none;
-}
-
-/* ==========================================================================
-   MOBILE GLOBAL OVERRIDES (Dropdowns & Buttons fallback)
-   ========================================================================== */
-body.is-mobile .typify-palette-preview-container,
-body.is-mobile .typify-swatch-panel {
-    background-color: var(--background-modifier-form-field);
-}
-
-body.is-mobile .csi-settings-container select,
-body.is-mobile .typify-palette-modal select,
-body.is-mobile .csi-manager-modal select,
-body.is-mobile .csi-editor-modal select,
-body.is-mobile .typify-import-modal select,
-body.is-mobile .typify-export-modal select {
-    background-color: var(--background-modifier-form-field);
-}
-
-body.is-mobile .csi-settings-container button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
-body.is-mobile .typify-palette-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
-body.is-mobile .csi-manager-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
-body.is-mobile .csi-editor-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
-body.is-mobile .typify-import-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
-body.is-mobile .typify-export-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon) {
-    background-color: var(--background-modifier-form-field);
-}
-
-body.is-mobile .csi-settings-container select:hover,
-body.is-mobile .typify-palette-modal select:hover,
-body.is-mobile .csi-manager-modal select:hover,
-body.is-mobile .csi-editor-modal select:hover,
-body.is-mobile .typify-import-modal select:hover,
-body.is-mobile .typify-export-modal select:hover,
-body.is-mobile .csi-settings-container button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
-body.is-mobile .typify-palette-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
-body.is-mobile .csi-manager-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
-body.is-mobile .csi-editor-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
-body.is-mobile .typify-import-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
-body.is-mobile .typify-export-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover {
-    background-color: var(--background-modifier-hover);
-    border-color: var(--background-modifier-border-hover);
 }
 
 /* ==========================================================================
@@ -1690,4 +1731,9 @@ body.is-mobile .typify-export-modal button:not(.mod-cta):not(.clickable-icon):no
 /* Regra removida, counter agora fica na própria PaletteSection com estilo pré-existente */
 .typify-swatch-seg:not(.is-active) .typify-swatch-tick {
     display: none;
+}
+
+/* --- Mobile Fallbacks (Swatch Panel) --- */
+body.is-mobile .typify-swatch-panel {
+    background-color: var(--background-modifier-form-field);
 }
