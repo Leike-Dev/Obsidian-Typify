@@ -836,8 +836,8 @@ body.is-mobile .typify-fmt-card.is-selected {
     display: block;
     -webkit-appearance: none;
     appearance: none;
-    height: auto;
-    width: auto;
+    width: 32px;
+    height: 32px;
     aspect-ratio: 1;
     background-color: transparent;
     border: none;
@@ -1599,11 +1599,13 @@ body.is-mobile .typify-export-modal button:not(.mod-cta):not(.clickable-icon):no
 }
 
 .typify-swatch-seg.is-active {
-    flex: 2.5;
+    flex: 2.5 1 0%;
+    width: 100%;
 }
 
 .typify-swatch-seg:not(.is-active) {
-    flex: 1;
+    flex: 1 1 0%;
+    width: 100%;
 }
 
 .typify-swatch-tick {
