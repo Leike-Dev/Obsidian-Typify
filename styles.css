@@ -583,7 +583,7 @@ body.is-mobile .typify-fmt-card {
 
 body.is-mobile .typify-palette-preview-container,
 body.is-mobile .typify-swatch-panel {
-    background-color: var(--background-modifier-form-field) !important;
+    background-color: var(--background-secondary);
 }
 
 body.is-mobile .typify-fmt-card:hover {
@@ -751,54 +751,67 @@ body.is-mobile .typify-fmt-card.is-selected {
 /* Preview container — visible bordered box */
 .typify-palette-preview-container {
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     gap: 12px;
-    border-radius: var(--radius-m);
-    padding: 10px 12px;
+    border: none;
+    border-radius: var(--radius-l);
+    padding: 16px;
     margin-bottom: 16px;
-    min-height: 40px;
     background: var(--background-secondary);
 }
 
-/* Preview dots area */
+.typify-palette-preview-header {
+    font-size: var(--font-ui-smaller);
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* Preview strip area */
 .typify-palette-preview {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 6px;
-    min-height: 24px;
-    align-items: center;
-    flex-shrink: 1;
-    min-width: 0;
+    width: 100%;
+    height: 36px;
+    border-radius: var(--radius-s);
+    overflow: hidden;
 }
 
-.typify-palette-preview-dot {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    transition: transform 0.15s ease;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+.typify-palette-preview-seg {
+    flex: 1;
+    height: 100%;
+    transition: filter 0.15s ease;
 }
 
-.typify-palette-preview-dot:hover {
-    transform: scale(1.15);
+.typify-palette-preview-seg:hover {
+    filter: brightness(1.1);
 }
 
 /* Actions Row (Add, Generate, ColorPicker) */
 .typify-palette-actions-row {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     flex-wrap: nowrap;
+    width: 100%;
     gap: 8px;
-    flex-shrink: 0;
+}
+
+.typify-palette-actions-left,
+.typify-palette-actions-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.typify-palette-generate-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
 }
 
 /* Let Obsidian's native theme handle the button colors, borders, and weights.
    We just need them to not wrap their text. */
-.typify-palette-add-all-btn,
-.typify-palette-generate-btn {
+.typify-palette-add-all-btn {
     white-space: nowrap;
     flex-shrink: 0;
 }

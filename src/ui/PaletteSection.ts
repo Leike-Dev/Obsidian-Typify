@@ -48,7 +48,7 @@ export function renderPaletteSection(
     ];
 
     let selectedHarmony: HarmonyType | null = null;
-    let generateBtn: HTMLButtonElement;
+    let generateBtn: HTMLElement;
 
     for (const opt of harmonyOptions) {
         const card = cardGrid.createDiv({ cls: 'typify-fmt-card' });
@@ -88,19 +88,24 @@ export function renderPaletteSection(
 
     // Preview box (always visible container)
     const previewContainer = containerEl.createDiv({ cls: 'typify-palette-preview-container' });
+
     const previewBox = previewContainer.createDiv({ cls: 'typify-palette-preview' });
+    renderPreviewDots(previewBox, previewColors); // render initial placeholder
 
     // Controls Row
     const controlsContainer = previewContainer.createDiv({ cls: 'typify-palette-actions-row' });
+    controlsContainer.createDiv({ cls: 'typify-palette-actions-left' });
+    const rightControls = controlsContainer.createDiv({ cls: 'typify-palette-actions-right' });
 
     // Declare a reference to the strip to update it later
     let swatchStrip: SwatchStrip | null = null;
 
     // 1. "Adicionar" button
-    const addAllBtn = controlsContainer.createEl('button', {
-        cls: 'typify-palette-add-all-btn is-disabled'
+    const addAllBtn = rightControls.createDiv({
+        cls: 'clickable-icon typify-palette-add-all-btn is-disabled',
+        attr: { 'aria-label': 'Adicionar à paleta' }
     });
-    addAllBtn.textContent = t('palette_add_all_button');
+    setIcon(addAllBtn, "plus");
     addAllBtn.addEventListener('click', () => {
         if (!previewColors || previewColors.length === 0) return;
         const remaining = MAX_PALETTE_COLORS - palette.length;
@@ -121,11 +126,12 @@ export function renderPaletteSection(
         });
     });
 
-    // 2. "Gerar" button
-    generateBtn = controlsContainer.createEl('button', {
-        cls: 'typify-palette-generate-btn is-disabled mod-cta'
+    // 2. "Regenerar" button
+    generateBtn = rightControls.createDiv({
+        cls: 'clickable-icon typify-palette-generate-btn is-disabled',
+        attr: { 'aria-label': 'Regenerar' }
     });
-    generateBtn.textContent = t('palette_generate_button');
+    setIcon(generateBtn, "refresh-cw");
     generateBtn.addEventListener('click', () => {
         if (!selectedHarmony) return;
         const generator = HARMONY_GENERATORS[selectedHarmony];
@@ -135,12 +141,14 @@ export function renderPaletteSection(
     });
 
     // 3. Color Picker
-    const colorInputWrapper = controlsContainer.createDiv({ cls: 'csi-color-input-wrapper typify-palette-color-picker' });
+    const colorInputWrapper = rightControls.createDiv({ cls: 'csi-color-input-wrapper typify-palette-color-picker' });
     const colorInput = colorInputWrapper.createEl('input', { type: 'color' });
     colorInput.value = baseColorHex;
     colorInput.addEventListener('input', (e) => {
         baseColorHex = (e.target as HTMLInputElement).value;
     });
+
+
 
     // ================================================================
     // SECTION 2: YOUR COLORS
@@ -212,8 +220,18 @@ export function renderPaletteSection(
 /** Renders preview dots for generated harmony colors */
 function renderPreviewDots(container: HTMLElement, colors: string[]): void {
     container.empty();
+
+    if (!colors || colors.length === 0) {
+        for (let i = 0; i < 5; i++) {
+            const seg = container.createDiv({ cls: 'typify-palette-preview-seg' });
+            const percentage = 15 + (i * 15);
+            seg.style.backgroundColor = `color-mix(in srgb, var(--text-normal) ${percentage}%, transparent)`;
+        }
+        return;
+    }
+
     for (const color of colors) {
-        const dot = container.createDiv({ cls: 'typify-palette-preview-dot' });
-        dot.style.backgroundColor = color;
+        const seg = container.createDiv({ cls: 'typify-palette-preview-seg' });
+        seg.style.backgroundColor = color;
     }
 }
