@@ -99,6 +99,7 @@ export function renderPaletteSection(
 
     // Declare a reference to the strip to update it later
     let swatchStrip: SwatchStrip | null = null;
+    let refreshYourColors: () => void;
 
     // 1. "Adicionar" button
     const addAllBtn = rightControls.createDiv({
@@ -122,7 +123,7 @@ export function renderPaletteSection(
         addAllBtn.addClass('is-disabled');
 
         void plugin.saveSettings().then(() => { 
-            if (swatchStrip) swatchStrip.setColors(palette);
+            if (refreshYourColors) refreshYourColors();
         });
     });
 
@@ -155,7 +156,7 @@ export function renderPaletteSection(
     // ================================================================
     const yourColorsSection = containerEl.createDiv();
 
-    const refreshYourColors = () => {
+    refreshYourColors = () => {
         yourColorsSection.empty();
 
         const yourColorsRow = yourColorsSection.createDiv({ cls: 'typify-palette-your-colors-row' });

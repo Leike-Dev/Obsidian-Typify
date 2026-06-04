@@ -581,10 +581,6 @@ body.is-mobile .typify-fmt-card {
     background-color: var(--background-modifier-form-field);
 }
 
-body.is-mobile .typify-palette-preview-container,
-body.is-mobile .typify-swatch-panel {
-    background-color: var(--background-secondary);
-}
 
 body.is-mobile .typify-fmt-card:hover {
     box-shadow: none;
@@ -1520,6 +1516,11 @@ body .bases-view .bases-cards-container .bases-cards-property .typify-single-val
 /* ==========================================================================
    MOBILE GLOBAL OVERRIDES (Dropdowns & Buttons fallback)
    ========================================================================== */
+body.is-mobile .typify-palette-preview-container,
+body.is-mobile .typify-swatch-panel {
+    background-color: var(--background-modifier-form-field);
+}
+
 body.is-mobile .csi-settings-container select,
 body.is-mobile .typify-palette-modal select,
 body.is-mobile .csi-manager-modal select,
@@ -1527,7 +1528,6 @@ body.is-mobile .csi-editor-modal select,
 body.is-mobile .typify-import-modal select,
 body.is-mobile .typify-export-modal select {
     background-color: var(--background-modifier-form-field);
-    border: 1px solid var(--background-modifier-border);
 }
 
 body.is-mobile .csi-settings-container button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
@@ -1537,7 +1537,6 @@ body.is-mobile .csi-editor-modal button:not(.mod-cta):not(.clickable-icon):not(.
 body.is-mobile .typify-import-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
 body.is-mobile .typify-export-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon) {
     background-color: var(--background-modifier-form-field);
-    border: 1px solid var(--background-modifier-border);
 }
 
 body.is-mobile .csi-settings-container select:hover,
