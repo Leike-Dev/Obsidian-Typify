@@ -157,7 +157,7 @@ export const zhCN = {
     'custom_palette_toggle_desc': '启用调色板管理器（下方），并在创建样式时添加颜色快捷方式。',
     'palette_title': '调色板',
     'palette_manager_desc': '添加、删除或自动生成要在样式中使用的颜色组合。',
-    'palette_your_colors': '你的颜色',
+    'palette_your_colors': '我的颜色',
     'palette_saved_count': '已保存颜色：{count} / {max}',
     'palette_add_color': '添加',
     'palette_remove_color': '删除颜色',

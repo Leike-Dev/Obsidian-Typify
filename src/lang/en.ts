@@ -157,7 +157,7 @@ export const en = {
     'custom_palette_toggle_desc': 'Enables the palette manager (below) and adds color shortcuts when creating styles.',
     'palette_title': 'Color palette',
     'palette_manager_desc': 'Add, remove or automatically generate color combinations to use in your styles.',
-    'palette_your_colors': 'Your colors',
+    'palette_your_colors': 'My colors',
     'palette_saved_count': 'Saved colors: {count} / {max}',
     'palette_add_color': 'Add',
     'palette_remove_color': 'Remove color',

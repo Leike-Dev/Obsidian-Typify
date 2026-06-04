@@ -157,7 +157,7 @@ export const fr = {
     'custom_palette_toggle_desc': 'Active le gestionnaire de palettes (ci-dessous) et ajoute des raccourcis de couleur lors de la création de styles.',
     'palette_title': 'Palette de couleurs',
     'palette_manager_desc': 'Ajoutez, supprimez ou générez automatiquement des combinaisons de couleurs pour vos styles.',
-    'palette_your_colors': 'Vos couleurs',
+    'palette_your_colors': 'Mes couleurs',
     'palette_saved_count': 'Couleurs enregistrées : {count} / {max}',
     'palette_add_color': 'Ajouter',
     'palette_remove_color': 'Supprimer la couleur',

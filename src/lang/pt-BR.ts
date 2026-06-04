@@ -158,7 +158,7 @@ export const ptBR = {
     'custom_palette_toggle_desc': 'Habilita o gerenciador de paletas (abaixo) e adiciona atalhos de cor ao criar estilos.',
     'palette_title': 'Paleta de cores',
     'palette_manager_desc': 'Adicione, remova ou gere combinações de cores automaticamente para usar nos seus estilos.',
-    'palette_your_colors': 'Suas cores',
+    'palette_your_colors': 'Minhas cores',
     'palette_saved_count': 'Cores salvas: {count} / {max}',
     'palette_add_color': 'Adicionar',
     'palette_remove_color': 'Remover cor',
