@@ -6,6 +6,7 @@ import { Notice, setIcon } from 'obsidian';
 import type TypifyPlugin from '../main';
 import { t, type TranslationKey } from '../lang/helpers';
 import { HARMONY_GENERATORS, type HarmonyType } from './color-harmony';
+import { SwatchStrip } from './swatch-strip';
 import {
     THUMB_SHADES,
     THUMB_ANALOGOUS,
@@ -92,7 +93,8 @@ export function renderPaletteSection(
     // Controls Row
     const controlsContainer = previewContainer.createDiv({ cls: 'typify-palette-actions-row' });
 
-    let refreshYourColorsCb: () => void = () => { /* noop */ };
+    // Declare a reference to the strip to update it later
+    let swatchStrip: SwatchStrip | null = null;
 
     // 1. "Adicionar" button
     const addAllBtn = controlsContainer.createEl('button', {
@@ -114,7 +116,9 @@ export function renderPaletteSection(
         renderPreviewDots(previewBox, previewColors);
         addAllBtn.addClass('is-disabled');
 
-        void plugin.saveSettings().then(() => { refreshYourColorsCb(); });
+        void plugin.saveSettings().then(() => { 
+            if (swatchStrip) swatchStrip.setColors(palette);
+        });
     });
 
     // 2. "Gerar" button
@@ -144,13 +148,13 @@ export function renderPaletteSection(
     const yourColorsSection = containerEl.createDiv();
 
     const refreshYourColors = () => {
-        refreshYourColorsCb = refreshYourColors;
         yourColorsSection.empty();
 
         const yourColorsRow = yourColorsSection.createDiv({ cls: 'typify-palette-your-colors-row' });
         const yourColorsLeft = yourColorsRow.createDiv({ cls: 'typify-palette-your-colors-left' });
         yourColorsLeft.createDiv({ text: t('palette_your_colors'), cls: 'typify-card-section-title' });
-        yourColorsLeft.createSpan({
+        
+        const counterSpan = yourColorsLeft.createSpan({
             text: t('palette_saved_count')
                 .replace('{count}', String(palette.length))
                 .replace('{max}', String(MAX_PALETTE_COLORS)),
@@ -166,54 +170,36 @@ export function renderPaletteSection(
             setIcon(clearBtn, 'trash-2');
             clearBtn.addEventListener('click', () => {
                 palette.length = 0;
-                void plugin.saveSettings().then(refreshYourColors);
+                void plugin.saveSettings().then(() => {
+                    if (swatchStrip) swatchStrip.setColors(palette);
+                    refreshYourColors();
+                });
             });
         }
 
-        // Color grid
-        const gridContainer = yourColorsSection.createDiv({ cls: 'typify-palette-grid' });
+        // SwatchStrip container
+        const stripContainer = yourColorsSection.createDiv();
 
-        // Render existing color cards
-        for (let i = 0; i < palette.length; i++) {
-            renderColorCard(gridContainer, palette[i]!, () => {
-                palette.splice(i, 1);
-                void plugin.saveSettings().then(refreshYourColors);
-            });
-        }
-
-        // Add button (if under limit)
-        if (palette.length < MAX_PALETTE_COLORS) {
-            const addCard = gridContainer.createDiv({ cls: 'typify-palette-card typify-palette-add-card' });
-            addCard.setAttribute('role', 'button');
-            addCard.setAttribute('tabindex', '0');
-            addCard.setAttribute('aria-label', t('palette_add_color'));
-
-            // "+" icon only
-            addCard.createDiv({ cls: 'typify-palette-add-icon', text: '+' });
-
-            // Hidden color input
-            const colorInput = addCard.createEl('input', { type: 'color' });
-            colorInput.addClass('typify-palette-hidden-input');
-            colorInput.value = '#6366f1';
-
-            const openPicker = () => { colorInput.click(); };
-            addCard.addEventListener('click', openPicker);
-            addCard.addEventListener('keydown', (e: KeyboardEvent) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    openPicker();
+        swatchStrip = new SwatchStrip(stripContainer, {
+            colors: palette,
+            maxColors: MAX_PALETTE_COLORS,
+            onChange: (newColors) => {
+                // Update internal palette and save
+                palette.length = 0;
+                palette.push(...newColors);
+                counterSpan.setText(
+                    t('palette_saved_count')
+                        .replace('{count}', String(newColors.length))
+                        .replace('{max}', String(MAX_PALETTE_COLORS))
+                );
+                void plugin.saveSettings();
+                
+                // If palette is empty, re-render to hide clear button
+                if (palette.length === 0) {
+                    refreshYourColors();
                 }
-            });
-
-            colorInput.addEventListener('change', () => {
-                if (palette.length >= MAX_PALETTE_COLORS) {
-                    new Notice(t('palette_max_reached').replace('{max}', String(MAX_PALETTE_COLORS)));
-                    return;
-                }
-                palette.push(colorInput.value);
-                void plugin.saveSettings().then(refreshYourColors);
-            });
-        }
+            }
+        });
     };
 
     refreshYourColors();
@@ -222,33 +208,6 @@ export function renderPaletteSection(
 // ============================================================================
 // HELPERS
 // ============================================================================
-
-/** Renders a single color card: tall swatch with hex label and remove button below */
-function renderColorCard(
-    parent: HTMLElement,
-    color: string,
-    onRemove: () => void
-): void {
-    const card = parent.createDiv({ cls: 'typify-palette-card' });
-
-    // Full-height swatch (top part)
-    const swatch = card.createDiv({ cls: 'typify-palette-swatch' });
-    swatch.style.backgroundColor = color;
-
-    // Hex code (horizontal at the bottom of the swatch)
-    swatch.createEl('span', { text: color.toUpperCase(), cls: 'typify-palette-card-hex' });
-
-    // Remove button below the swatch
-    const removeBtn = card.createEl('button', {
-        cls: 'typify-palette-card-remove',
-        attr: { 'aria-label': t('palette_remove_color') }
-    });
-    setIcon(removeBtn, 'x');
-    removeBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        onRemove();
-    });
-}
 
 /** Renders preview dots for generated harmony colors */
 function renderPreviewDots(container: HTMLElement, colors: string[]): void {

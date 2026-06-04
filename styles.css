@@ -581,6 +581,11 @@ body.is-mobile .typify-fmt-card {
     background-color: var(--background-modifier-form-field);
 }
 
+body.is-mobile .typify-palette-preview-container,
+body.is-mobile .typify-swatch-panel {
+    background-color: var(--background-modifier-form-field) !important;
+}
+
 body.is-mobile .typify-fmt-card:hover {
     box-shadow: none;
     background-color: var(--background-modifier-hover);
@@ -849,110 +854,6 @@ body.is-mobile .typify-fmt-card.is-selected {
 
 
 
-/* ==========================================================================
-   PALETTE COLOR GRID
-   ========================================================================== */
-
-.typify-palette-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 56px);
-    justify-content: space-between;
-    gap: 8px;
-}
-
-/* Color card — tall rectangle layout */
-.typify-palette-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 56px;
-    border-radius: var(--radius-m);
-    overflow: hidden;
-    background: var(--background-secondary);
-    border: 1px solid var(--background-modifier-border);
-    transition: box-shadow 0.15s ease;
-}
-
-/* Swatch on top */
-.typify-palette-swatch {
-    width: 100%;
-    height: 72px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    padding-bottom: 6px;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Hex label — horizontal at bottom of swatch */
-.typify-palette-card-hex {
-    font-size: 9px;
-    font-family: var(--font-monospace);
-    color: rgba(255, 255, 255, 0.9);
-    white-space: nowrap;
-    pointer-events: none;
-}
-
-/* Remove button below the swatch */
-.typify-palette-modal .typify-palette-card button.typify-palette-card-remove {
-    width: 100%;
-    height: 24px;
-    background: var(--background-primary);
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-    margin: 0;
-    color: var(--text-muted);
-    cursor: pointer;
-    line-height: 1;
-    padding: 0;
-    transition: color 0.15s ease, background-color 0.15s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.typify-palette-modal .typify-palette-card button.typify-palette-card-remove svg {
-    width: 12px;
-    height: 12px;
-}
-
-.typify-palette-modal .typify-palette-card button.typify-palette-card-remove:hover {
-    color: var(--text-error);
-    background: var(--background-secondary-alt);
-}
-
-/* Add card — just the + icon */
-.typify-palette-add-card {
-    width: 56px;
-    min-height: 96px;
-    border: 2px dashed var(--background-modifier-border);
-    background: transparent;
-    cursor: pointer;
-    justify-content: center;
-    align-items: center;
-    transition: border-color 0.15s ease;
-}
-
-.typify-palette-add-card:hover {
-    border-color: var(--text-muted);
-}
-
-.typify-palette-add-icon {
-    font-size: 24px;
-    color: var(--text-muted);
-    line-height: 1;
-}
-
-.typify-palette-hidden-input {
-    position: absolute;
-    width: 0;
-    height: 0;
-    opacity: 0;
-    pointer-events: none;
-}
 
 
 /* ==========================================================================
@@ -1616,12 +1517,12 @@ body.is-mobile .typify-export-modal select {
     border: 1px solid var(--background-modifier-border);
 }
 
-body.is-mobile .csi-settings-container button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon),
-body.is-mobile .typify-palette-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon),
-body.is-mobile .csi-manager-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon),
-body.is-mobile .csi-editor-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon),
-body.is-mobile .typify-import-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon),
-body.is-mobile .typify-export-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon) {
+body.is-mobile .csi-settings-container button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
+body.is-mobile .typify-palette-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
+body.is-mobile .csi-manager-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
+body.is-mobile .csi-editor-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
+body.is-mobile .typify-import-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
+body.is-mobile .typify-export-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon) {
     background-color: var(--background-modifier-form-field);
     border: 1px solid var(--background-modifier-border);
 }
@@ -1632,12 +1533,147 @@ body.is-mobile .csi-manager-modal select:hover,
 body.is-mobile .csi-editor-modal select:hover,
 body.is-mobile .typify-import-modal select:hover,
 body.is-mobile .typify-export-modal select:hover,
-body.is-mobile .csi-settings-container button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
-body.is-mobile .typify-palette-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
-body.is-mobile .csi-manager-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
-body.is-mobile .csi-editor-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
-body.is-mobile .typify-import-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
-body.is-mobile .typify-export-modal button:not(.mod-cta):not(.typify-palette-card-remove):not(.clickable-icon):not(.csi-btn-remove-icon):hover {
+body.is-mobile .csi-settings-container button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
+body.is-mobile .typify-palette-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
+body.is-mobile .csi-manager-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
+body.is-mobile .csi-editor-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
+body.is-mobile .typify-import-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
+body.is-mobile .typify-export-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover {
     background-color: var(--background-modifier-hover);
     border-color: var(--background-modifier-border-hover);
+}
+
+/* ==========================================================================
+   SWATCH STRIP COMPONENT
+   ========================================================================== */
+
+.typify-swatch-strip-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.typify-hidden-color-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    border: none;
+    padding: 0;
+    margin: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.typify-swatch-strip {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 0.5px solid var(--color-border-tertiary);
+    height: 52px;
+}
+
+.typify-swatch-seg {
+    border: none !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    cursor: pointer;
+    position: relative;
+    transition: flex 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    min-width: 0;
+    padding: 0;
+}
+
+.typify-swatch-seg.is-active {
+    flex: 2.5;
+}
+
+.typify-swatch-seg:not(.is-active) {
+    flex: 1;
+}
+
+.typify-swatch-tick {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.95);
+    pointer-events: none;
+    filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+.typify-swatch-tick svg {
+    width: 20px;
+    height: 20px;
+}
+
+.typify-swatch-add {
+    width: 36px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--interactive-normal) !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    border-left: 1px solid var(--background-modifier-border) !important;
+    cursor: pointer;
+    color: var(--text-normal);
+    font-size: 20px;
+    transition: background 0.15s ease;
+}
+
+.typify-swatch-add:hover {
+    background: var(--interactive-hover) !important;
+}
+
+.typify-swatch-panel {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: var(--background-secondary);
+    border-radius: 8px;
+}
+
+.typify-swatch-panel.is-visible {
+    display: flex;
+}
+
+.typify-panel-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 0.5px solid var(--color-border-secondary);
+}
+
+.typify-panel-hex {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-normal);
+    flex: 1;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    margin: 0;
+}
+
+.typify-panel-actions {
+    display: flex;
+    gap: 6px;
+    margin-left: auto;
+}
+
+/* Regra removida, counter agora fica na própria PaletteSection com estilo pré-existente */
+.typify-swatch-seg:not(.is-active) .typify-swatch-tick {
+    display: none;
 }
