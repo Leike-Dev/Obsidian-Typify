@@ -183,6 +183,7 @@ export const en = {
     'favicon_refresh_all': 'Refresh all',
     'favicon_refreshing': 'Refreshing...',
     'favicon_refresh_success': 'Typify: {count} favicon(s) refreshed.',
+    'favicon_refresh_partial': 'Typify: {count} favicon(s) refreshed. {failed} failed.',
     'favicon_clear_cache': 'Clear cache',
     'favicon_clear_success': 'Favicons cache cleared.',
     'favicon_privacy_notice': 'Privacy: When direct favicon search fails on the specified domain, Typify queries the https://icons.duckduckgo.com URL sending only the domain name.',

@@ -183,6 +183,7 @@ export const zhCN = {
     'favicon_refresh_all': '全部刷新',
     'favicon_refreshing': '正在刷新...',
     'favicon_refresh_success': 'Typify: 成功刷新 {count} 个图标。',
+    'favicon_refresh_partial': 'Typify: 成功刷新 {count} 个图标，{failed} 个失败。',
     'favicon_clear_cache': '清除缓存',
     'favicon_clear_success': '图标缓存已清除。',
     'favicon_privacy_notice': '隐私声明：当无法从指定域名直接获取图标时，Typify 将查询 https://icons.duckduckgo.com 并仅发送域名进行备用搜索。',

@@ -184,6 +184,7 @@ export const es = {
     'favicon_refresh_all': 'Actualizar todos',
     'favicon_refreshing': 'Actualizando...',
     'favicon_refresh_success': 'Typify: {count} favicon(s) actualizado(s).',
+    'favicon_refresh_partial': 'Typify: {count} favicon(s) actualizado(s). {failed} fallaron.',
     'favicon_clear_cache': 'Limpiar caché',
     'favicon_clear_success': 'Caché de favicons limpiado.',
     'favicon_privacy_notice': 'Privacidad: Cuando falla la búsqueda directa del favicon en el dominio especificado, Typify consulta la URL https://icons.duckduckgo.com enviando solo el nombre del dominio.',

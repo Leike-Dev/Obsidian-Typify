@@ -183,6 +183,7 @@ export const fr = {
     'favicon_refresh_all': 'Tout actualiser',
     'favicon_refreshing': 'Actualisation...',
     'favicon_refresh_success': 'Typify : {count} favicon(s) actualisé(s).',
+    'favicon_refresh_partial': 'Typify : {count} favicon(s) actualisé(s). {failed} échoué(s).',
     'favicon_clear_cache': 'Vider le cache',
     'favicon_clear_success': 'Cache des favicons vidé.',
     'favicon_privacy_notice': 'Confidentialité : Lorsque la recherche directe du favicon échoue sur le domaine, Typify interroge l\'URL https://icons.duckduckgo.com en envoyant uniquement le nom de domaine.',
