@@ -24,6 +24,7 @@ export interface CustomStatusIconsSettings {
     customPalette: string[];
     enableFavicons: boolean;
     autoFetchFavicons: boolean;
+    faviconProvider: 'google' | 'duckduckgo' | 'direct';
 }
 
 export const DEFAULT_SETTINGS: CustomStatusIconsSettings = {
@@ -37,7 +38,8 @@ export const DEFAULT_SETTINGS: CustomStatusIconsSettings = {
     enableCustomPalette: false,
     customPalette: [],
     enableFavicons: false,
-    autoFetchFavicons: false
+    autoFetchFavicons: false,
+    faviconProvider: 'direct'
 };
 
 // Default color for new status styles

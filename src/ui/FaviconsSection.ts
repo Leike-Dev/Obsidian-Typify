@@ -1,4 +1,5 @@
 import { App, Notice, setIcon } from 'obsidian';
+import { THUMB_FAVICON_DIRECT, THUMB_FAVICON_GOOGLE, THUMB_FAVICON_DUCKDUCKGO } from './format-thumbs';
 import type TypifyPlugin from '../main';
 import { t } from '../lang/helpers';
 export class FaviconsSection {
@@ -17,12 +18,53 @@ export class FaviconsSection {
     display(): void {
         this.containerEl.empty();
 
-        // Privacy Disclaimer
-        const infoCard = this.containerEl.createDiv({ cls: 'csi-experimental-warning typify-favicon-warning' });
-        infoCard.createEl('p', {
-            text: t('favicon_privacy_notice'),
-            cls: 'warning-text'
-        });
+        // Provider Selection
+        this.containerEl.createDiv({ text: t('favicon_provider_heading') || 'Provedor', cls: 'typify-card-section-title' });
+
+        const cardSection = this.containerEl.createDiv({ cls: 'typify-card-section typify-palette-card-section' });
+        const cardGrid = cardSection.createDiv({ cls: 'typify-card-grid' });
+
+        const providerOptions: { key: 'google' | 'duckduckgo' | 'direct'; label: string; svg: string }[] = [
+            { key: 'direct', label: t('favicon_provider_direct') || 'Busca direta', svg: THUMB_FAVICON_DIRECT },
+            { key: 'google', label: t('favicon_provider_google') || 'Google', svg: THUMB_FAVICON_GOOGLE },
+            { key: 'duckduckgo', label: t('favicon_provider_duckduckgo') || 'DuckDuckGo', svg: THUMB_FAVICON_DUCKDUCKGO },
+        ];
+
+        for (const opt of providerOptions) {
+            const card = cardGrid.createDiv({ cls: 'typify-fmt-card' });
+            
+            if (this.plugin.settings.faviconProvider === opt.key) {
+                card.addClass('is-selected');
+            }
+
+            const thumb = card.createDiv({ cls: 'typify-fmt-thumb' });
+            // eslint-disable-next-line @microsoft/sdl/no-inner-html -- trusted static SVG constant
+            thumb.innerHTML = opt.svg;
+
+            card.createEl('span', { text: opt.label, cls: 'typify-fmt-label' });
+
+            card.setAttribute('role', 'button');
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('aria-label', opt.label);
+
+            const selectCard = async () => {
+                cardGrid.findAll('.typify-fmt-card').forEach(c => c.removeClass('is-selected'));
+                card.addClass('is-selected');
+                this.plugin.settings.faviconProvider = opt.key;
+                await this.plugin.saveData(this.plugin.settings);
+            };
+
+            card.addEventListener('click', () => void selectCard());
+            card.addEventListener('keydown', (e: KeyboardEvent) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    void selectCard();
+                }
+            });
+        }
+
+        // Section separator for Search/List
+        this.containerEl.createDiv({ text: t('favicon_manager_title'), cls: 'typify-card-section-title' });
 
         const filterContainer = this.containerEl.createDiv({ cls: 'csi-manager-search-container' });
         
@@ -43,7 +85,10 @@ export class FaviconsSection {
         });
         refreshAllBtn.addEventListener('click', () => {
             void (async () => {
-                const domains = Array.from(this.plugin.faviconManager.getCache().keys());
+                const cache = this.plugin.faviconManager.getCache();
+                const failed = this.plugin.faviconManager.getFailedDomains();
+                const domains = Array.from(new Set([...Array.from(cache.keys()), ...Array.from(failed)]));
+                
                 if (domains.length === 0) return;
                 
                 refreshAllBtn.setText(t('favicon_refreshing'));
@@ -51,6 +96,7 @@ export class FaviconsSection {
                 
                 let count = 0;
                 for (const domain of domains) {
+                    await this.plugin.faviconManager.deleteFavicon(domain);
                     const success = await this.plugin.faviconManager.fetchFavicon(domain, true);
                     if (success) count++;
                 }
@@ -156,6 +202,7 @@ export class FaviconsSection {
                 void (async () => {
                     setIcon(refreshBtn, 'loader');
                     refreshBtn.disabled = true;
+                    await this.plugin.faviconManager.deleteFavicon(domain);
                     await this.plugin.faviconManager.fetchFavicon(domain, false);
                     this.renderList();
                 })();

@@ -64,7 +64,7 @@ export default class TypifyPlugin extends Plugin {
         }
 
         // Initialize Favicon manager
-        this.faviconManager = new FaviconManager(this.app, this.manifest.id);
+        this.faviconManager = new FaviconManager(this);
         if (this.settings.enableFavicons) {
             await this.faviconManager.initialize();
         }

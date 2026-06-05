@@ -1,5 +1,6 @@
 import { App, normalizePath, requestUrl, Notice } from 'obsidian';
 import { t } from '../lang/helpers';
+import type TypifyPlugin from '../main';
 
 export interface FaviconCacheEntry {
     dataUri: string;
@@ -10,6 +11,7 @@ export interface FaviconCacheEntry {
 const FAVICONS_FOLDER = 'favicons';
 
 export class FaviconManager {
+    private plugin: TypifyPlugin;
     private app: App;
     private basePath: string;
     private cache = new Map<string, FaviconCacheEntry>();
@@ -20,9 +22,10 @@ export class FaviconManager {
     private requestQueue: Array<() => void> = [];
     private readonly MAX_CONCURRENT = 2;
 
-    constructor(app: App, pluginId: string) {
-        this.app = app;
-        this.basePath = normalizePath(`${app.vault.configDir}/plugins/${pluginId}/${FAVICONS_FOLDER}`);
+    constructor(plugin: TypifyPlugin) {
+        this.plugin = plugin;
+        this.app = plugin.app;
+        this.basePath = normalizePath(`${this.app.vault.configDir}/plugins/${plugin.manifest.id}/${FAVICONS_FOLDER}`);
     }
 
     /**
@@ -124,10 +127,15 @@ export class FaviconManager {
         return new Promise<string | null>((resolve) => {
             const task = async () => {
                 try {
-                    let buffer = await this.tryFetch(`https://${domain}/favicon.ico`);
+                    let buffer: ArrayBuffer | null = null;
+                    const provider = this.plugin.settings.faviconProvider;
                     
-                    if (!buffer) {
+                    if (provider === 'google') {
+                        buffer = await this.tryFetch(`https://www.google.com/s2/favicons?domain=${domain}&sz=64`);
+                    } else if (provider === 'duckduckgo') {
                         buffer = await this.tryFetch(`https://icons.duckduckgo.com/ip3/${domain}.ico`);
+                    } else if (provider === 'direct') {
+                        buffer = await this.tryFetch(`https://${domain}/favicon.ico`);
                     }
 
                     if (!buffer) {
@@ -197,14 +205,15 @@ export class FaviconManager {
                     // Check if it's a valid image (e.g. natural dimensions > 0)
                     if (img.naturalWidth === 0) throw new Error("Invalid image dimensions");
 
+                    const size = Math.max(32, Math.min(img.naturalWidth, 128));
                     const canvas = document.createElement('canvas');
-                    canvas.width = 32;
-                    canvas.height = 32;
+                    canvas.width = size;
+                    canvas.height = size;
                     const ctx = canvas.getContext('2d')!;
                     
                     // Enforce transparent background
-                    ctx.clearRect(0, 0, 32, 32);
-                    ctx.drawImage(img, 0, 0, 32, 32);
+                    ctx.clearRect(0, 0, size, size);
+                    ctx.drawImage(img, 0, 0, size, size);
                     
                     canvas.toBlob(pngBlob => {
                         if (pngBlob) {
