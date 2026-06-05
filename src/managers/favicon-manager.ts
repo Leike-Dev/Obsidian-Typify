@@ -150,6 +150,7 @@ export class FaviconManager {
                     resolve(savedUri);
                 } catch (e) {
                     console.error(`Typify: Favicon process failed for ${domain}`, e);
+                    await this.markAsFailed(domain);
                     resolve(null);
                 } finally {
                     this.activeRequests--;

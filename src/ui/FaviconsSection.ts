@@ -103,7 +103,12 @@ export class FaviconsSection {
                 
                 refreshAllBtn.setText(t('favicon_refresh_all'));
                 refreshAllBtn.disabled = false;
-                new Notice(t('favicon_refresh_success').replace('{count}', String(count)));
+                const failedCount = domains.length - count;
+                if (failedCount > 0) {
+                    new Notice(t('favicon_refresh_partial').replace('{count}', String(count)).replace('{failed}', String(failedCount)));
+                } else {
+                    new Notice(t('favicon_refresh_success').replace('{count}', String(count)));
+                }
                 this.renderList();
             })();
         });
