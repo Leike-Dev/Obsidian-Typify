@@ -174,5 +174,27 @@ export const fr = {
     'palette_generate_button': 'Générer',
     'palette_add_all_button': 'Ajouter',
     'palette_apply_button': 'Appliquer',
-    'palette_clear_tooltip': 'Tout effacer'
+    'palette_clear_tooltip': 'Tout effacer',
+
+    // Favicons
+    'favicon_manager_title': 'Gestionnaire de favicons',
+    'favicon_manager_desc': 'Gérez les favicons téléchargés et mis en cache par Typify.',
+    'favicon_manager_toggle_desc': 'Active la recherche et la gestion automatiques des favicons pour vos liens associés.',
+    'favicon_refresh_all': 'Tout actualiser',
+    'favicon_refreshing': 'Actualisation...',
+    'favicon_refresh_success': 'Typify : {count} favicon(s) actualisé(s).',
+    'favicon_clear_cache': 'Vider le cache',
+    'favicon_clear_success': 'Cache des favicons vidé.',
+    'favicon_privacy_notice': 'Confidentialité : Lorsque la recherche directe du favicon échoue sur le domaine, Typify interroge l\'URL https://icons.duckduckgo.com en envoyant uniquement le nom de domaine.',
+    'favicon_search_placeholder': 'Rechercher un domaine...',
+    'favicon_status_failed': 'Échec de l\'obtention (tentative précédente)',
+    'favicon_status_outdated': 'Obsolète (+30 jours)',
+    'favicon_status_cached': 'En cache',
+    'favicon_retry': 'Réessayer',
+    'favicon_remove': 'Supprimer du cache',
+    'favicon_empty_cache': 'Aucun favicon dans le cache.',
+    'favicon_fetch_tooltip': 'Obtenir le favicon',
+    'favicon_invalid_url': 'URL invalide ou incomplète.',
+    'favicon_fetch_failed': 'Typify : Échec du téléchargement du favicon pour {domain}',
+    'favicon_fetch_success': 'Favicon de {domain} téléchargé avec succès !'
 };

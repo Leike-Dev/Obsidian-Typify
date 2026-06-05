@@ -174,5 +174,27 @@ export const zhCN = {
     'palette_generate_button': '生成',
     'palette_add_all_button': '添加',
     'palette_apply_button': '应用',
-    'palette_clear_tooltip': '全部清除'
+    'palette_clear_tooltip': '清除所有',
+
+    // Favicons
+    'favicon_manager_title': '网站图标管理器',
+    'favicon_manager_desc': '管理 Typify 下载并缓存的网站图标 (favicons)。',
+    'favicon_manager_toggle_desc': '为您的关联链接启用自动获取和管理网站图标的功能。',
+    'favicon_refresh_all': '全部刷新',
+    'favicon_refreshing': '正在刷新...',
+    'favicon_refresh_success': 'Typify: 成功刷新 {count} 个图标。',
+    'favicon_clear_cache': '清除缓存',
+    'favicon_clear_success': '图标缓存已清除。',
+    'favicon_privacy_notice': '隐私声明：当无法从指定域名直接获取图标时，Typify 将查询 https://icons.duckduckgo.com 并仅发送域名进行备用搜索。',
+    'favicon_search_placeholder': '搜索域名...',
+    'favicon_status_failed': '获取失败（上次尝试）',
+    'favicon_status_outdated': '已过期（超过30天）',
+    'favicon_status_cached': '已缓存',
+    'favicon_retry': '重试',
+    'favicon_remove': '从缓存中移除',
+    'favicon_empty_cache': '缓存中没有图标。',
+    'favicon_fetch_tooltip': '获取图标',
+    'favicon_invalid_url': '无效或不完整的URL。',
+    'favicon_fetch_failed': 'Typify: 下载 {domain} 的图标失败',
+    'favicon_fetch_success': '{domain} 的图标下载成功！'
 };
