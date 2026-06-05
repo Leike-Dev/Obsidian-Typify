@@ -4,6 +4,7 @@ import { StyleManagerModal } from './ui/StyleManagerModal';
 import { ExportSettingsModal } from './ui/ExportSettingsModal';
 import { ImportSettingsModal } from './ui/ImportSettingsModal';
 import { PaletteModal } from './ui/PaletteModal';
+import { FaviconsSection } from './ui/FaviconsSection';
 import type TypifyPlugin from './main';
 import { t } from './lang/helpers';
 
@@ -213,11 +214,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                 .onChange(async (value) => {
                     this.plugin.settings.enableCustomPalette = value;
                     await this.plugin.saveSettings();
-                    
-                    // Show/hide experimental section fluidly without full re-render
-                    if (this.experimentalSectionEl) {
-                        this.experimentalSectionEl.style.display = value ? "block" : "none";
-                    }
+                    this.display();
                 }));
 
         // Set name with experimental badge
@@ -225,23 +222,52 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         nameEl.setText(t('custom_palette_toggle_title') + ' ');
         nameEl.createSpan({ text: t('experimental_tag'), cls: 'typify-experimental-tag' });
 
+        // FAVICONS TOGGLE (with Experimental badge)
+        const faviconsSetting = new Setting(togglesContainer)
+            .setDesc(t('favicon_manager_toggle_desc'))
+            .addToggle(toggle => toggle
+                .setValue(this.plugin.settings.enableFavicons)
+                .onChange(async (value) => {
+                    this.plugin.settings.enableFavicons = value;
+                    await this.plugin.saveSettings();
+                    
+                    if (value) {
+                        await this.plugin.faviconManager.initialize();
+                    } else {
+                        this.plugin.faviconManager.cleanupActiveUrls();
+                    }
+                    this.display();
+                }));
+
+        const favNameEl = faviconsSetting.nameEl;
+        favNameEl.setText(t('favicon_manager_title') + ' ');
+        favNameEl.createSpan({ text: t('experimental_tag'), cls: 'typify-experimental-tag' });
+
         // ================================================================
-        // SECTION: EXPERIMENTAL (visible only when palette is enabled)
+        // SECTION: EXPERIMENTAL (visible only when palette or favicons are enabled)
         // ================================================================
         this.experimentalSectionEl = containerEl.createDiv();
-        this.experimentalSectionEl.style.display = this.plugin.settings.enableCustomPalette ? "block" : "none";
+        const showExperimental = this.plugin.settings.enableCustomPalette || this.plugin.settings.enableFavicons;
+        this.experimentalSectionEl.style.display = showExperimental ? "block" : "none";
 
         const experimentalHeading = new Setting(this.experimentalSectionEl).setName(t('section_experimental_title')).setHeading();
         experimentalHeading.settingEl.addClass('typify-experimental-heading');
 
-        new Setting(this.experimentalSectionEl)
-            .setName(t('palette_title'))
-            .setDesc(t('palette_manager_desc'))
-            .addButton(button => button
-                .setButtonText(t('manage_styles_button'))
-                .onClick(() => {
-                    new PaletteModal(this.app, this.plugin, () => { this.display(); }).open();
-                }));
+        if (this.plugin.settings.enableCustomPalette) {
+            new Setting(this.experimentalSectionEl)
+                .setName(t('palette_title'))
+                .setDesc(t('palette_manager_desc'))
+                .addButton(button => button
+                    .setButtonText(t('manage_styles_button'))
+                    .onClick(() => {
+                        new PaletteModal(this.app, this.plugin, () => { this.display(); }).open();
+                    }));
+        }
+
+        if (this.plugin.settings.enableFavicons) {
+            const faviconContainer = this.experimentalSectionEl.createDiv();
+            new FaviconsSection(this.app, this.plugin, faviconContainer).display();
+        }
 
         // ================================================================
         // DATA MANAGEMENT

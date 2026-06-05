@@ -46,13 +46,27 @@ export class StyleManager {
             }
         });
 
-        if (uniqueImages.size > 0) {
+        const uniqueFavicons = new Set<string>();
+        styles.forEach(style => {
+            if (style.icon && style.icon.startsWith('favicon:')) {
+                uniqueFavicons.add(style.icon.replace('favicon:', ''));
+            }
+        });
+
+        if (uniqueImages.size > 0 || uniqueFavicons.size > 0) {
             cssContent += `:root {\n`;
             uniqueImages.forEach(imgName => {
                 const dataUri = this.plugin.customImagesManager?.getImageDataUri(imgName);
                 if (dataUri) {
                     const safeVarName = this.sanitizeCssVarName(imgName);
                     cssContent += `    --typify-img-${safeVarName}: ${dataUri};\n`;
+                }
+            });
+            uniqueFavicons.forEach(domain => {
+                const dataUri = this.plugin.faviconManager?.getFaviconDataUri(domain);
+                if (dataUri) {
+                    const safeVarName = this.sanitizeCssVarName(domain);
+                    cssContent += `    --typify-favicon-${safeVarName}: ${dataUri};\n`;
                 }
             });
             cssContent += `}\n\n`;
@@ -73,6 +87,11 @@ export class StyleManager {
             } else if (style.icon && style.icon.startsWith('emoji:')) {
                 isEmoji = true;
                 emojiChar = style.icon.replace('emoji:', '');
+            } else if (style.icon && style.icon.startsWith('favicon:')) {
+                const domain = style.icon.replace('favicon:', '');
+                if (this.plugin.faviconManager?.getFaviconDataUri(domain)) {
+                    isImage = true;
+                }
             }
 
             const classString = isImage ? `${className} typify-is-image` : isEmoji ? `${className} typify-is-emoji` : className;
@@ -115,6 +134,12 @@ export class StyleManager {
                 const safeVarName = this.sanitizeCssVarName(imgName);
                 if (this.plugin.customImagesManager?.getImageDataUri(imgName)) {
                     iconUrl = `var(--typify-img-${safeVarName})`;
+                }
+            } else if (style.icon && style.icon.startsWith('favicon:')) {
+                const domain = style.icon.replace('favicon:', '');
+                const safeVarName = this.sanitizeCssVarName(domain);
+                if (this.plugin.faviconManager?.getFaviconDataUri(domain)) {
+                    iconUrl = `var(--typify-favicon-${safeVarName})`;
                 }
             } else if (style.icon) {
                 const iconEl = getIcon(style.icon);

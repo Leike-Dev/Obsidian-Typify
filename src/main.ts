@@ -6,11 +6,13 @@ import { CustomImagesManager } from './managers/custom-images';
 import { t } from './lang/helpers';
 import { StyleManager } from './managers/style-manager';
 import { DOMManager } from './managers/dom-manager';
+import { FaviconManager } from './managers/favicon-manager';
 
 export default class TypifyPlugin extends Plugin {
     settings!: CustomStatusIconsSettings;
     customIconsManager!: CustomIconsManager;
     customImagesManager!: CustomImagesManager;
+    faviconManager!: FaviconManager;
     styleManager!: StyleManager;
     domManager!: DOMManager;
     private cachedTargetProps: string[] | null = null;
@@ -61,6 +63,12 @@ export default class TypifyPlugin extends Plugin {
             );
         }
 
+        // Initialize Favicon manager
+        this.faviconManager = new FaviconManager(this.app, this.manifest.id);
+        if (this.settings.enableFavicons) {
+            await this.faviconManager.initialize();
+        }
+
         this.addSettingTab(new CustomStatusIconsSettingTab(this.app, this));
 
         this.styleManager = new StyleManager(this);
@@ -85,6 +93,9 @@ export default class TypifyPlugin extends Plugin {
         }
         if (this.styleManager) {
             this.styleManager.cleanup();
+        }
+        if (this.faviconManager) {
+            this.faviconManager.cleanupActiveUrls();
         }
         document.body.classList.remove(
             'typify-hide-x-none', 'typify-hide-x-properties',

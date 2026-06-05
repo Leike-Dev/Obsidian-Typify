@@ -5,6 +5,7 @@ import { generatePalette } from '../utils';
 import { t, type TranslationKey } from '../lang/helpers';
 import { IconPickerModal } from './icon-picker';
 import { THUMB_PILL, THUMB_RECT, THUMB_FLAT, THUMB_SOFT, THUMB_SOLID } from './format-thumbs';
+import { FaviconManager } from '../managers/favicon-manager';
 
 /**
  * Modal for creating or editing a status style.
@@ -188,7 +189,7 @@ export class StyleEditorModal extends Modal {
 
         // Link URL (only shown when link styles are enabled)
         if (this.plugin.settings.enableLinkStyles) {
-            new Setting(contentEl)
+            const linkSetting = new Setting(contentEl)
                 .setName(t('link_url_title'))
                 .addText(text => {
                     // eslint-disable-next-line obsidianmd/ui/sentence-case
@@ -198,6 +199,36 @@ export class StyleEditorModal extends Modal {
                             this.matchValue = value;
                         });
                 });
+
+            if (this.plugin.settings.enableFavicons) {
+                linkSetting.addButton(btn => {
+                    btn.setIcon('search');
+                    btn.setTooltip(t('favicon_fetch_tooltip'));
+                    btn.onClick(async () => {
+                        const domain = FaviconManager.extractDomain(this.matchValue);
+                        if (!domain) {
+                            new Notice(t('favicon_invalid_url'));
+                            return;
+                        }
+                        
+                        btn.setDisabled(true);
+                        btn.setIcon('loader');
+                        
+                        const uri = await this.plugin.faviconManager.fetchFavicon(domain);
+                        
+                        if (uri) {
+                            this.icon = `favicon:${domain}`;
+                            this.renderIconButton();
+                            this.updatePreview();
+                            // Optional Notice, but UI changing is enough indication
+                            // new Notice(t('favicon_fetch_success').replace('{domain}', domain));
+                        }
+                        
+                        btn.setDisabled(false);
+                        btn.setIcon('search');
+                    });
+                });
+            }
         }
 
         // ============================================================
@@ -268,6 +299,17 @@ export class StyleEditorModal extends Modal {
                     }
                 } else {
                     setIcon(this.iconBtnEl, 'image');
+                }
+            } else if (this.icon.startsWith('favicon:')) {
+                const domain = this.icon.replace('favicon:', '');
+                const dataUri = this.plugin.faviconManager?.getFaviconDataUri(domain);
+                if (dataUri) {
+                    const span = this.iconBtnEl.createSpan();
+                    span.addClass('typify-img-preview', 'typify-img-btn-preview');
+                    span.setCssProps({ '--typify-bg-image': dataUri });
+                    span.setCssStyles({ backgroundImage: 'var(--typify-bg-image)' });
+                } else {
+                    setIcon(this.iconBtnEl, 'globe');
                 }
             } else {
                 setIcon(this.iconBtnEl, this.icon);
@@ -351,6 +393,17 @@ export class StyleEditorModal extends Modal {
                     iconSpan.empty();
                     iconSpan.appendChild(svgEl);
                 }
+            }
+        } else if (this.icon.startsWith('favicon:')) {
+            const domain = this.icon.replace('favicon:', '');
+            const dataUri = this.plugin.faviconManager?.getFaviconDataUri(domain);
+            if (dataUri) {
+                iconSpan.addClass('typify-img-preview', 'typify-img-pill-icon');
+                iconSpan.setCssProps({ '--typify-bg-image': dataUri });
+                iconSpan.setCssStyles({ backgroundImage: 'var(--typify-bg-image)' });
+            } else {
+                iconSpan.addClass('csi-preview-pill-icon');
+                setIcon(iconSpan, 'globe');
             }
         } else {
             iconSpan.addClass('csi-preview-pill-icon');

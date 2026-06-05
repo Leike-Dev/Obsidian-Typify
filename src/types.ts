@@ -22,6 +22,8 @@ export interface CustomStatusIconsSettings {
     enableLinkStyles: boolean;
     enableCustomPalette: boolean;
     customPalette: string[];
+    enableFavicons: boolean;
+    autoFetchFavicons: boolean;
 }
 
 export const DEFAULT_SETTINGS: CustomStatusIconsSettings = {
@@ -33,7 +35,9 @@ export const DEFAULT_SETTINGS: CustomStatusIconsSettings = {
     hideRemoveButtonHover: false,
     enableLinkStyles: false,
     enableCustomPalette: false,
-    customPalette: []
+    customPalette: [],
+    enableFavicons: false,
+    autoFetchFavicons: false
 };
 
 // Default color for new status styles

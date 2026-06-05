@@ -1737,3 +1737,69 @@ body .bases-view .bases-cards-container .bases-cards-property .typify-single-val
 body.is-mobile .typify-swatch-panel {
     background-color: var(--background-modifier-form-field);
 }
+
+/* ==========================================================================
+   FAVICONS SECTION
+   ========================================================================== */
+
+.typify-favicon-warning {
+    margin-bottom: 1rem;
+}
+
+.typify-favicon-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+    padding: 8px;
+}
+
+.typify-favicon-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.typify-favicon-item:last-child {
+    border-bottom: none;
+}
+
+.typify-favicon-item-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.typify-favicon-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.typify-favicon-preview {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+}
+
+.typify-favicon-domain {
+    font-weight: 500;
+}
+
+.typify-favicon-item-right {
+    display: flex;
+    gap: 8px;
+}
+
+.typify-favicon-empty-state {
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 8px 0;
+}
