@@ -98,8 +98,8 @@ export class FaviconsSection {
             const isFailed = failed.has(domain);
             const entry = cache.get(domain);
             
-            // Status Dot
-            const dot = leftEl.createDiv({ cls: 'typify-favicon-status-dot' });
+            // Status Line (left edge indicator)
+            const statusLine = leftEl.createDiv({ cls: 'csi-manager-color-dot' });
             
             let isOutdated = false;
             if (!isFailed && entry) {
@@ -108,14 +108,14 @@ export class FaviconsSection {
             }
 
             if (isFailed) {
-                dot.setCssStyles({ backgroundColor: 'var(--text-error)' });
-                dot.title = t('favicon_status_failed');
+                statusLine.setCssStyles({ backgroundColor: 'var(--text-error)' });
+                statusLine.title = t('favicon_status_failed');
             } else if (isOutdated) {
-                dot.setCssStyles({ backgroundColor: 'var(--color-orange)' });
-                dot.title = t('favicon_status_outdated');
+                statusLine.setCssStyles({ backgroundColor: 'var(--color-orange)' });
+                statusLine.title = t('favicon_status_outdated');
             } else {
-                dot.setCssStyles({ backgroundColor: 'var(--text-success)' });
-                dot.title = t('favicon_status_cached');
+                statusLine.setCssStyles({ backgroundColor: 'var(--text-success)' });
+                statusLine.title = t('favicon_status_cached');
             }
 
             // Preview or fallback icon

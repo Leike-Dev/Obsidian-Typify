@@ -1749,25 +1749,20 @@ body.is-mobile .typify-swatch-panel {
 
 .typify-favicon-item-left {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
 }
 
-.typify-favicon-status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    display: inline-block;
-    flex-shrink: 0;
-}
-
 .typify-favicon-preview {
-    width: 24px;
-    height: 24px;
+    width: 16px;
+    height: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-size: cover;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-top: 2px;
 }
 
 .typify-favicon-domain {
