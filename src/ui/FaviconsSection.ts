@@ -67,6 +67,18 @@ export class FaviconsSection {
     }
 
     private renderList(): void {
+        /*
+         * PERFORMANCE & MEMORY MANAGEMENT EXPLANATION:
+         * 
+         * 1. DOM & Garbage Collection: Calling `this.listContainer.empty()` safely detaches all child nodes.
+         *    Since the event listeners (like 'click' for refresh/delete) are bound to these detached child elements, 
+         *    and there are no strong references to them from the global scope, V8's Garbage Collector will 
+         *    automatically safely sweep them and their closures from memory. This prevents memory leaks.
+         * 
+         * 2. Performance: Generating the list (looping through cached items) involves simple, lightweight 
+         *    mathematical operations (Date difference and string length). The browser can execute hundreds 
+         *    of these iterations in less than a millisecond without causing UI stuttering.
+         */
         this.listContainer.empty();
         const cache = this.plugin.faviconManager.getCache();
         const failed = this.plugin.faviconManager.getFailedDomains();
@@ -114,7 +126,28 @@ export class FaviconsSection {
                 setIcon(preview, 'globe');
             }
 
-            leftEl.createSpan({ text: domain, cls: 'typify-favicon-domain' });
+            // Text block
+            const textBlock = leftEl.createDiv({ cls: 'csi-manager-item-text' });
+            const nameRow = textBlock.createDiv({ cls: 'csi-manager-item-name' });
+            nameRow.setText(domain);
+            
+            const metaRow = textBlock.createDiv({ cls: 'csi-manager-meta' });
+            if (isFailed) {
+                metaRow.createSpan({ text: t('favicon_meta_failed') }).setCssStyles({ color: 'var(--text-error)' });
+            } else if (isOutdated) {
+                metaRow.createSpan({ text: t('favicon_meta_outdated') }).setCssStyles({ color: 'var(--color-orange)' });
+            } else if (entry) {
+                const days = Math.floor((Date.now() - entry.mtime) / (1000 * 60 * 60 * 24));
+                const sizeKb = Math.ceil(entry.dataUri.length / 1024);
+                let text = '';
+                if (days === 0) {
+                    text = t('favicon_meta_today').replace('{size}', String(sizeKb));
+                } else {
+                    const dayWord = days === 1 ? t('day_singular') : t('day_plural');
+                    text = t('favicon_meta_saved').replace('{days}', String(days)).replace('{day_word}', dayWord).replace('{size}', String(sizeKb));
+                }
+                metaRow.createSpan({ text });
+            }
             const rightEl = itemEl.createDiv({ cls: 'csi-manager-actions typify-favicon-item-right' });
             
             const refreshBtn = rightEl.createEl('button', { cls: 'clickable-icon', attr: { 'aria-label': t('favicon_retry') } });
