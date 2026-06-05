@@ -4,7 +4,7 @@ import { StyleManagerModal } from './ui/StyleManagerModal';
 import { ExportSettingsModal } from './ui/ExportSettingsModal';
 import { ImportSettingsModal } from './ui/ImportSettingsModal';
 import { PaletteModal } from './ui/PaletteModal';
-import { FaviconsSection } from './ui/FaviconsSection';
+import { FaviconsModal } from './ui/FaviconsModal';
 import type TypifyPlugin from './main';
 import { t } from './lang/helpers';
 
@@ -265,8 +265,14 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         }
 
         if (this.plugin.settings.enableFavicons) {
-            const faviconContainer = this.experimentalSectionEl.createDiv();
-            new FaviconsSection(this.app, this.plugin, faviconContainer).display();
+            new Setting(this.experimentalSectionEl)
+                .setName(t('favicon_manager_title'))
+                .setDesc(t('favicon_manager_desc'))
+                .addButton(button => button
+                    .setButtonText(t('manage_styles_button'))
+                    .onClick(() => {
+                        new FaviconsModal(this.app, this.plugin, () => { this.display(); }).open();
+                    }));
         }
 
         // ================================================================

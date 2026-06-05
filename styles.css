@@ -1746,25 +1746,6 @@ body.is-mobile .typify-swatch-panel {
     margin-bottom: 1rem;
 }
 
-.typify-favicon-list {
-    max-height: 300px;
-    overflow-y: auto;
-    border: 1px solid var(--background-modifier-border);
-    border-radius: 4px;
-    padding: 8px;
-}
-
-.typify-favicon-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--background-modifier-border);
-}
-
-.typify-favicon-item:last-child {
-    border-bottom: none;
-}
 
 .typify-favicon-item-left {
     display: flex;

@@ -1,4 +1,4 @@
-import { App, Setting, Notice, setIcon, TextComponent } from 'obsidian';
+import { App, Notice, setIcon } from 'obsidian';
 import type TypifyPlugin from '../main';
 import { t } from '../lang/helpers';
 export class FaviconsSection {
@@ -16,38 +16,6 @@ export class FaviconsSection {
 
     display(): void {
         this.containerEl.empty();
-        
-        new Setting(this.containerEl)
-            .setName(t('favicon_manager_title'))
-            .setDesc(t('favicon_manager_desc'))
-            .addButton(btn => btn
-                .setButtonText(t('favicon_refresh_all'))
-                .onClick(async () => {
-                    const domains = Array.from(this.plugin.faviconManager.getCache().keys());
-                    if (domains.length === 0) return;
-                    
-                    btn.setDisabled(true);
-                    btn.setButtonText(t('favicon_refreshing'));
-                    
-                    let count = 0;
-                    for (const domain of domains) {
-                        const success = await this.plugin.faviconManager.fetchFavicon(domain, true);
-                        if (success) count++;
-                    }
-                    
-                    btn.setDisabled(false);
-                    btn.setButtonText(t('favicon_refresh_all'));
-                    new Notice(t('favicon_refresh_success').replace('{count}', String(count)));
-                    this.renderList();
-                }))
-            .addButton(btn => btn
-                .setButtonText(t('favicon_clear_cache'))
-                .setWarning()
-                .onClick(async () => {
-                    await this.plugin.faviconManager.clearAll();
-                    new Notice(t('favicon_clear_success'));
-                    this.renderList();
-                }));
 
         // Privacy Disclaimer
         const infoCard = this.containerEl.createDiv({ cls: 'csi-experimental-warning typify-favicon-warning' });
@@ -56,15 +24,45 @@ export class FaviconsSection {
             cls: 'warning-text'
         });
 
-        const filterContainer = this.containerEl.createDiv({ cls: 'typify-favicon-filter' });
-        const searchComp = new TextComponent(filterContainer);
-        searchComp.setPlaceholder(t('favicon_search_placeholder'));
-        searchComp.onChange(value => {
-            this.searchInput = value.toLowerCase();
+        const filterContainer = this.containerEl.createDiv({ cls: 'csi-manager-search-container' });
+        
+        const searchInput = filterContainer.createEl('input', {
+            type: 'text',
+            placeholder: t('favicon_search_placeholder'),
+            cls: 'csi-manager-search',
+        });
+        searchInput.addEventListener('input', () => {
+            this.searchInput = searchInput.value.toLowerCase();
             this.renderList();
         });
 
-        this.listContainer = this.containerEl.createDiv({ cls: 'typify-favicon-list' });
+        const rightControls = filterContainer.createDiv({ cls: 'typify-palette-actions-right' });
+
+        const refreshAllBtn = rightControls.createEl('button', {
+            text: t('favicon_refresh_all')
+        });
+        refreshAllBtn.addEventListener('click', () => {
+            void (async () => {
+                const domains = Array.from(this.plugin.faviconManager.getCache().keys());
+                if (domains.length === 0) return;
+                
+                refreshAllBtn.setText(t('favicon_refreshing'));
+                refreshAllBtn.disabled = true;
+                
+                let count = 0;
+                for (const domain of domains) {
+                    const success = await this.plugin.faviconManager.fetchFavicon(domain, true);
+                    if (success) count++;
+                }
+                
+                refreshAllBtn.setText(t('favicon_refresh_all'));
+                refreshAllBtn.disabled = false;
+                new Notice(t('favicon_refresh_success').replace('{count}', String(count)));
+                this.renderList();
+            })();
+        });
+
+        this.listContainer = this.containerEl.createDiv({ cls: 'csi-manager-list typify-favicon-list' });
         this.renderList();
     }
 
@@ -82,9 +80,8 @@ export class FaviconsSection {
             if (this.searchInput && !domain.includes(this.searchInput)) continue;
             
             count++;
-            const itemEl = this.listContainer.createDiv({ cls: 'typify-favicon-item' });
-            
-            const leftEl = itemEl.createDiv({ cls: 'typify-favicon-item-left' });
+            const itemEl = this.listContainer.createDiv({ cls: 'csi-manager-item typify-favicon-item' });
+            const leftEl = itemEl.createDiv({ cls: 'csi-manager-item-info typify-favicon-item-left' });
             
             const isFailed = failed.has(domain);
             const entry = cache.get(domain);
@@ -118,8 +115,7 @@ export class FaviconsSection {
             }
 
             leftEl.createSpan({ text: domain, cls: 'typify-favicon-domain' });
-
-            const rightEl = itemEl.createDiv({ cls: 'typify-favicon-item-right' });
+            const rightEl = itemEl.createDiv({ cls: 'csi-manager-actions typify-favicon-item-right' });
             
             const refreshBtn = rightEl.createEl('button', { cls: 'clickable-icon', attr: { 'aria-label': t('favicon_retry') } });
             setIcon(refreshBtn, 'refresh-cw');
