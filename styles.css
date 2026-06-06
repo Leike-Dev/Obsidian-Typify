@@ -638,6 +638,12 @@ body.is-mobile .typify-fmt-card.is-selected {
     transition: stroke 0.15s ease;
 }
 
+.typify-fmt-thumb svg .svg-line {
+    fill: none;
+    stroke: color-mix(in srgb, var(--text-normal) 40%, transparent);
+    transition: stroke 0.15s ease;
+}
+
 .typify-fmt-card.is-selected .typify-fmt-thumb svg .svg-bg {
     fill: color-mix(in srgb, var(--interactive-accent) 25%, transparent);
 }
@@ -648,6 +654,11 @@ body.is-mobile .typify-fmt-card.is-selected {
 
 .typify-fmt-card.is-selected .typify-fmt-thumb svg .svg-stroke {
     stroke: color-mix(in srgb, var(--interactive-accent) 25%, transparent);
+}
+
+.typify-fmt-card.is-selected .typify-fmt-thumb svg .svg-line {
+    fill: none;
+    stroke: var(--interactive-accent);
 }
 
 .typify-fmt-thumb svg .svg-solid-bg {
@@ -1777,4 +1788,47 @@ body.is-mobile .typify-swatch-panel {
     color: var(--text-muted);
     font-style: italic;
     padding: 8px 0;
+}
+
+/* ==========================================================================
+   Favicon Section Styles (Info Box)
+   ========================================================================== */
+.typify-section-header-flex {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.typify-section-header-flex .typify-card-section-title {
+    margin-bottom: 0 !important;
+}
+
+.typify-info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.typify-info-icon:hover {
+    color: var(--text-normal);
+    background-color: var(--background-modifier-hover);
+}
+
+.csi-experimental-warning ul {
+    margin-top: 8px;
+    margin-bottom: 0;
+    padding-left: 20px;
+}
+
+.csi-experimental-warning li {
+    margin-bottom: 4px;
+}
+
+.csi-experimental-warning li:last-child {
+    margin-bottom: 0;
 }

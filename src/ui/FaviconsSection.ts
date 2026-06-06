@@ -19,7 +19,39 @@ export class FaviconsSection {
         this.containerEl.empty();
 
         // Provider Selection
-        this.containerEl.createDiv({ text: t('favicon_provider_heading') || 'Provedor', cls: 'typify-card-section-title' });
+        const headerContainer = this.containerEl.createDiv({ cls: 'typify-section-header-flex' });
+        headerContainer.createDiv({ text: t('favicon_provider_heading') || 'Provedor', cls: 'typify-card-section-title', attr: { style: 'margin-bottom: 0;' } });
+        
+        const infoIcon = headerContainer.createSpan({ cls: 'typify-info-icon clickable-icon' });
+        setIcon(infoIcon, 'info');
+
+        const warningBox = this.containerEl.createDiv({ cls: 'csi-experimental-warning' });
+        warningBox.hide();
+        warningBox.createEl('strong', { text: 'Sobre os provedores de favicon:' });
+        const ul = warningBox.createEl('ul');
+        
+        const liGoogle = ul.createEl('li');
+        liGoogle.createEl('strong', { text: 'Google: ' });
+        liGoogle.createSpan({ text: 'Oferece a melhor resolução e encontra ícones para a grande maioria dos sites.' });
+        
+        const liDuck = ul.createEl('li');
+        // eslint-disable-next-line obsidianmd/ui/sentence-case
+        liDuck.createEl('strong', { text: 'DuckDuckGo: ' });
+        liDuck.createSpan({ text: 'Ótima alternativa para quem busca privacidade, mas a qualidade e quantidade de ícones podem ser menores.' });
+        
+        const liDirect = ul.createEl('li');
+        liDirect.createEl('strong', { text: 'Busca direta: ' });
+        liDirect.createSpan({ text: 'Extrai o ícone direto do site. É mais simples, mas frequentemente falha por restrições do servidor (CORS) ou traz ícones de baixa resolução.' });
+
+        infoIcon.addEventListener('click', (e: MouseEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (warningBox.isShown()) {
+                warningBox.hide();
+            } else {
+                warningBox.show();
+            }
+        });
 
         const cardSection = this.containerEl.createDiv({ cls: 'typify-card-section typify-palette-card-section' });
         const cardGrid = cardSection.createDiv({ cls: 'typify-card-grid' });
