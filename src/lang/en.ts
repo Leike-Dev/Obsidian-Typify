@@ -1,6 +1,5 @@
 export const en = {
-    // Settings Header
-    'settings_title': 'Typify',
+
     'section_configuration_title': 'Configuration',
     'section_data_management_title': 'Data management',
 
@@ -21,7 +20,7 @@ export const en = {
     'status_name_title': 'Style name',
     'base_color_title': 'Base color',
     'icon_title': 'Icon',
-    'icon_desc_or_emoji': 'Choose an icon or type an emoji',
+
     'add_icon_tooltip': 'Choose icon',
     'remove_icon_tooltip': 'Remove icon',
     'applies_to_title': 'Applies to',
@@ -64,7 +63,7 @@ export const en = {
     'custom_images_missing': '{count} image(s) not found in img/ folder: {names}.',
 
     // Export Messages
-    'export_success': 'Settings copied to clipboard.',
+
     'export_error': 'Failed to export settings.',
 
     // Export/Import Modals
@@ -105,16 +104,14 @@ export const en = {
     'delete_style_confirm': 'Delete "{name}"?',
     'style_deleted': 'Style "{name}" deleted.',
     'confirm_button': 'Confirm',
-    'scope_label': 'Scope',
     'scope_all': 'All properties',
-    'icon_label': 'Icon',
 
     // Shape
     'shape_title': 'Shape',
     'shape_pill': 'Pill',
     'shape_rectangle': 'Rectangle',
     'shape_flat': 'Flat',
-    'shape_label': 'Shape',
+
 
     // Tabs
     'tab_icons': 'Icons',
@@ -126,7 +123,7 @@ export const en = {
     'color_mode_title': 'Color mode',
     'color_mode_subtle': 'Subtle',
     'color_mode_solid': 'Solid',
-    'color_mode_label': 'Color',
+
 
     // Edit Style
     'edit_style_title': 'Edit style',
@@ -160,20 +157,13 @@ export const en = {
     'palette_your_colors': 'My colors',
     'palette_saved_count': 'Saved colors: {count} / {max}',
     'palette_add_color': 'Add',
-    'palette_remove_color': 'Remove color',
     'palette_max_reached': 'Maximum of {max} colors reached.',
-    'palette_clear_title': 'Clear palette',
-    'palette_clear_desc': 'Removes all saved colors.',
-    'palette_clear_button': 'Clear',
     'palette_harmony_heading': 'Generate color palette',
-    'palette_harmony_desc': 'Choose a harmony type and generate colors instantly.',
     'palette_harmony_analogous': 'Analogous',
     'palette_harmony_complementary': 'Complementary',
     'palette_harmony_shades': 'Shades',
     'palette_harmony_random': 'Random',
-    'palette_generate_button': 'Generate',
-    'palette_add_all_button': 'Add',
-    'palette_apply_button': 'Apply',
+
     'palette_clear_tooltip': 'Clear all',
 
     // Favicons
@@ -184,9 +174,7 @@ export const en = {
     'favicon_refreshing': 'Refreshing...',
     'favicon_refresh_success': 'Typify: {count} favicon(s) refreshed.',
     'favicon_refresh_partial': 'Typify: {count} favicon(s) refreshed. {failed} failed.',
-    'favicon_clear_cache': 'Clear cache',
-    'favicon_clear_success': 'Favicons cache cleared.',
-    'favicon_privacy_notice': 'Privacy: When direct favicon search fails on the specified domain, Typify queries the https://icons.duckduckgo.com URL sending only the domain name.',
+
     'favicon_provider_direct': 'Direct search',
     'favicon_provider_google': 'Google',
     'favicon_provider_duckduckgo': 'DuckDuckGo',

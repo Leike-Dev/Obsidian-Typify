@@ -1,6 +1,5 @@
 export const zhCN = {
-    // 设置标题
-    'settings_title': 'Typify',
+
     'section_configuration_title': '配置',
     'section_data_management_title': '数据管理',
 
@@ -21,7 +20,7 @@ export const zhCN = {
     'status_name_title': '样式名称',
     'base_color_title': '基础颜色',
     'icon_title': '图标',
-    'icon_desc_or_emoji': '选择一个图标或输入一个表情符号',
+
     'add_icon_tooltip': '选择图标',
     'remove_icon_tooltip': '移除图标',
     'applies_to_title': '应用于',
@@ -64,7 +63,7 @@ export const zhCN = {
     'custom_images_missing': '{count} 张图片未在 img/ 文件夹中找到：{names}。',
 
     // 导出消息
-    'export_success': '设置已复制到剪贴板。',
+
     'export_error': '导出设置失败。',
 
     // 导出/导入弹窗
@@ -105,16 +104,14 @@ export const zhCN = {
     'delete_style_confirm': '确定删除「{name}」？',
     'style_deleted': '样式「{name}」已删除。',
     'confirm_button': '确认',
-    'scope_label': '作用域',
     'scope_all': '所有属性',
-    'icon_label': '图标',
 
     // 形状
     'shape_title': '形状',
     'shape_pill': '胶囊',
     'shape_rectangle': '圆角矩形',
     'shape_flat': '直角矩形',
-    'shape_label': '形状',
+
 
     // Tabs
     'tab_icons': '图标',
@@ -126,7 +123,7 @@ export const zhCN = {
     'color_mode_title': '颜色模式',
     'color_mode_subtle': '柔和',
     'color_mode_solid': '纯色',
-    'color_mode_label': '颜色',
+
 
     // 编辑样式
     'edit_style_title': '编辑样式',
@@ -160,20 +157,13 @@ export const zhCN = {
     'palette_your_colors': '我的颜色',
     'palette_saved_count': '已保存颜色：{count} / {max}',
     'palette_add_color': '添加',
-    'palette_remove_color': '删除颜色',
     'palette_max_reached': '已达到 {max} 种颜色的上限。',
-    'palette_clear_title': '清空调色板',
-    'palette_clear_desc': '删除所有已保存的颜色。',
-    'palette_clear_button': '清空',
     'palette_harmony_heading': '生成调色板',
-    'palette_harmony_desc': '选择色彩和谐类型，即时生成颜色。',
     'palette_harmony_analogous': '类似色',
     'palette_harmony_complementary': '互补色',
     'palette_harmony_shades': '渐变',
     'palette_harmony_random': '随机',
-    'palette_generate_button': '生成',
-    'palette_add_all_button': '添加',
-    'palette_apply_button': '应用',
+
     'palette_clear_tooltip': '清除所有',
 
     // Favicons
@@ -184,9 +174,7 @@ export const zhCN = {
     'favicon_refreshing': '正在刷新...',
     'favicon_refresh_success': 'Typify: 成功刷新 {count} 个图标。',
     'favicon_refresh_partial': 'Typify: 成功刷新 {count} 个图标，{failed} 个失败。',
-    'favicon_clear_cache': '清除缓存',
-    'favicon_clear_success': '图标缓存已清除。',
-    'favicon_privacy_notice': '隐私声明：当无法从指定域名直接获取图标时，Typify 将查询 https://icons.duckduckgo.com 并仅发送域名进行备用搜索。',
+
     'favicon_provider_direct': '直接搜索',
     'favicon_provider_google': 'Google',
     'favicon_provider_duckduckgo': 'DuckDuckGo',

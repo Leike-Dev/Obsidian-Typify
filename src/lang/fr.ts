@@ -1,6 +1,5 @@
 export const fr = {
-    // En-tête des Paramètres
-    'settings_title': 'Typify',
+
     'section_configuration_title': 'Configuration',
     'section_data_management_title': 'Gestion des données',
 
@@ -21,7 +20,7 @@ export const fr = {
     'status_name_title': 'Nom du style',
     'base_color_title': 'Couleur de base',
     'icon_title': 'Icône',
-    'icon_desc_or_emoji': 'Choisissez une icône ou tapez un emoji',
+
     'add_icon_tooltip': 'Choisir une icône',
     'remove_icon_tooltip': 'Supprimer l\'icône',
     'applies_to_title': 'S\'applique à',
@@ -64,7 +63,7 @@ export const fr = {
     'custom_images_missing': '{count} image(s) introuvable(s) dans le dossier img/ : {names}.',
 
     // Messages d'Exportation
-    'export_success': 'Paramètres copiés dans le presse-papiers.',
+
     'export_error': 'Échec de l\'exportation des paramètres.',
 
     // Modales d'Exportation/Importation
@@ -105,16 +104,14 @@ export const fr = {
     'delete_style_confirm': 'Supprimer « {name} » ?',
     'style_deleted': 'Style « {name} » supprimé.',
     'confirm_button': 'Confirmer',
-    'scope_label': 'Portée',
     'scope_all': 'Toutes les propriétés',
-    'icon_label': 'Icône',
 
     // Forme
     'shape_title': 'Forme',
     'shape_pill': 'Pilule',
     'shape_rectangle': 'Rectangle',
     'shape_flat': 'Plat',
-    'shape_label': 'Forme',
+
 
     // Tabs
     'tab_icons': 'Icônes',
@@ -126,7 +123,7 @@ export const fr = {
     'color_mode_title': 'Mode de couleur',
     'color_mode_subtle': 'Subtil',
     'color_mode_solid': 'Solide',
-    'color_mode_label': 'Couleur',
+
 
     // Modifier le Style
     'edit_style_title': 'Modifier le style',
@@ -160,20 +157,13 @@ export const fr = {
     'palette_your_colors': 'Mes couleurs',
     'palette_saved_count': 'Couleurs enregistrées : {count} / {max}',
     'palette_add_color': 'Ajouter',
-    'palette_remove_color': 'Supprimer la couleur',
     'palette_max_reached': 'Maximum de {max} couleurs atteint.',
-    'palette_clear_title': 'Effacer la palette',
-    'palette_clear_desc': 'Supprime toutes les couleurs enregistrées.',
-    'palette_clear_button': 'Effacer',
     'palette_harmony_heading': 'Générer une palette de couleurs',
-    'palette_harmony_desc': 'Choisissez un type d\'harmonie et générez des couleurs instantanément.',
     'palette_harmony_analogous': 'Analogues',
     'palette_harmony_complementary': 'Complémentaires',
     'palette_harmony_shades': 'Nuances',
     'palette_harmony_random': 'Aléatoires',
-    'palette_generate_button': 'Générer',
-    'palette_add_all_button': 'Ajouter',
-    'palette_apply_button': 'Appliquer',
+
     'palette_clear_tooltip': 'Tout effacer',
 
     // Favicons
@@ -184,9 +174,7 @@ export const fr = {
     'favicon_refreshing': 'Actualisation...',
     'favicon_refresh_success': 'Typify : {count} favicon(s) actualisé(s).',
     'favicon_refresh_partial': 'Typify : {count} favicon(s) actualisé(s). {failed} échoué(s).',
-    'favicon_clear_cache': 'Vider le cache',
-    'favicon_clear_success': 'Cache des favicons vidé.',
-    'favicon_privacy_notice': 'Confidentialité : Lorsque la recherche directe du favicon échoue sur le domaine, Typify interroge l\'URL https://icons.duckduckgo.com en envoyant uniquement le nom de domaine.',
+
     'favicon_provider_direct': 'Recherche directe',
     'favicon_provider_google': 'Google',
     'favicon_provider_duckduckgo': 'DuckDuckGo',
