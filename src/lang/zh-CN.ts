@@ -207,7 +207,8 @@ export const zhCN = {
     'changelog_modal_date': '更新于 {date}',
     'btn_github': '在 GitHub 上查看',
     'btn_understand': '我明白了',
-    'group_new_imp': '新增与改进',
+    'group_new': '新增',
+    'group_imp': '改进',
     'group_fix': '修复',
     'group_brk': '破坏性更新 (Breaking changes)',
     'changelog_error': '无法加载更新历史记录。'

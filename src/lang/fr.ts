@@ -207,7 +207,8 @@ export const fr = {
     'changelog_modal_date': 'Mis à jour le {date}',
     'btn_github': 'Voir sur GitHub',
     'btn_understand': 'Compris',
-    'group_new_imp': 'Nouveautés et améliorations',
+    'group_new': 'Nouveautés',
+    'group_imp': 'Améliorations',
     'group_fix': 'Corrections',
     'group_brk': 'Breaking changes',
     'changelog_error': "Impossible de charger l'historique des mises à jour."

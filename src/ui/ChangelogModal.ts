@@ -1,4 +1,4 @@
-import { App, Modal, PluginManifest } from "obsidian";
+import { App, Modal, PluginManifest, setIcon } from "obsidian";
 // @ts-ignore
 import changelogText from "../../CHANGELOG.md";
 import { t } from "../lang/helpers";
@@ -27,35 +27,35 @@ const TAG_GROUPS: {
 	titleColor: string;
 	icon: string;
 }[] = [
-	{
-		tags: ["NEW", "IMP"],
-		labelKey: "group_new_imp",
-		boxClass: "typify-box-ok",
-		titleColor: "var(--typify-ok)",
-		icon: "✦",
-	},
-	{
-		tags: ["FIX"],
-		labelKey: "group_fix",
-		boxClass: "typify-box-info",
-		titleColor: "var(--typify-info)",
-		icon: "⚙",
-	},
-	{
-		tags: ["BRK"],
-		labelKey: "group_brk",
-		boxClass: "typify-box-warn",
-		titleColor: "var(--typify-warn)",
-		icon: "⚠",
-	},
-];
-
-const TAG_META: Record<EntryTag, { label: string; cls: string }> = {
-	NEW: { label: "NEW", cls: "typify-ct-new" },
-	IMP: { label: "IMP", cls: "typify-ct-imp" },
-	FIX: { label: "FIX", cls: "typify-ct-fix" },
-	BRK: { label: "BRK", cls: "typify-ct-brk" },
-};
+		{
+			tags: ["NEW"],
+			labelKey: "group_new",
+			boxClass: "typify-box-ok",
+			titleColor: "var(--typify-ok)",
+			icon: "sparkles",
+		},
+		{
+			tags: ["IMP"],
+			labelKey: "group_imp",
+			boxClass: "typify-box-warn",
+			titleColor: "var(--typify-warn)",
+			icon: "zap",
+		},
+		{
+			tags: ["FIX"],
+			labelKey: "group_fix",
+			boxClass: "typify-box-info",
+			titleColor: "var(--typify-info)",
+			icon: "wrench",
+		},
+		{
+			tags: ["BRK"],
+			labelKey: "group_brk",
+			boxClass: "typify-box-brk",
+			titleColor: "var(--typify-brk)",
+			icon: "alert-triangle",
+		},
+	];
 
 // Parser
 
@@ -162,7 +162,11 @@ export class ChangelogModal extends Modal {
 
 			// Group title
 			const boxTitle = box.createDiv({ cls: "typify-box-title" });
-			boxTitle.createSpan({ text: group.icon, cls: "typify-box-icon" });
+			boxTitle.style.color = group.titleColor;
+
+			const iconSpan = boxTitle.createSpan({ cls: "typify-box-icon" });
+			setIcon(iconSpan, group.icon);
+
 			boxTitle.createSpan({
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
 				text: t(group.labelKey as any), // Cast to bypass strict types without adding union string
@@ -173,12 +177,6 @@ export class ChangelogModal extends Modal {
 			const list = box.createDiv({ cls: "typify-entry-list csi-manager-list" });
 			for (const entry of groupEntries) {
 				const row = list.createDiv({ cls: "typify-entry-row" });
-
-				const meta = TAG_META[entry.tag];
-				row.createEl("span", {
-					cls: `typify-changelog-tag ${meta.cls}`,
-					text: meta.label,
-				});
 
 				const textEl = row.createSpan({ cls: "typify-entry-text" });
 				renderInlineCode(textEl, entry.text);

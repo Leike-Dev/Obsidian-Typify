@@ -208,7 +208,8 @@ export const ptBR = {
     'changelog_modal_date': 'Atualizado em {date}',
     'btn_github': 'Ver no GitHub',
     'btn_understand': 'Entendi',
-    'group_new_imp': 'Novidades & melhorias',
+    'group_new': 'Novidades',
+    'group_imp': 'Melhorias',
     'group_fix': 'Correções',
     'group_brk': 'Breaking changes',
     'changelog_error': 'Não foi possível carregar o histórico de atualizações.'

@@ -1856,6 +1856,7 @@ body.is-mobile .typify-swatch-panel {
     --typify-ok-bd: color-mix(in srgb, var(--typify-ok) 25%, transparent);
 
     --typify-brk-bg: color-mix(in srgb, var(--typify-brk) 12%, transparent);
+    --typify-brk-bd: color-mix(in srgb, var(--typify-brk) 25%, transparent);
 }
 
 .theme-dark .typify-changelog-modal {
@@ -1905,6 +1906,11 @@ body.is-mobile .typify-swatch-panel {
     border-color: var(--typify-ok-bd);
 }
 
+.typify-box-brk {
+    background: var(--typify-brk-bg);
+    border-color: var(--typify-brk-bd);
+}
+
 /* Box Inner Title */
 .typify-box-title {
     display: flex;
@@ -1928,8 +1934,20 @@ body.is-mobile .typify-swatch-panel {
     color: var(--typify-warn);
 }
 
+.typify-box-brk .typify-box-title {
+    color: var(--typify-brk);
+}
+
 .typify-box-icon {
-    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.typify-box-icon svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.2px;
 }
 
 /* --- Entries --- */
@@ -2037,8 +2055,7 @@ body.is-mobile .typify-swatch-panel {
 .typify-changelog-badge-new {
     color: var(--typify-accent, #e67e22);
     background: color-mix(in srgb, var(--typify-accent, #e67e22) 15%, transparent);
-    font-family: var(--font-monospace, monospace);
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: bold;
     padding: 2px 6px;
     border-radius: 4px;

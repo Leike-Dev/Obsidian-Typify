@@ -207,7 +207,8 @@ export const en = {
     'changelog_modal_date': 'Updated on {date}',
     'btn_github': 'View on GitHub',
     'btn_understand': 'I understand',
-    'group_new_imp': 'New & improved',
+    'group_new': 'New features',
+    'group_imp': 'Improvements',
     'group_fix': 'Fixes',
     'group_brk': 'Breaking changes',
     'changelog_error': 'Could not load update history.'
