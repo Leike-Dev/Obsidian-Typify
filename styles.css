@@ -1973,7 +1973,6 @@ body.is-mobile .typify-swatch-panel {
     gap: 8px;
     font-family: var(--font-interface);
     font-size: var(--font-ui-small, 13px);
-    color: var(--text-muted);
     line-height: 1.55;
 }
 
