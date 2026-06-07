@@ -1832,187 +1832,206 @@ body.is-mobile .typify-swatch-panel {
 .csi-experimental-warning li:last-child {
     margin-bottom: 0;
 }
+
 /* ==========================================================================
    CHANGELOG MODAL
    ========================================================================== */
 
 /* Color Variables (scoped to modal) */
 .typify-changelog-modal {
-	--typify-warn:   #925c0f;
-	--typify-warn-bg: #fdf3e3;
-	--typify-warn-bd: #e8c07a;
+    --typify-warn: #925c0f;
+    --typify-warn-bg: #fdf3e3;
+    --typify-warn-bd: #e8c07a;
 
-	--typify-info:   #185FA5;
-	--typify-info-bg: #e8f0fb;
-	--typify-info-bd: #9bbde3;
+    --typify-info: #185FA5;
+    --typify-info-bg: #e8f0fb;
+    --typify-info-bd: #9bbde3;
 
-	--typify-ok:     #3B6D11;
-	--typify-ok-bg:  #eaf3e4;
-	--typify-ok-bd:  #96c47e;
+    --typify-ok: #3B6D11;
+    --typify-ok-bg: #eaf3e4;
+    --typify-ok-bd: #96c47e;
 
-	--typify-surface:   #f1efe8;
-	--typify-surface-2: #ebe9e2;
-	--typify-border:    #dddad3;
-	--typify-text:      #2c2c2a;
-	--typify-text-2:    #5f5e5a;
-	--typify-text-3:    #888780;
+    --typify-surface: #f1efe8;
+    --typify-surface-2: #ebe9e2;
+    --typify-border: #dddad3;
+    --typify-text: #2c2c2a;
+    --typify-text-2: #5f5e5a;
+    --typify-text-3: #888780;
 
-	--typify-accent-dk: #9a6312;
+    --typify-accent-dk: #9a6312;
 }
 
 /* --- Body --- */
 
 .typify-modal-sub {
-	font-size: 13px !important;
-	color: var(--text-muted) !important;
-	margin-top: 0 !important;
-	margin-bottom: 20px !important;
+    font-size: 13px !important;
+    color: var(--text-muted) !important;
+    margin-top: 0 !important;
+    margin-bottom: 20px !important;
 }
 
 .typify-modal-body {
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 /* --- Notice Boxes --- */
 
 .typify-notice-box {
-	border-radius: 6px;
-	padding: 11px 14px;
-	border: 1px solid;
+    border-radius: 6px;
+    padding: 11px 14px;
+    border: 1px solid;
 }
 
 .typify-box-warn {
-	background: var(--typify-warn-bg);
-	border-color: var(--typify-warn-bd);
+    background: var(--typify-warn-bg);
+    border-color: var(--typify-warn-bd);
 }
 
 .typify-box-info {
-	background: var(--typify-info-bg);
-	border-color: var(--typify-info-bd);
+    background: var(--typify-info-bg);
+    border-color: var(--typify-info-bd);
 }
 
 .typify-box-ok {
-	background: var(--typify-ok-bg);
-	border-color: var(--typify-ok-bd);
+    background: var(--typify-ok-bg);
+    border-color: var(--typify-ok-bd);
 }
 
 /* Box Inner Title */
 .typify-box-title {
-	display: flex;
-	align-items: center;
-	gap: 6px;
-	font-size: 12.5px;
-	font-weight: 500;
-	margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    font-weight: 500;
+    margin-bottom: 8px;
 }
 
-.typify-box-ok    .typify-box-title { color: var(--typify-ok); }
-.typify-box-info  .typify-box-title { color: var(--typify-info); }
-.typify-box-warn  .typify-box-title { color: var(--typify-warn); }
+.typify-box-ok .typify-box-title {
+    color: var(--typify-ok);
+}
+
+.typify-box-info .typify-box-title {
+    color: var(--typify-info);
+}
+
+.typify-box-warn .typify-box-title {
+    color: var(--typify-warn);
+}
 
 .typify-box-icon {
-	font-size: 13px;
+    font-size: 13px;
 }
 
 /* --- Entries --- */
 
 .typify-entry-list {
-	display: flex;
-	flex-direction: column;
-	gap: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .typify-notice-box .csi-manager-list {
-	max-height: 250px;
-	padding-top: 4px;
-	padding-bottom: 4px;
-	margin-top: 8px;
-	-webkit-mask-image: linear-gradient(to bottom, transparent 0, black 6px, black calc(100% - 6px), transparent 100%);
-	mask-image: linear-gradient(to bottom, transparent 0, black 6px, black calc(100% - 6px), transparent 100%);
+    max-height: 90px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-top: 8px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 6px, black calc(100% - 6px), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, black 6px, black calc(100% - 6px), transparent 100%);
 }
 
 .typify-entry-row {
-	display: flex;
-	align-items: flex-start;
-	gap: 8px;
-	font-size: 12.5px;
-	color: var(--typify-text-2);
-	line-height: 1.55;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 12.5px;
+    color: var(--typify-text-2);
+    line-height: 1.55;
 }
 
 .typify-entry-text {
-	flex: 1;
+    flex: 1;
 }
 
 /* Colored Tags */
 .typify-changelog-tag {
-	display: inline-block;
-	font-size: 10px;
-	font-weight: 700;
-	letter-spacing: 0.05em;
-	padding: 2px 6px;
-	border-radius: 3px;
-	flex-shrink: 0;
-	margin-top: 2px;
-	line-height: 1.4;
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 2px 6px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    line-height: 1.4;
 }
 
 .typify-ct-new {
-	background: #dff0d6;
-	color: #3B6D11;
+    background: #dff0d6;
+    color: #3B6D11;
 }
 
 .typify-ct-imp {
-	background: #faeeda;
-	color: #925c0f;
+    background: #faeeda;
+    color: #925c0f;
 }
 
 .typify-ct-fix {
-	background: #dce8f8;
-	color: #185FA5;
+    background: #dce8f8;
+    color: #185FA5;
 }
 
 .typify-ct-brk {
-	background: #fde8e8;
-	color: #A32D2D;
+    background: #fde8e8;
+    color: #A32D2D;
 }
 
 /* Inline Code */
 .typify-inline-code {
-	font-family: var(--font-monospace, monospace) !important;
-	font-size: 11.5px !important;
-	background: #dddad3 !important;
-	padding: 1px 5px !important;
-	border-radius: 3px !important;
-	color: #3d3c3a !important;
+    font-family: var(--font-monospace, monospace) !important;
+    font-size: 11.5px !important;
+    background: #dddad3 !important;
+    padding: 1px 5px !important;
+    border-radius: 3px !important;
+    color: #3d3c3a !important;
 }
 
 /* --- Footer --- */
 
 .typify-modal-foot {
-	display: flex;
-	align-items: center;
-	margin-top: 24px;
-	padding-top: 16px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding-top: 16px;
 }
 
 .typify-btn-group {
-	justify-content: flex-end;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	gap: 12px;
+    justify-content: flex-end;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 /* --- Error --- */
 
 .typify-modal-error {
-	padding: 20px 22px;
-	font-size: 13px;
-	color: var(--typify-text-2);
-	line-height: 1.6;
+    padding: 20px 22px;
+    font-size: 13px;
+    color: var(--typify-text-2);
+    line-height: 1.6;
 }
 
-.typify-changelog-badge-new { background-color: var(--typify-accent, #e67e22); color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; vertical-align: middle; margin-left: 6px; }
+.typify-changelog-badge-new {
+    background-color: var(--typify-accent, #e67e22);
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    margin-left: 6px;
+}
