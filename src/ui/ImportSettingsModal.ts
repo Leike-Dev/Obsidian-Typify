@@ -60,9 +60,9 @@ export class ImportSettingsModal extends Modal {
             return;
         }
 
-        let data: { statusStyles?: unknown; targetProperty?: unknown };
+        let data: Record<string, unknown>;
         try {
-            data = JSON.parse(jsonString) as { statusStyles?: unknown; targetProperty?: unknown };
+            data = JSON.parse(jsonString) as Record<string, unknown>;
         } catch {
             new Notice(t('import_invalid_json'));
             return;
@@ -87,6 +87,35 @@ export class ImportSettingsModal extends Modal {
         if (typeof data.targetProperty === 'string' && data.targetProperty.trim()) {
             this.plugin.settings.targetProperty = data.targetProperty;
         }
+        if (typeof data.hideRemoveButton === 'string' && ['none', 'properties', 'bases', 'both'].includes(data.hideRemoveButton)) {
+            this.plugin.settings.hideRemoveButton = data.hideRemoveButton as 'none' | 'properties' | 'bases' | 'both';
+        }
+        if (typeof data.hideRemoveButtonHover === 'boolean') {
+            this.plugin.settings.hideRemoveButtonHover = data.hideRemoveButtonHover;
+        }
+        if (typeof data.enableLinkStyles === 'boolean') {
+            this.plugin.settings.enableLinkStyles = data.enableLinkStyles;
+        }
+        if (typeof data.enableCustomPalette === 'boolean') {
+            this.plugin.settings.enableCustomPalette = data.enableCustomPalette;
+        }
+        if (Array.isArray(data.customPalette)) {
+            const palette = data.customPalette.filter((c: unknown) => typeof c === 'string');
+            if (palette.length > 0) this.plugin.settings.customPalette = palette;
+        }
+        if (typeof data.enableFavicons === 'boolean') {
+            this.plugin.settings.enableFavicons = data.enableFavicons;
+        }
+        if (typeof data.autoFetchFavicons === 'boolean') {
+            this.plugin.settings.autoFetchFavicons = data.autoFetchFavicons;
+        }
+        if (typeof data.faviconProvider === 'string' && ['google', 'duckduckgo', 'direct'].includes(data.faviconProvider)) {
+            this.plugin.settings.faviconProvider = data.faviconProvider as 'google' | 'duckduckgo' | 'direct';
+        }
+        if (typeof data.enableCustomIcons === 'boolean') {
+            this.plugin.settings.enableCustomIcons = data.enableCustomIcons;
+        }
+
         this.plugin.settings.statusStyles = validStyles;
 
         await this.plugin.saveSettings();

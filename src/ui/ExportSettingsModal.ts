@@ -30,8 +30,22 @@ export class ExportSettingsModal extends Modal {
         const data = {
             version: this.plugin.manifest.version,
             exportedAt: new Date().toISOString(),
+            // Core
             targetProperty: this.plugin.settings.targetProperty,
-            statusStyles: this.plugin.settings.statusStyles
+            statusStyles: this.plugin.settings.statusStyles,
+            // UI Components
+            hideRemoveButton: this.plugin.settings.hideRemoveButton,
+            hideRemoveButtonHover: this.plugin.settings.hideRemoveButtonHover,
+            enableLinkStyles: this.plugin.settings.enableLinkStyles,
+            // Custom Palette
+            enableCustomPalette: this.plugin.settings.enableCustomPalette,
+            customPalette: this.plugin.settings.customPalette,
+            // Favicons
+            enableFavicons: this.plugin.settings.enableFavicons,
+            autoFetchFavicons: this.plugin.settings.autoFetchFavicons,
+            faviconProvider: this.plugin.settings.faviconProvider,
+            // Custom Icons
+            enableCustomIcons: this.plugin.settings.enableCustomIcons,
         };
         this.textAreaEl.value = JSON.stringify(data, null, 2);
 
