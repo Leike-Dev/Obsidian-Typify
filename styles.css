@@ -1869,7 +1869,8 @@ body.is-mobile .typify-swatch-panel {
 /* --- Body --- */
 
 .typify-changelog-modal .typify-modal-sub {
-    font-size: 13px;
+    font-family: var(--font-interface);
+    font-size: var(--font-ui-small, 13px);
     color: var(--text-muted);
     margin-top: 0;
     margin-bottom: 20px;
@@ -1909,7 +1910,8 @@ body.is-mobile .typify-swatch-panel {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 12.5px;
+    font-family: var(--font-interface);
+    font-size: var(--font-ui-small, 13px);
     font-weight: 500;
     margin-bottom: 8px;
 }
@@ -1951,7 +1953,8 @@ body.is-mobile .typify-swatch-panel {
     display: flex;
     align-items: flex-start;
     gap: 8px;
-    font-size: 12.5px;
+    font-family: var(--font-interface);
+    font-size: var(--font-ui-small, 13px);
     color: var(--text-muted);
     line-height: 1.55;
 }
@@ -2025,7 +2028,8 @@ body.is-mobile .typify-swatch-panel {
 
 .typify-modal-error {
     padding: 20px 22px;
-    font-size: 13px;
+    font-family: var(--font-interface);
+    font-size: var(--font-ui-small, 13px);
     color: var(--text-muted);
     line-height: 1.6;
 }
