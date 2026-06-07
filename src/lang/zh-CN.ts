@@ -211,5 +211,18 @@ export const zhCN = {
     'group_imp': '改进',
     'group_fix': '修复',
     'group_brk': '破坏性更新',
-    'changelog_error': '无法加载更新历史记录。'
+    'changelog_error': '无法加载更新历史记录。',
+
+    // Plugin Notices
+    'notices_title': '插件通知',
+    'notices_desc': '关于Typify中当前激活功能的提醒和信息。',
+    'notices_list_title': '当前状态',
+    'notices_empty': '暂无通知。',
+    'notices_button': '查看通知',
+    'notice_favicon_title': '网站图标提供商',
+    'notice_favicon_desc': 'Google：覆盖率最高。DuckDuckGo：注重隐私，质量较低。直接搜索：经常被CORS拦截。',
+    'notice_custom_icons_title': '自定义图标',
+    'notice_custom_icons_desc': '将最大100 KB的.svg文件放入插件目录下的icons/文件夹中。',
+    'notice_cache_title': '本地缓存已激活',
+    'notice_cache_desc': '网站图标保存在本地。如果图标未更新，请在设置中清除缓存。'
 };

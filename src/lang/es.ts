@@ -212,5 +212,18 @@ export const es = {
     'group_imp': 'Mejoras',
     'group_fix': 'Correcciones',
     'group_brk': 'Cambios incompatibles',
-    'changelog_error': 'No se pudo cargar el historial de actualizaciones.'
+    'changelog_error': 'No se pudo cargar el historial de actualizaciones.',
+
+    // Plugin Notices
+    'notices_title': 'Avisos del plugin',
+    'notices_desc': 'Información y alertas sobre las funciones actualmente activas en Typify.',
+    'notices_list_title': 'Estado actual',
+    'notices_empty': 'No hay avisos en este momento.',
+    'notices_button': 'Ver avisos',
+    'notice_favicon_title': 'Proveedores de favicon',
+    'notice_favicon_desc': 'Google: mejor cobertura. DuckDuckGo: centrado en la privacidad, menor calidad. Búsqueda directa: frecuentemente bloqueada por CORS.',
+    'notice_custom_icons_title': 'Iconos personalizados',
+    'notice_custom_icons_desc': 'Coloca archivos .svg de hasta 100 KB en la carpeta icons/ del directorio del plugin.',
+    'notice_cache_title': 'Caché local activo',
+    'notice_cache_desc': 'Los favicons se guardan localmente. Borra la caché en Configuración si un icono no se actualiza.'
 };

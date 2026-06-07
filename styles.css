@@ -2061,3 +2061,133 @@ body.is-mobile .typify-swatch-panel {
     background: color-mix(in srgb, var(--typify-accent, #e67e22) 15%, transparent);
     margin-left: 6px;
 }
+
+/* ============================================================================
+   NOTICES MODAL & SETTINGS BADGE
+   ============================================================================ */
+
+/* Settings Badge */
+.typify-notices-badge-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.typify-notices-badge {
+    background-color: var(--interactive-accent);
+    color: var(--text-on-accent);
+    font-size: 0.75em;
+    font-weight: bold;
+    border-radius: 50%;
+    min-width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px;
+    line-height: 1;
+    padding-top: 1px;
+}
+
+/* Notices Modal */
+.typify-notices-modal .modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+.typify-notices-list {
+    max-height: 400px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+    padding-bottom: 24px;
+}
+
+.typify-no-notices {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 20px 0;
+    margin: 0;
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.typify-notice-item {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: var(--radius-m, 8px);
+}
+
+.typify-notice-item.is-warning {
+    background-color: color-mix(in srgb, var(--text-warning) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--text-warning) 30%, transparent);
+}
+
+.typify-notice-item.is-info {
+    background-color: color-mix(in srgb, var(--color-blue) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-blue) 30%, transparent);
+}
+
+.typify-notice-item.is-success {
+    background-color: color-mix(in srgb, var(--text-success) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--text-success) 30%, transparent);
+}
+
+.typify-notice-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3px;
+}
+
+.typify-notice-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.typify-notice-warning {
+    color: var(--text-warning);
+}
+
+.typify-notice-info {
+    color: var(--color-blue);
+}
+
+.typify-notice-success {
+    color: var(--text-success);
+}
+
+.typify-notice-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.typify-notice-item-title {
+    font-weight: 600;
+    color: var(--text-normal);
+}
+
+.typify-notice-item-title.typify-notice-warning {
+    color: var(--text-warning);
+}
+
+.typify-notice-item-title.typify-notice-info {
+    color: var(--color-blue);
+}
+
+.typify-notice-item-title.typify-notice-success {
+    color: var(--text-success);
+}
+
+.typify-notice-item-desc {
+    font-size: 0.85em;
+    color: var(--text-muted);
+    line-height: 1.4;
+}

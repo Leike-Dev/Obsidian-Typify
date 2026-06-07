@@ -6,6 +6,7 @@ import { ImportSettingsModal } from './ui/ImportSettingsModal';
 import { PaletteModal } from './ui/PaletteModal';
 import { FaviconsModal } from './ui/FaviconsModal';
 import { ChangelogModal } from './ui/ChangelogModal';
+import { NoticesModal } from './ui/NoticesModal';
 import type TypifyPlugin from './main';
 import { t } from './lang/helpers';
 
@@ -53,6 +54,27 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
             const nameEl = changelogSetting.nameEl;
             nameEl.setText(t('changelog_title') + ' ');
             nameEl.createSpan({ text: t('changelog_badge_new'), cls: 'typify-changelog-badge-new' });
+        }
+
+        const activeNoticesCount = this.getActiveNoticesCount();
+        
+        const noticesSetting = new Setting(containerEl)
+            .setName(t('notices_title'))
+            .setDesc(t('notices_desc'))
+            .addButton(button => button
+                .setButtonText(t('notices_button'))
+                .onClick(() => {
+                    new NoticesModal(this.app, this.plugin).open();
+                }));
+
+        if (activeNoticesCount > 0) {
+            const badgeContainer = document.createElement('div');
+            badgeContainer.addClass('typify-notices-badge-container');
+            
+            badgeContainer.createSpan({ text: activeNoticesCount.toString(), cls: 'typify-notices-badge' });
+            
+            // Insert the badge before the button
+            noticesSetting.controlEl.prepend(badgeContainer);
         }
 
         // ================================================================
@@ -115,14 +137,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                 }));
 
 
-        // Info card (shown only when custom icons are enabled)
-        if (this.plugin.settings.enableCustomIcons) {
-            const infoCard = containerEl.createDiv({ cls: 'csi-experimental-warning' });
-            infoCard.createEl('p', {
-                text: t('custom_icons_info'),
-                cls: 'warning-text'
-            });
-        }
+
 
         // ================================================================
 
@@ -323,5 +338,14 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
 
 
 
+
+    }
+
+    private getActiveNoticesCount(): number {
+        let count = 0;
+        if (this.plugin.settings.enableFavicons) count++; // Favicon providers notice
+        if (this.plugin.settings.enableCustomIcons) count++; // Custom icons notice
+        if (this.plugin.settings.enableFavicons) count++; // Local cache active notice
+        return count;
     }
 }
