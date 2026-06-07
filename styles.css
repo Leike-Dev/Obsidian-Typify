@@ -711,19 +711,24 @@ body.is-mobile .csi-editor-modal button:not(.mod-cta):not(.clickable-icon):not(.
 }
 
 /* ==========================================================================
-   EXPERIMENTAL TAG BADGE
+   BADGES & TAGS
    ========================================================================== */
 
-.typify-experimental-tag {
+.typify-badge-info,
+.typify-experimental-tag,
+.typify-changelog-badge-new {
     display: inline-block;
     font-size: var(--font-ui-smaller);
     font-weight: 500;
-    color: var(--interactive-accent);
-    background: color-mix(in srgb, var(--interactive-accent) 15%, transparent);
     padding: 1px 7px;
     border-radius: var(--radius-s);
     vertical-align: middle;
     line-height: 1.4;
+}
+
+.typify-experimental-tag {
+    color: var(--interactive-accent);
+    background: color-mix(in srgb, var(--interactive-accent) 15%, transparent);
 }
 
 .typify-experimental-heading {
@@ -2054,11 +2059,5 @@ body.is-mobile .typify-swatch-panel {
 .typify-changelog-badge-new {
     color: var(--typify-accent, #e67e22);
     background: color-mix(in srgb, var(--typify-accent, #e67e22) 15%, transparent);
-    font-size: 10px;
-    font-weight: bold;
-    padding: 2px 6px;
-    border-radius: 4px;
-    text-transform: uppercase;
-    vertical-align: middle;
     margin-left: 6px;
 }
