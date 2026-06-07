@@ -202,7 +202,7 @@ export const fr = {
     'changelog_title': 'Journal des modifications',
     'changelog_desc': 'Découvrez ce qui a changé depuis la dernière mise à jour.',
     'changelog_button': 'Voir les nouveautés',
-    'changelog_badge_new': 'Nouvelle version',
+    'changelog_badge_new': 'Nouveautés',
     'changelog_modal_title': 'Quoi de neuf — Typify {version}',
     'changelog_modal_date': 'Mis à jour le {date}',
     'btn_github': 'Voir sur GitHub',
@@ -210,6 +210,6 @@ export const fr = {
     'group_new': 'Nouveautés',
     'group_imp': 'Améliorations',
     'group_fix': 'Corrections',
-    'group_brk': 'Breaking changes',
+    'group_brk': 'Changements majeurs',
     'changelog_error': "Impossible de charger l'historique des mises à jour."
 };

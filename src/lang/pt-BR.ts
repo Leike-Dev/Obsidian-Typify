@@ -203,7 +203,7 @@ export const ptBR = {
     'changelog_title': 'Quadro de novidades',
     'changelog_desc': 'Veja o que mudou desde a última atualização.',
     'changelog_button': 'Ver novidades',
-    'changelog_badge_new': 'Nova versão',
+    'changelog_badge_new': 'Novidades',
     'changelog_modal_title': 'O que há de novo — Typify {version}',
     'changelog_modal_date': 'Atualizado em {date}',
     'btn_github': 'Ver no GitHub',
@@ -211,6 +211,6 @@ export const ptBR = {
     'group_new': 'Novidades',
     'group_imp': 'Melhorias',
     'group_fix': 'Correções',
-    'group_brk': 'Breaking changes',
+    'group_brk': 'Mudanças incompatíveis',
     'changelog_error': 'Não foi possível carregar o histórico de atualizações.'
 };

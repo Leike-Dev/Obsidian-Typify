@@ -203,7 +203,7 @@ export const es = {
     'changelog_title': 'Registro de cambios',
     'changelog_desc': 'Mira lo que ha cambiado desde la última actualización.',
     'changelog_button': 'Ver novedades',
-    'changelog_badge_new': 'Nueva versión',
+    'changelog_badge_new': 'Novedades',
     'changelog_modal_title': 'Novedades — Typify {version}',
     'changelog_modal_date': 'Actualizado el {date}',
     'btn_github': 'Ver en GitHub',
@@ -211,6 +211,6 @@ export const es = {
     'group_new': 'Novedades',
     'group_imp': 'Mejoras',
     'group_fix': 'Correcciones',
-    'group_brk': 'Breaking changes',
+    'group_brk': 'Cambios incompatibles',
     'changelog_error': 'No se pudo cargar el historial de actualizaciones.'
 };

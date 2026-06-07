@@ -202,7 +202,7 @@ export const zhCN = {
     'changelog_title': '更新日志',
     'changelog_desc': '查看自上次更新以来的变化。',
     'changelog_button': '查看更新日志',
-    'changelog_badge_new': '新版本',
+    'changelog_badge_new': '新动态',
     'changelog_modal_title': '新增内容 — Typify {version}',
     'changelog_modal_date': '更新于 {date}',
     'btn_github': '在 GitHub 上查看',
@@ -210,6 +210,6 @@ export const zhCN = {
     'group_new': '新增',
     'group_imp': '改进',
     'group_fix': '修复',
-    'group_brk': '破坏性更新 (Breaking changes)',
+    'group_brk': '破坏性更新',
     'changelog_error': '无法加载更新历史记录。'
 };
