@@ -1839,26 +1839,31 @@ body.is-mobile .typify-swatch-panel {
 
 /* Color Variables (scoped to modal) */
 .typify-changelog-modal {
-    --typify-warn: #925c0f;
-    --typify-warn-bg: #fdf3e3;
-    --typify-warn-bd: #e8c07a;
-
+    /* Base colors (Light Mode) */
+    --typify-warn: #b07015;
     --typify-info: #185FA5;
-    --typify-info-bg: #e8f0fb;
-    --typify-info-bd: #9bbde3;
-
     --typify-ok: #3B6D11;
-    --typify-ok-bg: #eaf3e4;
-    --typify-ok-bd: #96c47e;
+    --typify-brk: #A32D2D;
 
-    --typify-surface: #f1efe8;
-    --typify-surface-2: #ebe9e2;
-    --typify-border: #dddad3;
-    --typify-text: #2c2c2a;
-    --typify-text-2: #5f5e5a;
-    --typify-text-3: #888780;
+    /* Backgrounds and Borders via color-mix */
+    --typify-warn-bg: color-mix(in srgb, var(--typify-warn) 12%, transparent);
+    --typify-warn-bd: color-mix(in srgb, var(--typify-warn) 25%, transparent);
 
-    --typify-accent-dk: #9a6312;
+    --typify-info-bg: color-mix(in srgb, var(--typify-info) 12%, transparent);
+    --typify-info-bd: color-mix(in srgb, var(--typify-info) 25%, transparent);
+
+    --typify-ok-bg: color-mix(in srgb, var(--typify-ok) 12%, transparent);
+    --typify-ok-bd: color-mix(in srgb, var(--typify-ok) 25%, transparent);
+
+    --typify-brk-bg: color-mix(in srgb, var(--typify-brk) 12%, transparent);
+}
+
+.theme-dark .typify-changelog-modal {
+    /* Base colors (Dark Mode - lighter for contrast against dark background) */
+    --typify-warn: #e8b354;
+    --typify-info: #6daae8;
+    --typify-ok: #80cf55;
+    --typify-brk: #e86d6d;
 }
 
 /* --- Body --- */
@@ -1947,7 +1952,7 @@ body.is-mobile .typify-swatch-panel {
     align-items: flex-start;
     gap: 8px;
     font-size: 12.5px;
-    color: var(--typify-text-2);
+    color: var(--text-muted);
     line-height: 1.55;
 }
 
@@ -1969,33 +1974,33 @@ body.is-mobile .typify-swatch-panel {
 }
 
 .typify-ct-new {
-    background: #dff0d6;
-    color: #3B6D11;
+    background: var(--typify-ok-bg);
+    color: var(--typify-ok);
 }
 
 .typify-ct-imp {
-    background: #faeeda;
-    color: #925c0f;
+    background: var(--typify-warn-bg);
+    color: var(--typify-warn);
 }
 
 .typify-ct-fix {
-    background: #dce8f8;
-    color: #185FA5;
+    background: var(--typify-info-bg);
+    color: var(--typify-info);
 }
 
 .typify-ct-brk {
-    background: #fde8e8;
-    color: #A32D2D;
+    background: var(--typify-brk-bg);
+    color: var(--typify-brk);
 }
 
 /* Inline Code */
 .typify-inline-code {
     font-family: var(--font-monospace, monospace) !important;
     font-size: 11.5px !important;
-    background: #dddad3 !important;
+    background: color-mix(in srgb, var(--text-muted) 15%, transparent) !important;
     padding: 1px 5px !important;
     border-radius: 3px !important;
-    color: #3d3c3a !important;
+    color: var(--text-normal) !important;
 }
 
 /* --- Footer --- */
@@ -2020,7 +2025,7 @@ body.is-mobile .typify-swatch-panel {
 .typify-modal-error {
     padding: 20px 22px;
     font-size: 13px;
-    color: var(--typify-text-2);
+    color: var(--text-muted);
     line-height: 1.6;
 }
 
