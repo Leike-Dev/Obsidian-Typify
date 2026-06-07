@@ -1832,3 +1832,271 @@ body.is-mobile .typify-swatch-panel {
 .csi-experimental-warning li:last-child {
     margin-bottom: 0;
 }
+/* ==========================================================================
+   CHANGELOG MODAL
+   ========================================================================== */
+
+/* Color Variables (scoped to modal) */
+.typify-changelog-modal {
+	--typify-warn:   #925c0f;
+	--typify-warn-bg: #fdf3e3;
+	--typify-warn-bd: #e8c07a;
+
+	--typify-info:   #185FA5;
+	--typify-info-bg: #e8f0fb;
+	--typify-info-bd: #9bbde3;
+
+	--typify-ok:     #3B6D11;
+	--typify-ok-bg:  #eaf3e4;
+	--typify-ok-bd:  #96c47e;
+
+	--typify-surface:   #f1efe8;
+	--typify-surface-2: #ebe9e2;
+	--typify-border:    #dddad3;
+	--typify-text:      #2c2c2a;
+	--typify-text-2:    #5f5e5a;
+	--typify-text-3:    #888780;
+
+	--typify-accent:    #BA7517;
+	--typify-accent-dk: #9a6312;
+
+	padding: 0 !important;
+	background: var(--typify-surface) !important;
+	border-radius: 8px !important;
+	overflow: hidden !important;
+	max-width: 520px !important;
+	width: 100% !important;
+}
+
+/* --- Header --- */
+
+.typify-modal-head {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 20px 22px 14px;
+}
+
+.typify-modal-head-text {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+}
+
+.typify-modal-title {
+	font-size: 16px !important;
+	font-weight: 600 !important;
+	color: var(--typify-text) !important;
+	line-height: 1.25 !important;
+	margin: 0 !important;
+}
+
+.typify-modal-sub {
+	font-size: 12px !important;
+	color: var(--typify-text-3) !important;
+	margin: 0 !important;
+}
+
+.typify-modal-close {
+	background: none !important;
+	border: none !important;
+	cursor: pointer !important;
+	color: var(--typify-text-3) !important;
+	font-size: 16px !important;
+	line-height: 1 !important;
+	padding: 0 !important;
+	box-shadow: none !important;
+	flex-shrink: 0;
+}
+
+.typify-modal-close:hover {
+	color: var(--typify-text) !important;
+}
+
+/* --- Body --- */
+
+.typify-modal-body {
+	max-height: 50vh;
+	overflow-y: auto;
+	padding: 0 22px 18px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+/* --- Notice Boxes --- */
+
+.typify-notice-box {
+	border-radius: 6px;
+	padding: 11px 14px;
+	border: 1px solid;
+}
+
+.typify-box-warn {
+	background: var(--typify-warn-bg);
+	border-color: var(--typify-warn-bd);
+}
+
+.typify-box-info {
+	background: var(--typify-info-bg);
+	border-color: var(--typify-info-bd);
+}
+
+.typify-box-ok {
+	background: var(--typify-ok-bg);
+	border-color: var(--typify-ok-bd);
+}
+
+/* Box Inner Title */
+.typify-box-title {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 12.5px;
+	font-weight: 500;
+	margin-bottom: 8px;
+}
+
+.typify-box-ok    .typify-box-title { color: var(--typify-ok); }
+.typify-box-info  .typify-box-title { color: var(--typify-info); }
+.typify-box-warn  .typify-box-title { color: var(--typify-warn); }
+
+.typify-box-icon {
+	font-size: 13px;
+}
+
+/* --- Entries --- */
+
+.typify-entry-list {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.typify-entry-row {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	font-size: 12.5px;
+	color: var(--typify-text-2);
+	line-height: 1.55;
+}
+
+.typify-entry-text {
+	flex: 1;
+}
+
+/* Colored Tags */
+.typify-changelog-tag {
+	display: inline-block;
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	padding: 2px 6px;
+	border-radius: 3px;
+	flex-shrink: 0;
+	margin-top: 2px;
+	line-height: 1.4;
+}
+
+.typify-ct-new {
+	background: #dff0d6;
+	color: #3B6D11;
+}
+
+.typify-ct-imp {
+	background: #faeeda;
+	color: #925c0f;
+}
+
+.typify-ct-fix {
+	background: #dce8f8;
+	color: #185FA5;
+}
+
+.typify-ct-brk {
+	background: #fde8e8;
+	color: #A32D2D;
+}
+
+/* Inline Code */
+.typify-inline-code {
+	font-family: var(--font-monospace, monospace) !important;
+	font-size: 11.5px !important;
+	background: #dddad3 !important;
+	padding: 1px 5px !important;
+	border-radius: 3px !important;
+	color: #3d3c3a !important;
+}
+
+/* --- Footer --- */
+
+.typify-modal-foot {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 12px 22px;
+	border-top: 1px solid var(--typify-border);
+	background: var(--typify-surface-2);
+}
+
+
+
+.typify-btn-group {
+	justify-content: flex-end;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+/* --- Buttons --- */
+
+.typify-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	font-size: 13px;
+	padding: 7px 16px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-family: inherit;
+	text-decoration: none !important;
+	transition: filter 0.15s;
+	line-height: 1;
+}
+
+.typify-btn:hover {
+	filter: brightness(0.93);
+}
+
+.typify-btn-primary {
+	background: var(--typify-accent) !important;
+	border: 1px solid var(--typify-accent-dk) !important;
+	color: #fff2e0 !important;
+	font-weight: 500 !important;
+	box-shadow: none !important;
+}
+
+.typify-btn-ghost {
+	background: none !important;
+	border: 1px solid var(--typify-border) !important;
+	color: var(--typify-text-2) !important;
+	box-shadow: none !important;
+}
+
+.typify-btn-ghost:hover {
+	background: #e2dfd8 !important;
+}
+
+/* --- Error --- */
+
+.typify-modal-error {
+	padding: 20px 22px;
+	font-size: 13px;
+	color: var(--typify-text-2);
+	line-height: 1.6;
+}
+
+.typify-changelog-badge-new { background-color: var(--typify-accent, #e67e22); color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; vertical-align: middle; margin-left: 6px; }

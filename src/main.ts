@@ -20,6 +20,12 @@ export default class TypifyPlugin extends Plugin {
     async onload() {
         await this.loadSettings();
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        this.registerEvent((this.app.workspace as any).on('typify:version-seen', async (version: string) => {
+            this.settings.lastSeenVersion = version;
+            await this.saveSettings();
+        }));
+
         // Initialize custom icons manager
         this.customIconsManager = new CustomIconsManager(this.app, this.manifest.id);
         if (this.settings.enableCustomIcons) {

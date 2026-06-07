@@ -13,6 +13,7 @@ export default tseslint.config(
         "package.json",
         "package-lock.json",
         "tsconfig.json",
+        "**/*.d.ts",
     ]),
     {
         languageOptions: {

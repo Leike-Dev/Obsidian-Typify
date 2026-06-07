@@ -5,6 +5,7 @@ import { ExportSettingsModal } from './ui/ExportSettingsModal';
 import { ImportSettingsModal } from './ui/ImportSettingsModal';
 import { PaletteModal } from './ui/PaletteModal';
 import { FaviconsModal } from './ui/FaviconsModal';
+import { ChangelogModal } from './ui/ChangelogModal';
 import type TypifyPlugin from './main';
 import { t } from './lang/helpers';
 
@@ -33,6 +34,26 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         const { containerEl } = this;
         containerEl.empty();
         containerEl.addClass('csi-settings-container');
+
+        // ================================================================
+        // SECTION: ABOUT / TYPIFY
+        // ================================================================
+        new Setting(containerEl).setName(t('section_about_title')).setHeading();
+
+        const changelogSetting = new Setting(containerEl)
+            .setName(t('changelog_title'))
+            .setDesc(t('changelog_desc'))
+            .addButton(button => button
+                .setButtonText(t('changelog_button'))
+                .onClick(() => {
+                    new ChangelogModal(this.app, this.plugin.manifest, () => { this.display(); }).open();
+                }));
+
+        if (this.plugin.settings.lastSeenVersion !== this.plugin.manifest.version) {
+            const nameEl = changelogSetting.nameEl;
+            nameEl.setText(t('changelog_title') + ' ');
+            nameEl.createSpan({ text: t('changelog_badge_new'), cls: 'typify-changelog-badge-new' });
+        }
 
         // ================================================================
         // SECTION 1: CONFIGURATION
