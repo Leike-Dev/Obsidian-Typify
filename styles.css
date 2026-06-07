@@ -1963,7 +1963,8 @@ body.is-mobile .typify-swatch-panel {
 /* Colored Tags */
 .typify-changelog-tag {
     display: inline-block;
-    font-size: 10px;
+    font-family: var(--font-monospace, monospace);
+    font-size: 10.5px;
     font-weight: 700;
     letter-spacing: 0.05em;
     padding: 2px 6px;
@@ -2032,7 +2033,8 @@ body.is-mobile .typify-swatch-panel {
 .typify-changelog-badge-new {
     color: var(--typify-accent, #e67e22);
     background: color-mix(in srgb, var(--typify-accent, #e67e22) 15%, transparent);
-    font-size: 10px;
+    font-family: var(--font-monospace, monospace);
+    font-size: 10.5px;
     font-weight: bold;
     padding: 2px 6px;
     border-radius: 4px;
