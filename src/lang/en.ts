@@ -139,7 +139,7 @@ export const en = {
     'hide_remove_button_bases': 'Only in Bases',
     'hide_remove_button_both': 'In both',
 
-// Link Styles
+    // Link Styles
     'link_styles_toggle_title': 'Associated links',
     'link_styles_toggle_desc': 'Replaces URLs in pills with the style name, keeping the native link click behavior.',
     'link_url_title': 'Associated Link',
@@ -195,5 +195,20 @@ export const en = {
     'favicon_fetch_tooltip': 'Fetch favicon',
     'favicon_invalid_url': 'Invalid or incomplete URL.',
     'favicon_fetch_failed': 'Typify: Failed to download favicon for {domain}',
-    'favicon_fetch_success': 'Favicon for {domain} downloaded successfully!'
+    'favicon_fetch_success': 'Favicon for {domain} downloaded successfully!',
+
+    // Changelog
+    'section_about_title': 'Typify',
+    'changelog_title': 'Changelog',
+    'changelog_desc': 'See what changed since the last update.',
+    'changelog_button': 'View changelog',
+    'changelog_badge_new': 'New version',
+    'changelog_modal_title': "What's new — Typify {version}",
+    'changelog_modal_date': 'Updated on {date}',
+    'btn_github': 'View on GitHub',
+    'btn_understand': 'I understand',
+    'group_new_imp': 'New & improved',
+    'group_fix': 'Fixes',
+    'group_brk': 'Breaking changes',
+    'changelog_error': 'Could not load update history.'
 };

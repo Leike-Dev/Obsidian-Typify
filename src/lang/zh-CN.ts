@@ -195,5 +195,20 @@ export const zhCN = {
     'favicon_fetch_tooltip': '获取图标',
     'favicon_invalid_url': '无效或不完整的URL。',
     'favicon_fetch_failed': 'Typify: 下载 {domain} 的图标失败',
-    'favicon_fetch_success': '{domain} 的图标下载成功！'
+    'favicon_fetch_success': '{domain} 的图标下载成功！',
+
+    // 更新日志
+    'section_about_title': 'Typify',
+    'changelog_title': '更新日志',
+    'changelog_desc': '查看自上次更新以来的变化。',
+    'changelog_button': '查看更新日志',
+    'changelog_badge_new': '新版本',
+    'changelog_modal_title': '新增内容 — Typify {version}',
+    'changelog_modal_date': '更新于 {date}',
+    'btn_github': '在 GitHub 上查看',
+    'btn_understand': '我明白了',
+    'group_new_imp': '新增与改进',
+    'group_fix': '修复',
+    'group_brk': '破坏性更新 (Breaking changes)',
+    'changelog_error': '无法加载更新历史记录。'
 };

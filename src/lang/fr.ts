@@ -195,5 +195,20 @@ export const fr = {
     'favicon_fetch_tooltip': 'Obtenir le favicon',
     'favicon_invalid_url': 'URL invalide ou incomplète.',
     'favicon_fetch_failed': 'Typify : Échec du téléchargement du favicon pour {domain}',
-    'favicon_fetch_success': 'Favicon de {domain} téléchargé avec succès !'
+    'favicon_fetch_success': 'Favicon de {domain} téléchargé avec succès !',
+
+    // Journal des modifications
+    'section_about_title': 'Typify',
+    'changelog_title': 'Journal des modifications',
+    'changelog_desc': 'Découvrez ce qui a changé depuis la dernière mise à jour.',
+    'changelog_button': 'Voir les nouveautés',
+    'changelog_badge_new': 'Nouvelle version',
+    'changelog_modal_title': 'Quoi de neuf — Typify {version}',
+    'changelog_modal_date': 'Mis à jour le {date}',
+    'btn_github': 'Voir sur GitHub',
+    'btn_understand': 'Compris',
+    'group_new_imp': 'Nouveautés et améliorations',
+    'group_fix': 'Corrections',
+    'group_brk': 'Breaking changes',
+    'changelog_error': "Impossible de charger l'historique des mises à jour."
 };

@@ -196,5 +196,20 @@ export const ptBR = {
     'favicon_fetch_tooltip': 'Buscar favicon',
     'favicon_invalid_url': 'URL inválida ou incompleta.',
     'favicon_fetch_failed': 'Typify: Falha ao baixar favicon de {domain}',
-    'favicon_fetch_success': 'Favicon de {domain} baixado com sucesso!'
+    'favicon_fetch_success': 'Favicon de {domain} baixado com sucesso!',
+
+    // Quadro de novidades
+    'section_about_title': 'Typify',
+    'changelog_title': 'Quadro de novidades',
+    'changelog_desc': 'Veja o que mudou desde a última atualização.',
+    'changelog_button': 'Ver novidades',
+    'changelog_badge_new': 'Nova versão',
+    'changelog_modal_title': 'O que há de novo — Typify {version}',
+    'changelog_modal_date': 'Atualizado em {date}',
+    'btn_github': 'Ver no GitHub',
+    'btn_understand': 'Entendi',
+    'group_new_imp': 'Novidades & melhorias',
+    'group_fix': 'Correções',
+    'group_brk': 'Breaking changes',
+    'changelog_error': 'Não foi possível carregar o histórico de atualizações.'
 };
