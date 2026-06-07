@@ -2025,8 +2025,8 @@ body.is-mobile .typify-swatch-panel {
 }
 
 .typify-changelog-badge-new {
-    background-color: var(--typify-accent, #e67e22);
-    color: white;
+    color: var(--typify-accent, #e67e22);
+    background: color-mix(in srgb, var(--typify-accent, #e67e22) 15%, transparent);
     font-size: 10px;
     font-weight: bold;
     padding: 2px 6px;
