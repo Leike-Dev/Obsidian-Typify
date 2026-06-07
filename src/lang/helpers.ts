@@ -20,7 +20,7 @@ const localeMap: Record<string, Partial<typeof en>> = {
     'zh-cn': zhCN,
 };
 
-const locale = getLanguage() || 'en';
+export const locale = getLanguage() || 'en';
 
 /** Type alias for valid translation keys derived from the English locale. */
 export type TranslationKey = keyof typeof en;

@@ -1,7 +1,15 @@
 import { App, Modal, PluginManifest, setIcon } from "obsidian";
 // @ts-ignore
-import changelogText from "../../CHANGELOG.md";
-import { t } from "../lang/helpers";
+import changelogEn from "../../changelogs/en.md";
+// @ts-ignore
+import changelogPt from "../../changelogs/pt-br.md";
+// @ts-ignore
+import changelogEs from "../../changelogs/es.md";
+// @ts-ignore
+import changelogFr from "../../changelogs/fr.md";
+// @ts-ignore
+import changelogZh from "../../changelogs/zh-cn.md";
+import { t, locale } from "../lang/helpers";
 
 // Types
 
@@ -129,6 +137,16 @@ export class ChangelogModal extends Modal {
 		const { contentEl } = this;
 		contentEl.empty();
 		contentEl.addClass("typify-changelog-modal");
+
+		// We use eslint-disable for unsafe-assignment because the .md files are imported
+		// using @ts-ignore (no native type declaration), causing TypeScript to assume they are 'any'.
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+		let changelogText = changelogEn;
+		const lowerLocale = locale.toLowerCase();
+		if (lowerLocale.startsWith('pt')) changelogText = changelogPt; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+		else if (lowerLocale.startsWith('es')) changelogText = changelogEs; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+		else if (lowerLocale.startsWith('fr')) changelogText = changelogFr; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+		else if (lowerLocale.startsWith('zh')) changelogText = changelogZh; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
 
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
 		const versions = parseChangelog(changelogText as any);
