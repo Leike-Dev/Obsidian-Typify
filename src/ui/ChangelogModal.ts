@@ -139,10 +139,11 @@ export class ChangelogModal extends Modal {
 
 		// Always displays only the current version (first in the file)
 		const latest = versions[0] as ChangelogVersion;
-		const githubUrl = `https://github.com/Leike-Dev/Obsidian-Typify/releases/tag/${latest.version}`;
+		const currentVersion = this.manifest.version;
+		const githubUrl = `https://github.com/Leike-Dev/Obsidian-Typify/releases/tag/${currentVersion}`;
 
 		// Header
-		this.titleEl.setText(t('changelog_modal_title').replace('{version}', latest.version));
+		this.titleEl.setText(t('changelog_modal_title').replace('{version}', currentVersion));
 
 		contentEl.createEl("p", {
 			cls: "typify-modal-sub",
@@ -202,7 +203,7 @@ export class ChangelogModal extends Modal {
 			text: t('btn_understand'),
 		});
 		confirmBtn.addEventListener("click", () => {
-			this.app.workspace.trigger("typify:version-seen", latest.version);
+			this.app.workspace.trigger("typify:version-seen", currentVersion);
 			this.close();
 		});
 	}
