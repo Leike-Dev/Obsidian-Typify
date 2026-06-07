@@ -1801,7 +1801,7 @@ body.is-mobile .typify-swatch-panel {
 }
 
 .typify-section-header-flex .typify-card-section-title {
-    margin-bottom: 0 !important;
+    margin-bottom: 0;
 }
 
 .typify-info-icon {
@@ -1868,11 +1868,11 @@ body.is-mobile .typify-swatch-panel {
 
 /* --- Body --- */
 
-.typify-modal-sub {
-    font-size: 13px !important;
-    color: var(--text-muted) !important;
-    margin-top: 0 !important;
-    margin-bottom: 20px !important;
+.typify-changelog-modal .typify-modal-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 0;
+    margin-bottom: 20px;
 }
 
 .typify-modal-body {
@@ -1994,13 +1994,13 @@ body.is-mobile .typify-swatch-panel {
 }
 
 /* Inline Code */
-.typify-inline-code {
-    font-family: var(--font-monospace, monospace) !important;
-    font-size: 11.5px !important;
-    background: color-mix(in srgb, var(--text-muted) 15%, transparent) !important;
-    padding: 1px 5px !important;
-    border-radius: 3px !important;
-    color: var(--text-normal) !important;
+.typify-changelog-modal .typify-inline-code {
+    font-family: var(--font-monospace, monospace);
+    font-size: 11.5px;
+    background: color-mix(in srgb, var(--text-muted) 15%, transparent);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--text-normal);
 }
 
 /* --- Footer --- */
