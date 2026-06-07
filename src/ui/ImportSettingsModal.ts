@@ -84,6 +84,9 @@ export class ImportSettingsModal extends Modal {
         }
 
         // Apply settings
+        const oldEnableCustomIcons = this.plugin.settings.enableCustomIcons;
+        const oldEnableFavicons = this.plugin.settings.enableFavicons;
+
         if (typeof data.targetProperty === 'string' && data.targetProperty.trim()) {
             this.plugin.settings.targetProperty = data.targetProperty;
         }
@@ -119,6 +122,23 @@ export class ImportSettingsModal extends Modal {
         this.plugin.settings.statusStyles = validStyles;
 
         await this.plugin.saveSettings();
+
+        // Handle side-effects for managers that don't auto-reload on saveSettings
+        if (this.plugin.settings.enableCustomIcons !== oldEnableCustomIcons) {
+            if (this.plugin.settings.enableCustomIcons) {
+                void this.plugin.customIconsManager.initialize();
+            } else {
+                this.plugin.customIconsManager.clear();
+            }
+        }
+
+        if (this.plugin.settings.enableFavicons !== oldEnableFavicons) {
+            if (this.plugin.settings.enableFavicons) {
+                void this.plugin.faviconManager.initialize();
+            } else {
+                this.plugin.faviconManager.cleanupActiveUrls();
+            }
+        }
 
         if (skipped > 0) {
             new Notice(t('import_partial_success')
