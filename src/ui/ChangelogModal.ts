@@ -142,24 +142,12 @@ export class ChangelogModal extends Modal {
 		const githubUrl = `https://github.com/Leike-Dev/Obsidian-Typify/releases/tag/${latest.version}`;
 
 		// Header
-		const head = contentEl.createDiv({ cls: "typify-modal-head" });
+		this.titleEl.setText(t('changelog_modal_title').replace('{version}', latest.version));
 
-		const headText = head.createDiv({ cls: "typify-modal-head-text" });
-		headText.createEl("h2", {
-			cls: "typify-modal-title",
-			text: t('changelog_modal_title').replace('{version}', latest.version),
-		});
-		headText.createEl("p", {
+		contentEl.createEl("p", {
 			cls: "typify-modal-sub",
 			text: t('changelog_modal_date').replace('{date}', latest.date),
 		});
-
-		const closeBtn = head.createEl("button", {
-			cls: "typify-modal-close",
-			attr: { "aria-label": "Fechar" },
-		});
-		closeBtn.textContent = "✕";
-		closeBtn.addEventListener("click", () => this.close());
 
 		// Body (Scrollable)
 		const body = contentEl.createDiv({ cls: "typify-modal-body" });
@@ -203,11 +191,8 @@ export class ChangelogModal extends Modal {
 		// Buttons (right-aligned)
 		const btnGroup = foot.createDiv({ cls: "typify-btn-group" });
 
-		const githubBtn = btnGroup.createEl("a", {
-			cls: "typify-btn typify-btn-ghost",
+		const githubBtn = btnGroup.createEl("button", {
 			text: t('btn_github'),
-			href: githubUrl,
-			attr: { target: "_blank", rel: "noopener noreferrer" },
 		});
 		githubBtn.addEventListener("click", (e) => {
 			e.stopPropagation();
@@ -215,7 +200,7 @@ export class ChangelogModal extends Modal {
 		});
 
 		const confirmBtn = btnGroup.createEl("button", {
-			cls: "typify-btn typify-btn-primary",
+			cls: "mod-cta",
 			text: t('btn_understand'),
 		});
 		confirmBtn.addEventListener("click", () => {
@@ -238,7 +223,6 @@ export class ChangelogModal extends Modal {
 		});
 
 		const closeBtn = container.createEl("button", {
-			cls: "typify-btn typify-btn-ghost",
 			text: "Close",
 		});
 		closeBtn.addEventListener("click", () => this.close());

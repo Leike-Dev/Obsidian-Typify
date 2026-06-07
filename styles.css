@@ -1857,72 +1857,22 @@ body.is-mobile .typify-swatch-panel {
 	--typify-text-2:    #5f5e5a;
 	--typify-text-3:    #888780;
 
-	--typify-accent:    #BA7517;
 	--typify-accent-dk: #9a6312;
-
-	padding: 0 !important;
-	background: var(--typify-surface) !important;
-	border-radius: 8px !important;
-	overflow: hidden !important;
-	max-width: 520px !important;
-	width: 100% !important;
-}
-
-/* --- Header --- */
-
-.typify-modal-head {
-	display: flex;
-	align-items: flex-start;
-	justify-content: space-between;
-	gap: 12px;
-	padding: 20px 22px 14px;
-}
-
-.typify-modal-head-text {
-	display: flex;
-	flex-direction: column;
-	gap: 3px;
-}
-
-.typify-modal-title {
-	font-size: 16px !important;
-	font-weight: 600 !important;
-	color: var(--typify-text) !important;
-	line-height: 1.25 !important;
-	margin: 0 !important;
-}
-
-.typify-modal-sub {
-	font-size: 12px !important;
-	color: var(--typify-text-3) !important;
-	margin: 0 !important;
-}
-
-.typify-modal-close {
-	background: none !important;
-	border: none !important;
-	cursor: pointer !important;
-	color: var(--typify-text-3) !important;
-	font-size: 16px !important;
-	line-height: 1 !important;
-	padding: 0 !important;
-	box-shadow: none !important;
-	flex-shrink: 0;
-}
-
-.typify-modal-close:hover {
-	color: var(--typify-text) !important;
 }
 
 /* --- Body --- */
 
+.typify-modal-sub {
+	font-size: 13px !important;
+	color: var(--text-muted) !important;
+	margin-top: 0 !important;
+	margin-bottom: 20px !important;
+}
+
 .typify-modal-body {
-	max-height: 50vh;
-	overflow-y: auto;
-	padding: 0 22px 18px;
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+	gap: 12px;
 }
 
 /* --- Notice Boxes --- */
@@ -2035,59 +1985,16 @@ body.is-mobile .typify-swatch-panel {
 .typify-modal-foot {
 	display: flex;
 	align-items: center;
-	gap: 8px;
-	padding: 12px 22px;
-	border-top: 1px solid var(--typify-border);
-	background: var(--typify-surface-2);
+	margin-top: 24px;
+	padding-top: 16px;
 }
-
-
 
 .typify-btn-group {
 	justify-content: flex-end;
 	width: 100%;
 	display: flex;
 	align-items: center;
-	gap: 8px;
-}
-
-/* --- Buttons --- */
-
-.typify-btn {
-	display: inline-flex;
-	align-items: center;
-	gap: 5px;
-	font-size: 13px;
-	padding: 7px 16px;
-	border-radius: 5px;
-	cursor: pointer;
-	font-family: inherit;
-	text-decoration: none !important;
-	transition: filter 0.15s;
-	line-height: 1;
-}
-
-.typify-btn:hover {
-	filter: brightness(0.93);
-}
-
-.typify-btn-primary {
-	background: var(--typify-accent) !important;
-	border: 1px solid var(--typify-accent-dk) !important;
-	color: #fff2e0 !important;
-	font-weight: 500 !important;
-	box-shadow: none !important;
-}
-
-.typify-btn-ghost {
-	background: none !important;
-	border: 1px solid var(--typify-border) !important;
-	color: var(--typify-text-2) !important;
-	box-shadow: none !important;
-}
-
-.typify-btn-ghost:hover {
-	background: #e2dfd8 !important;
+	gap: 12px;
 }
 
 /* --- Error --- */
