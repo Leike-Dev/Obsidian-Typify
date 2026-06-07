@@ -170,7 +170,7 @@ export class ChangelogModal extends Modal {
 			});
 
 			// Entries
-			const list = box.createDiv({ cls: "typify-entry-list" });
+			const list = box.createDiv({ cls: "typify-entry-list csi-manager-list" });
 			for (const entry of groupEntries) {
 				const row = list.createDiv({ cls: "typify-entry-row" });
 

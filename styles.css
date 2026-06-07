@@ -1924,6 +1924,15 @@ body.is-mobile .typify-swatch-panel {
 	gap: 6px;
 }
 
+.typify-notice-box .csi-manager-list {
+	max-height: 250px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	margin-top: 8px;
+	-webkit-mask-image: linear-gradient(to bottom, transparent 0, black 6px, black calc(100% - 6px), transparent 100%);
+	mask-image: linear-gradient(to bottom, transparent 0, black 6px, black calc(100% - 6px), transparent 100%);
+}
+
 .typify-entry-row {
 	display: flex;
 	align-items: flex-start;
