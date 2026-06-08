@@ -1,0 +1,150 @@
+/* ==========================================================================
+ * _tokens.css
+ * 
+ * Este arquivo contém as variáveis exclusivas (design tokens) do Typify.
+ * Cores, espaçamentos e variáveis globais específicas do plugin devem ser 
+ * declaradas aqui. Não devem sobrescrever as variáveis nativas do Obsidian.
+ * ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Badges & Tags (compartilhados entre Settings e Changelog)
+   -------------------------------------------------------------------------- */
+
+.typify-badge-info,
+.typify-experimental-tag,
+.typify-changelog-badge-new {
+    display: inline-block;
+    font-size: var(--font-ui-smaller);
+    font-weight: 500;
+    padding: 1px 7px;
+    border-radius: var(--radius-s);
+    vertical-align: middle;
+    line-height: 1.4;
+}
+
+.typify-experimental-tag {
+    color: var(--interactive-accent);
+    background: color-mix(in srgb, var(--interactive-accent) 15%, transparent);
+}
+
+.typify-experimental-heading {
+    margin-top: 24px;
+}
+
+/* --------------------------------------------------------------------------
+   Experimental Warning Box
+   -------------------------------------------------------------------------- */
+
+.csi-experimental-warning {
+    background-color: hsla(35, 80%, 55%, 0.12);
+    border: 1px solid hsla(35, 70%, 50%, 0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 8px 0 12px 0;
+}
+
+.theme-dark .csi-experimental-warning {
+    background-color: hsla(30, 70%, 45%, 0.15);
+    border-color: hsla(30, 60%, 45%, 0.25);
+}
+
+.csi-experimental-warning .warning-text {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: var(--font-ui-small);
+}
+
+.csi-experimental-warning ul {
+    margin-top: 8px;
+    margin-bottom: 0;
+    padding-left: 20px;
+}
+
+.csi-experimental-warning li {
+    margin-bottom: 4px;
+}
+
+.csi-experimental-warning li:last-child {
+    margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Image Tag Styles (pills com imagem)
+   -------------------------------------------------------------------------- */
+
+body .multi-select-pill.custom-status-icon-pill.typify-is-image .multi-select-pill-content::before,
+body .custom-status-icon-value.typify-is-image::before {
+    -webkit-mask-image: none;
+    mask-image: none;
+    background-image: var(--pill-image-url);
+    background-color: transparent;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* Reduce image size in card view to match standard icon and prevent clipping */
+body .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value.typify-is-image::before,
+body .bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value.typify-is-image::before {
+    width: 14px;
+    height: 14px;
+    margin-right: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Image Preview Classes (Modals & Pickers)
+   -------------------------------------------------------------------------- */
+
+/* Shared base for all circular image previews */
+.typify-img-preview {
+    display: inline-block;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+}
+
+/* Icon button in StyleEditorModal (24px avatar) */
+.typify-img-btn-preview {
+    width: 24px;
+    height: 24px;
+}
+
+/* Icon preview inside preview pills (18px) */
+.typify-img-pill-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-right: 4px;
+}
+
+/* Icon preview in StyleManagerModal list (14px) */
+.typify-img-manager-preview {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+}
+
+/* Image preview in icon picker suggestion list */
+.typify-img-picker-preview {
+    width: 1em;
+    height: 1em;
+}
+
+/* Pill icon span in preview (standard icon sizing) */
+.csi-preview-pill-icon {
+    display: inline-flex;
+    align-items: center;
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
+    flex-shrink: 0;
+}
+
+.csi-preview-pill-icon svg {
+    width: 14px;
+    height: 14px;
+}

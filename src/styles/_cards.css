@@ -1,0 +1,149 @@
+/* ==========================================================================
+ * _cards.css
+ * 
+ * Componentes de layout em grade (cards), tipicamente usados para exibir 
+ * de forma atraente as opções visuais (formas de pill, provedores, etc).
+ * ========================================================================== */
+
+.typify-card-section {
+    padding: 8px 0 0 0;
+    margin-bottom: 8px;
+}
+
+.typify-card-section-title {
+    font-weight: normal;
+    font-size: var(--font-ui-small);
+    color: var(--text-normal);
+    margin-bottom: 12px;
+}
+
+.typify-card-section-desc {
+    display: none;
+    /* Removed via JS, keeping here for safety */
+}
+
+.typify-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--size-4-2);
+}
+
+.typify-fmt-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 8px 10px;
+    border-radius: var(--radius-m);
+    border: none;
+    background: var(--background-secondary);
+    cursor: pointer;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+    user-select: none;
+}
+
+.typify-fmt-card:hover {
+    background: var(--background-modifier-hover);
+}
+
+.typify-fmt-card:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--background-modifier-border-focus);
+}
+
+.typify-fmt-card.is-selected {
+    background: color-mix(in srgb, var(--interactive-accent) 25%, transparent);
+    box-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
+   Card Thumbnails (SVG shapes)
+   -------------------------------------------------------------------------- */
+
+.typify-fmt-thumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.typify-fmt-thumb svg {
+    display: block;
+}
+
+.typify-fmt-thumb svg .svg-bg {
+    fill: color-mix(in srgb, var(--text-normal) 10%, transparent);
+    transition: fill 0.15s ease;
+}
+
+.typify-fmt-thumb svg .svg-fg {
+    fill: color-mix(in srgb, var(--text-normal) 40%, transparent);
+    transition: fill 0.15s ease;
+}
+
+.typify-fmt-thumb svg .svg-stroke {
+    stroke: color-mix(in srgb, var(--text-normal) 10%, transparent);
+    transition: stroke 0.15s ease;
+}
+
+.typify-fmt-thumb svg .svg-line {
+    fill: none;
+    stroke: color-mix(in srgb, var(--text-normal) 40%, transparent);
+    transition: stroke 0.15s ease;
+}
+
+.typify-fmt-card.is-selected .typify-fmt-thumb svg .svg-bg {
+    fill: color-mix(in srgb, var(--interactive-accent) 25%, transparent);
+}
+
+.typify-fmt-card.is-selected .typify-fmt-thumb svg .svg-fg {
+    fill: var(--interactive-accent);
+}
+
+.typify-fmt-card.is-selected .typify-fmt-thumb svg .svg-stroke {
+    stroke: color-mix(in srgb, var(--interactive-accent) 25%, transparent);
+}
+
+.typify-fmt-card.is-selected .typify-fmt-thumb svg .svg-line {
+    fill: none;
+    stroke: var(--interactive-accent);
+}
+
+.typify-fmt-thumb svg .svg-solid-bg {
+    fill: color-mix(in srgb, var(--text-normal) 50%, transparent);
+    transition: fill 0.15s ease;
+}
+
+.typify-fmt-thumb svg .svg-solid-fg {
+    fill: var(--background-primary);
+    transition: fill 0.15s ease;
+}
+
+.typify-fmt-card.is-selected .typify-fmt-thumb svg .svg-solid-bg {
+    fill: var(--interactive-accent);
+}
+
+.typify-fmt-card.is-selected .typify-fmt-thumb svg .svg-solid-fg {
+    fill: var(--text-on-accent, #ffffff);
+}
+
+/* --------------------------------------------------------------------------
+   Card Labels
+   -------------------------------------------------------------------------- */
+
+.typify-fmt-label {
+    font-size: var(--font-ui-smaller);
+    color: var(--text-muted);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    transition: color 0.15s ease;
+}
+
+.typify-fmt-card.is-selected .typify-fmt-label {
+    color: var(--text-normal);
+    font-weight: 500;
+}

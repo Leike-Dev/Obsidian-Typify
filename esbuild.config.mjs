@@ -11,7 +11,10 @@ if you want to view the source, please visit the github repository of this plugi
 
 const prod = (process.argv[2] === "production");
 
-const context = await esbuild.context({
+/* --------------------------------------------------------------------------
+   JS Bundle (main.ts → main.js)
+   -------------------------------------------------------------------------- */
+const jsContext = await esbuild.context({
     banner: {
         js: banner,
     },
@@ -40,9 +43,22 @@ const context = await esbuild.context({
     outfile: "main.js",
 });
 
+/* --------------------------------------------------------------------------
+   CSS Bundle (src/styles/styles.css → styles.css)
+   -------------------------------------------------------------------------- */
+const cssContext = await esbuild.context({
+    entryPoints: ["src/styles/styles.css"],
+    bundle: true,
+    minify: prod,
+    logLevel: "info",
+    outfile: "styles.css",
+});
+
 if (prod) {
-    await context.rebuild();
+    await jsContext.rebuild();
+    await cssContext.rebuild();
     process.exit(0);
 } else {
-    await context.watch();
+    await jsContext.watch();
+    await cssContext.watch();
 }

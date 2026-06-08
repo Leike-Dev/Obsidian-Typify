@@ -1,0 +1,310 @@
+/* ==========================================================================
+ * _palette.css
+ * 
+ * Estilos da paleta de cores (Palette Manager) e do componente Swatch Strip,
+ * permitindo a seleção, visualização e geração de cores dinâmicas.
+ * ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Palette Section (Modal)
+   -------------------------------------------------------------------------- */
+
+/* "Your colors" heading row — title + clear button */
+.typify-palette-your-colors-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    margin-bottom: 15px;
+}
+
+.typify-palette-your-colors-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.typify-palette-your-colors-left .typify-card-section-title {
+    margin-bottom: 0;
+}
+
+/* Clear button (inline with heading) */
+.typify-palette-clear-btn {
+    color: var(--text-muted);
+    opacity: 0.7;
+    transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+.typify-palette-clear-btn:hover {
+    color: var(--text-error);
+    opacity: 1;
+}
+
+/* Card section inside palette (reuses .typify-card-grid / .typify-fmt-card) */
+.typify-palette-card-section {
+    padding: 0 0 4px 0;
+    margin-bottom: 10px;
+}
+
+/* Counter — inline with heading */
+.typify-palette-counter {
+    font-size: var(--font-ui-smaller);
+    color: var(--text-muted);
+}
+
+/* Preview container — visible bordered box */
+.typify-palette-preview-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: none;
+    border-radius: var(--radius-l);
+    padding: 16px;
+    margin-bottom: 16px;
+    background: var(--background-secondary);
+}
+
+.typify-palette-preview-header {
+    font-size: var(--font-ui-smaller);
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* Preview strip area */
+.typify-palette-preview {
+    display: flex;
+    width: 100%;
+    height: 36px;
+    border-radius: var(--radius-s);
+    overflow: hidden;
+}
+
+.typify-palette-preview-seg {
+    flex: 1;
+    height: 100%;
+    transition: filter 0.15s ease;
+}
+
+.typify-palette-preview-seg:hover {
+    filter: brightness(1.1);
+}
+
+/* Actions Row (Add, Generate, ColorPicker) */
+.typify-palette-actions-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    width: 100%;
+    gap: 8px;
+}
+
+.typify-palette-actions-left,
+.typify-palette-actions-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.typify-palette-generate-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+/* Let Obsidian's native theme handle the button colors, borders, and weights.
+   We just need them to not wrap their text. */
+.typify-palette-add-all-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.typify-palette-add-all-btn:hover,
+.typify-palette-generate-btn:hover {
+    opacity: 0.9;
+}
+
+/* Base button disabled states */
+.typify-palette-add-all-btn.is-disabled,
+.typify-palette-generate-btn.is-disabled {
+    opacity: 0.35;
+    cursor: default;
+    pointer-events: none;
+}
+
+.typify-palette-add-all-btn.is-hidden {
+    display: none;
+}
+
+/* Custom flat color picker input */
+.typify-palette-color-picker {
+    display: flex;
+    align-self: stretch;
+    align-items: stretch;
+}
+
+.typify-palette-color-picker input[type="color"] {
+    display: block;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 32px;
+    height: 32px;
+    aspect-ratio: 1;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    cursor: var(--cursor);
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.typify-palette-color-picker input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.typify-palette-color-picker input[type="color"]::-webkit-color-swatch {
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+}
+
+.typify-palette-color-picker input[type="color"]::-moz-color-swatch {
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   Swatch Strip Component
+   -------------------------------------------------------------------------- */
+
+.typify-swatch-strip-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.typify-hidden-color-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    border: none;
+    padding: 0;
+    margin: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.typify-swatch-strip {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 0.5px solid var(--color-border-tertiary);
+    height: 52px;
+}
+
+.typify-swatch-seg {
+    border: none;
+    background-image: none;
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+    transition: flex 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    min-width: 0;
+    padding: 0;
+}
+
+.typify-swatch-seg.is-active {
+    flex: 2.5 1 0%;
+    width: 100%;
+}
+
+.typify-swatch-seg:not(.is-active) {
+    flex: 1 1 0%;
+    width: 100%;
+}
+
+.typify-swatch-tick {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.95);
+    pointer-events: none;
+    filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+.typify-swatch-tick svg {
+    width: 20px;
+    height: 20px;
+}
+
+.typify-swatch-add {
+    width: 36px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--interactive-normal);
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    cursor: pointer;
+    color: var(--text-normal);
+    font-size: 20px;
+    transition: background 0.15s ease;
+}
+
+.typify-swatch-add:hover {
+    background: var(--interactive-hover);
+}
+
+.typify-swatch-panel {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: var(--background-secondary);
+    border-radius: 8px;
+}
+
+.typify-swatch-panel.is-visible {
+    display: flex;
+}
+
+.typify-panel-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 0.5px solid var(--color-border-secondary);
+}
+
+.typify-panel-hex {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-normal);
+    flex: 1;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    margin: 0;
+}
+
+.typify-panel-actions {
+    display: flex;
+    gap: 6px;
+    margin-left: auto;
+}
+
+/* Regra removida, counter agora fica na própria PaletteSection com estilo pré-existente */
+.typify-swatch-seg:not(.is-active) .typify-swatch-tick {
+    display: none;
+}

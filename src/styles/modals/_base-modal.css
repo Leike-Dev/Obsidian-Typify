@@ -1,0 +1,44 @@
+/* ==========================================================================
+ * _base-modal.css
+ * 
+ * Estrutura fundamental (DRY) compartilhada entre todos os modais do plugin.
+ * Define contêineres padrão de corpo, rodapé, e botões, eliminando a repetição
+ * de código css ao criar ou manter diferentes pop-ups na tela.
+ * ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Modal Body & Footer (shared across Changelog, Notices, etc.)
+   -------------------------------------------------------------------------- */
+
+.typify-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.typify-modal-foot {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding-top: 16px;
+}
+
+.typify-btn-group {
+    justify-content: flex-end;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   Modal Error State
+   -------------------------------------------------------------------------- */
+
+.typify-modal-error {
+    padding: 20px 22px;
+    font-family: var(--font-interface);
+    font-size: var(--font-ui-small, 13px);
+    color: var(--text-muted);
+    line-height: 1.6;
+}

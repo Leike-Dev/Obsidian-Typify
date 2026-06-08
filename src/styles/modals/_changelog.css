@@ -1,0 +1,209 @@
+/* ==========================================================================
+ * _changelog.css
+ * 
+ * Estilos visuais aplicados exclusivamente ao modal de "Novidades" (Changelog),
+ * responsável por exibir logs de atualização e badges informativos de novas versões.
+ * ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Color Variables (scoped to modal)
+   -------------------------------------------------------------------------- */
+
+.typify-changelog-modal {
+    /* Base colors (Light Mode) */
+    --typify-warn: #b07015;
+    --typify-info: #185FA5;
+    --typify-ok: #3B6D11;
+    --typify-brk: #A32D2D;
+
+    /* Backgrounds and Borders via color-mix */
+    --typify-warn-bg: color-mix(in srgb, var(--typify-warn) 12%, transparent);
+    --typify-warn-bd: color-mix(in srgb, var(--typify-warn) 25%, transparent);
+
+    --typify-info-bg: color-mix(in srgb, var(--typify-info) 12%, transparent);
+    --typify-info-bd: color-mix(in srgb, var(--typify-info) 25%, transparent);
+
+    --typify-ok-bg: color-mix(in srgb, var(--typify-ok) 12%, transparent);
+    --typify-ok-bd: color-mix(in srgb, var(--typify-ok) 25%, transparent);
+
+    --typify-brk-bg: color-mix(in srgb, var(--typify-brk) 12%, transparent);
+    --typify-brk-bd: color-mix(in srgb, var(--typify-brk) 25%, transparent);
+}
+
+.theme-dark .typify-changelog-modal {
+    /* Base colors (Dark Mode - lighter for contrast against dark background) */
+    --typify-warn: #e8b354;
+    --typify-info: #6daae8;
+    --typify-ok: #80cf55;
+    --typify-brk: #e86d6d;
+}
+
+/* --------------------------------------------------------------------------
+   Body
+   -------------------------------------------------------------------------- */
+
+.typify-changelog-modal .typify-modal-sub {
+    font-family: var(--font-interface);
+    font-size: var(--font-ui-small, 13px);
+    color: var(--text-muted);
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   Notice Boxes
+   -------------------------------------------------------------------------- */
+
+.typify-notice-box {
+    border-radius: 6px;
+    padding: 11px 14px;
+    border: 1px solid;
+}
+
+.typify-box-warn {
+    background: var(--typify-warn-bg);
+    border-color: var(--typify-warn-bd);
+}
+
+.typify-box-info {
+    background: var(--typify-info-bg);
+    border-color: var(--typify-info-bd);
+}
+
+.typify-box-ok {
+    background: var(--typify-ok-bg);
+    border-color: var(--typify-ok-bd);
+}
+
+.typify-box-brk {
+    background: var(--typify-brk-bg);
+    border-color: var(--typify-brk-bd);
+}
+
+/* Box Inner Title */
+.typify-box-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-interface);
+    font-size: var(--font-ui-small, 13px);
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.typify-box-ok .typify-box-title {
+    color: var(--typify-ok);
+}
+
+.typify-box-info .typify-box-title {
+    color: var(--typify-info);
+}
+
+.typify-box-warn .typify-box-title {
+    color: var(--typify-warn);
+}
+
+.typify-box-brk .typify-box-title {
+    color: var(--typify-brk);
+}
+
+.typify-box-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.typify-box-icon svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.2px;
+}
+
+/* --------------------------------------------------------------------------
+   Entries
+   -------------------------------------------------------------------------- */
+
+.typify-entry-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.typify-notice-box .csi-manager-list {
+    max-height: 90px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-top: 8px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 6px, black calc(100% - 6px), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, black 6px, black calc(100% - 6px), transparent 100%);
+}
+
+.typify-entry-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-family: var(--font-interface);
+    font-size: var(--font-ui-small, 13px);
+    line-height: 1.55;
+}
+
+.typify-entry-text {
+    flex: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Colored Tags
+   -------------------------------------------------------------------------- */
+
+.typify-changelog-tag {
+    display: inline-block;
+    font-family: var(--font-monospace, monospace);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 2px 6px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    line-height: 1.4;
+}
+
+.typify-ct-new {
+    background: var(--typify-ok-bg);
+    color: var(--typify-ok);
+}
+
+.typify-ct-imp {
+    background: var(--typify-warn-bg);
+    color: var(--typify-warn);
+}
+
+.typify-ct-fix {
+    background: var(--typify-info-bg);
+    color: var(--typify-info);
+}
+
+.typify-ct-brk {
+    background: var(--typify-brk-bg);
+    color: var(--typify-brk);
+}
+
+/* Inline Code */
+.typify-changelog-modal .typify-inline-code {
+    font-family: var(--font-monospace, monospace);
+    font-size: 11.5px;
+    background: color-mix(in srgb, var(--text-muted) 15%, transparent);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--text-normal);
+}
+
+/* --------------------------------------------------------------------------
+   Changelog Badge ("NEW" in settings)
+   -------------------------------------------------------------------------- */
+
+.typify-changelog-badge-new {
+    color: var(--typify-accent, #e67e22);
+    background: color-mix(in srgb, var(--typify-accent, #e67e22) 15%, transparent);
+    margin-left: 6px;
+}

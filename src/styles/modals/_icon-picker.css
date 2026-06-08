@@ -1,0 +1,104 @@
+/* ==========================================================================
+ * _icon-picker.css
+ * 
+ * Estilos do seletor visual de ícones, desenhando seu sistema de navegação
+ * por abas (Lucide, Emojis, SVGs) e a grade de renderização em fuzzy match.
+ * ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Icon Picker Button
+   -------------------------------------------------------------------------- */
+
+.csi-icon-picker-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.csi-btn-remove-icon:hover {
+    color: var(--text-error);
+}
+
+/* --------------------------------------------------------------------------
+   Icon Suggestion in Modal
+   -------------------------------------------------------------------------- */
+
+.csi-icon-suggestion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.csi-icon-suggestion-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.csi-icon-suggestion-icon svg {
+    width: 18px;
+    height: 18px;
+    max-width: 18px;
+    max-height: 18px;
+}
+
+.csi-icon-suggestion-name {
+    flex: 1;
+    font-family: var(--font-monospace);
+    font-size: 13px;
+}
+
+.csi-icon-recent-badge {
+    font-size: 8px;
+    color: var(--interactive-accent);
+}
+
+/* Custom icon badge in icon picker */
+.csi-icon-custom-badge {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-on-accent);
+    background-color: var(--interactive-accent);
+    padding: 1px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --------------------------------------------------------------------------
+   Icon Picker Tabs
+   -------------------------------------------------------------------------- */
+
+.typify-icon-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--background-modifier-border);
+    margin: 10px 10px 0 10px;
+}
+
+.typify-icon-tab {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    cursor: pointer;
+    font-size: var(--font-ui-small);
+    color: var(--text-muted);
+    transition: color 0.15s ease, border-color 0.15s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.typify-icon-tab:hover {
+    color: var(--text-normal);
+}
+
+.typify-icon-tab.is-active {
+    color: var(--text-normal);
+    border-bottom-color: var(--interactive-accent);
+    font-weight: 600;
+}

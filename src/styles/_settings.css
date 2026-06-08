@@ -1,0 +1,391 @@
+/* ==========================================================================
+ * _settings.css
+ * 
+ * Estilos para o painel principal de configurações do plugin (Settings Tab), 
+ * incluindo formatações para seletores, accordions e opções estruturais.
+ * ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Settings Container
+   -------------------------------------------------------------------------- */
+
+.csi-settings-container {
+    padding: 32px 48px;
+    width: 100%;
+    min-width: 400px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+}
+
+/* Header */
+.csi-settings-header {
+    margin-bottom: var(--size-4-6);
+}
+
+.csi-settings-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* --------------------------------------------------------------------------
+   Dropdown Settings Group (Collapsible)
+   -------------------------------------------------------------------------- */
+
+/* When expanded, the header loses its bottom margin and bottom rounding */
+.mod-settings .setting-item.csi-dropdown-header.is-expanded {
+    margin-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: none;
+}
+
+/* The container holding the sub-items */
+.csi-dropdown-container {
+    margin-bottom: var(--size-4-5);
+}
+
+/* The options inside the container */
+.mod-settings .csi-dropdown-container .setting-item {
+    border: none;
+    border-top: var(--border-width) solid var(--background-modifier-border);
+    border-radius: 0;
+    padding: var(--size-4-4) var(--size-4-4);
+    margin-bottom: 0;
+    box-shadow: none;
+}
+
+.mod-settings .csi-dropdown-container .setting-item:last-child {
+    border-bottom-left-radius: var(--radius-s);
+    border-bottom-right-radius: var(--radius-s);
+}
+
+.mod-settings .csi-dropdown-container .setting-item:first-child {
+    border-top: var(--border-width) solid var(--background-modifier-border);
+}
+
+/* Explicitly guarantee visual deactivation (fading) for disabled settings */
+.mod-settings .csi-dropdown-container .setting-item.is-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Dropdown icon styling */
+.csi-dropdown-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+}
+
+.csi-dropdown-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2px;
+}
+
+.csi-clickable-header {
+    cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   Version Badge
+   -------------------------------------------------------------------------- */
+
+.csi-version {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: normal;
+    margin-left: 8px;
+    vertical-align: middle;
+    background: var(--background-modifier-form-field);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   Section Headers
+   -------------------------------------------------------------------------- */
+
+.csi-settings-container h3.csi-section-header,
+.csi-settings-container h3.csi-status-list-header {
+    font-size: var(--font-ui-medium);
+    font-weight: 600;
+    color: var(--text-normal);
+    margin-top: 32px;
+    margin-bottom: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   Status Accordion (individual status items)
+   -------------------------------------------------------------------------- */
+
+.csi-status-item {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--setting-items-radius);
+    background-color: var(--setting-items-background);
+    padding: 0;
+    margin-bottom: var(--size-4-2);
+    border: var(--setting-items-border-width) solid var(--setting-items-border-color);
+    overflow: hidden;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.csi-status-item:hover {
+    border-color: var(--interactive-accent);
+}
+
+/* Accordion Header */
+.csi-status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--setting-items-padding);
+    cursor: pointer;
+    background-color: var(--background-secondary);
+    user-select: none;
+}
+
+.csi-status-header:hover {
+    background-color: var(--background-secondary-alt);
+}
+
+.csi-status-name {
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.csi-status-preview-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.csi-status-arrow {
+    transition: transform 0.2s ease;
+    color: var(--text-muted);
+}
+
+.csi-status-item.is-open .csi-status-arrow {
+    transform: rotate(180deg);
+}
+
+/* Accordion Body */
+.csi-status-body {
+    display: none;
+    padding: 0;
+    border-top: 1px solid transparent;
+}
+
+.csi-status-item.is-open .csi-status-body {
+    display: block;
+    padding: var(--setting-items-padding);
+    border-top-color: var(--background-modifier-border);
+}
+
+.csi-controls-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4-2);
+    margin-bottom: var(--size-4-4);
+}
+
+.csi-control-card {
+    display: flex;
+    align-items: center;
+    gap: var(--size-4-4);
+    border-radius: var(--setting-items-radius);
+    background-color: var(--setting-items-background);
+    padding: var(--setting-items-padding);
+    border: var(--setting-items-border-width) solid var(--setting-items-border-color);
+}
+
+.csi-control-card .csi-card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.csi-preview-card {
+    display: flex;
+    gap: 8px;
+    padding: var(--setting-items-padding);
+    border-radius: var(--setting-items-radius);
+    background-color: var(--setting-items-background);
+    border: var(--setting-items-border-width) solid var(--setting-items-border-color);
+    margin-bottom: var(--size-4-4);
+}
+
+/* --------------------------------------------------------------------------
+   Preview Wrappers for Theme Simulation
+   -------------------------------------------------------------------------- */
+
+.csi-preview-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--background-modifier-border);
+    gap: 8px;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.csi-preview-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+    margin-bottom: 4px;
+}
+
+/* Adaptive Preview Backgrounds */
+
+/* Default fallback colors */
+.csi-preview-light {
+    background-color: #ffffff;
+    color: #202020;
+}
+
+.csi-preview-dark {
+    background-color: #1e1e1e;
+    color: #dcddde;
+}
+
+/* When in Light Mode: Light preview uses real note color */
+.theme-light .csi-preview-light {
+    background-color: var(--background-primary);
+    border-color: var(--background-modifier-border);
+}
+
+/* When in Dark Mode: Dark preview uses real note color */
+.theme-dark .csi-preview-dark {
+    background-color: var(--background-primary);
+    border-color: var(--background-modifier-border);
+}
+
+/* --------------------------------------------------------------------------
+   Actions & Delete
+   -------------------------------------------------------------------------- */
+
+.csi-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--background-modifier-border);
+}
+
+.csi-delete-btn {
+    color: var(--text-error);
+    transition: all 0.2s ease;
+}
+
+.csi-delete-btn.csi-delete-confirm {
+    background-color: var(--background-modifier-error);
+    color: var(--text-on-accent);
+    border-color: var(--background-modifier-error);
+}
+
+.csi-delete-btn.csi-delete-confirm:hover {
+    background-color: var(--background-modifier-error-hover);
+    border-color: var(--background-modifier-error-hover);
+    box-shadow: 0 0 0 1px var(--background-modifier-error-hover);
+}
+
+/* --------------------------------------------------------------------------
+   Inputs & Controls
+   -------------------------------------------------------------------------- */
+
+.csi-input-text {
+    width: 150px;
+}
+
+.csi-control-area {
+    text-align: end;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--size-4-2);
+}
+
+.csi-icon-preview {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+}
+
+/* Color picker - native Obsidian style (Square) */
+.csi-color-picker-setting input[type="color"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 32px;
+    height: 32px;
+    aspect-ratio: 1;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    cursor: var(--cursor);
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.csi-color-picker-setting input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.csi-color-picker-setting input[type="color"]::-webkit-color-swatch {
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+}
+
+.csi-color-picker-setting input[type="color"]::-moz-color-swatch {
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   Settings Header - version number inline with title
+   -------------------------------------------------------------------------- */
+
+.csi-settings-container>.setting-item-heading:first-child .setting-item-info {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.csi-settings-container>.setting-item-heading:first-child .setting-item-name {
+    overflow: visible;
+    text-overflow: unset;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.csi-settings-container>.setting-item-heading:first-child .setting-item-description {
+    font-weight: var(--font-normal);
+    font-size: var(--font-ui-small);
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+/* Mobile fallback */
+@media (max-width: 300px) {
+    .csi-settings-container>.setting-item-heading:first-child .setting-item-info {
+        flex-direction: column;
+    }
+}

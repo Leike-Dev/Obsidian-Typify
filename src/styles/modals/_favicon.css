@@ -1,0 +1,72 @@
+/* ==========================================================================
+ * _favicon.css
+ * 
+ * Responsável pelos elementos visuais do sub-gerenciador de Favicons, que expõe
+ * o status do cache local, dados de tamanho e botões interativos para recarregar favicons.
+ * ========================================================================== */
+
+.typify-favicon-warning {
+    margin-bottom: 1rem;
+}
+
+.typify-favicon-item-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.typify-favicon-preview {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.typify-favicon-domain {
+    font-weight: 500;
+}
+
+.typify-favicon-item-right {
+    display: flex;
+    gap: 8px;
+}
+
+.typify-favicon-empty-state {
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 8px 0;
+}
+
+/* --------------------------------------------------------------------------
+   Favicon Section Info Box
+   -------------------------------------------------------------------------- */
+
+.typify-section-header-flex {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.typify-section-header-flex .typify-card-section-title {
+    margin-bottom: 0;
+}
+
+.typify-info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.typify-info-icon:hover {
+    color: var(--text-normal);
+    background-color: var(--background-modifier-hover);
+}
