@@ -1,6 +1,6 @@
 /**
- * SwatchStrip — faixa de cores V3 (touch-friendly)
- * Obsidian plugin component — sem dependências externas
+ * SwatchStrip — V3 color strip (touch-friendly)
+ * Obsidian plugin component — no external dependencies
  */
 import { setIcon, Notice } from "obsidian";
 import { t } from '../lang/helpers';
@@ -19,7 +19,7 @@ export class SwatchStrip {
   private selectedIndex: number | null = null;
   private options: SwatchStripOptions;
 
-  // Elementos reutilizados
+  // Reused elements
   private stripEl!: HTMLElement;
   private panelEl!: HTMLElement;
   private panelDot!: HTMLElement;
@@ -33,7 +33,7 @@ export class SwatchStrip {
     this.render();
   }
 
-  // ─── Render principal ────────────────────────────────────────────────────
+  // ─── Main Render ────────────────────────────────────────────────────
 
   private render() {
     this.container.empty();
@@ -48,7 +48,7 @@ export class SwatchStrip {
     this.updatePanel();
   }
 
-  // ─── Faixa de segmentos ──────────────────────────────────────────────────
+  // ─── Segments Strip ──────────────────────────────────────────────────
 
   private renderSegments() {
     this.stripEl.empty();
@@ -60,11 +60,11 @@ export class SwatchStrip {
       seg.style.backgroundColor = hex;
       if (i === this.selectedIndex) seg.addClass("is-active");
 
-      // Tick de seleção
+      // Selection tick
       const tick = seg.createDiv({ cls: "typify-swatch-tick" });
       setIcon(tick, "circle-check");
 
-      // Touch/click — área mínima 44px garantida pelo height da faixa
+      // Touch/click — 44px minimum area guaranteed by strip height
       seg.addEventListener("click", () => this.select(i));
       seg.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -74,7 +74,7 @@ export class SwatchStrip {
       });
     });
 
-    // Botão adicionar
+    // Add button
     if (this.colors.length < this.maxColors) {
       const addBtn = this.stripEl.createDiv({ cls: "typify-swatch-add" });
       addBtn.setAttribute("role", "button");
@@ -87,7 +87,7 @@ export class SwatchStrip {
       hiddenColorInput.addEventListener("change", (e) => {
         const hex = (e.target as HTMLInputElement).value;
         if (this.options.onPickColor) {
-           // Se houver callback nativo legado, use ele
+           // If there is a legacy native callback, use it
            this.options.onPickColor((h) => {
               this.colors.push(h);
               this.options.onChange?.(this.colors);
@@ -117,7 +117,7 @@ export class SwatchStrip {
     }
   }
 
-  // ─── Painel de detalhes ──────────────────────────────────────────────────
+  // ─── Details Panel ──────────────────────────────────────────────────
 
   private buildPanel() {
     this.panelEl.empty();
@@ -153,7 +153,7 @@ export class SwatchStrip {
     }
   }
 
-  // ─── Ações ───────────────────────────────────────────────────────────────
+  // ─── Actions ───────────────────────────────────────────────────────────────
 
   private select(i: number) {
     this.selectedIndex = this.selectedIndex === i ? null : i;
