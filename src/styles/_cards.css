@@ -36,15 +36,16 @@
     gap: 6px;
     padding: 12px 8px 10px;
     border-radius: var(--radius-m);
-    border: none;
-    background: var(--background-modifier-border);
+    background: var(--background-secondary);
+    border: 1px solid transparent;
     cursor: pointer;
-    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
     user-select: none;
 }
 
 .typify-fmt-card:hover {
-    background: var(--background-modifier-hover);
+    background: color-mix(in srgb, var(--interactive-accent), 80% transparent);
+    border-color: color-mix(in srgb, var(--interactive-accent), 80% transparent);
 }
 
 .typify-fmt-card:focus-visible {
@@ -54,7 +55,7 @@
 
 .typify-fmt-card.is-selected {
     background: color-mix(in srgb, var(--interactive-accent) 25%, transparent);
-    box-shadow: none;
+    border-color: color-mix(in srgb, var(--interactive-accent), 25% transparent);
 }
 
 /* --------------------------------------------------------------------------

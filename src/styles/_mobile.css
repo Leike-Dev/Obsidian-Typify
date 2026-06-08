@@ -31,7 +31,14 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
    -------------------------------------------------------------------------- */
 
 /* On mobile, --background-secondary often blends into the modal background.
-   We use form-field backgrounds and a border to make the cards visible. */
+   We use form-field backgrounds to make the cards visible, particularly in dark mode. */
+body.theme-dark.is-mobile .typify-fmt-card:not(:hover):not(.is-selected),
+body.theme-dark.is-mobile .csi-manager-item:not(:hover),
+body.theme-dark.is-mobile .typify-palette-preview-container,
+body.theme-dark.is-mobile .typify-swatch-add:not(:hover) {
+    background: var(--background-modifier-form-field);
+}
+
 body.is-mobile .typify-fmt-card.is-selected {
     box-shadow: none;
     background-color: color-mix(in srgb, var(--interactive-accent) 25%, transparent);

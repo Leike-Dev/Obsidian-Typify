@@ -17,8 +17,6 @@ export class NoticesModal extends Modal {
 
         this.setTitle(t('notices_title'));
 
-        contentEl.createDiv({ text: t('notices_list_title'), cls: 'typify-card-section-title' });
-
         const listContainer = contentEl.createDiv({ cls: 'typify-notices-list' });
 
         // Logic to gather active notices

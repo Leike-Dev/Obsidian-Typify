@@ -185,11 +185,7 @@ export const zhCN = {
     'favicon_provider_google': 'Google',
     'favicon_provider_duckduckgo': 'DuckDuckGo',
     'favicon_provider_heading': '网站图标提供商',
-    'favicon_info_heading': '关于网站图标提供商：',
-    'favicon_info_google_desc': '提供最佳分辨率，能找到绝大多数网站的图标。',
-    'favicon_info_duckduckgo_desc': '注重隐私的绝佳替代方案，但图标质量和覆盖率可能较低。',
-    'favicon_info_direct_label': '直接搜索：',
-    'favicon_info_direct_desc': '直接从网站提取图标。更简单，但由于服务器限制 (CORS) 经常失败，或者返回低分辨率图标。',
+
     'favicon_search_placeholder': '搜索域名...',
     'favicon_status_failed': '获取失败（上次尝试）',
     'favicon_status_outdated': '已过期（超过30天）',
@@ -227,7 +223,7 @@ export const zhCN = {
     // Plugin Notices
     'notices_title': '插件通知',
     'notices_desc': '关于Typify中当前激活功能的提醒和信息。',
-    'notices_list_title': '当前状态',
+
     'notices_empty': '暂无通知。',
     'notices_button': '查看通知',
     'notice_favicon_title': '网站图标提供商',

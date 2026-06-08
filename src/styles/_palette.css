@@ -57,11 +57,11 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    border: none;
+    border: 1px solid transparent;
     border-radius: var(--radius-l);
     padding: 16px;
     margin-bottom: 16px;
-    background: var(--background-modifier-border);
+    background: var(--background-secondary);
 }
 
 .typify-palette-preview-header {
@@ -250,7 +250,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--interactive-normal);
+    background: var(--background-secondary);
     border: none;
     border-radius: 0;
     box-shadow: none;
@@ -262,7 +262,7 @@
 }
 
 .typify-swatch-add:hover {
-    background: var(--interactive-hover);
+    background: color-mix(in srgb, var(--interactive-accent), 80% transparent);
 }
 
 .typify-swatch-panel {

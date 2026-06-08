@@ -185,11 +185,7 @@ export const en = {
     'favicon_provider_google': 'Google',
     'favicon_provider_duckduckgo': 'DuckDuckGo',
     'favicon_provider_heading': 'Favicon provider',
-    'favicon_info_heading': 'About favicon providers:',
-    'favicon_info_google_desc': 'Best resolution, finds icons for the vast majority of sites.',
-    'favicon_info_duckduckgo_desc': 'Great privacy-focused alternative, but icon quality and coverage may be lower.',
-    'favicon_info_direct_label': 'Direct search: ',
-    'favicon_info_direct_desc': 'Extracts the icon directly from the site. Simpler, but frequently fails due to server restrictions (CORS) or returns low-resolution icons.',
+
     'favicon_search_placeholder': 'Search domain...',
     'favicon_status_failed': 'Failed to fetch (previous attempt)',
     'favicon_status_outdated': 'Outdated (+30 days)',
@@ -227,7 +223,7 @@ export const en = {
     // Plugin Notices
     'notices_title': 'Plugin notices',
     'notices_desc': 'Information and alerts about the features currently active in Typify.',
-    'notices_list_title': 'Current status',
+
     'notices_empty': 'No notices at the moment.',
     'notices_button': 'View notices',
     'notice_favicon_title': 'Favicon providers',
