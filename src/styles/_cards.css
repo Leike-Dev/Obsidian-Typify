@@ -129,6 +129,27 @@
     fill: var(--text-on-accent, #ffffff);
 }
 
+/* Hover States for SVGs (Not selected) */
+.typify-fmt-card:hover:not(.is-selected) .typify-fmt-thumb svg .svg-bg {
+    fill: color-mix(in srgb, var(--text-normal) 15%, transparent);
+}
+
+.typify-fmt-card:hover:not(.is-selected) .typify-fmt-thumb svg .svg-fg {
+    fill: color-mix(in srgb, var(--text-normal) 60%, transparent);
+}
+
+.typify-fmt-card:hover:not(.is-selected) .typify-fmt-thumb svg .svg-stroke {
+    stroke: color-mix(in srgb, var(--text-normal) 15%, transparent);
+}
+
+.typify-fmt-card:hover:not(.is-selected) .typify-fmt-thumb svg .svg-line {
+    stroke: color-mix(in srgb, var(--text-normal) 60%, transparent);
+}
+
+.typify-fmt-card:hover:not(.is-selected) .typify-fmt-thumb svg .svg-solid-bg {
+    fill: color-mix(in srgb, var(--text-normal) 70%, transparent);
+}
+
 /* --------------------------------------------------------------------------
    Card Labels
    -------------------------------------------------------------------------- */
