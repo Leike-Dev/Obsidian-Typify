@@ -165,6 +165,12 @@ export const fr = {
     'palette_harmony_random': 'Aléatoires',
 
     'palette_clear_tooltip': 'Tout effacer',
+    'palette_add_color_aria': 'Ajouter une couleur',
+    'palette_color_copied': 'Couleur copiée !',
+    'palette_copy_aria': 'Copier',
+    'palette_remove_aria': 'Supprimer',
+    'palette_add_to_palette_aria': 'Ajouter à la palette',
+    'palette_regenerate_aria': 'Régénérer',
 
     // Favicons
     'favicon_manager_title': 'Gestionnaire de favicons',
@@ -178,7 +184,12 @@ export const fr = {
     'favicon_provider_direct': 'Recherche directe',
     'favicon_provider_google': 'Google',
     'favicon_provider_duckduckgo': 'DuckDuckGo',
-    'favicon_provider_heading': 'Fournisseur de favicon',
+    'favicon_provider_heading': 'Fournisseur de favicons',
+    'favicon_info_heading': 'À propos des fournisseurs de favicons :',
+    'favicon_info_google_desc': 'Offre la meilleure résolution et trouve des icônes pour la grande majorité des sites.',
+    'favicon_info_duckduckgo_desc': 'Excellente alternative axée sur la confidentialité, mais la qualité et la quantité des icônes peuvent être inférieures.',
+    'favicon_info_direct_label': 'Recherche directe : ',
+    'favicon_info_direct_desc': 'Extrait l\'icône directement du site. Plus simple, mais échoue fréquemment en raison des restrictions du serveur (CORS) ou renvoie des icônes de faible résolution.',
     'favicon_search_placeholder': 'Rechercher un domaine...',
     'favicon_status_failed': 'Échec de l\'obtention (tentative précédente)',
     'favicon_status_outdated': 'Obsolète (+30 jours)',

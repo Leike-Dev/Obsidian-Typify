@@ -54,7 +54,7 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
 
         const tabs = [
             { id: 'lucide', label: t('tab_icons') },
-            { id: 'emoji', label: t('tab_emoji') || 'Emojis' },
+            { id: 'emoji', label: t('tab_emoji') },
             { id: 'custom', label: t('tab_custom') },
             { id: 'images', label: t('tab_images') }
         ];

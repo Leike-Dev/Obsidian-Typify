@@ -240,7 +240,7 @@ export class ChangelogModal extends Modal {
 		});
 
 		const closeBtn = container.createEl("button", {
-			text: "Close",
+			text: t('cancel_button'),
 		});
 		closeBtn.addEventListener("click", () => this.close());
 	}

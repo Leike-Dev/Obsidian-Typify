@@ -165,6 +165,12 @@ export const en = {
     'palette_harmony_random': 'Random',
 
     'palette_clear_tooltip': 'Clear all',
+    'palette_add_color_aria': 'Add color',
+    'palette_color_copied': 'Color copied!',
+    'palette_copy_aria': 'Copy',
+    'palette_remove_aria': 'Remove',
+    'palette_add_to_palette_aria': 'Add to palette',
+    'palette_regenerate_aria': 'Regenerate',
 
     // Favicons
     'favicon_manager_title': 'Favicon manager',
@@ -179,6 +185,11 @@ export const en = {
     'favicon_provider_google': 'Google',
     'favicon_provider_duckduckgo': 'DuckDuckGo',
     'favicon_provider_heading': 'Favicon provider',
+    'favicon_info_heading': 'About favicon providers:',
+    'favicon_info_google_desc': 'Best resolution, finds icons for the vast majority of sites.',
+    'favicon_info_duckduckgo_desc': 'Great privacy-focused alternative, but icon quality and coverage may be lower.',
+    'favicon_info_direct_label': 'Direct search: ',
+    'favicon_info_direct_desc': 'Extracts the icon directly from the site. Simpler, but frequently fails due to server restrictions (CORS) or returns low-resolution icons.',
     'favicon_search_placeholder': 'Search domain...',
     'favicon_status_failed': 'Failed to fetch (previous attempt)',
     'favicon_status_outdated': 'Outdated (+30 days)',

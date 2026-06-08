@@ -106,7 +106,7 @@ export function renderPaletteSection(
     // 1. "Adicionar" button
     const addAllBtn = rightControls.createDiv({
         cls: 'clickable-icon typify-palette-add-all-btn is-disabled',
-        attr: { 'aria-label': 'Adicionar à paleta' }
+        attr: { 'aria-label': t('palette_add_to_palette_aria') }
     });
     setIcon(addAllBtn, "plus");
     addAllBtn.addEventListener('click', () => {
@@ -132,7 +132,7 @@ export function renderPaletteSection(
     // 2. "Regenerar" button
     generateBtn = rightControls.createDiv({
         cls: 'clickable-icon typify-palette-generate-btn is-disabled',
-        attr: { 'aria-label': 'Regenerar' }
+        attr: { 'aria-label': t('palette_regenerate_aria') }
     });
     setIcon(generateBtn, "refresh-cw");
     generateBtn.addEventListener('click', () => {

@@ -164,7 +164,13 @@ export const zhCN = {
     'palette_harmony_shades': '渐变',
     'palette_harmony_random': '随机',
 
-    'palette_clear_tooltip': '清除所有',
+    'palette_clear_tooltip': '全部清除',
+    'palette_add_color_aria': '添加颜色',
+    'palette_color_copied': '颜色已复制！',
+    'palette_copy_aria': '复制',
+    'palette_remove_aria': '删除',
+    'palette_add_to_palette_aria': '添加到调色板',
+    'palette_regenerate_aria': '重新生成',
 
     // Favicons
     'favicon_manager_title': '网站图标管理器',
@@ -178,7 +184,12 @@ export const zhCN = {
     'favicon_provider_direct': '直接搜索',
     'favicon_provider_google': 'Google',
     'favicon_provider_duckduckgo': 'DuckDuckGo',
-    'favicon_provider_heading': 'Favicon 提供商',
+    'favicon_provider_heading': '网站图标提供商',
+    'favicon_info_heading': '关于网站图标提供商：',
+    'favicon_info_google_desc': '提供最佳分辨率，能找到绝大多数网站的图标。',
+    'favicon_info_duckduckgo_desc': '注重隐私的绝佳替代方案，但图标质量和覆盖率可能较低。',
+    'favicon_info_direct_label': '直接搜索：',
+    'favicon_info_direct_desc': '直接从网站提取图标。更简单，但由于服务器限制 (CORS) 经常失败，或者返回低分辨率图标。',
     'favicon_search_placeholder': '搜索域名...',
     'favicon_status_failed': '获取失败（上次尝试）',
     'favicon_status_outdated': '已过期（超过30天）',

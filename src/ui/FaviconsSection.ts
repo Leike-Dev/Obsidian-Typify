@@ -20,28 +20,28 @@ export class FaviconsSection {
 
         // Provider Selection
         const headerContainer = this.containerEl.createDiv({ cls: 'typify-section-header-flex' });
-        headerContainer.createDiv({ text: t('favicon_provider_heading') || 'Provedor', cls: 'typify-card-section-title', attr: { style: 'margin-bottom: 0;' } });
+        headerContainer.createDiv({ text: t('favicon_provider_heading'), cls: 'typify-card-section-title', attr: { style: 'margin-bottom: 0;' } });
         
         const infoIcon = headerContainer.createSpan({ cls: 'typify-info-icon clickable-icon' });
         setIcon(infoIcon, 'info');
 
         const warningBox = this.containerEl.createDiv({ cls: 'csi-experimental-warning' });
         warningBox.hide();
-        warningBox.createEl('strong', { text: 'Sobre os provedores de favicon:' });
+        warningBox.createEl('strong', { text: t('favicon_info_heading') });
         const ul = warningBox.createEl('ul');
         
         const liGoogle = ul.createEl('li');
         liGoogle.createEl('strong', { text: 'Google: ' });
-        liGoogle.createSpan({ text: 'Oferece a melhor resolução e encontra ícones para a grande maioria dos sites.' });
+        liGoogle.createSpan({ text: t('favicon_info_google_desc') });
         
         const liDuck = ul.createEl('li');
         // eslint-disable-next-line obsidianmd/ui/sentence-case
         liDuck.createEl('strong', { text: 'DuckDuckGo: ' });
-        liDuck.createSpan({ text: 'Ótima alternativa para quem busca privacidade, mas a qualidade e quantidade de ícones podem ser menores.' });
+        liDuck.createSpan({ text: t('favicon_info_duckduckgo_desc') });
         
         const liDirect = ul.createEl('li');
-        liDirect.createEl('strong', { text: 'Busca direta: ' });
-        liDirect.createSpan({ text: 'Extrai o ícone direto do site. É mais simples, mas frequentemente falha por restrições do servidor (CORS) ou traz ícones de baixa resolução.' });
+        liDirect.createEl('strong', { text: t('favicon_info_direct_label') });
+        liDirect.createSpan({ text: t('favicon_info_direct_desc') });
 
         infoIcon.addEventListener('click', (e: MouseEvent) => {
             e.preventDefault();
@@ -57,9 +57,9 @@ export class FaviconsSection {
         const cardGrid = cardSection.createDiv({ cls: 'typify-card-grid' });
 
         const providerOptions: { key: 'google' | 'duckduckgo' | 'direct'; label: string; svg: string }[] = [
-            { key: 'direct', label: t('favicon_provider_direct') || 'Busca direta', svg: THUMB_FAVICON_DIRECT },
-            { key: 'google', label: t('favicon_provider_google') || 'Google', svg: THUMB_FAVICON_GOOGLE },
-            { key: 'duckduckgo', label: t('favicon_provider_duckduckgo') || 'DuckDuckGo', svg: THUMB_FAVICON_DUCKDUCKGO },
+            { key: 'direct', label: t('favicon_provider_direct'), svg: THUMB_FAVICON_DIRECT },
+            { key: 'google', label: t('favicon_provider_google'), svg: THUMB_FAVICON_GOOGLE },
+            { key: 'duckduckgo', label: t('favicon_provider_duckduckgo'), svg: THUMB_FAVICON_DUCKDUCKGO },
         ];
 
         for (const opt of providerOptions) {

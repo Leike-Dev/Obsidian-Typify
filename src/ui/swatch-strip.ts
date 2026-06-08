@@ -3,6 +3,7 @@
  * Obsidian plugin component — sem dependências externas
  */
 import { setIcon, Notice } from "obsidian";
+import { t } from '../lang/helpers';
 
 export interface SwatchStripOptions {
   colors: string[];
@@ -78,7 +79,7 @@ export class SwatchStrip {
       const addBtn = this.stripEl.createDiv({ cls: "typify-swatch-add" });
       addBtn.setAttribute("role", "button");
       addBtn.setAttribute("tabindex", "0");
-      addBtn.setAttribute("aria-label", "Adicionar cor");
+      addBtn.setAttribute("aria-label", t('palette_add_color_aria'));
       addBtn.setText("+");
       
       // Encapsulate hidden color input INSIDE the add button for perfect popup positioning
@@ -102,7 +103,7 @@ export class SwatchStrip {
       addBtn.addEventListener("click", (e) => {
         if (e.target === hiddenColorInput) return; // ignore native clicks to prevent loops
         if (this.colors.length >= this.maxColors) {
-          new Notice("Limite máximo de 10 cores atingido!");
+          new Notice(t('palette_max_reached').replace('{max}', String(this.maxColors)));
           return;
         }
         hiddenColorInput.click();
@@ -129,12 +130,12 @@ export class SwatchStrip {
 
     const copyBtn = actions.createDiv({ cls: "clickable-icon" });
     setIcon(copyBtn, "copy");
-    copyBtn.setAttribute("aria-label", "Copiar");
+    copyBtn.setAttribute("aria-label", t('palette_copy_aria'));
     copyBtn.addEventListener("click", () => { void this.copySelected(); });
 
     const removeBtn = actions.createDiv({ cls: "clickable-icon typify-palette-clear-btn" });
     setIcon(removeBtn, "trash-2");
-    removeBtn.setAttribute("aria-label", "Remover");
+    removeBtn.setAttribute("aria-label", t('palette_remove_aria'));
     removeBtn.addEventListener("click", () => this.removeSelected());
   }
 
@@ -174,7 +175,7 @@ export class SwatchStrip {
     const hex = this.colors[this.selectedIndex];
     if (hex) {
       await navigator.clipboard.writeText(hex);
-      new Notice("Cor copiada!");
+      new Notice(t('palette_color_copied'));
     }
   }
 
