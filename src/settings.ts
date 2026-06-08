@@ -22,6 +22,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
     plugin: TypifyPlugin;
     togglesExpanded = false;
     experimentalSectionEl: HTMLElement | null = null;
+    noticesSetting: Setting | null = null;
 
     constructor(app: App, plugin: TypifyPlugin) {
         super(app, plugin);
@@ -54,9 +55,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
             nameEl.createSpan({ text: t('changelog_badge_new'), cls: 'typify-changelog-badge-new' });
         }
 
-        const activeNoticesCount = this.getActiveNoticesCount();
-        
-        const noticesSetting = new Setting(containerEl)
+        this.noticesSetting = new Setting(containerEl)
             .setName(t('notices_title'))
             .setDesc(t('notices_desc'))
             .addButton(button => button
@@ -65,15 +64,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                     new NoticesModal(this.app, this.plugin).open();
                 }));
 
-        if (activeNoticesCount > 0) {
-            const badgeContainer = document.createElement('div');
-            badgeContainer.addClass('typify-notices-badge-container');
-            
-            badgeContainer.createSpan({ text: activeNoticesCount.toString(), cls: 'typify-notices-badge' });
-            
-            // Insert the badge before the button
-            noticesSetting.controlEl.prepend(badgeContainer);
-        }
+        this.renderNoticesBadge();
 
         // ================================================================
         // SECTION: GENERAL
@@ -130,7 +121,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                         this.plugin.customIconsManager.clear();
                     }
 
-                    this.display();
+                    this.renderNoticesBadge();
                 }));
 
 
@@ -247,7 +238,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                 .onChange(async (value) => {
                     this.plugin.settings.enableCustomPalette = value;
                     await this.plugin.saveSettings();
-                    this.display();
+                    this.renderExperimentalSection();
                 }));
 
         // Set name with experimental badge
@@ -269,7 +260,8 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                     } else {
                         this.plugin.faviconManager.cleanupActiveUrls();
                     }
-                    this.display();
+                    this.renderExperimentalSection();
+                    this.renderNoticesBadge();
                 }));
 
         const favNameEl = faviconsSetting.nameEl;
@@ -280,33 +272,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         // SECTION: EXPERIMENTAL (visible only when palette or favicons are enabled)
         // ================================================================
         this.experimentalSectionEl = containerEl.createDiv();
-        const showExperimental = this.plugin.settings.enableCustomPalette || this.plugin.settings.enableFavicons;
-        this.experimentalSectionEl.style.display = showExperimental ? "block" : "none";
-
-        const experimentalHeading = new Setting(this.experimentalSectionEl).setName(t('section_experimental_title')).setHeading();
-        experimentalHeading.settingEl.addClass('typify-experimental-heading');
-
-        if (this.plugin.settings.enableCustomPalette) {
-            new Setting(this.experimentalSectionEl)
-                .setName(t('palette_title'))
-                .setDesc(t('palette_manager_desc'))
-                .addButton(button => button
-                    .setButtonText(t('manage_styles_button'))
-                    .onClick(() => {
-                        new PaletteModal(this.app, this.plugin, () => { this.display(); }).open();
-                    }));
-        }
-
-        if (this.plugin.settings.enableFavicons) {
-            new Setting(this.experimentalSectionEl)
-                .setName(t('favicon_manager_title'))
-                .setDesc(t('favicon_manager_desc'))
-                .addButton(button => button
-                    .setButtonText(t('manage_styles_button'))
-                    .onClick(() => {
-                        new FaviconsModal(this.app, this.plugin, () => { this.display(); }).open();
-                    }));
-        }
+        this.renderExperimentalSection();
 
         // ================================================================
         // DATA MANAGEMENT
@@ -344,5 +310,59 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         if (this.plugin.settings.enableCustomIcons) count++; // Custom icons notice
         if (this.plugin.settings.enableFavicons) count++; // Local cache active notice
         return count;
+    }
+    private renderNoticesBadge() {
+        if (!this.noticesSetting) return;
+        
+        // Remove existing badge if any
+        const existingBadge = this.noticesSetting.controlEl.querySelector('.typify-notices-badge-container');
+        if (existingBadge) {
+            existingBadge.remove();
+        }
+
+        const activeNoticesCount = this.getActiveNoticesCount();
+        if (activeNoticesCount > 0) {
+            const badgeContainer = document.createElement('div');
+            badgeContainer.addClass('typify-notices-badge-container');
+            badgeContainer.createSpan({ text: activeNoticesCount.toString(), cls: 'typify-notices-badge' });
+            
+            // Insert the badge before the button
+            this.noticesSetting.controlEl.prepend(badgeContainer);
+        }
+    }
+
+    private renderExperimentalSection() {
+        if (!this.experimentalSectionEl) return;
+        
+        this.experimentalSectionEl.empty();
+        const showExperimental = this.plugin.settings.enableCustomPalette || this.plugin.settings.enableFavicons;
+        this.experimentalSectionEl.style.display = showExperimental ? "block" : "none";
+
+        if (!showExperimental) return;
+
+        const experimentalHeading = new Setting(this.experimentalSectionEl).setName(t('section_experimental_title')).setHeading();
+        experimentalHeading.settingEl.addClass('typify-experimental-heading');
+
+        if (this.plugin.settings.enableCustomPalette) {
+            new Setting(this.experimentalSectionEl)
+                .setName(t('palette_title'))
+                .setDesc(t('palette_manager_desc'))
+                .addButton(button => button
+                    .setButtonText(t('manage_styles_button'))
+                    .onClick(() => {
+                        new PaletteModal(this.app, this.plugin, () => { this.display(); }).open();
+                    }));
+        }
+
+        if (this.plugin.settings.enableFavicons) {
+            new Setting(this.experimentalSectionEl)
+                .setName(t('favicon_manager_title'))
+                .setDesc(t('favicon_manager_desc'))
+                .addButton(button => button
+                    .setButtonText(t('manage_styles_button'))
+                    .onClick(() => {
+                        new FaviconsModal(this.app, this.plugin, () => { this.display(); }).open();
+                    }));
+        }
     }
 }
