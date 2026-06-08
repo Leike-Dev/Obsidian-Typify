@@ -37,7 +37,7 @@
     padding: 12px 8px 10px;
     border-radius: var(--radius-m);
     border: none;
-    background: var(--background-secondary);
+    background: var(--background-modifier-border);
     cursor: pointer;
     transition: background-color 0.15s ease, box-shadow 0.15s ease;
     user-select: none;

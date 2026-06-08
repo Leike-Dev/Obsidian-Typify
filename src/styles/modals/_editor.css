@@ -1,8 +1,8 @@
 /* ==========================================================================
  * _editor.css
  * 
- * Agrupa o layout complexo da tela "Style Editor Modal", onde ocorre de fato
- * a customização individual de propriedades, definição de cores, formas e pré-visualização.
+ * CSS for the "Style Editor" modal (StyleEditorModal), which provides
+ * individual property customization, color definitions, shapes, and previews.
  * ========================================================================== */
 
 /* Remove borders between setting items inside editor modal */

@@ -1,9 +1,9 @@
 /* ==========================================================================
  * styles.css
  * 
- * Entry point (Ponto de entrada) principal do CSS para o esbuild. 
- * Este arquivo não deve conter regras CSS diretas, servindo apenas para importar 
- * (via @import) todos os partials que serão empacotados num único arquivo final.
+ * Entry point for esbuild CSS bundling. 
+ * This file should not contain direct CSS rules; it serves only to import 
+ * (via @import) all partials that will be bundled into a single final file.
  * ========================================================================== */
 
 @import './_tokens.css';
@@ -11,6 +11,7 @@
 @import './_settings.css';
 @import './_cards.css';
 @import './_palette.css';
+@import './_buttons.css';
 
 @import './modals/_base-modal.css';
 @import './modals/_changelog.css';
@@ -21,5 +22,5 @@
 @import './modals/_data.css';
 @import './modals/_favicon.css';
 
-/* Importado sempre por último para garantir prioridade de adaptação mobile */
+/* Imported last to ensure mobile adaptation priority */
 @import './_mobile.css';

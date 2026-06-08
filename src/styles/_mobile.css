@@ -32,37 +32,11 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
 
 /* On mobile, --background-secondary often blends into the modal background.
    We use form-field backgrounds and a border to make the cards visible. */
-body.is-mobile .typify-fmt-card {
-    border: none;
-    background-color: var(--background-modifier-form-field);
-}
-
-body.is-mobile .typify-fmt-card:hover {
-    box-shadow: none;
-    background-color: var(--background-modifier-hover);
-}
-
-body.is-mobile .typify-fmt-card:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--background-modifier-border-focus);
-}
-
 body.is-mobile .typify-fmt-card.is-selected {
     box-shadow: none;
     background-color: color-mix(in srgb, var(--interactive-accent) 25%, transparent);
 }
 
-/* --------------------------------------------------------------------------
-   Mobile Palette
-   -------------------------------------------------------------------------- */
-
-body.is-mobile .typify-palette-preview-container {
-    background-color: var(--background-modifier-form-field);
-}
-
-body.is-mobile .typify-swatch-panel {
-    background-color: var(--background-modifier-form-field);
-}
 
 /* --------------------------------------------------------------------------
    Mobile Bases Cards
@@ -80,88 +54,4 @@ body.typify-compat-minimal .bases-view .bases-cards-container .bases-cards-prope
 body.typify-compat-minimal .bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value {
     padding: 1px 6px;
     font-size: var(--font-smaller);
-}
-
-/* --------------------------------------------------------------------------
-   DRY: Mobile Fallbacks para Selects e Buttons
-   Consolida as 6 repetições espalhadas pelo CSS original num único bloco.
-   -------------------------------------------------------------------------- */
-
-body.is-mobile .csi-settings-container select,
-body.is-mobile .csi-editor-modal select,
-body.is-mobile .typify-palette-modal select,
-body.is-mobile .csi-manager-modal select,
-body.is-mobile .typify-import-modal select,
-body.is-mobile .typify-export-modal select {
-    background-color: var(--background-modifier-form-field);
-}
-
-body.is-mobile .csi-settings-container button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
-body.is-mobile .csi-editor-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
-body.is-mobile .typify-palette-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
-body.is-mobile .csi-manager-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
-body.is-mobile .typify-import-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon),
-body.is-mobile .typify-export-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon) {
-    background-color: var(--background-modifier-form-field);
-}
-
-body.is-mobile .csi-settings-container select:hover,
-body.is-mobile .csi-editor-modal select:hover,
-body.is-mobile .typify-palette-modal select:hover,
-body.is-mobile .csi-manager-modal select:hover,
-body.is-mobile .typify-import-modal select:hover,
-body.is-mobile .typify-export-modal select:hover,
-body.is-mobile .csi-settings-container button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
-body.is-mobile .csi-editor-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
-body.is-mobile .typify-palette-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
-body.is-mobile .csi-manager-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
-body.is-mobile .typify-import-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover,
-body.is-mobile .typify-export-modal button:not(.mod-cta):not(.clickable-icon):not(.csi-btn-remove-icon):hover {
-    background-color: var(--background-modifier-hover);
-    border-color: var(--background-modifier-border-hover);
-}
-
-/* --------------------------------------------------------------------------
-   Phone Layout (button widths & stacking)
-   -------------------------------------------------------------------------- */
-
-.is-phone .modal .typify-btn-group button:not(.clickable-icon),
-.is-phone .modal .csi-btn-remove-icon,
-.is-phone .modal .typify-palette-actions-right button:not(.clickable-icon) {
-    width: 100%;
-    margin: 0;
-    padding: 10px;
-}
-
-.is-phone .modal .typify-btn-group,
-.is-phone .modal .typify-palette-actions-right {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-}
-
-/* --------------------------------------------------------------------------
-   Mobile Interactive Backgrounds (unified)
-   -------------------------------------------------------------------------- */
-
-body.is-mobile .typify-btn-group button:not(.clickable-icon),
-body.is-mobile .csi-btn-remove-icon,
-body.is-mobile .typify-palette-actions-right button:not(.clickable-icon),
-body.is-mobile .csi-preview-card,
-body.is-mobile .typify-swatch-add,
-body.is-mobile .csi-manager-item,
-body.is-mobile .typify-favicon-item,
-body.is-mobile .modal-close-button {
-    background-color: var(--interactive-normal);
-}
-
-body.is-mobile .typify-btn-group button:not(.clickable-icon):hover,
-body.is-mobile .csi-btn-remove-icon:hover,
-body.is-mobile .typify-palette-actions-right button:not(.clickable-icon):hover,
-body.is-mobile .csi-preview-card:hover,
-body.is-mobile .typify-swatch-add:hover,
-body.is-mobile .csi-manager-item:hover,
-body.is-mobile .typify-favicon-item:hover,
-body.is-mobile .modal-close-button:hover {
-    background-color: var(--interactive-hover);
 }

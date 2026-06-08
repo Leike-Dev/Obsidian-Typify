@@ -1,8 +1,8 @@
 /* ==========================================================================
  * _palette.css
  * 
- * Estilos da paleta de cores (Palette Manager) e do componente Swatch Strip,
- * permitindo a seleção, visualização e geração de cores dinâmicas.
+ * Styles for the color palette (Palette Manager) and the Swatch Strip component,
+ * allowing selection, visualization, and dynamic color generation.
  * ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -61,7 +61,7 @@
     border-radius: var(--radius-l);
     padding: 16px;
     margin-bottom: 16px;
-    background: var(--background-secondary);
+    background: var(--background-modifier-border);
 }
 
 .typify-palette-preview-header {
@@ -270,7 +270,7 @@
     align-items: center;
     gap: 10px;
     padding: 10px 12px;
-    background: var(--background-secondary);
+    background: var(--background-modifier-border);
     border-radius: 8px;
 }
 
@@ -304,7 +304,7 @@
     margin-left: auto;
 }
 
-/* Regra removida, counter agora fica na própria PaletteSection com estilo pré-existente */
+/* Rule removed, counter is now handled in PaletteSection with pre-existing style */
 .typify-swatch-seg:not(.is-active) .typify-swatch-tick {
     display: none;
 }

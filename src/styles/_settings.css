@@ -1,8 +1,8 @@
 /* ==========================================================================
  * _settings.css
  * 
- * Estilos para o painel principal de configurações do plugin (Settings Tab), 
- * incluindo formatações para seletores, accordions e opções estruturais.
+ * Styles for the main plugin settings panel (Settings Tab), 
+ * including formatting for selectors, accordions, and structural options.
  * ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -291,15 +291,7 @@
     transition: all 0.2s ease;
 }
 
-.csi-delete-btn.csi-delete-confirm {
-    background-color: var(--background-modifier-error);
-    color: var(--text-on-accent);
-    border-color: var(--background-modifier-error);
-}
-
 .csi-delete-btn.csi-delete-confirm:hover {
-    background-color: var(--background-modifier-error-hover);
-    border-color: var(--background-modifier-error-hover);
     box-shadow: 0 0 0 1px var(--background-modifier-error-hover);
 }
 

@@ -1,9 +1,9 @@
 /* ==========================================================================
  * _base-modal.css
  * 
- * Estrutura fundamental (DRY) compartilhada entre todos os modais do plugin.
- * Define contêineres padrão de corpo, rodapé, e botões, eliminando a repetição
- * de código css ao criar ou manter diferentes pop-ups na tela.
+ * Fundamental (DRY) structure shared across all plugin modals.
+ * Defines standard containers for body, footer, and buttons, eliminating CSS 
+ * code repetition when creating or maintaining different pop-ups on screen.
  * ========================================================================== */
 
 /* --------------------------------------------------------------------------

@@ -1,8 +1,8 @@
 /* ==========================================================================
  * _manager.css
  * 
- * Refere-se à folha de estilo do modal "Style Manager", a principal tela que
- * permite listar, buscar, apagar e reordenar estilos já criados pelo usuário.
+ * Refers to the stylesheet for the "Style Manager" modal, the main screen that
+ * allows listing, searching, deleting, and reordering user-created styles.
  * ========================================================================== */
 
 .csi-manager-modal {
@@ -110,7 +110,7 @@
     padding: var(--size-4-2) var(--size-4-3);
     border-radius: var(--radius-s);
     border: 1px solid var(--background-modifier-border);
-    background: var(--background-secondary);
+    background: var(--background-modifier-border);
     transition: border-color 0.15s ease;
     position: relative;
     overflow: hidden;
@@ -226,7 +226,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--size-4-3);
-    background: var(--background-secondary);
+    background: var(--background-modifier-border);
     border-radius: var(--radius-s);
     z-index: 1;
     padding: var(--size-4-2) var(--size-4-3);
