@@ -173,13 +173,13 @@ export const en = {
     'palette_regenerate_aria': 'Regenerate',
 
     // Favicons
-    'favicon_manager_title': 'Favicon manager',
-    'favicon_manager_desc': 'Manage the favicons downloaded and cached by Typify.',
+    'favicon_manager_title': 'Manage favicons',
+    'favicon_manager_desc': 'Manage, refresh or remove downloaded and cached favicons.',
     'favicon_manager_toggle_desc': 'Enable automatic favicon fetching and management for your associated links.',
     'favicon_refresh_all': 'Refresh all',
     'favicon_refreshing': 'Refreshing...',
-    'favicon_refresh_success': 'Typify: {count} favicon(s) refreshed.',
-    'favicon_refresh_partial': 'Typify: {count} favicon(s) refreshed. {failed} failed.',
+    'favicon_refresh_success': '{count} favicon(s) refreshed.',
+    'favicon_refresh_partial': '{count} favicon(s) refreshed. {failed} failed.',
 
     'favicon_provider_direct': 'Direct search',
     'favicon_provider_google': 'Google',
@@ -201,13 +201,12 @@ export const en = {
     'favicon_empty_cache': 'No favicons in cache.',
     'favicon_fetch_tooltip': 'Fetch favicon',
     'favicon_invalid_url': 'Invalid or incomplete URL.',
-    'favicon_fetch_failed': 'Typify: Failed to download favicon for {domain}',
+    'favicon_fetch_failed': 'Failed to fetch favicon for {domain}',
     'favicon_fetch_success': 'Favicon for {domain} downloaded successfully!',
 
     // Changelog
-    'section_about_title': 'Typify',
     'changelog_title': 'Changelog',
-    'changelog_desc': 'See what changed since the last update.',
+    'changelog_desc': 'See what the latest update brought.',
     'changelog_button': 'View changelog',
     'changelog_badge_new': 'New version',
     'changelog_modal_title': "What's new — Typify {version}",
@@ -222,14 +221,14 @@ export const en = {
 
     // Plugin Notices
     'notices_title': 'Plugin notices',
-    'notices_desc': 'Information and alerts about the features currently active in Typify.',
+    'notices_desc': 'Information and alerts about currently active features.',
 
     'notices_empty': 'No notices at the moment.',
     'notices_button': 'View notices',
     'notice_favicon_title': 'Favicon providers',
-    'notice_favicon_desc': 'Google: best coverage. DuckDuckGo: privacy-focused, lower quality. Direct search: frequently blocked by CORS.',
+    'notice_favicon_desc': 'Google: best coverage, best results. DuckDuckGo: privacy, variable quality. Direct fetch: often blocked by CORS, doubtful quality.',
     'notice_custom_icons_title': 'Custom icons',
     'notice_custom_icons_desc': 'Place .svg files up to 100 KB in the icons/ folder within the plugin directory.',
     'notice_cache_title': 'Local cache active',
-    'notice_cache_desc': 'Favicons are saved locally. Clear cache in Settings if an icon fails to update.'
+    'notice_cache_desc': 'Favicons are being saved locally. Go to Manage favicons to manage them.'
 };

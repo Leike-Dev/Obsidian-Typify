@@ -173,13 +173,13 @@ export const fr = {
     'palette_regenerate_aria': 'Régénérer',
 
     // Favicons
-    'favicon_manager_title': 'Gestionnaire de favicons',
-    'favicon_manager_desc': 'Gérez les favicons téléchargés et mis en cache par Typify.',
+    'favicon_manager_title': 'Gérer les favicons',
+    'favicon_manager_desc': 'Gérez, actualisez ou supprimez les favicons téléchargés et mis en cache.',
     'favicon_manager_toggle_desc': 'Active la recherche et la gestion automatiques des favicons pour vos liens associés.',
     'favicon_refresh_all': 'Tout actualiser',
     'favicon_refreshing': 'Actualisation...',
-    'favicon_refresh_success': 'Typify : {count} favicon(s) actualisé(s).',
-    'favicon_refresh_partial': 'Typify : {count} favicon(s) actualisé(s). {failed} échoué(s).',
+    'favicon_refresh_success': '{count} favicon(s) actualisé(s).',
+    'favicon_refresh_partial': '{count} favicon(s) actualisé(s). {failed} ont échoué.',
 
     'favicon_provider_direct': 'Recherche directe',
     'favicon_provider_google': 'Google',
@@ -201,13 +201,12 @@ export const fr = {
     'favicon_empty_cache': 'Aucun favicon dans le cache.',
     'favicon_fetch_tooltip': 'Obtenir le favicon',
     'favicon_invalid_url': 'URL invalide ou incomplète.',
-    'favicon_fetch_failed': 'Typify : Échec du téléchargement du favicon pour {domain}',
+    'favicon_fetch_failed': 'Échec du téléchargement du favicon pour {domain}',
     'favicon_fetch_success': 'Favicon de {domain} téléchargé avec succès !',
 
     // Journal des modifications
-    'section_about_title': 'Typify',
     'changelog_title': 'Journal des modifications',
-    'changelog_desc': 'Découvrez ce qui a changé depuis la dernière mise à jour.',
+    'changelog_desc': 'Découvrez les nouveautés de la dernière mise à jour.',
     'changelog_button': 'Voir les nouveautés',
     'changelog_badge_new': 'Nouveautés',
     'changelog_modal_title': 'Quoi de neuf — Typify {version}',
@@ -222,14 +221,14 @@ export const fr = {
 
     // Plugin Notices
     'notices_title': 'Avis du plugin',
-    'notices_desc': 'Informations et alertes concernant les fonctionnalités actuellement actives dans Typify.',
+    'notices_desc': 'Informations et alertes sur les fonctionnalités actuellement actives.',
 
     'notices_empty': 'Aucun avis pour le moment.',
     'notices_button': 'Voir les avis',
     'notice_favicon_title': 'Fournisseurs de favicon',
-    'notice_favicon_desc': 'Google : meilleure couverture. DuckDuckGo : axé sur la confidentialité, qualité inférieure. Recherche directe : souvent bloquée par CORS.',
+    'notice_favicon_desc': 'Google : meilleure couverture, meilleurs résultats. DuckDuckGo : confidentialité, qualité variable. Recherche directe : souvent bloquée par CORS, qualité douteuse.',
     'notice_custom_icons_title': 'Icônes personnalisées',
     'notice_custom_icons_desc': 'Placez des fichiers .svg de 100 Ko maximum dans le dossier icons/ du répertoire du plugin.',
     'notice_cache_title': 'Cache local actif',
-    'notice_cache_desc': 'Les favicons sont enregistrés localement. Videz le cache dans les Paramètres si une icône ne se met pas à jour.'
+    'notice_cache_desc': 'Les favicons sont enregistrés localement. Allez dans Gérer les favicons pour les gérer.'
 };

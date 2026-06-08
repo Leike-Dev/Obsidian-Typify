@@ -173,13 +173,13 @@ export const zhCN = {
     'palette_regenerate_aria': '重新生成',
 
     // Favicons
-    'favicon_manager_title': '网站图标管理器',
-    'favicon_manager_desc': '管理 Typify 下载并缓存的网站图标 (favicons)。',
+    'favicon_manager_title': '管理网站图标 (Favicon)',
+    'favicon_manager_desc': '管理、刷新或删除下载和缓存的网站图标。',
     'favicon_manager_toggle_desc': '为您的关联链接启用自动获取和管理网站图标的功能。',
     'favicon_refresh_all': '全部刷新',
     'favicon_refreshing': '正在刷新...',
-    'favicon_refresh_success': 'Typify: 成功刷新 {count} 个图标。',
-    'favicon_refresh_partial': 'Typify: 成功刷新 {count} 个图标，{failed} 个失败。',
+    'favicon_refresh_success': '{count} 个图标已刷新。',
+    'favicon_refresh_partial': '{count} 个图标已刷新。{failed} 个失败。',
 
     'favicon_provider_direct': '直接搜索',
     'favicon_provider_google': 'Google',
@@ -201,13 +201,12 @@ export const zhCN = {
     'favicon_empty_cache': '缓存中没有图标。',
     'favicon_fetch_tooltip': '获取图标',
     'favicon_invalid_url': '无效或不完整的URL。',
-    'favicon_fetch_failed': 'Typify: 下载 {domain} 的图标失败',
+    'favicon_fetch_failed': '获取 {domain} 的图标失败',
     'favicon_fetch_success': '{domain} 的图标下载成功！',
 
     // 更新日志
-    'section_about_title': 'Typify',
     'changelog_title': '更新日志',
-    'changelog_desc': '查看自上次更新以来的变化。',
+    'changelog_desc': '查看最新更新带来的新内容。',
     'changelog_button': '查看更新日志',
     'changelog_badge_new': '新动态',
     'changelog_modal_title': '新增内容 — Typify {version}',
@@ -222,14 +221,14 @@ export const zhCN = {
 
     // Plugin Notices
     'notices_title': '插件通知',
-    'notices_desc': '关于Typify中当前激活功能的提醒和信息。',
+    'notices_desc': '关于当前活动功能的信息和警报。',
 
     'notices_empty': '暂无通知。',
     'notices_button': '查看通知',
     'notice_favicon_title': '网站图标提供商',
-    'notice_favicon_desc': 'Google：覆盖率最高。DuckDuckGo：注重隐私，质量较低。直接搜索：经常被CORS拦截。',
+    'notice_favicon_desc': 'Google：最好的覆盖范围，最好的结果。DuckDuckGo：隐私好，质量不稳定。直接搜索：经常被 CORS 阻止，质量存疑。',
     'notice_custom_icons_title': '自定义图标',
     'notice_custom_icons_desc': '将最大100 KB的.svg文件放入插件目录下的icons/文件夹中。',
     'notice_cache_title': '本地缓存已激活',
-    'notice_cache_desc': '网站图标保存在本地。如果图标未更新，请在设置中清除缓存。'
+    'notice_cache_desc': '图标保存在本地。转到“管理网站图标”以管理它们。'
 };
