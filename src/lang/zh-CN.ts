@@ -1,6 +1,6 @@
 export const zhCN = {
 
-    'section_configuration_title': '配置',
+    'section_configuration_title': '常规',
     'section_data_management_title': '数据管理',
 
     // 目标属性

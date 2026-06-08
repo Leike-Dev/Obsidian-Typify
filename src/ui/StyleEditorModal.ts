@@ -540,6 +540,9 @@ export class StyleEditorModal extends Modal {
             if (currentValue === opt.key) card.addClass('is-selected');
 
             const thumb = card.createDiv({ cls: 'typify-fmt-thumb' });
+            // NOTE: innerHTML is used here with trusted static SVG constants from format-thumbs.ts.
+            // No user input is injected. Obsidian guidelines discourage innerHTML for user-generated
+            // content, but this usage is safe. If migrating away, use DOMParser + appendChild instead.
             // eslint-disable-next-line @microsoft/sdl/no-inner-html -- trusted static SVG constant
             thumb.innerHTML = opt.svg;
 

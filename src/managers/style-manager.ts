@@ -125,7 +125,9 @@ export class StyleManager {
                 if (!iconUrl) {
                     const fallbackEl = getIcon('square');
                     if (fallbackEl) {
-                        const svg = fallbackEl.outerHTML.replace(/currentColor/g, 'black');
+                    // NOTE: outerHTML is used here for READ-ONLY serialization of Obsidian's
+                    // built-in SVG icons into CSS data URIs. No DOM mutation occurs.
+                    const svg = fallbackEl.outerHTML.replace(/currentColor/g, 'black');
                         iconUrl = `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
                     }
                 }
@@ -144,6 +146,8 @@ export class StyleManager {
             } else if (style.icon) {
                 const iconEl = getIcon(style.icon);
                 if (iconEl) {
+                    // NOTE: outerHTML is used here for READ-ONLY serialization of Obsidian's
+                    // built-in SVG icons into CSS data URIs. No DOM mutation occurs.
                     const svgString = iconEl.outerHTML.replace(/currentColor/g, 'black');
                     const encodedSvg = encodeURIComponent(svgString);
                     iconUrl = `url("data:image/svg+xml;charset=utf-8,${encodedSvg}")`;

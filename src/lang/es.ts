@@ -1,6 +1,6 @@
 export const es = {
 
-    'section_configuration_title': 'Configuración',
+    'section_configuration_title': 'General',
     'section_data_management_title': 'Gestión de datos',
 
     // Propiedad Objetivo

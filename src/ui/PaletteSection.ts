@@ -54,6 +54,8 @@ export function renderPaletteSection(
         const card = cardGrid.createDiv({ cls: 'typify-fmt-card' });
 
         const thumb = card.createDiv({ cls: 'typify-fmt-thumb' });
+        // NOTE: innerHTML is used here with trusted static SVG constants from format-thumbs.ts.
+        // No user input is injected. If migrating away, use DOMParser + appendChild instead.
         // eslint-disable-next-line @microsoft/sdl/no-inner-html -- trusted static SVG constant
         thumb.innerHTML = opt.svg;
 

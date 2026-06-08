@@ -1,6 +1,6 @@
 export const en = {
 
-    'section_configuration_title': 'Configuration',
+    'section_configuration_title': 'General',
     'section_data_management_title': 'Data management',
 
     // Target Property

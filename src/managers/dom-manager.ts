@@ -1,6 +1,10 @@
 import TypifyPlugin from '../main';
 import { StyleManager } from './style-manager';
 
+// TODO: This file exceeds the recommended 200-300 line limit (~465 lines).
+// If adding new contexts or processing logic, consider extracting processNode()
+// or the per-context processing methods into a dedicated module.
+
 export class DOMManager {
     private plugin: TypifyPlugin;
     private styleManager: StyleManager;

@@ -1,6 +1,6 @@
 export const ptBR = {
 
-    'section_configuration_title': 'Configurações',
+    'section_configuration_title': 'Geral',
     'section_data_management_title': 'Gerenciamento de dados',
 
     // Propriedade Alvo

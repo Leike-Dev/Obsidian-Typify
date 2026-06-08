@@ -1694,7 +1694,6 @@ body .bases-view .bases-cards-container .bases-cards-property .typify-single-val
     border-radius: 0;
     box-shadow: none;
     margin: 0;
-    border-left: 1px solid var(--background-modifier-border);
     cursor: pointer;
     color: var(--text-normal);
     font-size: 20px;
@@ -2190,4 +2189,46 @@ body.is-mobile .typify-swatch-panel {
     font-size: 0.85em;
     color: var(--text-muted);
     line-height: 1.4;
+}
+/* ==========================================================================
+   MOBILE RESPONSIVENESS (NATIVE OBSIDIAN/BORDER BEHAVIOR)
+   ========================================================================== */
+
+/* Fix button widths and padding on phones to match native setting-item-control */
+.is-phone .modal .typify-btn-group button:not(.clickable-icon),
+.is-phone .modal .csi-btn-remove-icon,
+.is-phone .modal .typify-palette-actions-right button:not(.clickable-icon) {
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+}
+
+.is-phone .modal .typify-btn-group,
+.is-phone .modal .typify-palette-actions-right {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+}
+
+/* Enforce standard interactive backgrounds on mobile for custom elements */
+body.is-mobile .typify-btn-group button:not(.clickable-icon),
+body.is-mobile .csi-btn-remove-icon,
+body.is-mobile .typify-palette-actions-right button:not(.clickable-icon),
+body.is-mobile .csi-preview-card,
+body.is-mobile .typify-swatch-add,
+body.is-mobile .csi-manager-item,
+body.is-mobile .typify-favicon-item,
+body.is-mobile .modal-close-button {
+    background-color: var(--interactive-normal);
+}
+
+body.is-mobile .typify-btn-group button:not(.clickable-icon):hover,
+body.is-mobile .csi-btn-remove-icon:hover,
+body.is-mobile .typify-palette-actions-right button:not(.clickable-icon):hover,
+body.is-mobile .csi-preview-card:hover,
+body.is-mobile .typify-swatch-add:hover,
+body.is-mobile .csi-manager-item:hover,
+body.is-mobile .typify-favicon-item:hover,
+body.is-mobile .modal-close-button:hover {
+    background-color: var(--interactive-hover);
 }

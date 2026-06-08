@@ -36,10 +36,8 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         containerEl.empty();
         containerEl.addClass('csi-settings-container');
 
-        // ================================================================
-        // SECTION: ABOUT / TYPIFY
-        // ================================================================
-        new Setting(containerEl).setName(t('section_about_title')).setHeading();
+        // General settings at the top, without a heading
+        // (per Obsidian Plugin Guidelines: avoid a top-level heading like the plugin name)
 
         const changelogSetting = new Setting(containerEl)
             .setName(t('changelog_title'))
@@ -78,7 +76,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         }
 
         // ================================================================
-        // SECTION 1: CONFIGURATION
+        // SECTION: GENERAL
         // ================================================================
         new Setting(containerEl).setName(t('section_configuration_title')).setHeading();
 
@@ -121,9 +119,8 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                             } else {
                                 new Notice(t('custom_icons_empty'));
                             }
-                            if (result.errors.length > 0) {
-                                console.warn('[Typify] Custom icon errors:', result.errors);
-                            }
+                            // Errors are already surfaced to the user via Notice;
+                            // no additional console output needed.
                         } catch (e) {
                             new Notice(t('custom_icons_error'));
                             console.error('[Typify] Custom icons error:', e);
