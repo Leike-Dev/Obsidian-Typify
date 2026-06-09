@@ -215,6 +215,16 @@ export class StyleManagerModal extends Modal {
                 const emoji = style.icon.replace('emoji:', '');
                 iconPreview.textContent = emoji;
                 iconPreview.setCssStyles({ fontSize: '14px' });
+            } else if (style.icon.startsWith('favicon:')) {
+                const domain = style.icon.replace('favicon:', '');
+                const dataUri = this.plugin.faviconManager?.getFaviconDataUri(domain);
+                if (dataUri) {
+                    iconPreview.addClass('typify-img-preview', 'typify-img-manager-preview');
+                    iconPreview.setCssProps({ '--typify-bg-image': dataUri });
+                    iconPreview.setCssStyles({ backgroundImage: 'var(--typify-bg-image)' });
+                } else {
+                    setIcon(iconPreview, 'globe');
+                }
             } else {
                 setIcon(iconPreview, style.icon);
             }

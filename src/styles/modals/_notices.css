@@ -20,14 +20,13 @@
     color: var(--text-on-accent);
     font-size: 0.75em;
     font-weight: bold;
-    border-radius: 50%;
+    border-radius: 25%;
     min-width: 20px;
     height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 6px;
-    line-height: 1;
     padding-top: 1px;
 }
 
