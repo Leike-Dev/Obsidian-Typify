@@ -17,7 +17,7 @@ export const es = {
     'new_status_name': 'Nuevo estilo',
 
     // Controles de Estilo
-    'status_name_title': 'Nombre del estilo',
+    'status_name_title': 'Nombre',
     'base_color_title': 'Color base',
     'icon_title': 'Ícono',
 
@@ -98,7 +98,7 @@ export const es = {
     // Modal Gestor de Estilos
     'manage_styles_modal_title': 'Gestionar estilos',
     'manage_styles_search': 'Filtrar...',
-    'manage_styles_count': 'Mostrando {count} estilo(s)',
+    'manage_styles_count': '{count} estilo(s)',
     'manage_styles_empty': 'No se han creado estilos aún.',
     'manage_styles_no_results': 'Ningún estilo coincide con la búsqueda.',
     'delete_style_confirm': '¿Eliminar "{name}"?',
@@ -116,7 +116,7 @@ export const es = {
     // Tabs
     'tab_icons': 'Iconos',
     'tab_emoji': 'Emojis',
-    'tab_custom': 'Personalizados',
+    'tab_custom': 'Tus SVGs',
     'tab_images': 'Imágenes',
 
     // Modo de Color

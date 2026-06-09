@@ -216,7 +216,7 @@ export class FaviconsSection {
                 })();
             });
 
-            const deleteBtn = rightEl.createEl('button', { cls: 'clickable-icon', attr: { 'aria-label': t('favicon_remove') } });
+            const deleteBtn = rightEl.createEl('button', { cls: 'clickable-icon csi-manager-delete-btn', attr: { 'aria-label': t('favicon_remove') } });
             setIcon(deleteBtn, 'trash-2');
             deleteBtn.addEventListener('click', () => {
                 void (async () => {

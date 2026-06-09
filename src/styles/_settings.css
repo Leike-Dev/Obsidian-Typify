@@ -216,10 +216,9 @@
 .csi-preview-card {
     display: flex;
     gap: 8px;
-    padding: var(--setting-items-padding);
+    padding: 10px;
     border-radius: var(--setting-items-radius);
-    background-color: var(--setting-items-background);
-    border: var(--setting-items-border-width) solid var(--setting-items-border-color);
+    background-color: var(--background-primary-alt);
     margin-bottom: var(--size-4-4);
 }
 

@@ -109,7 +109,7 @@
     gap: var(--size-4-3);
     padding: var(--size-4-2) var(--size-4-3);
     border-radius: var(--radius-s);
-    background: var(--background-secondary);
+    background: var(--background-primary-alt);
     border: 1px solid transparent;
     transition: background-color 0.15s ease, border-color 0.15s ease;
     position: relative;

@@ -17,7 +17,7 @@ export const ptBR = {
     'new_status_name': 'Novo estilo',
 
     // Controles do Estilo
-    'status_name_title': 'Nome do estilo',
+    'status_name_title': 'Nome',
     'base_color_title': 'Cor base',
     'icon_title': 'Ícone',
 
@@ -98,7 +98,7 @@ export const ptBR = {
     // Modal de Gerenciamento de Estilos
     'manage_styles_modal_title': 'Gerenciar estilos',
     'manage_styles_search': 'Filtrar...',
-    'manage_styles_count': 'Mostrando {count} estilo(s)',
+    'manage_styles_count': '{count} estilo(s)',
     'manage_styles_empty': 'Nenhum estilo criado ainda.',
     'manage_styles_no_results': 'Nenhum estilo corresponde à busca.',
     'delete_style_confirm': 'Excluir "{name}"?',
@@ -116,7 +116,7 @@ export const ptBR = {
     // Tabs
     'tab_icons': 'Ícones',
     'tab_emoji': 'Emojis',
-    'tab_custom': 'Personalizados',
+    'tab_custom': 'Seus SVGs',
     'tab_images': 'Imagens',
 
     // Modo de Cor

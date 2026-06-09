@@ -17,7 +17,7 @@ export const zhCN = {
     'new_status_name': '新样式',
 
     // 样式控件
-    'status_name_title': '样式名称',
+    'status_name_title': '名称',
     'base_color_title': '基础颜色',
     'icon_title': '图标',
 
@@ -98,7 +98,7 @@ export const zhCN = {
     // 样式管理器弹窗
     'manage_styles_modal_title': '管理样式',
     'manage_styles_search': '筛选…',
-    'manage_styles_count': '共 {count} 个样式',
+    'manage_styles_count': '{count} 个样式',
     'manage_styles_empty': '尚未创建任何样式。',
     'manage_styles_no_results': '没有匹配的样式。',
     'delete_style_confirm': '确定删除「{name}」？',
@@ -116,7 +116,7 @@ export const zhCN = {
     // Tabs
     'tab_icons': '图标',
     'tab_emoji': '表情符号',
-    'tab_custom': '自定义',
+    'tab_custom': '你的 SVG',
     'tab_images': '图片',
 
     // 颜色模式

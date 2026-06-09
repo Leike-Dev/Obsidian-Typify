@@ -17,7 +17,7 @@ export const en = {
     'new_status_name': 'New style',
 
     // Style Controls
-    'status_name_title': 'Style name',
+    'status_name_title': 'Name',
     'base_color_title': 'Base color',
     'icon_title': 'Icon',
 
@@ -98,7 +98,7 @@ export const en = {
     // Style Manager Modal
     'manage_styles_modal_title': 'Manage styles',
     'manage_styles_search': 'Filter...',
-    'manage_styles_count': 'Showing {count} style(s)',
+    'manage_styles_count': '{count} style(s)',
     'manage_styles_empty': 'No styles created yet.',
     'manage_styles_no_results': 'No styles match your search.',
     'delete_style_confirm': 'Delete "{name}"?',
@@ -116,7 +116,7 @@ export const en = {
     // Tabs
     'tab_icons': 'Icons',
     'tab_emoji': 'Emojis',
-    'tab_custom': 'Custom',
+    'tab_custom': 'Your SVGs',
     'tab_images': 'Images',
 
     // Color Mode
