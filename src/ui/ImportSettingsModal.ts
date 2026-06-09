@@ -181,6 +181,11 @@ export class ImportSettingsModal extends Modal {
                 style.shape = item.shape as StatusStyle['shape'];
             }
 
+            // Optional: matchValue
+            if (typeof item.matchValue === 'string' && item.matchValue.trim() !== '') {
+                style.matchValue = item.matchValue.trim();
+            }
+
             // Optional: colorMode
             if (typeof item.colorMode === 'string' && ImportSettingsModal.VALID_COLOR_MODES.includes(item.colorMode)) {
                 style.colorMode = item.colorMode as StatusStyle['colorMode'];
