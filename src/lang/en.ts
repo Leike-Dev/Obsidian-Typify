@@ -228,5 +228,21 @@ export const en = {
     'notice_custom_icons_title': 'Custom icons',
     'notice_custom_icons_desc': 'Place .svg files up to 100 KB in icons/ in the plugin directory.',
     'notice_cache_title': 'Local cache active',
-    'notice_cache_desc': 'When a favicon is successfully downloaded, it is permanently saved on your machine. The plugin will not send the domain to the internet again on future visits to that same site unless you wish to update the favicon.'
+    'notice_cache_desc': 'When a favicon is successfully downloaded, it is permanently saved on your machine. The plugin will not send the domain to the internet again on future visits to that same site unless you wish to update the favicon.',
+
+    // Static Tips / Usage Tips
+    'notice_usage_list_title': 'List Property',
+    'notice_usage_list_desc': 'The style effect is only applied to List-type properties in Obsidian.',
+    
+    'notice_usage_case_title': 'Case Insensitive',
+    'notice_usage_case_desc': 'The plugin is case-insensitive for both the target property name and the names defined for the tags. Example: `Status` and `status` are the same property.',
+    
+    'notice_usage_priority_title': 'Scope Priority',
+    'notice_usage_priority_desc': 'If two styles have the same name but different scopes (e.g., one in "All properties" and another in a specific property), the more specific style will take priority for that property.',
+    
+    'notice_usage_multiple_title': 'Multiple Target Properties',
+    'notice_usage_multiple_desc': 'You can target more than one property. Just add a comma between the options. Example: `Status, Priority`.',
+    
+    'notice_custom_images_title': 'Custom images',
+    'notice_custom_images_desc': 'Place your image files (PNG, JPG, etc.) up to 50KB in the img/ folder in the plugin directory.'
 };

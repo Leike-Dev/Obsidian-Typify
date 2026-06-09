@@ -229,5 +229,21 @@ export const es = {
     'notice_custom_icons_title': 'Iconos personalizados',
     'notice_custom_icons_desc': 'Coloca archivos .svg de hasta 100 KB en icons/ en el directorio del plugin.',
     'notice_cache_title': 'Caché local activa',
-    'notice_cache_desc': 'Cuando un favicon se descarga con éxito, se guarda permanentemente en tu máquina. El plugin no enviará el dominio a internet nuevamente en futuras visitas a ese mismo sitio a menos que desees actualizar el favicon.'
+    'notice_cache_desc': 'Cuando se descarga con éxito un favicon, se guarda de forma permanente en su máquina. El plugin no volverá a enviar el dominio a internet en futuras visitas a ese mismo sitio a menos que desee actualizar el favicon.',
+
+    // Static Tips / Usage Tips
+    'notice_usage_list_title': 'Propiedad de Lista',
+    'notice_usage_list_desc': 'El efecto del estilo solo se aplica a las propiedades de tipo Lista en Obsidian.',
+    
+    'notice_usage_case_title': 'Mayúsculas y Minúsculas',
+    'notice_usage_case_desc': 'El plugin no distingue entre mayúsculas y minúsculas para el nombre de la propiedad objetivo o los nombres definidos para las etiquetas. Ejemplo: `Status` y `status` son la misma propiedad.',
+    
+    'notice_usage_priority_title': 'Prioridad de Alcance',
+    'notice_usage_priority_desc': 'Si dos estilos tienen el mismo nombre pero diferentes alcances (ej. uno en "Todas las propiedades" y otro en una propiedad específica), el estilo más específico tendrá prioridad para esa propiedad.',
+    
+    'notice_usage_multiple_title': 'Múltiples Propiedades Objetivo',
+    'notice_usage_multiple_desc': 'Puede usar más de una propiedad como objetivo. Simplemente agregue una coma entre las opciones. Ejemplo: `Status, Priority`.',
+    
+    'notice_custom_images_title': 'Imágenes personalizadas',
+    'notice_custom_images_desc': 'Coloque sus archivos de imagen (PNG, JPG, etc.) de hasta 50KB en la carpeta img/ en el directorio del plugin.'
 };

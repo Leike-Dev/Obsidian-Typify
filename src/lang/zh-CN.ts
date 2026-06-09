@@ -228,5 +228,21 @@ export const zhCN = {
     'notice_custom_icons_title': '自定义图标',
     'notice_custom_icons_desc': '将最大 100 KB 的 .svg 文件放置在插件目录的 icons/ 中。',
     'notice_cache_title': '本地缓存已启用',
-    'notice_cache_desc': '成功下载图标后，它将永久保存在您的本地机器上。该插件在以后访问同一网站时不会再次将域名发送到互联网，除非您希望更新图标。'
+    'notice_cache_desc': '成功下载图标后，它将永久保存在您的本地机器上。该插件在以后访问同一网站时不会再次将域名发送到互联网，除非您希望更新图标。',
+
+    // Static Tips / Usage Tips
+    'notice_usage_list_title': '列表属性',
+    'notice_usage_list_desc': '样式效果仅应用于 Obsidian 中的列表类型属性。',
+    
+    'notice_usage_case_title': '大小写不敏感',
+    'notice_usage_case_desc': '该插件对目标属性名和为标签定义的名称均不区分大小写。示例：`Status` 和 `status` 是同一个属性。',
+    
+    'notice_usage_priority_title': '作用域优先级',
+    'notice_usage_priority_desc': '如果两个样式名称相同但作用域不同（例如，一个在“所有属性”中，另一个在特定属性中），则更具体的样式将优先应用于该属性。',
+    
+    'notice_usage_multiple_title': '多个目标属性',
+    'notice_usage_multiple_desc': '您可以将多个属性作为目标。只需在选项之间添加逗号即可。示例：`Status, Priority`。',
+    
+    'notice_custom_images_title': '自定义图片',
+    'notice_custom_images_desc': '请将最大 50KB 的图片文件（PNG、JPG 等）放在插件目录中的 img/ 文件夹中。'
 };

@@ -75,6 +75,43 @@ export class NoticesModal extends Modal {
             });
         }
 
+        // Static Tips / Usage Tips
+        notices.push({
+            type: 'info',
+            icon: 'list',
+            title: t('notice_usage_list_title'),
+            desc: t('notice_usage_list_desc')
+        });
+
+        notices.push({
+            type: 'info',
+            icon: 'case-sensitive', // Using an icon like 'case-sensitive' or 'text-cursor' or 'a-large-small' (lucide icons)
+            title: t('notice_usage_case_title'),
+            desc: t('notice_usage_case_desc')
+        });
+
+        notices.push({
+            type: 'info',
+            icon: 'layers',
+            title: t('notice_usage_priority_title'),
+            desc: t('notice_usage_priority_desc')
+        });
+
+        notices.push({
+            type: 'info',
+            icon: 'tags',
+            title: t('notice_usage_multiple_title'),
+            desc: t('notice_usage_multiple_desc')
+        });
+
+        notices.push({
+            type: 'info',
+            icon: 'image',
+            title: t('notice_custom_images_title'),
+            desc: t('notice_custom_images_desc')
+        });
+
+
         return notices;
     }
 

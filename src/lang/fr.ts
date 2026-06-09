@@ -228,5 +228,21 @@ export const fr = {
     'notice_custom_icons_title': 'Icônes personnalisées',
     'notice_custom_icons_desc': 'Placez des fichiers .svg jusqu\'à 100 Ko dans icons/ dans le répertoire du plugin.',
     'notice_cache_title': 'Cache local actif',
-    'notice_cache_desc': 'Lorsqu\'un favicon est téléchargé avec succès, il est enregistré de façon permanente sur votre machine. Le plugin n\'enverra plus le domaine sur Internet lors de vos futures visites sur ce même site, sauf si vous souhaitez mettre à jour le favicon.'
+    'notice_cache_desc': 'Lorsqu\'un favicon est téléchargé avec succès, il est enregistré de façon permanente sur votre machine. Le plugin n\'enverra plus le domaine sur Internet lors de vos futures visites sur ce même site, sauf si vous souhaitez mettre à jour le favicon.',
+
+    // Static Tips / Usage Tips
+    'notice_usage_list_title': 'Propriété de Liste',
+    'notice_usage_list_desc': 'L\'effet de style n\'est appliqué qu\'aux propriétés de type Liste dans Obsidian.',
+    
+    'notice_usage_case_title': 'Sensibilité à la Casse',
+    'notice_usage_case_desc': 'Le plugin ne fait pas la distinction entre les majuscules et les minuscules pour le nom de la propriété cible ou les noms définis pour les étiquettes. Exemple : `Status` et `status` sont la même propriété.',
+    
+    'notice_usage_priority_title': 'Priorité de Portée',
+    'notice_usage_priority_desc': 'Si deux styles ont le même nom mais des portées différentes (ex. l\'un dans "Toutes les propriétés" et l\'autre dans une propriété spécifique), le style le plus spécifique aura la priorité pour cette propriété.',
+    
+    'notice_usage_multiple_title': 'Cibles Multiples',
+    'notice_usage_multiple_desc': 'Vous pouvez cibler plus d\'une propriété. Ajoutez simplement une virgule entre les options. Exemple : `Status, Priority`.',
+    
+    'notice_custom_images_title': 'Images personnalisées',
+    'notice_custom_images_desc': 'Placez vos fichiers image (PNG, JPG, etc.) d\'une taille maximale de 50 Ko dans le dossier img/ du répertoire du plugin.'
 };

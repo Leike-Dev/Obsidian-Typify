@@ -230,4 +230,20 @@ export const ptBR = {
     'notice_custom_icons_desc': 'Coloque arquivos .svg de até 100 KB em icons/ no diretório do plugin.',
     'notice_cache_title': 'Cache local ativo',
     'notice_cache_desc': 'Quando um favicon é baixado com sucesso, ele é salvo permanentemente na sua máquina. O plugin não enviará o domínio para a internet novamente em acessos futuros àquele mesmo site a não ser que você deseje atualizar o favicon.',
+
+    // Dicas de Uso / Static Notices
+    'notice_usage_list_title': 'Propriedade de Lista',
+    'notice_usage_list_desc': 'O efeito do estilo só é aplicado em propriedades do tipo Lista no Obsidian.',
+    
+    'notice_usage_case_title': 'Maiúsculas e Minúsculas',
+    'notice_usage_case_desc': 'O plugin não faz distinção de maiúsculas e minúsculas para o nome da propriedade alvo ou os nomes definidos para as tags. Exemplo: `Status` e `status` são a mesma propriedade.',
+    
+    'notice_usage_priority_title': 'Prioridade de Escopo',
+    'notice_usage_priority_desc': 'Se dois estilos possuem o mesmo nome, mas escopos diferentes (ex: um em "Todas as propriedades" e outro em uma propriedade específica), o estilo mais específico terá prioridade para aquela propriedade.',
+    
+    'notice_usage_multiple_title': 'Múltiplas Propriedades Alvo',
+    'notice_usage_multiple_desc': 'Você pode usar mais de uma propriedade como alvo. Apenas adicione uma vírgula entre as opções. Exemplo: `Status, Priority`.',
+    
+    'notice_custom_images_title': 'Imagens personalizadas',
+    'notice_custom_images_desc': 'Coloque seus arquivos de imagem (PNG, JPG, etc.) de até 50KB na pasta img/ no diretório do plugin.',
 };
