@@ -26,10 +26,6 @@ export const en = {
     'applies_to_title': 'Applies to',
     'applies_to_all_option': 'All properties',
 
-    // Preview
-    'preview_light_context': 'Light mode view',
-    'preview_dark_context': 'Dark mode view',
-
     // Delete
     'delete_button': 'Delete style',
 
@@ -116,7 +112,7 @@ export const en = {
     // Tabs
     'tab_icons': 'Icons',
     'tab_emoji': 'Emojis',
-    'tab_custom': 'Your SVGs',
+    'tab_custom': 'SVGs',
     'tab_images': 'Images',
 
     // Color Mode

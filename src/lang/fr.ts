@@ -26,10 +26,6 @@ export const fr = {
     'applies_to_title': 'S\'applique à',
     'applies_to_all_option': 'Toutes les propriétés',
 
-    // Aperçu
-    'preview_light_context': 'Aperçu en mode clair',
-    'preview_dark_context': 'Aperçu en mode sombre',
-
     // Supprimer
     'delete_button': 'Supprimer le style',
 
@@ -116,7 +112,7 @@ export const fr = {
     // Tabs
     'tab_icons': 'Icônes',
     'tab_emoji': 'Emojis',
-    'tab_custom': 'Vos SVG',
+    'tab_custom': 'SVG',
     'tab_images': 'Images',
 
     // Mode de Couleur

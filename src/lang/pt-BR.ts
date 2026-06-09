@@ -26,10 +26,6 @@ export const ptBR = {
     'applies_to_title': 'Aplica-se a',
     'applies_to_all_option': 'Todas as propriedades',
 
-    // Visualização
-    'preview_light_context': 'Visualização em modo claro',
-    'preview_dark_context': 'Visualização em modo escuro',
-
     // Excluir
     'delete_button': 'Excluir estilo',
 
@@ -116,7 +112,7 @@ export const ptBR = {
     // Tabs
     'tab_icons': 'Ícones',
     'tab_emoji': 'Emojis',
-    'tab_custom': 'Seus SVGs',
+    'tab_custom': 'SVGs',
     'tab_images': 'Imagens',
 
     // Modo de Cor

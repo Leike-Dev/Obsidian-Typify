@@ -238,12 +238,10 @@ export class StyleEditorModal extends Modal {
 
         // Light preview
         const lightWrapper = previewContainer.createDiv({ cls: 'typify-preview-wrapper typify-preview-light' });
-        lightWrapper.createDiv({ text: t('preview_light_context'), cls: 'typify-preview-label' });
         this.previewPillLight = lightWrapper.createSpan({ cls: 'typify-preview-pill' });
 
         // Dark preview
         const darkWrapper = previewContainer.createDiv({ cls: 'typify-preview-wrapper typify-preview-dark' });
-        darkWrapper.createDiv({ text: t('preview_dark_context'), cls: 'typify-preview-label' });
         this.previewPillDark = darkWrapper.createSpan({ cls: 'typify-preview-pill' });
 
         this.updatePreview();

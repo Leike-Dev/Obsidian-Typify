@@ -26,10 +26,6 @@ export const zhCN = {
     'applies_to_title': '应用于',
     'applies_to_all_option': '所有属性',
 
-    // 预览
-    'preview_light_context': '浅色模式预览',
-    'preview_dark_context': '深色模式预览',
-
     // 删除
     'delete_button': '删除样式',
 
@@ -116,7 +112,7 @@ export const zhCN = {
     // Tabs
     'tab_icons': '图标',
     'tab_emoji': '表情符号',
-    'tab_custom': '你的 SVG',
+    'tab_custom': 'SVG',
     'tab_images': '图片',
 
     // 颜色模式
