@@ -10,17 +10,17 @@
    Mobile Dropdown Headers (Settings)
    -------------------------------------------------------------------------- */
 
-body.is-phone .mod-settings .setting-item.csi-dropdown-header {
+body.is-phone .mod-settings .setting-item.typify-dropdown-header {
     flex-direction: row;
     align-items: center;
 }
 
-body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-info {
+body.is-phone .mod-settings .setting-item.typify-dropdown-header .setting-item-info {
     flex: 1 1 auto;
     margin-right: 12px;
 }
 
-body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-control {
+body.is-phone .mod-settings .setting-item.typify-dropdown-header .setting-item-control {
     width: auto;
     margin-top: 0;
     justify-content: flex-end;
@@ -33,7 +33,7 @@ body.is-phone .mod-settings .setting-item.csi-dropdown-header .setting-item-cont
 /* On mobile, --background-secondary often blends into the modal background.
    We use form-field backgrounds to make the cards visible, particularly in dark mode. */
 body.theme-dark.is-mobile .typify-fmt-card:not(:hover):not(.is-selected),
-body.theme-dark.is-mobile .csi-manager-item:not(:hover),
+body.theme-dark.is-mobile .typify-manager-item:not(:hover),
 body.theme-dark.is-mobile .typify-palette-preview-container,
 body.theme-dark.is-mobile .typify-swatch-add:not(:hover) {
     background: var(--background-modifier-form-field);

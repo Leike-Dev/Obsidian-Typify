@@ -144,7 +144,7 @@ export function renderPaletteSection(
     });
 
     // 3. Color Picker
-    const colorInputWrapper = rightControls.createDiv({ cls: 'csi-color-input-wrapper typify-palette-color-picker' });
+    const colorInputWrapper = rightControls.createDiv({ cls: 'typify-color-input-wrapper typify-palette-color-picker' });
     const colorInput = colorInputWrapper.createEl('input', { type: 'color' });
     colorInput.value = baseColorHex;
     colorInput.addEventListener('input', (e) => {

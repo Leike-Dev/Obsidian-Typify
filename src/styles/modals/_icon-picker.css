@@ -9,7 +9,7 @@
    Icon Picker Button
    -------------------------------------------------------------------------- */
 
-.csi-icon-picker-btn {
+.typify-icon-picker-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,7 +19,7 @@
     cursor: pointer;
 }
 
-.csi-btn-remove-icon:hover {
+.typify-btn-remove-icon:hover {
     color: var(--text-error);
 }
 
@@ -27,13 +27,13 @@
    Icon Suggestion in Modal
    -------------------------------------------------------------------------- */
 
-.csi-icon-suggestion {
+.typify-icon-suggestion {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.csi-icon-suggestion-icon {
+.typify-icon-suggestion-icon {
     width: 20px;
     height: 20px;
     display: flex;
@@ -42,26 +42,26 @@
     flex-shrink: 0;
 }
 
-.csi-icon-suggestion-icon svg {
+.typify-icon-suggestion-icon svg {
     width: 18px;
     height: 18px;
     max-width: 18px;
     max-height: 18px;
 }
 
-.csi-icon-suggestion-name {
+.typify-icon-suggestion-name {
     flex: 1;
     font-family: var(--font-monospace);
     font-size: 13px;
 }
 
-.csi-icon-recent-badge {
+.typify-icon-recent-badge {
     font-size: 8px;
     color: var(--interactive-accent);
 }
 
 /* Custom icon badge in icon picker */
-.csi-icon-custom-badge {
+.typify-icon-custom-badge {
     font-size: 10px;
     font-weight: 600;
     color: var(--text-on-accent);

@@ -246,7 +246,7 @@ body .bases-view .bases-cards-container .bases-cards-property .typify-single-val
    Preview Pills (Settings & Modals)
    -------------------------------------------------------------------------- */
 
-.csi-preview-pill {
+.typify-preview-pill {
     padding: 2px 8px;
     border-radius: 10px;
     font-size: 12px;
@@ -258,7 +258,7 @@ body .bases-view .bases-cards-container .bases-cards-property .typify-single-val
     overflow: hidden;
 }
 
-.csi-preview-pill-text {
+.typify-preview-pill-text {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

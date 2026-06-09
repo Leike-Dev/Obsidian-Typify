@@ -9,7 +9,7 @@
    Settings Container
    -------------------------------------------------------------------------- */
 
-.csi-settings-container {
+.typify-settings-container {
     padding: 32px 48px;
     width: 100%;
     min-width: 400px;
@@ -19,11 +19,11 @@
 }
 
 /* Header */
-.csi-settings-header {
+.typify-settings-header {
     margin-bottom: var(--size-4-6);
 }
 
-.csi-settings-header h2 {
+.typify-settings-header h2 {
     margin: 0;
     font-size: 24px;
     font-weight: 700;
@@ -35,7 +35,7 @@
    -------------------------------------------------------------------------- */
 
 /* When expanded, the header loses its bottom margin and bottom rounding */
-.mod-settings .setting-item.csi-dropdown-header.is-expanded {
+.mod-settings .setting-item.typify-dropdown-header.is-expanded {
     margin-bottom: 0;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -43,12 +43,12 @@
 }
 
 /* The container holding the sub-items */
-.csi-dropdown-container {
+.typify-dropdown-container {
     margin-bottom: var(--size-4-5);
 }
 
 /* The options inside the container */
-.mod-settings .csi-dropdown-container .setting-item {
+.mod-settings .typify-dropdown-container .setting-item {
     border: none;
     border-top: var(--border-width) solid var(--background-modifier-border);
     border-radius: 0;
@@ -57,36 +57,36 @@
     box-shadow: none;
 }
 
-.mod-settings .csi-dropdown-container .setting-item:last-child {
+.mod-settings .typify-dropdown-container .setting-item:last-child {
     border-bottom-left-radius: var(--radius-s);
     border-bottom-right-radius: var(--radius-s);
 }
 
-.mod-settings .csi-dropdown-container .setting-item:first-child {
+.mod-settings .typify-dropdown-container .setting-item:first-child {
     border-top: var(--border-width) solid var(--background-modifier-border);
 }
 
 /* Explicitly guarantee visual deactivation (fading) for disabled settings */
-.mod-settings .csi-dropdown-container .setting-item.is-disabled {
+.mod-settings .typify-dropdown-container .setting-item.is-disabled {
     opacity: 0.5;
     pointer-events: none;
 }
 
 /* Dropdown icon styling */
-.csi-dropdown-icon {
+.typify-dropdown-icon {
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-muted);
 }
 
-.csi-dropdown-icon svg {
+.typify-dropdown-icon svg {
     width: 18px;
     height: 18px;
     stroke-width: 2px;
 }
 
-.csi-clickable-header {
+.typify-clickable-header {
     cursor: pointer;
 }
 
@@ -94,7 +94,7 @@
    Version Badge
    -------------------------------------------------------------------------- */
 
-.csi-version {
+.typify-version {
     font-size: 12px;
     color: var(--text-muted);
     font-weight: normal;
@@ -109,8 +109,8 @@
    Section Headers
    -------------------------------------------------------------------------- */
 
-.csi-settings-container h3.csi-section-header,
-.csi-settings-container h3.csi-status-list-header {
+.typify-settings-container h3.typify-section-header,
+.typify-settings-container h3.typify-status-list-header {
     font-size: var(--font-ui-medium);
     font-weight: 600;
     color: var(--text-normal);
@@ -122,7 +122,7 @@
    Status Accordion (individual status items)
    -------------------------------------------------------------------------- */
 
-.csi-status-item {
+.typify-status-item {
     display: flex;
     flex-direction: column;
     border-radius: var(--setting-items-radius);
@@ -135,12 +135,12 @@
     box-sizing: border-box;
 }
 
-.csi-status-item:hover {
+.typify-status-item:hover {
     border-color: var(--interactive-accent);
 }
 
 /* Accordion Header */
-.csi-status-header {
+.typify-status-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -150,11 +150,11 @@
     user-select: none;
 }
 
-.csi-status-header:hover {
+.typify-status-header:hover {
     background-color: var(--background-secondary-alt);
 }
 
-.csi-status-name {
+.typify-status-name {
     font-weight: 600;
     font-size: 14px;
     display: flex;
@@ -162,43 +162,43 @@
     gap: 8px;
 }
 
-.csi-status-preview-dot {
+.typify-status-preview-dot {
     width: 10px;
     height: 10px;
     border-radius: 50%;
     display: inline-block;
 }
 
-.csi-status-arrow {
+.typify-status-arrow {
     transition: transform 0.2s ease;
     color: var(--text-muted);
 }
 
-.csi-status-item.is-open .csi-status-arrow {
+.typify-status-item.is-open .typify-status-arrow {
     transform: rotate(180deg);
 }
 
 /* Accordion Body */
-.csi-status-body {
+.typify-status-body {
     display: none;
     padding: 0;
     border-top: 1px solid transparent;
 }
 
-.csi-status-item.is-open .csi-status-body {
+.typify-status-item.is-open .typify-status-body {
     display: block;
     padding: var(--setting-items-padding);
     border-top-color: var(--background-modifier-border);
 }
 
-.csi-controls-list {
+.typify-controls-list {
     display: flex;
     flex-direction: column;
     gap: var(--size-4-2);
     margin-bottom: var(--size-4-4);
 }
 
-.csi-control-card {
+.typify-control-card {
     display: flex;
     align-items: center;
     gap: var(--size-4-4);
@@ -208,12 +208,12 @@
     border: var(--setting-items-border-width) solid var(--setting-items-border-color);
 }
 
-.csi-control-card .csi-card-info {
+.typify-control-card .typify-card-info {
     flex: 1;
     min-width: 0;
 }
 
-.csi-preview-card {
+.typify-preview-card {
     display: flex;
     gap: 8px;
     padding: 10px;
@@ -226,7 +226,7 @@
    Preview Wrappers for Theme Simulation
    -------------------------------------------------------------------------- */
 
-.csi-preview-wrapper {
+.typify-preview-wrapper {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -240,7 +240,7 @@
     min-width: 0;
 }
 
-.csi-preview-label {
+.typify-preview-label {
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -251,24 +251,24 @@
 /* Adaptive Preview Backgrounds */
 
 /* Default fallback colors */
-.csi-preview-light {
+.typify-preview-light {
     background-color: #ffffff;
     color: #202020;
 }
 
-.csi-preview-dark {
+.typify-preview-dark {
     background-color: #1e1e1e;
     color: #dcddde;
 }
 
 /* When in Light Mode: Light preview uses real note color */
-.theme-light .csi-preview-light {
+.theme-light .typify-preview-light {
     background-color: var(--background-primary);
     border-color: var(--background-modifier-border);
 }
 
 /* When in Dark Mode: Dark preview uses real note color */
-.theme-dark .csi-preview-dark {
+.theme-dark .typify-preview-dark {
     background-color: var(--background-primary);
     border-color: var(--background-modifier-border);
 }
@@ -277,7 +277,7 @@
    Actions & Delete
    -------------------------------------------------------------------------- */
 
-.csi-actions {
+.typify-actions {
     display: flex;
     justify-content: flex-end;
     gap: 12px;
@@ -285,12 +285,12 @@
     border-top: 1px solid var(--background-modifier-border);
 }
 
-.csi-delete-btn {
+.typify-delete-btn {
     color: var(--text-error);
     transition: all 0.2s ease;
 }
 
-.csi-delete-btn.csi-delete-confirm:hover {
+.typify-delete-btn.typify-delete-confirm:hover {
     box-shadow: 0 0 0 1px var(--background-modifier-error-hover);
 }
 
@@ -298,11 +298,11 @@
    Inputs & Controls
    -------------------------------------------------------------------------- */
 
-.csi-input-text {
+.typify-input-text {
     width: 150px;
 }
 
-.csi-control-area {
+.typify-control-area {
     text-align: end;
     display: flex;
     justify-content: flex-end;
@@ -310,7 +310,7 @@
     gap: var(--size-4-2);
 }
 
-.csi-icon-preview {
+.typify-icon-preview {
     width: 28px;
     height: 28px;
     display: flex;
@@ -321,7 +321,7 @@
 }
 
 /* Color picker - native Obsidian style (Square) */
-.csi-color-picker-setting input[type="color"] {
+.typify-color-picker-setting input[type="color"] {
     -webkit-appearance: none;
     appearance: none;
     width: 32px;
@@ -335,16 +335,16 @@
     flex-shrink: 0;
 }
 
-.csi-color-picker-setting input[type="color"]::-webkit-color-swatch-wrapper {
+.typify-color-picker-setting input[type="color"]::-webkit-color-swatch-wrapper {
     padding: 0;
 }
 
-.csi-color-picker-setting input[type="color"]::-webkit-color-swatch {
+.typify-color-picker-setting input[type="color"]::-webkit-color-swatch {
     border: 1px solid var(--background-modifier-border);
     border-radius: 4px;
 }
 
-.csi-color-picker-setting input[type="color"]::-moz-color-swatch {
+.typify-color-picker-setting input[type="color"]::-moz-color-swatch {
     border: 1px solid var(--background-modifier-border);
     border-radius: 4px;
 }
@@ -353,21 +353,21 @@
    Settings Header - version number inline with title
    -------------------------------------------------------------------------- */
 
-.csi-settings-container>.setting-item-heading:first-child .setting-item-info {
+.typify-settings-container>.setting-item-heading:first-child .setting-item-info {
     display: flex;
     flex-direction: row;
     align-items: baseline;
     gap: 8px;
 }
 
-.csi-settings-container>.setting-item-heading:first-child .setting-item-name {
+.typify-settings-container>.setting-item-heading:first-child .setting-item-name {
     overflow: visible;
     text-overflow: unset;
     white-space: nowrap;
     flex-shrink: 0;
 }
 
-.csi-settings-container>.setting-item-heading:first-child .setting-item-description {
+.typify-settings-container>.setting-item-heading:first-child .setting-item-description {
     font-weight: var(--font-normal);
     font-size: var(--font-ui-small);
     color: var(--text-muted);
@@ -376,7 +376,7 @@
 
 /* Mobile fallback */
 @media (max-width: 300px) {
-    .csi-settings-container>.setting-item-heading:first-child .setting-item-info {
+    .typify-settings-container>.setting-item-heading:first-child .setting-item-info {
         flex-direction: column;
     }
 }

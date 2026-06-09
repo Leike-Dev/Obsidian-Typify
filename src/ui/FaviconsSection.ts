@@ -69,12 +69,12 @@ export class FaviconsSection {
         // Section separator for Search/List
         this.containerEl.createDiv({ text: t('favicon_manager_title'), cls: 'typify-card-section-title' });
 
-        const filterContainer = this.containerEl.createDiv({ cls: 'csi-manager-search-container' });
+        const filterContainer = this.containerEl.createDiv({ cls: 'typify-manager-search-container' });
         
         const searchInput = filterContainer.createEl('input', {
             type: 'text',
             placeholder: t('favicon_search_placeholder'),
-            cls: 'csi-manager-search',
+            cls: 'typify-manager-search',
         });
         searchInput.addEventListener('input', () => {
             this.searchInput = searchInput.value.toLowerCase();
@@ -116,7 +116,7 @@ export class FaviconsSection {
             })();
         });
 
-        this.listContainer = this.containerEl.createDiv({ cls: 'csi-manager-list typify-favicon-list' });
+        this.listContainer = this.containerEl.createDiv({ cls: 'typify-manager-list typify-favicon-list' });
         this.renderList();
     }
 
@@ -146,14 +146,14 @@ export class FaviconsSection {
             if (this.searchInput && !domain.includes(this.searchInput)) continue;
             
             count++;
-            const itemEl = this.listContainer.createDiv({ cls: 'csi-manager-item typify-favicon-item' });
-            const leftEl = itemEl.createDiv({ cls: 'csi-manager-item-info typify-favicon-item-left' });
+            const itemEl = this.listContainer.createDiv({ cls: 'typify-manager-item typify-favicon-item' });
+            const leftEl = itemEl.createDiv({ cls: 'typify-manager-item-info typify-favicon-item-left' });
             
             const isFailed = failed.has(domain);
             const entry = cache.get(domain);
             
             // Status Line (left edge indicator)
-            const statusLine = leftEl.createDiv({ cls: 'csi-manager-color-dot' });
+            const statusLine = leftEl.createDiv({ cls: 'typify-manager-color-dot' });
             
             let isOutdated = false;
             if (!isFailed && entry) {
@@ -181,11 +181,11 @@ export class FaviconsSection {
             }
 
             // Text block
-            const textBlock = leftEl.createDiv({ cls: 'csi-manager-item-text' });
-            const nameRow = textBlock.createDiv({ cls: 'csi-manager-item-name' });
+            const textBlock = leftEl.createDiv({ cls: 'typify-manager-item-text' });
+            const nameRow = textBlock.createDiv({ cls: 'typify-manager-item-name' });
             nameRow.setText(domain);
             
-            const metaRow = textBlock.createDiv({ cls: 'csi-manager-meta' });
+            const metaRow = textBlock.createDiv({ cls: 'typify-manager-meta' });
             if (isFailed) {
                 metaRow.createSpan({ text: t('favicon_meta_failed') }).setCssStyles({ color: 'var(--text-error)' });
             } else if (isOutdated) {
@@ -202,7 +202,7 @@ export class FaviconsSection {
                 }
                 metaRow.createSpan({ text });
             }
-            const rightEl = itemEl.createDiv({ cls: 'csi-manager-actions typify-favicon-item-right' });
+            const rightEl = itemEl.createDiv({ cls: 'typify-manager-actions typify-favicon-item-right' });
             
             const refreshBtn = rightEl.createEl('button', { cls: 'clickable-icon', attr: { 'aria-label': t('favicon_retry') } });
             setIcon(refreshBtn, 'refresh-cw');
@@ -216,7 +216,7 @@ export class FaviconsSection {
                 })();
             });
 
-            const deleteBtn = rightEl.createEl('button', { cls: 'clickable-icon csi-manager-delete-btn', attr: { 'aria-label': t('favicon_remove') } });
+            const deleteBtn = rightEl.createEl('button', { cls: 'clickable-icon typify-manager-delete-btn', attr: { 'aria-label': t('favicon_remove') } });
             setIcon(deleteBtn, 'trash-2');
             deleteBtn.addEventListener('click', () => {
                 void (async () => {

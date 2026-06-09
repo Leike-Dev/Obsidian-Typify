@@ -55,7 +55,7 @@ export class StyleEditorModal extends Modal {
     onOpen() {
         const { contentEl } = this;
         contentEl.empty();
-        contentEl.addClass('csi-editor-modal');
+        contentEl.addClass('typify-editor-modal');
 
         // Header
         this.setTitle(this.editIndex !== null ? t('edit_style_title') : t('create_style_title'));
@@ -96,7 +96,7 @@ export class StyleEditorModal extends Modal {
 
         // Base Color
         const colorSetting = new Setting(contentEl)
-            .setClass('csi-color-picker-setting')
+            .setClass('typify-color-picker-setting')
             .setName(t('base_color_title'));
 
         colorSetting.addColorPicker(color => {
@@ -152,7 +152,7 @@ export class StyleEditorModal extends Modal {
         iconSetting.addButton(btn => {
             btn.setIcon('x');
             btn.setTooltip(t('remove_icon_tooltip'));
-            btn.buttonEl.addClass('csi-btn-remove-icon');
+            btn.buttonEl.addClass('typify-btn-remove-icon');
             btn.onClick(() => {
                 this.icon = '';
                 this.renderIconButton();
@@ -234,17 +234,17 @@ export class StyleEditorModal extends Modal {
         // ============================================================
         // PREVIEW
         // ============================================================
-        const previewContainer = contentEl.createDiv({ cls: 'csi-preview-card' });
+        const previewContainer = contentEl.createDiv({ cls: 'typify-preview-card' });
 
         // Light preview
-        const lightWrapper = previewContainer.createDiv({ cls: 'csi-preview-wrapper csi-preview-light' });
-        lightWrapper.createDiv({ text: t('preview_light_context'), cls: 'csi-preview-label' });
-        this.previewPillLight = lightWrapper.createSpan({ cls: 'csi-preview-pill' });
+        const lightWrapper = previewContainer.createDiv({ cls: 'typify-preview-wrapper typify-preview-light' });
+        lightWrapper.createDiv({ text: t('preview_light_context'), cls: 'typify-preview-label' });
+        this.previewPillLight = lightWrapper.createSpan({ cls: 'typify-preview-pill' });
 
         // Dark preview
-        const darkWrapper = previewContainer.createDiv({ cls: 'csi-preview-wrapper csi-preview-dark' });
-        darkWrapper.createDiv({ text: t('preview_dark_context'), cls: 'csi-preview-label' });
-        this.previewPillDark = darkWrapper.createSpan({ cls: 'csi-preview-pill' });
+        const darkWrapper = previewContainer.createDiv({ cls: 'typify-preview-wrapper typify-preview-dark' });
+        darkWrapper.createDiv({ text: t('preview_dark_context'), cls: 'typify-preview-label' });
+        this.previewPillDark = darkWrapper.createSpan({ cls: 'typify-preview-pill' });
 
         this.updatePreview();
 
@@ -333,7 +333,7 @@ export class StyleEditorModal extends Modal {
 
         // Light pill
         this.previewPillLight.empty();
-        this.previewPillLight.createSpan({ text: displayName, cls: 'csi-preview-pill-text' });
+        this.previewPillLight.createSpan({ text: displayName, cls: 'typify-preview-pill-text' });
         const previewRadius = this.shape === 'flat' ? '0px' : this.shape === 'rectangle' ? '4px' : '10px';
         this.previewPillLight.setCssStyles({
             backgroundColor: palette.light.bg,
@@ -344,7 +344,7 @@ export class StyleEditorModal extends Modal {
 
         // Dark pill
         this.previewPillDark.empty();
-        this.previewPillDark.createSpan({ text: displayName, cls: 'csi-preview-pill-text' });
+        this.previewPillDark.createSpan({ text: displayName, cls: 'typify-preview-pill-text' });
         this.previewPillDark.setCssStyles({
             backgroundColor: palette.dark.bg,
             color: palette.dark.text,
@@ -367,7 +367,7 @@ export class StyleEditorModal extends Modal {
 
         if (this.icon.startsWith('emoji:')) {
             const emoji = this.icon.replace('emoji:', '');
-            iconSpan.addClass('csi-preview-pill-icon');
+            iconSpan.addClass('typify-preview-pill-icon');
             iconSpan.textContent = emoji;
             iconSpan.setCssStyles({ backgroundColor: 'transparent', maskImage: 'none' });
         } else if (this.icon.startsWith('img:')) {
@@ -378,11 +378,11 @@ export class StyleEditorModal extends Modal {
                 iconSpan.setCssProps({ '--typify-bg-image': dataUri });
                 iconSpan.setCssStyles({ backgroundImage: 'var(--typify-bg-image)' });
             } else {
-                iconSpan.addClass('csi-preview-pill-icon');
+                iconSpan.addClass('typify-preview-pill-icon');
                 setIcon(iconSpan, 'image');
             }
         } else if (this.icon.startsWith('custom:')) {
-            iconSpan.addClass('csi-preview-pill-icon');
+            iconSpan.addClass('typify-preview-pill-icon');
             const name = this.icon.replace('custom:', '');
             const svgContent = this.plugin.customIconsManager?.getSvgContent(name);
             if (svgContent) {
@@ -402,11 +402,11 @@ export class StyleEditorModal extends Modal {
                 iconSpan.setCssProps({ '--typify-bg-image': dataUri });
                 iconSpan.setCssStyles({ backgroundImage: 'var(--typify-bg-image)' });
             } else {
-                iconSpan.addClass('csi-preview-pill-icon');
+                iconSpan.addClass('typify-preview-pill-icon');
                 setIcon(iconSpan, 'globe');
             }
         } else {
-            iconSpan.addClass('csi-preview-pill-icon');
+            iconSpan.addClass('typify-preview-pill-icon');
             setIcon(iconSpan, this.icon);
         }
 

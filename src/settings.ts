@@ -35,7 +35,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
     display(): void {
         const { containerEl } = this;
         containerEl.empty();
-        containerEl.addClass('csi-settings-container');
+        containerEl.addClass('typify-settings-container');
 
         // General settings at the top, without a heading
         // (per Obsidian Plugin Guidelines: avoid a top-level heading like the plugin name)
@@ -163,16 +163,16 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
             .setName(t('ui_components_title'))
             .setDesc(t('ui_components_desc'));
 
-        togglesHeader.settingEl.classList.add("csi-dropdown-header");
+        togglesHeader.settingEl.classList.add("typify-dropdown-header");
         if (isTogglesOpen) {
             togglesHeader.settingEl.classList.add("is-expanded");
         }
 
-        const toggleIconToggles = togglesHeader.controlEl.createSpan({ cls: "csi-dropdown-icon" });
+        const toggleIconToggles = togglesHeader.controlEl.createSpan({ cls: "typify-dropdown-icon" });
         setIcon(toggleIconToggles, isTogglesOpen ? "chevron-down" : "chevron-right");
-        togglesHeader.settingEl.classList.add("csi-clickable-header");
+        togglesHeader.settingEl.classList.add("typify-clickable-header");
 
-        const togglesContainer = containerEl.createDiv({ cls: "csi-dropdown-container" });
+        const togglesContainer = containerEl.createDiv({ cls: "typify-dropdown-container" });
         togglesContainer.style.display = isTogglesOpen ? "block" : "none";
 
         togglesHeader.settingEl.addEventListener("click", () => {

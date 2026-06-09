@@ -35,7 +35,7 @@
    Experimental Warning Box
    -------------------------------------------------------------------------- */
 
-.csi-experimental-warning {
+.typify-experimental-warning {
     background-color: color-mix(in srgb, var(--text-warning) 12%, transparent);
     border: 1px solid color-mix(in srgb, var(--text-warning) 30%, transparent);
     border-radius: 8px;
@@ -43,23 +43,23 @@
     margin: 8px 0 12px 0;
 }
 
-.csi-experimental-warning .warning-text {
+.typify-experimental-warning .warning-text {
     margin: 0;
     color: var(--text-muted);
     font-size: var(--font-ui-small);
 }
 
-.csi-experimental-warning ul {
+.typify-experimental-warning ul {
     margin-top: 8px;
     margin-bottom: 0;
     padding-left: 20px;
 }
 
-.csi-experimental-warning li {
+.typify-experimental-warning li {
     margin-bottom: 4px;
 }
 
-.csi-experimental-warning li:last-child {
+.typify-experimental-warning li:last-child {
     margin-bottom: 0;
 }
 
@@ -130,7 +130,7 @@ body .bases-view .bases-cards-container .bases-cards-property .typify-single-val
 }
 
 /* Pill icon span in preview (standard icon sizing) */
-.csi-preview-pill-icon {
+.typify-preview-pill-icon {
     display: inline-flex;
     align-items: center;
     width: 14px;
@@ -139,7 +139,7 @@ body .bases-view .bases-cards-container .bases-cards-property .typify-single-val
     flex-shrink: 0;
 }
 
-.csi-preview-pill-icon svg {
+.typify-preview-pill-icon svg {
     width: 14px;
     height: 14px;
 }

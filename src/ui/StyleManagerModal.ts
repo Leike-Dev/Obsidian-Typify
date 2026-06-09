@@ -30,17 +30,17 @@ export class StyleManagerModal extends Modal {
     onOpen() {
         const { contentEl } = this;
         contentEl.empty();
-        contentEl.addClass('csi-manager-modal');
+        contentEl.addClass('typify-manager-modal');
 
         this.setTitle(t('manage_styles_modal_title'));
 
         // Search + scope filter row
-        const searchContainer = contentEl.createDiv({ cls: 'csi-manager-search-container' });
+        const searchContainer = contentEl.createDiv({ cls: 'typify-manager-search-container' });
 
         this.searchInput = searchContainer.createEl('input', {
             type: 'text',
             placeholder: t('manage_styles_search'),
-            cls: 'csi-manager-search',
+            cls: 'typify-manager-search',
         });
         this.searchInput.addEventListener('input', () => {
             this.refreshList();
@@ -48,7 +48,7 @@ export class StyleManagerModal extends Modal {
 
         // Scope dropdown
         this.scopeSelect = searchContainer.createEl('select', {
-            cls: 'csi-manager-scope-select dropdown',
+            cls: 'typify-manager-scope-select dropdown',
         });
         this.populateScopeOptions();
         this.scopeSelect.addEventListener('change', () => {
@@ -57,10 +57,10 @@ export class StyleManagerModal extends Modal {
         });
 
         // Count label
-        this.countEl = contentEl.createDiv({ cls: 'csi-manager-count' });
+        this.countEl = contentEl.createDiv({ cls: 'typify-manager-count' });
 
         // List container
-        this.listContainerEl = contentEl.createDiv({ cls: 'csi-manager-list' });
+        this.listContainerEl = contentEl.createDiv({ cls: 'typify-manager-list' });
 
         this.refreshList();
     }
@@ -144,7 +144,7 @@ export class StyleManagerModal extends Modal {
                 text: styles.length === 0
                     ? t('manage_styles_empty')
                     : t('manage_styles_no_results'),
-                cls: 'csi-manager-empty'
+                cls: 'typify-manager-empty'
             });
             return;
         }
@@ -161,31 +161,31 @@ export class StyleManagerModal extends Modal {
     private renderItem(style: StatusStyle, index: number): void {
         if (!this.listContainerEl) return;
 
-        const item = this.listContainerEl.createDiv({ cls: 'csi-manager-item' });
+        const item = this.listContainerEl.createDiv({ cls: 'typify-manager-item' });
 
         // Left section: color dot + info
-        const infoSection = item.createDiv({ cls: 'csi-manager-item-info' });
+        const infoSection = item.createDiv({ cls: 'typify-manager-item-info' });
 
         // Color dot
-        const dot = infoSection.createSpan({ cls: 'csi-manager-color-dot' });
+        const dot = infoSection.createSpan({ cls: 'typify-manager-color-dot' });
         dot.setCssStyles({ backgroundColor: style.baseColor });
 
         // Text block
-        const textBlock = infoSection.createDiv({ cls: 'csi-manager-item-text' });
+        const textBlock = infoSection.createDiv({ cls: 'typify-manager-item-text' });
 
         // Name row (with icon if present)
-        const nameRow = textBlock.createDiv({ cls: 'csi-manager-item-name' });
+        const nameRow = textBlock.createDiv({ cls: 'typify-manager-item-name' });
         nameRow.setText(style.name);
 
         // Metadata row
-        const metaRow = textBlock.createDiv({ cls: 'csi-manager-meta' });
+        const metaRow = textBlock.createDiv({ cls: 'typify-manager-meta' });
 
         // Icon info
         if (style.icon) {
-            const iconMeta = metaRow.createSpan({ cls: 'csi-manager-icon-meta' });
+            const iconMeta = metaRow.createSpan({ cls: 'typify-manager-icon-meta' });
 
             // Show small icon preview
-            const iconPreview = iconMeta.createSpan({ cls: 'csi-manager-icon-preview' });
+            const iconPreview = iconMeta.createSpan({ cls: 'typify-manager-icon-preview' });
             
             if (style.icon.startsWith('img:')) {
                 const name = style.icon.replace('img:', '');
@@ -249,11 +249,11 @@ export class StyleManagerModal extends Modal {
         }
 
         // Right section: action buttons
-        const actionsSection = item.createDiv({ cls: 'csi-manager-actions' });
+        const actionsSection = item.createDiv({ cls: 'typify-manager-actions' });
 
         // Edit button
         const editBtn = actionsSection.createEl('button', {
-            cls: 'clickable-icon csi-manager-edit-btn',
+            cls: 'clickable-icon typify-manager-edit-btn',
             attr: { 'aria-label': t('edit_style_title') }
         });
         setIcon(editBtn, 'pencil');
@@ -275,7 +275,7 @@ export class StyleManagerModal extends Modal {
 
         // Delete button
         const deleteBtn = actionsSection.createEl('button', {
-            cls: 'clickable-icon csi-manager-delete-btn',
+            cls: 'clickable-icon typify-manager-delete-btn',
             attr: { 'aria-label': t('delete_button') }
         });
         setIcon(deleteBtn, 'trash-2');
@@ -293,13 +293,13 @@ export class StyleManagerModal extends Modal {
         if (!style) return;
 
         // Create confirmation overlay
-        const confirmEl = itemEl.createDiv({ cls: 'csi-manager-confirm' });
+        const confirmEl = itemEl.createDiv({ cls: 'typify-manager-confirm' });
         confirmEl.createSpan({
             text: t('delete_style_confirm').replace('{name}', style.name),
-            cls: 'csi-manager-confirm-text'
+            cls: 'typify-manager-confirm-text'
         });
 
-        const btnGroup = confirmEl.createDiv({ cls: 'csi-manager-confirm-btns' });
+        const btnGroup = confirmEl.createDiv({ cls: 'typify-manager-confirm-btns' });
 
         // Confirm button
         const confirmBtn = btnGroup.createEl('button', {

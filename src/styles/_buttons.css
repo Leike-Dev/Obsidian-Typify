@@ -7,10 +7,10 @@
  * ========================================================================== */
 
 /* Global selectors for plugin modals and settings panel */
-.csi-settings-container button:not(.mod-cta):not(.mod-warning):not(.clickable-icon),
-.csi-editor-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon),
+.typify-settings-container button:not(.mod-cta):not(.mod-warning):not(.clickable-icon),
+.typify-editor-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon),
 .typify-palette-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon),
-.csi-manager-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon),
+.typify-manager-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon),
 .typify-import-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon),
 .typify-export-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon),
 .typify-favicon-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon) {
@@ -18,10 +18,10 @@
     color: var(--text-normal);
 }
 
-.csi-settings-container button:not(.mod-cta):not(.mod-warning):not(.clickable-icon):hover,
-.csi-editor-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon):hover,
+.typify-settings-container button:not(.mod-cta):not(.mod-warning):not(.clickable-icon):hover,
+.typify-editor-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon):hover,
 .typify-palette-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon):hover,
-.csi-manager-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon):hover,
+.typify-manager-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon):hover,
 .typify-import-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon):hover,
 .typify-export-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon):hover,
 .typify-favicon-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon):hover {
@@ -29,10 +29,10 @@
 }
 
 /* Primary Buttons (Call to Action) */
-.csi-settings-container button.mod-cta,
-.csi-editor-modal button.mod-cta,
+.typify-settings-container button.mod-cta,
+.typify-editor-modal button.mod-cta,
 .typify-palette-modal button.mod-cta,
-.csi-manager-modal button.mod-cta,
+.typify-manager-modal button.mod-cta,
 .typify-import-modal button.mod-cta,
 .typify-export-modal button.mod-cta,
 .typify-favicon-modal button.mod-cta {
@@ -41,10 +41,10 @@
     border: none;
 }
 
-.csi-settings-container button.mod-cta:hover,
-.csi-editor-modal button.mod-cta:hover,
+.typify-settings-container button.mod-cta:hover,
+.typify-editor-modal button.mod-cta:hover,
 .typify-palette-modal button.mod-cta:hover,
-.csi-manager-modal button.mod-cta:hover,
+.typify-manager-modal button.mod-cta:hover,
 .typify-import-modal button.mod-cta:hover,
 .typify-export-modal button.mod-cta:hover,
 .typify-favicon-modal button.mod-cta:hover {
@@ -52,10 +52,10 @@
 }
 
 /* Warning / Danger Buttons */
-.csi-settings-container button.mod-warning,
-.csi-editor-modal button.mod-warning,
+.typify-settings-container button.mod-warning,
+.typify-editor-modal button.mod-warning,
 .typify-palette-modal button.mod-warning,
-.csi-manager-modal button.mod-warning,
+.typify-manager-modal button.mod-warning,
 .typify-import-modal button.mod-warning,
 .typify-export-modal button.mod-warning,
 .typify-favicon-modal button.mod-warning {
@@ -64,10 +64,10 @@
     border: none;
 }
 
-.csi-settings-container button.mod-warning:hover,
-.csi-editor-modal button.mod-warning:hover,
+.typify-settings-container button.mod-warning:hover,
+.typify-editor-modal button.mod-warning:hover,
 .typify-palette-modal button.mod-warning:hover,
-.csi-manager-modal button.mod-warning:hover,
+.typify-manager-modal button.mod-warning:hover,
 .typify-import-modal button.mod-warning:hover,
 .typify-export-modal button.mod-warning:hover,
 .typify-favicon-modal button.mod-warning:hover {

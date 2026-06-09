@@ -6,14 +6,14 @@
  * ========================================================================== */
 
 /* Remove borders between setting items inside editor modal */
-.modal-content.csi-editor-modal .setting-item,
-.modal-content.csi-editor-modal .setting-item+.setting-item,
-.modal-content.csi-editor-modal .setting-item:not(:first-child) {
+.modal-content.typify-editor-modal .setting-item,
+.modal-content.typify-editor-modal .setting-item+.setting-item,
+.modal-content.typify-editor-modal .setting-item:not(:first-child) {
     border: none;
     border-top: none;
 }
 
-.modal-content.csi-editor-modal .setting-item-name {
+.modal-content.typify-editor-modal .setting-item-name {
     font-weight: normal;
     font-size: var(--font-ui-small);
     color: var(--text-normal);

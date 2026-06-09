@@ -136,10 +136,10 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
      */
     renderSuggestion(match: FuzzyMatch<string>, el: HTMLElement): void {
         const icon = match.item;
-        el.addClass('csi-icon-suggestion');
+        el.addClass('typify-icon-suggestion');
 
         // Icon preview
-        const iconEl = el.createSpan({ cls: 'csi-icon-suggestion-icon' });
+        const iconEl = el.createSpan({ cls: 'typify-icon-suggestion-icon' });
 
         if (icon.startsWith('img:')) {
             // Image: render as circular background
@@ -152,8 +152,8 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
             } else {
                 setIcon(iconEl, 'image'); // fallback
             }
-            el.createSpan({ text: name, cls: 'csi-icon-suggestion-name' });
-            el.createSpan({ text: 'img', cls: 'csi-icon-custom-badge' });
+            el.createSpan({ text: name, cls: 'typify-icon-suggestion-name' });
+            el.createSpan({ text: 'img', cls: 'typify-icon-custom-badge' });
         } else if (icon.startsWith('emoji:')) {
             const [prefixChar, name] = icon.split('|||');
             const char = prefixChar!.replace('emoji:', '');
@@ -161,8 +161,8 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
             iconEl.textContent = char;
             iconEl.setCssStyles({ fontSize: '16px' });
             
-            el.createSpan({ text: name, cls: 'csi-icon-suggestion-name' });
-            el.createSpan({ text: 'emoji', cls: 'csi-icon-custom-badge' });
+            el.createSpan({ text: name, cls: 'typify-icon-suggestion-name' });
+            el.createSpan({ text: 'emoji', cls: 'typify-icon-custom-badge' });
         } else if (icon.startsWith('custom:')) {
             // Custom icon: render inline SVG from cache
             const name = icon.replace('custom:', '');
@@ -179,16 +179,16 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
                 setIcon(iconEl, 'square');
             }
             // Display name without prefix
-            el.createSpan({ text: name, cls: 'csi-icon-suggestion-name' });
+            el.createSpan({ text: name, cls: 'typify-icon-suggestion-name' });
             // Custom badge
-            el.createSpan({ text: 'custom', cls: 'csi-icon-custom-badge' });
+            el.createSpan({ text: 'custom', cls: 'typify-icon-custom-badge' });
         } else {
             setIcon(iconEl, icon);
             // Icon name
-            el.createSpan({ text: icon, cls: 'csi-icon-suggestion-name' });
+            el.createSpan({ text: icon, cls: 'typify-icon-suggestion-name' });
             // Recent badge
             if (this.recentIcons.includes(icon)) {
-                el.createSpan({ text: '●', cls: 'csi-icon-recent-badge' });
+                el.createSpan({ text: '●', cls: 'typify-icon-recent-badge' });
             }
         }
     }
