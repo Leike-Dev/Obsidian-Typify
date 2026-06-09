@@ -222,10 +222,12 @@ export const es = {
 
     'notices_empty': 'No hay avisos en este momento.',
     'notices_button': 'Ver avisos',
+    'notice_internet_title': 'Conexión a Internet',
+    'notice_internet_desc': 'Para buscar los favicons de los sitios, este plugin necesita acceso a internet. El dominio de los enlaces que utilices en la opción de Enlaces asociados se envía a un servicio externo (como Google o DuckDuckGo) exclusivamente para localizar el favicon correspondiente.',
     'notice_favicon_title': 'Proveedores de favicon',
     'notice_favicon_desc': 'Google: mejor cobertura, mejores resultados. DuckDuckGo: privacidad, calidad variable. Búsqueda directa: a menudo bloqueada por CORS, calidad dudosa.',
     'notice_custom_icons_title': 'Iconos personalizados',
-    'notice_custom_icons_desc': 'Coloca archivos .svg de hasta 100 KB en la carpeta icons/ del directorio del plugin.',
-    'notice_cache_title': 'Caché local activo',
-    'notice_cache_desc': 'Los favicons se guardan localmente. Vaya a Administrar favicons para gestionarlos.'
+    'notice_custom_icons_desc': 'Coloca archivos .svg de hasta 100 KB en icons/ en el directorio del plugin.',
+    'notice_cache_title': 'Caché local activa',
+    'notice_cache_desc': 'Cuando un favicon se descarga con éxito, se guarda permanentemente en tu máquina. El plugin no enviará el dominio a internet nuevamente en futuras visitas a ese mismo sitio a menos que desees actualizar el favicon.'
 };

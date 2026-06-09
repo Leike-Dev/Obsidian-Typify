@@ -46,6 +46,12 @@ export class NoticesModal extends Modal {
             notices.push({
                 type: 'warning',
                 icon: 'megaphone',
+                title: t('notice_internet_title'),
+                desc: t('notice_internet_desc')
+            });
+            notices.push({
+                type: 'info',
+                icon: 'globe',
                 title: t('notice_favicon_title'),
                 desc: t('notice_favicon_desc')
             });

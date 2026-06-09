@@ -221,10 +221,12 @@ export const zhCN = {
 
     'notices_empty': '暂无通知。',
     'notices_button': '查看通知',
-    'notice_favicon_title': '网站图标提供商',
-    'notice_favicon_desc': 'Google：最好的覆盖范围，最好的结果。DuckDuckGo：隐私好，质量不稳定。直接搜索：经常被 CORS 阻止，质量存疑。',
+    'notice_internet_title': '互联网连接',
+    'notice_internet_desc': '为了获取网站图标，此插件需要访问互联网。您在“关联链接”选项中使用的链接域名会被发送到外部服务（如 Google 或 DuckDuckGo），专门用于定位对应的图标。',
+    'notice_favicon_title': 'Favicon 提供商',
+    'notice_favicon_desc': 'Google：最佳覆盖率，最佳结果。DuckDuckGo：隐私保护，质量不稳定。直接获取：经常被 CORS 拦截，质量可疑。',
     'notice_custom_icons_title': '自定义图标',
-    'notice_custom_icons_desc': '将最大100 KB的.svg文件放入插件目录下的icons/文件夹中。',
-    'notice_cache_title': '本地缓存已激活',
-    'notice_cache_desc': '图标保存在本地。转到“管理网站图标”以管理它们。'
+    'notice_custom_icons_desc': '将最大 100 KB 的 .svg 文件放置在插件目录的 icons/ 中。',
+    'notice_cache_title': '本地缓存已启用',
+    'notice_cache_desc': '成功下载图标后，它将永久保存在您的本地机器上。该插件在以后访问同一网站时不会再次将域名发送到互联网，除非您希望更新图标。'
 };

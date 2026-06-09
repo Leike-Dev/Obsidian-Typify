@@ -221,10 +221,12 @@ export const en = {
 
     'notices_empty': 'No notices at the moment.',
     'notices_button': 'View notices',
+    'notice_internet_title': 'Internet Connection',
+    'notice_internet_desc': 'To fetch site favicons, this plugin needs internet access. The domain of the links you use in the associated links option is sent to an external service (like Google or DuckDuckGo) exclusively to locate the corresponding favicon.',
     'notice_favicon_title': 'Favicon providers',
-    'notice_favicon_desc': 'Google: best coverage, best results. DuckDuckGo: privacy, variable quality. Direct fetch: often blocked by CORS, doubtful quality.',
+    'notice_favicon_desc': 'Google: best coverage, best results. DuckDuckGo: privacy, variable quality. Direct fetch: often blocked by CORS, dubious quality.',
     'notice_custom_icons_title': 'Custom icons',
-    'notice_custom_icons_desc': 'Place .svg files up to 100 KB in the icons/ folder within the plugin directory.',
+    'notice_custom_icons_desc': 'Place .svg files up to 100 KB in icons/ in the plugin directory.',
     'notice_cache_title': 'Local cache active',
-    'notice_cache_desc': 'Favicons are being saved locally. Go to Manage favicons to manage them.'
+    'notice_cache_desc': 'When a favicon is successfully downloaded, it is permanently saved on your machine. The plugin will not send the domain to the internet again on future visits to that same site unless you wish to update the favicon.'
 };

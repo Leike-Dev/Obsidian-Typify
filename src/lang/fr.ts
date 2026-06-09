@@ -221,10 +221,12 @@ export const fr = {
 
     'notices_empty': 'Aucun avis pour le moment.',
     'notices_button': 'Voir les avis',
+    'notice_internet_title': 'Connexion Internet',
+    'notice_internet_desc': 'Pour récupérer les favicons des sites, cette extension nécessite un accès à Internet. Le domaine des liens que vous utilisez dans l\'option des liens associés est envoyé à un service externe (comme Google ou DuckDuckGo) exclusivement pour localiser le favicon correspondant.',
     'notice_favicon_title': 'Fournisseurs de favicon',
-    'notice_favicon_desc': 'Google : meilleure couverture, meilleurs résultats. DuckDuckGo : confidentialité, qualité variable. Recherche directe : souvent bloquée par CORS, qualité douteuse.',
+    'notice_favicon_desc': 'Google : meilleure couverture, meilleurs résultats. DuckDuckGo : confidentialité, qualité variable. Récupération directe : souvent bloquée par CORS, qualité douteuse.',
     'notice_custom_icons_title': 'Icônes personnalisées',
-    'notice_custom_icons_desc': 'Placez des fichiers .svg de 100 Ko maximum dans le dossier icons/ du répertoire du plugin.',
+    'notice_custom_icons_desc': 'Placez des fichiers .svg jusqu\'à 100 Ko dans icons/ dans le répertoire du plugin.',
     'notice_cache_title': 'Cache local actif',
-    'notice_cache_desc': 'Les favicons sont enregistrés localement. Allez dans Gérer les favicons pour les gérer.'
+    'notice_cache_desc': 'Lorsqu\'un favicon est téléchargé avec succès, il est enregistré de façon permanente sur votre machine. Le plugin n\'enverra plus le domaine sur Internet lors de vos futures visites sur ce même site, sauf si vous souhaitez mettre à jour le favicon.'
 };
