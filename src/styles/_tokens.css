@@ -85,6 +85,13 @@ body .custom-status-icon-value.typify-is-image::before {
 /* Reduce image size in card view to match standard icon and prevent clipping */
 body .bases-view .bases-cards-container .bases-cards-property .value-list-element.custom-status-icon-value.typify-is-image::before,
 body .bases-view .bases-cards-container .bases-cards-property .typify-single-value.custom-status-icon-value.typify-is-image::before {
+    -webkit-mask-image: none;
+    mask-image: none;
+    background-image: var(--pill-image-url);
+    background-color: transparent;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
     width: 14px;
     height: 14px;
     margin-right: 0;
