@@ -14,7 +14,7 @@ import {
     THUMB_RANDOM
 } from './format-thumbs';
 
-const MAX_PALETTE_COLORS = 10;
+const MAX_PALETTE_COLORS = 15;
 
 /**
  * Renders the full palette management section inside a container element.
