@@ -50,6 +50,12 @@ Typify es un plugin para Obsidian que te permite crear estilos únicos para tus 
 
 - **😀 Iconos de Emojis**: Soporte para seleccionar y utilizar emojis nativos directamente como iconos en las píldoras.
 
+- **🎨 Paleta de colores**: Guarda tus colores favoritos o usa los ajustes preestablecidos de armonía inteligente para crear paletas perfectas en tiempo real.
+
+- **🌐 Favicons de enlaces**: Asocia automáticamente favicons reales de sitios web a tus etiquetas de enlaces asociados, con un administrador seguro de caché local.
+
+- **📰 Tablero de novedades**: Sigue las actualizaciones y mejoras de Typify directamente desde la configuración del plugin, en tu propio idioma.
+
 ## Cómo Usar
 
 ¡Es muy simple transformar tus propiedades!
@@ -60,7 +66,7 @@ Typify es un plugin para Obsidian que te permite crear estilos únicos para tus 
 
 ![Cómo Usar Typify](assets/how-to-use-demo.gif)
 
-### 🔗 Enlaces Asociados (¡Nuevo!)
+### 🔗 Enlaces Asociados
 
 Typify te permite crear enlaces de propiedades mucho más limpios. En lugar de ver una URL fea `https://...`, ¡puedes asociarla a un Estilo!
 Si el nombre de tu estilo es "Google Traductor" y el valor asociado en *Valor Coincidente* es la URL `https://translate.google.com/`, el plugin ocultará la URL y renderizará perfectamente el nombre "Google Traductor" como una píldora en la que se puede hacer clic.
@@ -80,24 +86,6 @@ Si el nombre de tu estilo es "Google Traductor" y el valor asociado en *Valor Co
 
 ## Avisos
 
-> [!Important]  
-> El efecto del estilo solo se aplica a propiedades del tipo **Lista** en Obsidian.
-
-> [!Note]  
-> El plugin no distingue entre mayúsculas y minúsculas, tanto en el nombre de la propiedad como en los valores. Ejemplo: `Status` y `status` se tratan como la misma propiedad.
-
-> [!Note]  
-> Si dos estilos comparten el mismo nombre pero tienen ámbitos diferentes (ej: uno en "Todas las propiedades" y otro en una propiedad específica), el estilo más específico tendrá prioridad para esa propiedad.
-
-> [!Tip]  
-> Puedes usar varias propiedades como objetivo. Solo agrega una coma entre ellas. Ejemplo: `Status, Priority`.
-
-> [!Note]  
-> Las imágenes personalizadas en la vista **Bases Cards** se renderizan intencionalmente un poco más pequeñas (14px en lugar de 18px) para evitar recortes en el diseño debido a las estrictas restricciones de altura fija del contenedor de la tarjeta.
-
-> [!Note]  
-> Los íconos personalizados y las imágenes deben agregarse manualmente fuera de Obsidian. Coloca tus archivos SVG en la carpeta `.obsidian/plugins/typify/icons/` y tus archivos de imagen (PNG, JPG, etc.) en la carpeta `.obsidian/plugins/typify/img/`.
-
 > [!Warning]  
 > La importación de configuraciones **reemplaza todos los estilos existentes**. Los estilos creados después del respaldo se perderán.
 
@@ -108,10 +96,10 @@ Si el nombre de tu estilo es "Google Traductor" y el valor asociado en *Valor Co
 
 Aquí están algunas de las características y mejoras planificadas para futuras actualizaciones:
 
+- **🎨 Píldoras Simples**: Estilos minimalistas y sin color. Se pueden configurar o aplicar automáticamente a valores no definidos en propiedades estilizadas.
 - ~~**📊 Píldoras de Referencia**: Mostrar la cantidad total de referencias que tiene esa información en tu bóveda en lugar de mostrar un icono (ej: una etiqueta de autor que muestre "X" referencias).~~ --> Inviable :/ (Debido a limitaciones de rendimiento)
 - ~~**🔗 Simplificación de Enlaces**: Limpiar y acortar URLs externas mostradas en las píldoras de forma automática (ej: `www.google.com` simplificado a `google.com`).~~ --> ¡Implementado de otra manera! :D
-- ~~**🌐 Iconos de Favicon**: Opción para buscar y mostrar automáticamente el favicon de un sitio web para enlaces externos que no tengan un icono personalizado configurado.~~ --> Descontinuado por restricciones :/
-- **🎨 Píldoras Simples**: Estilos minimalistas y sin color. Se pueden configurar o aplicar automáticamente a valores no definidos en propiedades estilizadas.
+- ~~**🌐 Iconos de Favicon**: Opción para buscar y mostrar automáticamente el favicon de un sitio web para enlaces externos que no tengan un icono personalizado configurado.~~ --> ¡Implementado! :D
 - ~~**🗂️ Nueva Interfaz de Gestión**: Reemplazar la larga lista de estilos por un diseño basado en pestañas (tabs) similar al utilizado en el modal de búsqueda de iconos, con soporte para desplazamiento horizontal.~~ --> ¡Implementado! :D
 - ~~**😀 Iconos de Emojis**: Soporte para seleccionar y utilizar emojis nativos directamente como iconos en las píldoras.~~ --> ¡Implementado! :3
 

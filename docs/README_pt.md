@@ -50,6 +50,12 @@ Typify é um plugin para o Obsidian que permite que você crie estilos únicos p
 
 - **😀 Ícones de Emojis**: Suporte para selecionar e utilizar emojis nativos diretamente como ícones nas pílulas.
 
+- **🎨 Paleta de Cores**: Salve suas cores favoritas ou use as pré definições inteligente de harmonia para criar paletas perfeitas em tempo real.
+
+- **🌐 Favicons de Links**: Associe automaticamente favicons reais de sites às suas tags de links associados, com um gerenciador seguro de cache local.
+
+- **📰 Quadro de Novidades**: Acompanhe as atualizações e melhorias do Typify diretamente de dentro das configurações do plugin, no seu próprio idioma.
+
 ## Como Usar
 
 É muito simples transformar suas propriedades!
@@ -60,7 +66,7 @@ Typify é um plugin para o Obsidian que permite que você crie estilos únicos p
 
 ![Como Usar o Typify](assets/how-to-use-demo.gif)
 
-### 🔗 Links Associados (Novo!)
+### 🔗 Links Associados
 
 O Typify permite que você crie links de propriedades muito mais bonitos. Em vez de ver uma URL feia `https://...`, você pode associá-la a um Estilo!
 Se o nome do estilo for, por exemplo, "Google Tradutor" e o valor configurado no campo *Valor Correspondente* for a URL `https://translate.google.com/`, o plugin esconderá a URL e renderizará o nome "Google Tradutor" perfeitamente na pílula clicável.
@@ -80,24 +86,6 @@ Se o nome do estilo for, por exemplo, "Google Tradutor" e o valor configurado no
 
 ## Avisos
 
-> [!Important]  
-> O efeito do estilo só é aplicado em propriedades do tipo **Lista** no Obsidian.
-
-> [!Note]  
-> O plugin não faz distinção de maiúsculas e minúsculas seja no nome da propriedade ou nos valores. Exemplo: `Status` e `status` são a mesma propriedade.
-
-> [!Note]  
-> Se dois estilos possuem o mesmo nome mas escopos diferentes (ex: um em "Todas as propriedades" e outro em uma propriedade específica), o estilo mais específico terá prioridade para aquela propriedade.
-
-> [!Tip]  
-> Você pode usar mais de uma propriedade como alvo. Apenas adicione uma vírgula entre as opções. Exemplo: `Status, Priority`.
-
-> [!Note]  
-> As imagens personalizadas na visualização **Bases Cards** são intencionalmente renderizadas um pouco menores (14px em vez de 18px) para evitar cortes no layout, devido à restrição de altura fixa imposta pelo contêiner dos cartões.
-
-> [!Note]  
-> Ícones personalizados e imagens devem ser adicionados manualmente por fora do Obsidian. Coloque seus arquivos SVG na pasta `.obsidian/plugins/typify/icons/` e seus arquivos de imagem (PNG, JPG, etc.) na pasta `.obsidian/plugins/typify/img/`.
-
 > [!Warning]  
 > A importação de configurações **substitui todos os estilos existentes**. Estilos criados após o backup serão perdidos.
 
@@ -109,10 +97,11 @@ Se o nome do estilo for, por exemplo, "Google Tradutor" e o valor configurado no
 
 Aqui estão alguns dos recursos e melhorias planejados para futuras atualizações:
 
+- **🎨 Pílulas Simples**: Estilos minimalistas e sem cor. Podem ser configurados ou aplicados automaticamente a valores não definidos em propriedades estilizadas.
+
 - ~~**📊 Pílulas de Referência**: Exibir a quantidade total de referências que aquela informação possui no seu cofre em vez de mostrar um ícone (ex: uma tag de autor exibindo "X" referências).~~ --> Inviável :/ (Devido a limitações de performance)
 - ~~**🔗 Simplificação de Links**: Limpar e encurtar URLs externas exibidas nas pílulas de forma automática (ex: `www.google.com` simplificado para `google.com`).~~ --> Implementado de outra forma! :D
-- ~~**🌐 Ícones de Favicon**: Opção de buscar e exibir automaticamente o favicon do site para links externos que não tenham um ícone personalizado configurado.~~ --> Descontinuado por restrições :/
-- **🎨 Pílulas Simples**: Estilos minimalistas e sem cor. Podem ser configurados ou aplicados automaticamente a valores não definidos em propriedades estilizadas.
+- ~~**🌐 Ícones de Favicon**: Opção de buscar e exibir automaticamente o favicon do site para links externos que não tenham um ícone personalizado configurado.~~ --> Implementado! :D
 - ~~**🗂️ Nova Tela de Gerenciamento**: Substituir a longa lista de estilos por um esquema de abas (tabs) igual ao usado no modal de busca, incluindo suporte a rolagem horizontal quando houver muitas abas.~~~ Implementado! :D
 - ~~**😀 Ícones de Emojis**: Suporte para selecionar e utilizar emojis nativos diretamente como ícones nas pílulas.~~ --> Implementado! :3
 

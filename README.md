@@ -50,6 +50,12 @@ Typify is an Obsidian plugin that allows you to create unique styles for your me
 
 - **😀 Emoji Icons**: Support for selecting and using native emojis directly as icons in pills.
 
+- **🎨 Color Palette**: Save your favorite colors or use the smart harmony presets to create perfect palettes in real-time.
+
+- **🌐 Link Favicons**: Automatically associate real website favicons to your associated link tags, with a secure local cache manager.
+
+- **📰 Changelog Board**: Keep track of Typify updates and improvements directly from within the plugin settings, in your own language.
+
 ## How to Use
 
 It's very simple to transform your properties!
@@ -60,7 +66,7 @@ It's very simple to transform your properties!
 
 ![How to Use Typify](docs/assets/how-to-use-demo.gif)
 
-### 🔗 Associated Links (New!)
+### 🔗 Associated Links
 
 Typify allows you to create much cleaner property links. Instead of seeing an ugly `https://...` URL, you can associate it with a Style!
 If your style name is "Google Translate" and the matched value in *Match Value* is the URL `https://translate.google.com/`, the plugin will hide the URL and perfectly render the name "Google Translate" as a clickable pill.
@@ -80,24 +86,6 @@ If your style name is "Google Translate" and the matched value in *Match Value* 
 
 ## Notices
 
-> [!Important]  
-> The style effect only applies to properties of type **List** in Obsidian.
-
-> [!Note]  
-> The plugin is case-insensitive for both property names and values. Example: `Status` and `status` are treated as the same property.
-
-> [!Note]  
-> If two styles share the same name but have different scopes (e.g., one set to "All properties" and another to a specific property), the more specific style will take priority for that property.
-
-> [!Tip]  
-> You can use multiple properties as targets. Just add a comma between them. Example: `Status, Priority`.
-
-> [!Note]  
-> Custom image tags in the **Bases Cards** view are intentionally rendered slightly smaller (14px instead of 18px) to prevent layout clipping caused by the strict fixed-height constraints of the card container.
-
-> [!Note]  
-> Custom icons and images must be added manually outside of Obsidian. Place your SVG files in the `.obsidian/plugins/typify/icons/` folder, and your image files (PNG, JPG, etc.) in the `.obsidian/plugins/typify/img/` folder.
-
 > [!Warning]  
 > Importing settings **replaces all existing styles**. Styles created after the backup will be lost.
 
@@ -108,10 +96,10 @@ If your style name is "Google Translate" and the matched value in *Match Value* 
 
 Here are some of the planned features and improvements under consideration for future releases:
 
+- **🎨 Simple Pills**: Introduce minimal, color-free styling options. These can be customized or automatically applied to undefined values in styled properties.
 - ~~**📊 Reference Pills**: Display the total number of references that specific metadata has across your vault instead of an icon (e.g., an author pill displaying "X" references).~~ --> Unfeasible :/ (Due to performance limitations)
 - ~~**🔗 Link Simplification**: Automatically clean and shorten external URLs displayed inside pills (e.g., `www.google.com` simplified to `google.com`).~~ --> Implemented differently! :D
-- ~~**🌐 Favicon Support**: Automatically fetch and display website favicons for external links that do not have a custom icon configured.~~ --> Discontinued due to restrictions :/
-- **🎨 Simple Pills**: Introduce minimal, color-free styling options. These can be customized or automatically applied to undefined values in styled properties.
+- ~~**🌐 Favicon Support**: Automatically fetch and display website favicons for external links that do not have a custom icon configured.~~ --> Implemented! :D
 - ~~**🗂️ Tabbed Management UI**: Overhaul the settings panel to replace the long list of styles with a tab-based organization system (matching the icon search layout), complete with horizontal scrolling.~~ --> Implemented! :D
 - ~~**😀 Emoji Icons**: Support selecting and using native emojis as pill icons directly.~~ --> Implemented! :3
 

@@ -50,6 +50,12 @@ Typify est un plugin pour Obsidian qui vous permet de créer des styles uniques 
 
 - **😀 Icônes d'Emojis** : Permettre de sélectionner et d'utiliser directement des emojis natifs comme icônes sur les pilules.
 
+- **🎨 Palette de couleurs** : Sauvegardez vos couleurs préférées ou utilisez les préréglages d'harmonie intelligente pour créer des palettes parfaites en temps réel.
+
+- **🌐 Favicons de liens** : Associez automatiquement de vrais favicons de sites Web à vos balises de liens associés, avec un gestionnaire de cache local sécurisé.
+
+- **📰 Panneau des nouveautés** : Suivez les mises à jour et les améliorations de Typify directement depuis les paramètres du plugin, dans votre propre langue.
+
 ## Comment utiliser
 
 C'est très simple de transformer vos propriétés !
@@ -60,7 +66,7 @@ C'est très simple de transformer vos propriétés !
 
 ![Comment utiliser Typify](assets/how-to-use-demo.gif)
 
-### 🔗 Liens Associés (Nouveau !)
+### 🔗 Liens Associados
 
 Typify vous permet de créer des liens de propriétés beaucoup plus propres. Au lieu de voir une URL laide `https://...`, vous pouvez l'associer à un Style !
 Si le nom de votre style est "Google Traduction" et la valeur correspondante dans *Valeur Correspondante* est l'URL `https://translate.google.com/`, le plugin masquera l'URL et affichera parfaitement le nom "Google Traduction" sous forme de pilule cliquable.
@@ -80,24 +86,6 @@ Si le nom de votre style est "Google Traduction" et la valeur correspondante dan
 
 ## Avis
 
-> [!Important]  
-> L'effet de style ne s'applique qu'aux propriétés de type **Liste** dans Obsidian.
-
-> [!Note]  
-> Le plugin ne fait pas la distinction entre majuscules et minuscules, que ce soit pour le nom de la propriété ou les valeurs. Exemple : `Status` et `status` sont traités comme la même propriété.
-
-> [!Note]  
-> Si deux styles partagent le même nom mais ont des portées différentes (ex : l'un défini sur « Toutes les propriétés » et l'autre sur une propriété spécifique), le style le plus spécifique aura priorité pour cette propriété.
-
-> [!Tip]  
-> Vous pouvez utiliser plusieurs propriétés comme cibles. Ajoutez simplement une virgule entre elles. Exemple : `Status, Priority`.
-
-> [!Note]  
-> Les images personnalisées dans la vue **Bases Cards** sont intentionnellement rendues un peu plus petites (14px au lieu de 18px) pour éviter les coupures de mise en page dues aux restrictions strictes de hauteur fixe du conteneur de la carte.
-
-> [!Note]  
-> Les icônes personnalisées et les images doivent être ajoutées manuellement en dehors d'Obsidian. Placez vos fichiers SVG dans le dossier `.obsidian/plugins/typify/icons/` et vos fichiers d'images (PNG, JPG, etc.) dans le dossier `.obsidian/plugins/typify/img/`.
-
 > [!Warning]  
 > L'importation des paramètres **remplace tous les styles existants**. Les styles créés après la sauvegarde seront perdus.
 
@@ -108,10 +96,10 @@ Si le nom de votre style est "Google Traduction" et la valeur correspondante dan
 
 Voici quelques-unes des fonctionnalités et améliorations planifiées pour de futures mises à jour :
 
+- **🎨 Pilules Simples** : Styles minimalistes et sans couleur. Ils peuvent être configurés ou appliqués automatiquement aux valeurs non définies dans les propriétés stylisées.
 - ~~**📊 Pilules de Référence** : Afficher le nombre total de références que cette information possède dans votre coffre au lieu d'une icône (ex : une pilule d'auteur affichant « X » références).~~ --> Infaisable :/ (En raison de limitations de performance)
 - ~~**🔗 Simplification des Liens** : Nettoyer et raccourcir automatiquement les URL externes affichées dans les pilules (ex : `www.google.com` simplifié en `google.com`).~~ --> Implémenté différemment ! :D
-- ~~**🌐 Prise en charge des Favicons** : Option pour récupérer et afficher automatiquement le favicon du site pour les liens externes sans icône personnalisée configurée.~~ --> Abandonné en raison de restrictions :/
-- **🎨 Pilules Simples** : Styles minimalistes et sans couleur. Ils peuvent être configurés ou appliqués automatiquement aux valeurs non définies dans les propriétés stylisées.
+- ~~**🌐 Prise en charge des Favicons** : Option pour récupérer et afficher automatiquement le favicon du site pour les liens externes sans icône personnalisée configurée.~~ --> Implémenté ! :D
 - ~~**🗂️ Nouvelle Interface de Gestion** : Remplacer la longue liste de styles par une disposition par onglets (tabs) similaire à celle du modal de recherche d'icônes, avec prise en charge du défilement horizontal.~~ --> Implémenté ! :D
 - ~~**😀 Icônes d'Emojis** : Permettre de sélectionner et d'utiliser directement des emojis natifs comme icônes sur les pilules.~~ --> Implémenté ! :3
 
