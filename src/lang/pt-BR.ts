@@ -140,6 +140,7 @@ export const ptBR = {
     'link_styles_toggle_title': 'Links associados',
     'link_styles_toggle_desc': 'Substitui URLs nas pílulas pelo nome do estilo, mantendo o clique nativo do link.',
     'link_url_title': 'Link associado',
+    'link_url_placeholder': 'Insira uma URL\u2026',
     // UI Components
     'ui_components_title': 'Outros estilos',
     'ui_components_desc': 'Ative ou desative os componentes visuais das tags.',

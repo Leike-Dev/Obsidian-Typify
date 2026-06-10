@@ -139,6 +139,7 @@ export const zhCN = {
     'link_styles_toggle_title': '关联链接',
     'link_styles_toggle_desc': '将药丸中的 URL 替换为样式名称，同时保留原生的链接点击行为。',
     'link_url_title': '关联链接',
+    'link_url_placeholder': '输入网址…',
     // UI Components
     'ui_components_title': '其他样式',
     'ui_components_desc': '启用或禁用标签的视觉组件。',

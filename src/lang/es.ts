@@ -140,6 +140,7 @@ export const es = {
     'link_styles_toggle_title': 'Enlaces asociados',
     'link_styles_toggle_desc': 'Reemplaza las URL en las píldoras por el nombre del estilo, manteniendo el comportamiento de clic nativo.',
     'link_url_title': 'Enlace asociado',
+    'link_url_placeholder': 'Ingresa una URL\u2026',
     // UI Components
     'ui_components_title': 'Otros estilos',
     'ui_components_desc': 'Habilita o deshabilita componentes visuales de las etiquetas.',
