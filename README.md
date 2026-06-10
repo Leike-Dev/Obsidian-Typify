@@ -64,14 +64,14 @@ It's very simple to transform your properties!
 2. **Customize:** Click **Create style** and define the name that will be used for the tag, as well as the color, icon (Lucide, emoji or image), shape, and many more options.
 3. **In your Notes:** Using the target property defined earlier, insert the created style name next to it and the magic happens instantly! ✨
 
-![How to Use Typify](docs/assets/how-to-use-demo.gif)
+![How to Use Typify](docs/assets/gifs/how-to-use-demo.gif)
 
 ### 🔗 Associated Links
 
 Typify allows you to create much cleaner property links. Instead of seeing an ugly `https://...` URL, you can associate it with a Style!
 If your style name is "Google Translate" and the matched value in *Match Value* is the URL `https://translate.google.com/`, the plugin will hide the URL and perfectly render the name "Google Translate" as a clickable pill.
 
-![Associated Links Demo](docs/assets/associated-links-demo.gif)
+![Associated Links Demo](docs/assets/gifs/associated-links-demo.gif)
 
 ## Installation
 
@@ -94,11 +94,21 @@ If your style name is "Google Translate" and the matched value in *Match Value* 
 
 ## Roadmap
 
-Here are some of the planned features and improvements under consideration for future releases:
+Here are some of the features and improvements planned for future updates:
 
-- **🎨 Simple Pills**: Introduce minimal, color-free styling options. These can be customized or automatically applied to undefined values in styled properties.
-- ~~**📊 Reference Pills**: Display the total number of references that specific metadata has across your vault instead of an icon (e.g., an author pill displaying "X" references).~~ --> Unfeasible :/ (Due to performance limitations)
-- ~~**🔗 Link Simplification**: Automatically clean and shorten external URLs displayed inside pills (e.g., `www.google.com` simplified to `google.com`).~~ --> Implemented differently! :D
+- **🎨 Simple Pills**: Minimalist and colorless styles. Can be configured or automatically applied to undefined values in styled properties.
+
+- **🪤 Error Diagnostics**: A panel to diagnose plugin issues and generate a report to facilitate troubleshooting.
+
+- **🏳️‍🌈 Multiple Colors**: New panel to have and manage multiple color cards.
+
+- **🔮 Pill Padding**: Adjust the size and length of the pills, as well as the font and icon size.
+
+- **🎲 Numeric Tags**: Expansion of Typify style to the number type, allowing the creation of custom styles for number tags.
+
+- **📊 Reference Pills**: Display the total amount of references that information has in your vault instead of showing an icon (e.g., an author tag showing "X" references).
+
+- ~~**🔗 Link Simplification**: Automatically clean and shorten external URLs displayed in pills (e.g., `www.google.com` simplified to `google.com`).~~ --> Implemented differently! :D
 - ~~**🌐 Favicon Support**: Automatically fetch and display website favicons for external links that do not have a custom icon configured.~~ --> Implemented! :D
 - ~~**🗂️ Tabbed Management UI**: Overhaul the settings panel to replace the long list of styles with a tab-based organization system (matching the icon search layout), complete with horizontal scrolling.~~ --> Implemented! :D
 - ~~**😀 Emoji Icons**: Support selecting and using native emojis as pill icons directly.~~ --> Implemented! :3

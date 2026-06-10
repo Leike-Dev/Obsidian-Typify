@@ -64,14 +64,14 @@ Typify es un plugin para Obsidian que te permite crear estilos únicos para tus 
 2. **Personaliza:** Haz clic en **Crear estilo** y define el nombre que se usará para la etiqueta, así como el color, ícono (Lucide, emoji o imagen), forma y muchas más opciones.
 3. **En tus Notas:** Usando la propiedad objetivo definida anteriormente, inserta junto a ella el nombre del estilo creado ¡y la magia ocurrirá instantáneamente! ✨
 
-![Cómo Usar Typify](assets/how-to-use-demo.gif)
+![Cómo Usar Typify](assets/gifs/how-to-use-demo.gif)
 
 ### 🔗 Enlaces Asociados
 
 Typify te permite crear enlaces de propiedades mucho más limpios. En lugar de ver una URL fea `https://...`, ¡puedes asociarla a un Estilo!
 Si el nombre de tu estilo es "Google Traductor" y el valor asociado en *Valor Coincidente* es la URL `https://translate.google.com/`, el plugin ocultará la URL y renderizará perfectamente el nombre "Google Traductor" como una píldora en la que se puede hacer clic.
 
-![Demostración de Enlace Asociado](assets/associated-links-demo.gif)
+![Demostración de Enlace Asociado](assets/gifs/associated-links-demo.gif)
 
 ## Instalación
 
@@ -94,11 +94,21 @@ Si el nombre de tu estilo es "Google Traductor" y el valor asociado en *Valor Co
 
 ## Roadmap
 
-Aquí están algunas de las características y mejoras planificadas para futuras actualizaciones:
+Aquí tienes algunas de las características y mejoras planeadas para futuras actualizaciones:
 
 - **🎨 Píldoras Simples**: Estilos minimalistas y sin color. Se pueden configurar o aplicar automáticamente a valores no definidos en propiedades estilizadas.
-- ~~**📊 Píldoras de Referencia**: Mostrar la cantidad total de referencias que tiene esa información en tu bóveda en lugar de mostrar un icono (ej: una etiqueta de autor que muestre "X" referencias).~~ --> Inviable :/ (Debido a limitaciones de rendimiento)
-- ~~**🔗 Simplificación de Enlaces**: Limpiar y acortar URLs externas mostradas en las píldoras de forma automática (ej: `www.google.com` simplificado a `google.com`).~~ --> ¡Implementado de otra manera! :D
+
+- **🪤 Diagnóstico de Errores**: Un panel para diagnosticar problemas del plugin y generar un informe para facilitar la resolución de problemas.
+
+- **🏳️‍🌈 Múltiples Colores**: Nuevo panel para tener y administrar múltiples tarjetas de colores.
+
+- **🔮 Padding de la Píldora**: Ajusta el tamaño y la longitud de las píldoras, así como el tamaño de la fuente y del ícono.
+
+- **🎲 Etiquetas Numéricas**: Expansión del estilo Typify al tipo número, permitiendo la creación de estilos personalizados para etiquetas numéricas.
+
+- **📊 Píldoras de Referencia**: Mostrar la cantidad total de referencias que tiene esa información en tu bóveda en lugar de mostrar un ícono (ej: una etiqueta de autor que muestre "X" referencias).
+
+- ~~**🔗 Simplificación de Enlaces**: Limpiar y acortar automáticamente URLs externas que se muestran en píldoras (ej. `www.google.com` simplificado a `google.com`).~~ --> ¡Implementado de otra manera! :D
 - ~~**🌐 Iconos de Favicon**: Opción para buscar y mostrar automáticamente el favicon de un sitio web para enlaces externos que no tengan un icono personalizado configurado.~~ --> ¡Implementado! :D
 - ~~**🗂️ Nueva Interfaz de Gestión**: Reemplazar la larga lista de estilos por un diseño basado en pestañas (tabs) similar al utilizado en el modal de búsqueda de iconos, con soporte para desplazamiento horizontal.~~ --> ¡Implementado! :D
 - ~~**😀 Iconos de Emojis**: Soporte para seleccionar y utilizar emojis nativos directamente como iconos en las píldoras.~~ --> ¡Implementado! :3

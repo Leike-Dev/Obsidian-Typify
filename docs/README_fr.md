@@ -64,14 +64,14 @@ C'est très simple de transformer vos propriétés !
 2. **Personnalisez :** Cliquez sur **Créer un style** et définissez le nom qui sera utilisé pour l'étiquette, ainsi que la couleur, l'icône (Lucide, emoji ou image), la forme et bien d'autres options.
 3. **Dans vos Notes :** En utilisant la propriété cible définie précédemment, insérez à côté d'elle le nom du style créé et la magie opère instantanément ! ✨
 
-![Comment utiliser Typify](assets/how-to-use-demo.gif)
+![Comment utiliser Typify](assets/gifs/how-to-use-demo.gif)
 
 ### 🔗 Liens Associados
 
 Typify vous permet de créer des liens de propriétés beaucoup plus propres. Au lieu de voir une URL laide `https://...`, vous pouvez l'associer à un Style !
 Si le nom de votre style est "Google Traduction" et la valeur correspondante dans *Valeur Correspondante* est l'URL `https://translate.google.com/`, le plugin masquera l'URL et affichera parfaitement le nom "Google Traduction" sous forme de pilule cliquable.
 
-![Démo des Liens Associés](assets/associated-links-demo.gif)
+![Démo des Liens Associés](assets/gifs/associated-links-demo.gif)
 
 ## Installation
 
@@ -94,11 +94,21 @@ Si le nom de votre style est "Google Traduction" et la valeur correspondante dan
 
 ## Roadmap
 
-Voici quelques-unes des fonctionnalités et améliorations planifiées pour de futures mises à jour :
+Voici quelques-unes des fonctionnalités et améliorations prévues pour les futures mises à jour :
 
-- **🎨 Pilules Simples** : Styles minimalistes et sans couleur. Ils peuvent être configurés ou appliqués automatiquement aux valeurs non définies dans les propriétés stylisées.
-- ~~**📊 Pilules de Référence** : Afficher le nombre total de références que cette information possède dans votre coffre au lieu d'une icône (ex : une pilule d'auteur affichant « X » références).~~ --> Infaisable :/ (En raison de limitations de performance)
-- ~~**🔗 Simplification des Liens** : Nettoyer et raccourcir automatiquement les URL externes affichées dans les pilules (ex : `www.google.com` simplifié en `google.com`).~~ --> Implémenté différemment ! :D
+- **🎨 Pilules Simples** : Styles minimalistes et sans couleur. Peuvent être configurés ou appliqués automatiquement aux valeurs non définies dans les propriétés stylisées.
+
+- **🪤 Diagnostic d'Erreurs** : Un panneau pour diagnostiquer les problèmes du plugin et générer un rapport pour faciliter le dépannage.
+
+- **🏳️‍🌈 Couleurs Multiples** : Nouveau panneau pour avoir et gérer plusieurs cartes de couleurs.
+
+- **🔮 Rembourrage de la Pilule** : Ajustez la taille et la longueur des pilules, ainsi que la taille de la police et de l'icône.
+
+- **🎲 Balises Numériques** : Expansion du style Typify au type nombre, permettant la création de styles personnalisés pour les balises de nombre.
+
+- **📊 Pilules de Référence** : Afficher la quantité totale de références de cette information dans votre coffre au lieu de montrer une icône (ex. : une balise d'auteur affichant "X" références).
+
+- ~~**🔗 Simplification des Liens** : Nettoyer et raccourcir automatiquement les URL externes affichées dans les pilules (ex. : `www.google.com` simplifié en `google.com`).~~ --> Implémenté différemment ! :D
 - ~~**🌐 Prise en charge des Favicons** : Option pour récupérer et afficher automatiquement le favicon du site pour les liens externes sans icône personnalisée configurée.~~ --> Implémenté ! :D
 - ~~**🗂️ Nouvelle Interface de Gestion** : Remplacer la longue liste de styles par une disposition par onglets (tabs) similaire à celle du modal de recherche d'icônes, avec prise en charge du défilement horizontal.~~ --> Implémenté ! :D
 - ~~**😀 Icônes d'Emojis** : Permettre de sélectionner et d'utiliser directement des emojis natifs comme icônes sur les pilules.~~ --> Implémenté ! :3

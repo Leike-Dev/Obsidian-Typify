@@ -64,14 +64,14 @@ Typify é um plugin para o Obsidian que permite que você crie estilos únicos p
 2. **Personalize:** Clique em **Criar estilo** e defina o nome que será usado para a tag, bem como a cor, ícone (Lucide, emoji ou imagem), formato e muito mais opções.
 3. **Nas suas Notas:** Usando a propriedade alvo definida anteriormente, insira junto dela o nome do estilo criado e a mágica acontece instantaneamente! ✨
 
-![Como Usar o Typify](assets/how-to-use-demo.gif)
+![Como Usar o Typify](assets/gifs/how-to-use-demo.gif)
 
 ### 🔗 Links Associados
 
 O Typify permite que você crie links de propriedades muito mais bonitos. Em vez de ver uma URL feia `https://...`, você pode associá-la a um Estilo!
 Se o nome do estilo for, por exemplo, "Google Tradutor" e o valor configurado no campo *Valor Correspondente* for a URL `https://translate.google.com/`, o plugin esconderá a URL e renderizará o nome "Google Tradutor" perfeitamente na pílula clicável.
 
-![Demonstração de Link Associado](assets/associated-links-demo.gif)
+![Demonstração de Link Associado](assets/gifs/associated-links-demo.gif)
 
 ## Instalação
 
@@ -99,7 +99,16 @@ Aqui estão alguns dos recursos e melhorias planejados para futuras atualizaçõ
 
 - **🎨 Pílulas Simples**: Estilos minimalistas e sem cor. Podem ser configurados ou aplicados automaticamente a valores não definidos em propriedades estilizadas.
 
-- ~~**📊 Pílulas de Referência**: Exibir a quantidade total de referências que aquela informação possui no seu cofre em vez de mostrar um ícone (ex: uma tag de autor exibindo "X" referências).~~ --> Inviável :/ (Devido a limitações de performance)
+- **🪤 Diagnóstico de Erros**: Um painel para diagnosticar problemas do plugin e gerar um relatório para facilitar a solução de problemas.
+
+- **🏳️‍🌈 Múltiplas Cores**: Novo painel para ter e gerênciar múltiplos cartões de cores.
+
+- **🔮 Padding da Pílula**: Ajuste o tamanho e comprimento das pílulas, bem como o tamanho da fonte e do ícone.
+
+- **🎲 Tags Númericas**: Expansão do estilo Typify para o tipo número, permitindo a criação de estilos personalizados para tags de número.
+
+- **📊 Pílulas de Referência**: Exibir a quantidade total de referências que aquela informação possui no seu cofre em vez de mostrar um ícone (ex: uma tag de autor exibindo "X" referências).
+
 - ~~**🔗 Simplificação de Links**: Limpar e encurtar URLs externas exibidas nas pílulas de forma automática (ex: `www.google.com` simplificado para `google.com`).~~ --> Implementado de outra forma! :D
 - ~~**🌐 Ícones de Favicon**: Opção de buscar e exibir automaticamente o favicon do site para links externos que não tenham um ícone personalizado configurado.~~ --> Implementado! :D
 - ~~**🗂️ Nova Tela de Gerenciamento**: Substituir a longa lista de estilos por um esquema de abas (tabs) igual ao usado no modal de busca, incluindo suporte a rolagem horizontal quando houver muitas abas.~~~ Implementado! :D
