@@ -29,7 +29,7 @@ export interface CustomStatusIconsSettings {
 }
 
 export const DEFAULT_SETTINGS: CustomStatusIconsSettings = {
-    targetProperty: 'Status',
+    targetProperty: '',
     statusStyles: [],
     recentIcons: [],
     enableCustomIcons: false,
