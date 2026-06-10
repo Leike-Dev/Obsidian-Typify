@@ -1,19 +1,17 @@
-## 2.4.0 | 6 de junio de 2026
+## 1.5.0 | 10 de junio de 2026
 
-NEW | Soporte para proveedores personalizados vía `favicon-providers.json`
-NEW | Tablón de anuncios centralizado con estado persistente en la configuración
-IMP | Caché reescrita — lectura 3× más rápida en bóvedas grandes
-FIX | Favicon en blanco al abrir una nota sin conexión con DuckDuckGo
-FIX | SVGs personalizados mayores de 80 KB causaban bloqueos silenciosos
-BRK | `faviconSource` renombrado a `faviconProvider` — migración automática al abrir la bóveda
+NEW | Paleta de Colores: Generador Inteligente de Armonía y "Mis Colores" (hasta 15 colores guardados).
+NEW | Administrador de Favicons con caché local seguro y cambio de proveedores.
+NEW | Changelog integrado para ver las novedades directamente en el plugin.
+NEW | Nueva configuración para revelar el botón de cerrar (`X`) en etiquetas ocultas.
+IMP | Modales y formularios rediseñados utilizando Tarjetas interactivas.
+IMP | Avisos y limitaciones técnicas consolidados en un panel centralizado.
+IMP | Optimización de transiciones en la interfaz y mejor alineación nativa con Obsidian.
+IMP | Vista previa de estilo de etiquetas simplificada para ahorrar espacio manteniendo la intuición.
+IMP | Refinamiento de textos descriptivos para una mejor comprensión.
+IMP | Arquitectura: Modularización de CSS a través de esbuild y adopción del prefijo `typify-`.
+IMP | i18n: Sincronización de los 5 idiomas y eliminación de textos no traducibles (hardcoded).
+FIX | Exportación/Importación ahora abarca todas las preferencias, incluyendo paletas de colores.
+FIX | La validación de importación de estilos ahora reconoce propiedades de URLs.
+FIX | Fondo no deseado (`currentColor`) eliminado de los favicons en el componente "Bases Cards".
 
-## 2.3.1 | 14 de abril de 2026
-
-FIX | Los iconos no se cargaban en bóvedas con caracteres especiales en la ruta
-FIX | Conflicto con el plugin Iconize al usar iconos personalizados
-
-## 2.3.0 | 2 de marzo de 2026
-
-NEW | Soporte de fallback en cadena: Google → DuckDuckGo → Búsqueda directa
-IMP | Tamaño máximo de SVG personalizado aumentado de 50 KB a 100 KB
-FIX | El modal de configuración no se cerraba correctamente en Obsidian 1.7+

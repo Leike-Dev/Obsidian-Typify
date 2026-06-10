@@ -1,19 +1,16 @@
-## 2.4.0 | June 6, 2026
+## 1.5.0 | June 10, 2026
 
-NEW | Support for custom providers via `favicon-providers.json`
-NEW | Centralized notice board with state persisted in settings
-IMP | Cache rewritten — 3× faster reading on large vaults
-FIX | Blank favicon when opening offline note with DuckDuckGo
-FIX | Custom SVGs over 80 KB caused silent crash
-BRK | `faviconSource` renamed to `faviconProvider` — automatic migration when opening vault
-
-## 2.3.1 | April 14, 2026
-
-FIX | Icons not loading in vaults with special characters in path
-FIX | Conflict with Iconize plugin when using custom icons
-
-## 2.3.0 | March 2, 2026
-
-NEW | Chain fallback support: Google → DuckDuckGo → Direct fetch
-IMP | Maximum custom SVG size increased from 50 KB to 100 KB
-FIX | Settings modal not closing correctly in Obsidian 1.7+
+NEW | Color Palette: Smart Harmony Generator and "My Colors" (up to 15 saved colors).
+NEW | Favicon Manager with secure local cache and provider switching.
+NEW | Integrated changelog for viewing updates directly in the plugin.
+NEW | New setting to reveal the close button (`X`) on hidden tags.
+IMP | Modals and forms redesigned using interactive Cards.
+IMP | Technical warnings and limitations consolidated into a centralized panel.
+IMP | Interface transitions optimized and better aligned with Obsidian's native look.
+IMP | Tag style preview simplified to save space while maintaining intuitiveness.
+IMP | Refinement of descriptive texts for better comprehension.
+IMP | Architecture: CSS modularization via esbuild and adoption of the `typify-` prefix.
+IMP | i18n: Synchronization of 5 languages and removal of hardcoded non-translatable texts.
+FIX | Export/Import now encompasses all preferences, including color palettes.
+FIX | Style import validation now recognizes URL properties.
+FIX | Unwanted background (`currentColor`) removed from favicons in the "Bases Cards" component.

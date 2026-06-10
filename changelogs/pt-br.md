@@ -1,19 +1,16 @@
-## 2.4.0 | 6 de junho de 2026
+## 1.5.0 | 10 de junho de 2026
 
-NEW | Suporte a provedores customizados via `favicon-providers.json`
-NEW | Quadro de avisos centralizado com estado persistido nas configurações
-IMP | Cache reescrito — leitura 3× mais rápida em vaults grandes
-FIX | Favicon em branco ao abrir nota offline com DuckDuckGo
-FIX | SVGs personalizados acima de 80 KB causavam travamento silencioso
-BRK | `faviconSource` renomeado para `faviconProvider` — migração automática ao abrir o vault
-
-## 2.3.1 | 14 de abril de 2026
-
-FIX | Ícones não carregavam em vaults com caracteres especiais no caminho
-FIX | Conflito com o plugin Iconize ao usar ícones personalizados
-
-## 2.3.0 | 2 de março de 2026
-
-NEW | Suporte a fallback em cadeia: Google → DuckDuckGo → Busca direta
-IMP | Tamanho máximo de SVG personalizado aumentado de 50 KB para 100 KB
-FIX | Modal de configurações não fechava corretamente no Obsidian 1.7+
+NEW | Paleta de Cores: Gerador de Harmonia inteligente e "Minhas Cores" (até 15 cores salvas).
+NEW | Gerenciador de Favicons com cache local seguro e troca de provedores.
+NEW | Changelog integrado para visualização de novidades direto no plugin.
+NEW | Nova configuração para revelar o botão de fechar (`X`) em tags ocultas.
+IMP | Modais e formulários redesenhados utilizando Cards interativos.
+IMP | Avisos e limitações técnicas consolidados em um painel centralizado.
+IMP | Otimização de transições na interface e melhor alinhamento nativo do Obsidian.
+IMP | Preview de estilo das tags simplificado para economizar espaço mantendo a intuitividade.
+IMP | Refinamento de textos descritivos para melhor compreensão.
+IMP | Arquitetura: Modularização de CSS via esbuild e adoção do prefixo `typify-`.
+IMP | i18n: Sincronização dos 5 idiomas e remoção de textos não traduzíveis (hardcoded).
+FIX | Exportação/Importação agora engloba todas as preferências, incluindo paletas de cores.
+FIX | Validação de importação de estilos agora reconhece propriedades de URLs.
+FIX | Fundo indesejado (`currentColor`) removido dos favicons no componente "Bases Cards".

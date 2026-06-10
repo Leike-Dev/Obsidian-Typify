@@ -1,19 +1,17 @@
-## 2.4.0 | 6 juin 2026
+## 1.5.0 | 10 juin 2026
 
-NEW | Prise en charge des fournisseurs personnalisés via `favicon-providers.json`
-NEW | Tableau d'affichage centralisé avec état persistant dans les paramètres
-IMP | Cache réécrit — lecture 3× plus rapide sur les grands coffres
-FIX | Favicon vide lors de l'ouverture d'une note hors ligne avec DuckDuckGo
-FIX | Les SVG personnalisés de plus de 80 Ko provoquaient un plantage silencieux
-BRK | `faviconSource` renommé en `faviconProvider` — migration automatique à l'ouverture du coffre
+NEW | Palette de Couleurs : Générateur d'Harmonie Intelligent et "Mes Couleurs" (jusqu'à 15 couleurs sauvegardées).
+NEW | Gestionnaire de Favicons avec cache local sécurisé et changement de fournisseurs.
+NEW | Journal des modifications (Changelog) intégré pour voir les nouveautés directement dans le plugin.
+NEW | Nouveau paramètre pour révéler le bouton de fermeture (`X`) sur les balises masquées.
+IMP | Modales et formulaires repensés utilisant des Cartes interactives.
+IMP | Avertissements et limites techniques consolidés dans un panneau centralisé.
+IMP | Optimisation des transitions d'interface et meilleur alignement natif avec Obsidian.
+IMP | Aperçu du style des balises simplifié pour économiser de l'espace tout en gardant l'intuitivité.
+IMP | Raffinement des textes descriptifs pour une meilleure compréhension.
+IMP | Architecture : Modularisation CSS via esbuild et adoption du préfixe `typify-`.
+IMP | i18n : Synchronisation des 5 langues et suppression des textes non traduisibles (hardcoded).
+FIX | L'Exportation/Importation englobe désormais toutes les préférences, y compris les palettes de couleurs.
+FIX | La validation de l'importation de styles reconnaît désormais les propriétés d'URL.
+FIX | Fond indésirable (`currentColor`) supprimé des favicons dans le composant "Bases Cards".
 
-## 2.3.1 | 14 avril 2026
-
-FIX | Les icônes ne se chargeaient pas dans les coffres avec des caractères spéciaux dans le chemin
-FIX | Conflit avec le plugin Iconize lors de l'utilisation d'icônes personnalisées
-
-## 2.3.0 | 2 mars 2026
-
-NEW | Prise en charge du repli en chaîne : Google → DuckDuckGo → Recherche directe
-IMP | Taille maximale des SVG personnalisés augmentée de 50 Ko à 100 Ko
-FIX | Le modal des paramètres ne se fermait pas correctement sur Obsidian 1.7+
