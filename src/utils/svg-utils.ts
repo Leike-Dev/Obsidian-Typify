@@ -18,11 +18,11 @@
  * @param svgString A trusted SVG markup string.
  */
 export function insertSvg(container: HTMLElement, svgString: string): void {
-    const template = activeDocument.createElement('template');
-    // eslint-disable-next-line @microsoft/sdl/no-inner-html -- trusted static SVG constant; centralized here to avoid scattered innerHTML usage
-    template.innerHTML = svgString;
-    const content = template.content;
-    while (content.firstChild) {
-        container.appendChild(content.firstChild);
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(svgString, 'image/svg+xml');
+    
+    const svgEl = doc.documentElement;
+    if (svgEl && svgEl.tagName.toLowerCase() === 'svg') {
+        container.appendChild(svgEl);
     }
 }
