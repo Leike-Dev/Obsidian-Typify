@@ -5,6 +5,8 @@ import { t } from '../lang/helpers';
 export class NoticesModal extends Modal {
     private plugin: TypifyPlugin;
 
+    private currentFilter: string = 'all';
+
     constructor(app: App, plugin: TypifyPlugin) {
         super(app);
         this.plugin = plugin;
@@ -17,26 +19,68 @@ export class NoticesModal extends Modal {
 
         this.setTitle(t('notices_title'));
 
-        const listContainer = contentEl.createDiv({ cls: 'typify-notices-list' });
-
-        // Logic to gather active notices
         const notices = this.getActiveNotices();
 
-        if (notices.length === 0) {
-            listContainer.createEl('p', { text: t('notices_empty'), cls: 'typify-no-notices' });
-        } else {
-            for (const notice of notices) {
-                const itemEl = listContainer.createDiv({ cls: `typify-notice-item is-${notice.type}` });
+        const tagsContainer = contentEl.createDiv({ cls: 'typify-notices-tags' });
+        const listContainer = contentEl.createDiv({ cls: 'typify-notices-list' });
 
-                const iconEl = itemEl.createDiv({ cls: `typify-notice-icon typify-notice-${notice.type}` });
-                setIcon(iconEl, notice.icon);
+        const renderList = () => {
+            listContainer.empty();
+            const filteredNotices = this.currentFilter === 'all' 
+                ? notices 
+                : notices.filter(n => n.type === this.currentFilter);
 
-                const textContainer = itemEl.createDiv({ cls: 'typify-notice-text' });
-                const titleEl = textContainer.createDiv({ text: notice.title, cls: 'typify-notice-item-title' });
-                titleEl.addClass(`typify-notice-${notice.type}`);
-                textContainer.createDiv({ text: notice.desc, cls: 'typify-notice-item-desc' });
+            if (filteredNotices.length === 0) {
+                listContainer.createEl('p', { text: t('notices_empty'), cls: 'typify-no-notices' });
+            } else {
+                for (const notice of filteredNotices) {
+                    const itemEl = listContainer.createDiv({ cls: `typify-notice-item is-${notice.type}` });
+
+                    const iconEl = itemEl.createDiv({ cls: `typify-notice-icon typify-notice-${notice.type}` });
+                    setIcon(iconEl, notice.icon);
+
+                    const textContainer = itemEl.createDiv({ cls: 'typify-notice-text' });
+                    const titleEl = textContainer.createDiv({ text: notice.title, cls: 'typify-notice-item-title' });
+                    titleEl.addClass(`typify-notice-${notice.type}`);
+                    textContainer.createDiv({ text: notice.desc, cls: 'typify-notice-item-desc' });
+                }
             }
-        }
+        };
+
+        const renderTags = () => {
+            tagsContainer.empty();
+            
+            const counts: Record<string, number> = { 'all': notices.length };
+            notices.forEach(n => {
+                counts[n.type] = (counts[n.type] || 0) + 1;
+            });
+
+            const createTag = (id: string, label: string, count: number) => {
+                const tagEl = tagsContainer.createDiv({ cls: `typify-notice-tag ${this.currentFilter === id ? 'is-active' : ''}` });
+                tagEl.createSpan({ text: label, cls: 'typify-tag-label' });
+                tagEl.createSpan({ text: count.toString(), cls: 'typify-tag-count' });
+                tagEl.onClickEvent(() => {
+                    this.currentFilter = id;
+                    renderTags();
+                    renderList();
+                });
+            };
+
+            const allLabel = t('notices_tab_all' as Parameters<typeof t>[0]);
+            createTag('all', allLabel, counts['all'] || 0);
+
+            Object.keys(counts).forEach(type => {
+                if (type !== 'all') {
+                    const transKey = `notices_tab_${type}` as Parameters<typeof t>[0];
+                    const translated = t(transKey);
+                    const label = translated !== transKey ? translated : (type.charAt(0).toUpperCase() + type.slice(1));
+                    createTag(type, label, counts[type] || 0);
+                }
+            });
+        };
+
+        renderTags();
+        renderList();
     }
 
     private getActiveNotices() {
@@ -68,7 +112,7 @@ export class NoticesModal extends Modal {
 
         if (this.plugin.settings.enableFavicons) {
             notices.push({
-                type: 'success',
+                type: 'system',
                 icon: 'database',
                 title: t('notice_cache_title'),
                 desc: t('notice_cache_desc')

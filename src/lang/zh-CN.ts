@@ -244,5 +244,11 @@ export const zhCN = {
     'notice_usage_multiple_desc': '您可以将多个属性作为目标。只需在选项之间添加逗号即可。示例：`Status, Priority`。',
     
     'notice_custom_images_title': '自定义图片',
-    'notice_custom_images_desc': '请将最大 50KB 的图片文件（PNG、JPG 等）放在插件目录中的 img/ 文件夹中。'
+    'notice_custom_images_desc': '请将最大 50KB 的图片文件（PNG、JPG 等）放在插件目录中的 img/ 文件夹中。',
+
+    // Notices Tabs
+    'notices_tab_all': '所有通知',
+    'notices_tab_warning': '警告',
+    'notices_tab_info': '信息',
+    'notices_tab_system': '系统'
 };

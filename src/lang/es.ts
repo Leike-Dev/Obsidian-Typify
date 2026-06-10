@@ -245,5 +245,11 @@ export const es = {
     'notice_usage_multiple_desc': 'Puede usar más de una propiedad como objetivo. Simplemente agregue una coma entre las opciones. Ejemplo: `Status, Priority`.',
     
     'notice_custom_images_title': 'Imágenes personalizadas',
-    'notice_custom_images_desc': 'Coloque sus archivos de imagen (PNG, JPG, etc.) de hasta 50KB en la carpeta img/ en el directorio del plugin.'
+    'notice_custom_images_desc': 'Coloca tus archivos de imagen (PNG, JPG, etc.) de hasta 50KB en la carpeta img/ en el directorio del plugin.',
+
+    // Notices Tabs
+    'notices_tab_all': 'Todos los avisos',
+    'notices_tab_warning': 'Aviso',
+    'notices_tab_info': 'Info',
+    'notices_tab_system': 'Sistema'
 };

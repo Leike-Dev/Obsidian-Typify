@@ -246,4 +246,10 @@ export const ptBR = {
     
     'notice_custom_images_title': 'Imagens personalizadas',
     'notice_custom_images_desc': 'Coloque seus arquivos de imagem (PNG, JPG, etc.) de até 50KB na pasta img/ no diretório do plugin.',
+
+    // Notices Tabs
+    'notices_tab_all': 'Todos os avisos',
+    'notices_tab_warning': 'Aviso',
+    'notices_tab_info': 'Info',
+    'notices_tab_system': 'Sistema'
 };
