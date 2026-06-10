@@ -322,7 +322,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
 
         const activeNoticesCount = this.getActiveNoticesCount();
         if (activeNoticesCount > 0) {
-            const badgeContainer = document.createElement('div');
+            const badgeContainer = activeDocument.createElement('div');
             badgeContainer.addClass('typify-notices-badge-container');
             badgeContainer.createSpan({ text: activeNoticesCount.toString(), cls: 'typify-notices-badge' });
             

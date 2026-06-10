@@ -103,7 +103,7 @@ export class ImportSettingsModal extends Modal {
             this.plugin.settings.enableCustomPalette = data.enableCustomPalette;
         }
         if (Array.isArray(data.customPalette)) {
-            const palette = data.customPalette.filter((c: unknown) => typeof c === 'string');
+            const palette = (data.customPalette as unknown[]).filter((c): c is string => typeof c === 'string');
             if (palette.length > 0) this.plugin.settings.customPalette = palette;
         }
         if (typeof data.enableFavicons === 'boolean') {
@@ -121,12 +121,10 @@ export class ImportSettingsModal extends Modal {
 
         this.plugin.settings.statusStyles = validStyles;
 
-        await this.plugin.saveSettings();
-
-        // Handle side-effects for managers that don't auto-reload on saveSettings
+        // Handle side-effects for managers BEFORE saving, so buildCache sees the loaded assets
         if (this.plugin.settings.enableCustomIcons !== oldEnableCustomIcons) {
             if (this.plugin.settings.enableCustomIcons) {
-                void this.plugin.customIconsManager.initialize();
+                await this.plugin.customIconsManager.initialize();
             } else {
                 this.plugin.customIconsManager.clear();
             }
@@ -134,11 +132,14 @@ export class ImportSettingsModal extends Modal {
 
         if (this.plugin.settings.enableFavicons !== oldEnableFavicons) {
             if (this.plugin.settings.enableFavicons) {
-                void this.plugin.faviconManager.initialize();
+                await this.plugin.faviconManager.initialize();
             } else {
                 this.plugin.faviconManager.cleanupActiveUrls();
             }
         }
+
+        await this.plugin.saveSettings();
+
 
         if (skipped > 0) {
             new Notice(t('import_partial_success')

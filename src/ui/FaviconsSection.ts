@@ -2,6 +2,7 @@ import { App, Notice, setIcon } from 'obsidian';
 import { THUMB_FAVICON_DIRECT, THUMB_FAVICON_GOOGLE, THUMB_FAVICON_DUCKDUCKGO } from './format-thumbs';
 import type TypifyPlugin from '../main';
 import { t } from '../lang/helpers';
+import { insertSvg } from '../utils/svg-utils';
 export class FaviconsSection {
     app: App;
     plugin: TypifyPlugin;
@@ -39,10 +40,7 @@ export class FaviconsSection {
             }
 
             const thumb = card.createDiv({ cls: 'typify-fmt-thumb' });
-            // NOTE: innerHTML is used here with trusted static SVG constants from format-thumbs.ts.
-            // No user input is injected. If migrating away, use DOMParser + appendChild instead.
-            // eslint-disable-next-line @microsoft/sdl/no-inner-html -- trusted static SVG constant
-            thumb.innerHTML = opt.svg;
+            insertSvg(thumb, opt.svg);
 
             card.createEl('span', { text: opt.label, cls: 'typify-fmt-label' });
 

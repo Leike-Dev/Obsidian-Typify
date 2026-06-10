@@ -192,6 +192,7 @@ export class DOMManager {
      * This is useful when settings/styles change and we need to update classes (e.g. adding typify-is-image).
      */
     reprocessAllPills() {
+        // 1. Reprocess all currently styled pills (in case their style changed or was removed)
         activeDocument.body.findAll('.custom-status-icon-pill').forEach(pill => {
             const propertyKey = pill.getAttribute('data-property-key');
             if (propertyKey) {
@@ -202,6 +203,16 @@ export class DOMManager {
             const propertyKey = el.getAttribute('data-property-key');
             if (propertyKey) {
                 this.processValueListElement(el, propertyKey);
+            }
+        });
+
+        // 2. Process any unstyled pills that might now match a newly imported or modified style
+        activeDocument.body.findAll('[data-typify-observed]').forEach(container => {
+            if (container.classList.contains('metadata-container')) {
+                this.processMetadataContainer(container);
+            } else if (container.classList.contains('bases-view')) {
+                this.processBasesView(container);
+                this.processBasesCardsView(container);
             }
         });
     }

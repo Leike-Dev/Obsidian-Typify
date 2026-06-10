@@ -1,15 +1,10 @@
 import { App, Modal, PluginManifest, setIcon } from "obsidian";
-// @ts-ignore
 import changelogEn from "../../changelogs/en.md";
-// @ts-ignore
 import changelogPt from "../../changelogs/pt-br.md";
-// @ts-ignore
 import changelogEs from "../../changelogs/es.md";
-// @ts-ignore
 import changelogFr from "../../changelogs/fr.md";
-// @ts-ignore
 import changelogZh from "../../changelogs/zh-cn.md";
-import { t, locale } from "../lang/helpers";
+import { t, locale, type TranslationKey } from "../lang/helpers";
 
 // Types
 
@@ -30,7 +25,7 @@ interface ChangelogVersion {
 
 const TAG_GROUPS: {
 	tags: EntryTag[];
-	labelKey: string;
+	labelKey: TranslationKey;
 	boxClass: string;
 	titleColor: string;
 	icon: string;
@@ -116,7 +111,7 @@ function renderInlineCode(container: HTMLElement, text: string): void {
 			});
 			container.appendChild(code);
 		} else {
-			container.appendChild(document.createTextNode(part));
+			container.appendChild(activeDocument.createTextNode(part));
 		}
 	}
 }
@@ -138,18 +133,14 @@ export class ChangelogModal extends Modal {
 		contentEl.empty();
 		contentEl.addClass("typify-changelog-modal");
 
-		// We use eslint-disable for unsafe-assignment because the .md files are imported
-		// using @ts-ignore (no native type declaration), causing TypeScript to assume they are 'any'.
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 		let changelogText = changelogEn;
 		const lowerLocale = locale.toLowerCase();
-		if (lowerLocale.startsWith('pt')) changelogText = changelogPt; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
-		else if (lowerLocale.startsWith('es')) changelogText = changelogEs; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
-		else if (lowerLocale.startsWith('fr')) changelogText = changelogFr; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
-		else if (lowerLocale.startsWith('zh')) changelogText = changelogZh; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+		if (lowerLocale.startsWith('pt')) changelogText = changelogPt;
+		else if (lowerLocale.startsWith('es')) changelogText = changelogEs;
+		else if (lowerLocale.startsWith('fr')) changelogText = changelogFr;
+		else if (lowerLocale.startsWith('zh')) changelogText = changelogZh;
 
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
-		const versions = parseChangelog(changelogText as any);
+		const versions = parseChangelog(changelogText);
 		if (versions.length === 0) {
 			this.renderError(contentEl);
 			return;
@@ -187,8 +178,7 @@ export class ChangelogModal extends Modal {
 			setIcon(iconSpan, group.icon);
 
 			boxTitle.createSpan({
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
-				text: t(group.labelKey as any), // Cast to bypass strict types without adding union string
+				text: t(group.labelKey),
 				cls: "typify-box-title-text",
 			});
 

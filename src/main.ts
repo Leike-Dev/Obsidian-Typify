@@ -20,10 +20,9 @@ export default class TypifyPlugin extends Plugin {
     async onload() {
         await this.loadSettings();
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-        this.registerEvent((this.app.workspace as any).on('typify:version-seen', async (version: string) => {
+        this.registerEvent(this.app.workspace.on('typify:version-seen', (version: string) => {
             this.settings.lastSeenVersion = version;
-            await this.saveSettings();
+            void this.saveSettings();
         }));
 
         // Initialize custom icons manager
@@ -103,7 +102,7 @@ export default class TypifyPlugin extends Plugin {
         if (this.faviconManager) {
             this.faviconManager.cleanupActiveUrls();
         }
-        document.body.classList.remove(
+        activeDocument.body.classList.remove(
             'typify-hide-x-none', 'typify-hide-x-properties',
             'typify-hide-x-bases', 'typify-hide-x-both',
             'typify-compat-minimal'
@@ -138,12 +137,12 @@ export default class TypifyPlugin extends Plugin {
     }
 
     public updateBodyClasses() {
-        document.body.classList.remove('typify-hide-x-none', 'typify-hide-x-properties', 'typify-hide-x-bases', 'typify-hide-x-both', 'typify-reveal-x-on-hover');
+        activeDocument.body.classList.remove('typify-hide-x-none', 'typify-hide-x-properties', 'typify-hide-x-bases', 'typify-hide-x-both', 'typify-reveal-x-on-hover');
         if (this.settings.hideRemoveButton && this.settings.hideRemoveButton !== 'none') {
-            document.body.classList.add(`typify-hide-x-${this.settings.hideRemoveButton}`);
+            activeDocument.body.classList.add(`typify-hide-x-${this.settings.hideRemoveButton}`);
             
             if (this.settings.hideRemoveButtonHover) {
-                document.body.classList.add('typify-reveal-x-on-hover');
+                activeDocument.body.classList.add('typify-reveal-x-on-hover');
             }
         }
     }
@@ -153,9 +152,9 @@ export default class TypifyPlugin extends Plugin {
      * Currently handles Minimal theme's tighter Bases card heights.
      */
     private updateThemeCompat() {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-        const cssTheme: string = (this.app.vault as any).getConfig?.('cssTheme') ?? '';
-        document.body.classList.toggle(
+        const rawTheme = this.app.vault.getConfig?.('cssTheme');
+        const cssTheme = typeof rawTheme === 'string' ? rawTheme : '';
+        activeDocument.body.classList.toggle(
             'typify-compat-minimal',
             cssTheme.toLowerCase().includes('minimal')
         );

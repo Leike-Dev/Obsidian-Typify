@@ -207,7 +207,7 @@ export class FaviconManager {
                     if (img.naturalWidth === 0) throw new Error("Invalid image dimensions");
 
                     const size = Math.max(32, Math.min(img.naturalWidth, 128));
-                    const canvas = document.createElement('canvas');
+                    const canvas = activeDocument.createElement('canvas');
                     canvas.width = size;
                     canvas.height = size;
                     const ctx = canvas.getContext('2d')!;

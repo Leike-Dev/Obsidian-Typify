@@ -6,6 +6,7 @@ import { t, type TranslationKey } from '../lang/helpers';
 import { IconPickerModal } from './icon-picker';
 import { THUMB_PILL, THUMB_RECT, THUMB_FLAT, THUMB_SOFT, THUMB_SOLID } from './format-thumbs';
 import { FaviconManager } from '../managers/favicon-manager';
+import { insertSvg } from '../utils/svg-utils';
 
 /**
  * Modal for creating or editing a status style.
@@ -192,8 +193,7 @@ export class StyleEditorModal extends Modal {
             const linkSetting = new Setting(contentEl)
                 .setName(t('link_url_title'))
                 .addText(text => {
-                    // eslint-disable-next-line obsidianmd/ui/sentence-case
-                    text.setPlaceholder('https://...')
+                    text.setPlaceholder(t('link_url_placeholder'))
                         .setValue(this.matchValue)
                         .onChange(value => {
                             this.matchValue = value;
@@ -538,11 +538,7 @@ export class StyleEditorModal extends Modal {
             if (currentValue === opt.key) card.addClass('is-selected');
 
             const thumb = card.createDiv({ cls: 'typify-fmt-thumb' });
-            // NOTE: innerHTML is used here with trusted static SVG constants from format-thumbs.ts.
-            // No user input is injected. Obsidian guidelines discourage innerHTML for user-generated
-            // content, but this usage is safe. If migrating away, use DOMParser + appendChild instead.
-            // eslint-disable-next-line @microsoft/sdl/no-inner-html -- trusted static SVG constant
-            thumb.innerHTML = opt.svg;
+            insertSvg(thumb, opt.svg);
 
             card.createEl('span', { text: t(opt.labelKey), cls: 'typify-fmt-label' });
 
