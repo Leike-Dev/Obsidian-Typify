@@ -29,6 +29,7 @@ export class StyleEditorModal extends Modal {
     private shape: 'pill' | 'rectangle' | 'flat' | '' = '';
     private colorMode: 'subtle' | 'solid' | '' = '';
     private matchValue = '';
+    private prefixMatch = true;
 
     // DOM references for live preview updates
     private previewPillLight: HTMLElement | null = null;
@@ -50,6 +51,7 @@ export class StyleEditorModal extends Modal {
             this.shape = editStyle.shape || 'pill';
             this.colorMode = editStyle.colorMode || 'subtle';
             this.matchValue = editStyle.matchValue || '';
+            this.prefixMatch = editStyle.prefixMatch !== false;
         }
     }
 
@@ -220,8 +222,6 @@ export class StyleEditorModal extends Modal {
                             this.icon = `favicon:${domain}`;
                             this.renderIconButton();
                             this.updatePreview();
-                            // Optional Notice, but UI changing is enough indication
-                            // new Notice(t('favicon_fetch_success').replace('{domain}', domain));
                         }
                         
                         btn.setDisabled(false);
@@ -229,6 +229,15 @@ export class StyleEditorModal extends Modal {
                     });
                 });
             }
+
+            new Setting(contentEl)
+                .setName(t('prefix_match_title'))
+                .setDesc(t('prefix_match_desc'))
+                .addToggle(toggle => toggle
+                    .setValue(this.prefixMatch)
+                    .onChange(value => {
+                        this.prefixMatch = value;
+                    }));
         }
 
         // ============================================================
@@ -481,9 +490,9 @@ export class StyleEditorModal extends Modal {
             icon: this.icon
         };
 
-        // Only add matchValue if set
         if (this.matchValue.trim()) {
             style.matchValue = this.matchValue.trim();
+            style.prefixMatch = this.prefixMatch;
         }
 
         // Only add appliesTo if scoped

@@ -11,6 +11,9 @@ export class StyleManager {
     private globalFallbackMap = new Map<string, string>();
     // Display info cache: className → { name, hasMatchValue }
     private styleInfoMap = new Map<string, { name: string; hasMatchValue: boolean }>();
+    // Prefix match styles, sorted longest-first for best-match priority
+    private prefixScopedList: { prefix: string; prop: string; classString: string }[] = [];
+    private prefixGlobalList: { prefix: string; classString: string }[] = [];
 
     constructor(plugin: TypifyPlugin) {
         this.plugin = plugin;
@@ -24,6 +27,8 @@ export class StyleManager {
         this.fastLookupMap.clear();
         this.globalFallbackMap.clear();
         this.styleInfoMap.clear();
+        this.prefixScopedList = [];
+        this.prefixGlobalList = [];
 
         if (this.styleElement) {
             this.styleElement.remove();
@@ -96,8 +101,16 @@ export class StyleManager {
 
             const classString = isImage ? `${className} typify-is-image` : isEmoji ? `${className} typify-is-emoji` : className;
 
-            // Populate O(1) Dictionaries
-            if (style.appliesTo && style.appliesTo.length > 0) {
+            // Populate lookup structures
+            if (style.prefixMatch && style.matchValue) {
+                if (style.appliesTo && style.appliesTo.length > 0) {
+                    style.appliesTo.forEach(prop => {
+                        this.prefixScopedList.push({ prefix: valueKey, prop: prop.toLowerCase(), classString });
+                    });
+                } else {
+                    this.prefixGlobalList.push({ prefix: valueKey, classString });
+                }
+            } else if (style.appliesTo && style.appliesTo.length > 0) {
                 style.appliesTo.forEach(prop => {
                     this.fastLookupMap.set(`${valueKey}|${prop.toLowerCase()}`, classString);
                 });
@@ -211,12 +224,30 @@ body .${className} {
         const valLower = value.toLowerCase();
         const propLower = propertyKey.toLowerCase();
         
-        // 1. Exact match with scope
         const scopedMatch = this.fastLookupMap.get(`${valLower}|${propLower}`);
         if (scopedMatch) return scopedMatch;
 
-        // 2. Exact match global
-        return this.globalFallbackMap.get(valLower);
+        const globalMatch = this.globalFallbackMap.get(valLower);
+        if (globalMatch) return globalMatch;
+
+        let bestPrefix: string | undefined;
+        let bestLength = 0;
+
+        for (const entry of this.prefixScopedList) {
+            if (entry.prefix.length > bestLength && valLower.startsWith(entry.prefix) && entry.prop === propLower) {
+                bestPrefix = entry.classString;
+                bestLength = entry.prefix.length;
+            }
+        }
+
+        for (const entry of this.prefixGlobalList) {
+            if (entry.prefix.length > bestLength && valLower.startsWith(entry.prefix)) {
+                bestPrefix = entry.classString;
+                bestLength = entry.prefix.length;
+            }
+        }
+
+        return bestPrefix;
     }
 
     /**
@@ -274,5 +305,7 @@ body .${className} {
         this.fastLookupMap.clear();
         this.globalFallbackMap.clear();
         this.styleInfoMap.clear();
+        this.prefixScopedList = [];
+        this.prefixGlobalList = [];
     }
 }

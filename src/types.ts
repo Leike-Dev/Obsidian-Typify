@@ -4,12 +4,13 @@
 
 export interface StatusStyle {
     name: string;
-    matchValue?: string; // Optional: Value used for matching instead of name (e.g., a URL). Display uses name.
+    matchValue?: string;
+    prefixMatch?: boolean;
     baseColor: string;
     icon: string;
-    appliesTo?: string[]; // Optional: List of properties this style applies to. If empty/undefined, applies to all.
-    shape?: 'pill' | 'rectangle' | 'flat'; // Optional: Visual shape. Default is 'pill'.
-    colorMode?: 'subtle' | 'solid'; // Optional: Color intensity. Default is 'subtle' (transparent).
+    appliesTo?: string[];
+    shape?: 'pill' | 'rectangle' | 'flat';
+    colorMode?: 'subtle' | 'solid';
 }
 
 export interface CustomStatusIconsSettings {
