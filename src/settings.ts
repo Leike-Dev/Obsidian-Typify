@@ -7,6 +7,7 @@ import { PaletteModal } from './ui/PaletteModal';
 import { FaviconsModal } from './ui/FaviconsModal';
 import { ChangelogModal } from './ui/ChangelogModal';
 import { NoticesModal } from './ui/NoticesModal';
+import { PropertySuggest } from './ui/property-suggest';
 import type TypifyPlugin from './main';
 import { t } from './lang/helpers';
 
@@ -74,21 +75,58 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         // ================================================================
         // TARGET PROPERTY
         // ================================================================
-        new Setting(containerEl)
+        const targetPropSetting = new Setting(containerEl)
             .setName(t('target_property_title'))
-            .setDesc(t('target_property_desc'))
-            .addText(text => {
-                text
-                    .setPlaceholder(t('target_property_placeholder'))
-                    .setValue(this.plugin.settings.targetProperty)
-                    .onChange(async (value) => {
-                        this.plugin.settings.targetProperty = value;
-                        await this.plugin.saveSettings();
-                    });
-                text.inputEl.addEventListener('blur', () => {
-                    this.display();
+            .setDesc(t('target_property_desc'));
+
+        const propInputWrapper = targetPropSetting.controlEl.createDiv({
+            cls: 'typify-target-property-wrapper'
+        });
+
+        const propInput = propInputWrapper.createEl('input', {
+            type: 'text',
+            cls: 'typify-target-property-input',
+            attr: {
+                placeholder: t('target_property_placeholder'),
+                spellcheck: 'false'
+            }
+        });
+
+        // Obsidian-native autocomplete via AbstractInputSuggest
+        const propSuggest = new PropertySuggest(this.app, propInput, () => this.getAllPropertyNames());
+        propSuggest.onSelect((prop) => {
+            void this.addProperty(prop);
+            propInput.value = '';
+            renderTargetChips();
+        });
+
+        const chipsContainer = propInputWrapper.createDiv({
+            cls: 'typify-target-property-chips'
+        });
+
+        const renderTargetChips = () => {
+            chipsContainer.empty();
+            const props = this.plugin.settings.targetProperty
+                .split(',')
+                .map(p => p.trim())
+                .filter(p => p.length > 0);
+
+            for (const prop of props) {
+                const chip = chipsContainer.createDiv({ cls: 'typify-target-chip' });
+                chip.createSpan({ text: prop, cls: 'typify-target-chip-text' });
+                const removeBtn = chip.createEl('button', {
+                    cls: 'typify-target-chip-remove',
+                    attr: { 'aria-label': 'Remove' }
                 });
-            });
+                removeBtn.setText('\u00d7');
+                removeBtn.addEventListener('click', () => {
+                    void this.removeProperty(prop);
+                    renderTargetChips();
+                });
+            }
+        };
+
+        renderTargetChips();
 
 
         // ================================================================
@@ -310,6 +348,45 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         if (this.plugin.settings.enableCustomIcons) count++; // Custom icons notice
         if (this.plugin.settings.enableFavicons) count++; // Local cache active notice
         return count;
+    }
+
+    private getAllPropertyNames(): string[] {
+        const properties = new Set<string>();
+        const files = this.app.vault.getMarkdownFiles();
+        for (const file of files) {
+            const cache = this.app.metadataCache.getFileCache(file);
+            const frontmatter = cache?.frontmatter;
+            if (!frontmatter) continue;
+            for (const key of Object.keys(frontmatter)) {
+                if (key === 'position') continue;
+                properties.add(key);
+            }
+        }
+        return [...properties].sort((a, b) => a.localeCompare(b));
+    }
+
+    private async addProperty(prop: string): Promise<void> {
+        const props = this.plugin.settings.targetProperty
+            .split(',')
+            .map(p => p.trim().toLowerCase())
+            .filter(p => p.length > 0);
+
+        if (props.includes(prop.toLowerCase())) return;
+
+        const current = this.plugin.settings.targetProperty.trim();
+        this.plugin.settings.targetProperty = current
+            ? `${current}, ${prop}`
+            : prop;
+        await this.plugin.saveSettings();
+    }
+
+    private async removeProperty(prop: string): Promise<void> {
+        const props = this.plugin.settings.targetProperty
+            .split(',')
+            .map(p => p.trim())
+            .filter(p => p.length > 0 && p.toLowerCase() !== prop.toLowerCase());
+        this.plugin.settings.targetProperty = props.join(', ');
+        await this.plugin.saveSettings();
     }
     private renderNoticesBadge() {
         if (!this.noticesSetting) return;

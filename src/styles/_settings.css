@@ -368,3 +368,74 @@
         flex-direction: column;
     }
 }
+
+/* --------------------------------------------------------------------------
+   Target Property — Autocomplete + Chips
+   -------------------------------------------------------------------------- */
+
+.typify-target-property-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4-2);
+    width: 100%;
+    min-width: 200px;
+}
+
+.typify-target-property-wrapper input.typify-target-property-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--size-4-1) var(--size-4-2);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--input-radius);
+    background: var(--background-modifier-form-field);
+    color: var(--text-normal);
+    font-size: var(--font-ui-small);
+}
+
+.typify-target-property-wrapper input.typify-target-property-input:focus {
+    border-color: var(--interactive-accent);
+    outline: none;
+}
+
+.typify-target-property-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-4-1);
+}
+
+.typify-target-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--size-4-1);
+    padding: 2px 8px;
+    border-radius: var(--radius-s);
+    background: var(--background-modifier-hover);
+    font-size: var(--font-ui-smaller);
+    color: var(--text-normal);
+    line-height: 1.4;
+}
+
+.typify-target-chip-text {
+    white-space: nowrap;
+}
+
+.typify-target-chip-remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+}
+
+.typify-target-chip-remove:hover {
+    background: var(--background-modifier-border);
+    color: var(--text-error);
+}
