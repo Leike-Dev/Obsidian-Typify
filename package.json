@@ -6,6 +6,8 @@
     "scripts": {
         "dev": "node esbuild.config.mjs",
         "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+        "build:local": "npm run build && npm run copy-to-local",
+        "copy-to-local": "node scripts/copy-to-local.mjs",
         "version": "node dev/version-bump.mjs",
         "gen-icons": "node dev/generate-icons.mjs",
         "commit": "node dev/commit-helper.mjs",

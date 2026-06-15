@@ -8,6 +8,7 @@ export default tseslint.config(
         "node_modules",
         "dist",
         "esbuild.config.mjs",
+        "scripts/**",
         "dev/**",
         "main.js",
         "package.json",
