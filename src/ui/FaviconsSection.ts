@@ -42,7 +42,7 @@ export class FaviconsSection {
             const thumb = card.createDiv({ cls: 'typify-fmt-thumb' });
             insertSvg(thumb, opt.svg);
 
-            card.createEl('span', { text: opt.label, cls: 'typify-fmt-label' });
+            card.createSpan({ text: opt.label, cls: 'typify-fmt-label' });
 
             card.setAttribute('role', 'button');
             card.setAttribute('tabindex', '0');

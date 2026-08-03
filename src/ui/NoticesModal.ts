@@ -66,7 +66,7 @@ export class NoticesModal extends Modal {
                 });
             };
 
-            const allLabel = t('notices_tab_all' as Parameters<typeof t>[0]);
+            const allLabel = t('notices_tab_all');
             createTag('all', allLabel, counts['all'] || 0);
 
             Object.keys(counts).forEach(type => {

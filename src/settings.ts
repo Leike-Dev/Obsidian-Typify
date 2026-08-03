@@ -29,6 +29,10 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         this.plugin = plugin;
     }
 
+    getSettingDefinitions() {
+        return {} as any;
+    }
+
     /**
      * Renders the settings tab content.
      */
@@ -322,7 +326,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
 
         const activeNoticesCount = this.getActiveNoticesCount();
         if (activeNoticesCount > 0) {
-            const badgeContainer = activeDocument.createElement('div');
+            const badgeContainer = createDiv();
             badgeContainer.addClass('typify-notices-badge-container');
             badgeContainer.createSpan({ text: activeNoticesCount.toString(), cls: 'typify-notices-badge' });
             

@@ -502,12 +502,12 @@ export class StyleEditorModal extends Modal {
 
         // Only add shape if not the default
         if (this.shape !== 'pill') {
-            style.shape = this.shape as 'pill' | 'rectangle' | 'flat';
+            style.shape = this.shape;
         }
 
         // Only add colorMode if not the default
         if (this.colorMode !== 'subtle') {
-            style.colorMode = this.colorMode as 'subtle' | 'solid';
+            style.colorMode = this.colorMode;
         }
 
         // Update existing or push new

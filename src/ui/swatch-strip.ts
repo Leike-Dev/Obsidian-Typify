@@ -124,7 +124,7 @@ export class SwatchStrip {
 
     this.panelDot = this.panelEl.createDiv({ cls: "typify-panel-dot" });
 
-    this.panelHex = this.panelEl.createEl("span", { cls: "typify-panel-hex" });
+    this.panelHex = this.panelEl.createSpan({ cls: "typify-panel-hex" });
 
     const actions = this.panelEl.createDiv({ cls: "typify-panel-actions" });
 
