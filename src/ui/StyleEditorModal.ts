@@ -26,8 +26,8 @@ export class StyleEditorModal extends Modal {
     private baseColor = DEFAULT_STATUS_COLOR;
     private icon = '';
     private appliesTo: string[] = [];
-    private shape: 'pill' | 'rectangle' | 'flat' | '' = '';
-    private colorMode: 'subtle' | 'solid' | '' = '';
+    private shape: 'pill' | 'rectangle' | 'flat' | '' = 'pill';
+    private colorMode: 'subtle' | 'solid' | '' = 'subtle';
     private matchValue = '';
     private prefixMatch = true;
 

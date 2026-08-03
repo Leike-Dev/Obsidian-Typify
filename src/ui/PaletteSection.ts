@@ -94,7 +94,7 @@ export function renderPaletteSection(
 
     // Controls Row
     const controlsContainer = previewContainer.createDiv({ cls: 'typify-palette-actions-row' });
-    controlsContainer.createDiv({ cls: 'typify-palette-actions-left' });
+    const leftControls = controlsContainer.createDiv({ cls: 'typify-palette-actions-left' });
     const rightControls = controlsContainer.createDiv({ cls: 'typify-palette-actions-right' });
 
     // Declare a reference to the strip to update it later
@@ -127,8 +127,16 @@ export function renderPaletteSection(
         });
     });
 
-    // 2. "Regenerar" button
-    generateBtn = rightControls.createDiv({
+    // 2. Color Picker (left)
+    const colorInputWrapper = leftControls.createDiv({ cls: 'typify-color-input-wrapper typify-palette-color-picker' });
+    const colorInput = colorInputWrapper.createEl('input', { type: 'color' });
+    colorInput.value = baseColorHex;
+    colorInput.addEventListener('input', (e) => {
+        baseColorHex = (e.target as HTMLInputElement).value;
+    });
+
+    // 3. "Regenerar" button (left)
+    generateBtn = leftControls.createDiv({
         cls: 'clickable-icon typify-palette-generate-btn is-disabled',
         attr: { 'aria-label': t('palette_regenerate_aria') }
     });
@@ -139,14 +147,6 @@ export function renderPaletteSection(
         previewColors = generator(5, baseColorHex);
         renderPreviewDots(previewBox, previewColors);
         addAllBtn.removeClass('is-disabled');
-    });
-
-    // 3. Color Picker
-    const colorInputWrapper = rightControls.createDiv({ cls: 'typify-color-input-wrapper typify-palette-color-picker' });
-    const colorInput = colorInputWrapper.createEl('input', { type: 'color' });
-    colorInput.value = baseColorHex;
-    colorInput.addEventListener('input', (e) => {
-        baseColorHex = (e.target as HTMLInputElement).value;
     });
 
 
