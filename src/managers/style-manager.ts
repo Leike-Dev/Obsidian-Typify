@@ -30,14 +30,11 @@ export class StyleManager {
         this.prefixScopedList = [];
         this.prefixGlobalList = [];
 
-        if (this.styleElement) {
-            this.styleElement.remove();
-        }
-
-        this.styleElement = createEl('style');
-        if (this.styleElement) {
+        if (!this.styleElement || !this.styleElement.isConnected) {
+            if (this.styleElement) this.styleElement.remove();
+            this.styleElement = createEl('style');
             this.styleElement.id = 'typify-dynamic-styles';
-            activeDocument.head.appendChild(this.styleElement);
+            document.head.appendChild(this.styleElement);
         }
 
         let cssContent = '';
@@ -291,7 +288,7 @@ body .${className} {
      */
     ensureAttached(): void {
         if (!this.styleElement || this.styleElement.isConnected) return;
-        activeDocument.head.appendChild(this.styleElement);
+        document.head.appendChild(this.styleElement);
     }
 
     /**

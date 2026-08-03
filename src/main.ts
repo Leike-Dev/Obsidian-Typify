@@ -113,17 +113,20 @@ export default class TypifyPlugin extends Plugin {
         this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData() as Partial<CustomStatusIconsSettings>);
     }
 
-    async saveSettings() {
+    async saveSettings(rebuildCss: boolean = true) {
         this.cachedTargetProps = null; 
         await this.saveData(this.settings);
-        // Re-build stylesheet and cache
-        this.styleManager.buildCache(); 
         
-        if (this.domManager) {
-            this.domManager.reprocessAllPills();
-            this.domManager.refreshProcessing();
+        if (rebuildCss) {
+            // Re-build stylesheet and cache
+            this.styleManager.buildCache(); 
+            
+            if (this.domManager) {
+                this.domManager.reprocessAllPills();
+                this.domManager.refreshProcessing();
+            }
+            this.updateBodyClasses();
         }
-        this.updateBodyClasses();
     }
 
     getTargetProperties(): string[] {

@@ -122,7 +122,7 @@ export function renderPaletteSection(
         renderPreviewDots(previewBox, previewColors);
         addAllBtn.addClass('is-disabled');
 
-        void plugin.saveSettings().then(() => { 
+        void plugin.saveSettings(false).then(() => { 
             if (refreshYourColors) refreshYourColors();
         });
     });
@@ -179,7 +179,7 @@ export function renderPaletteSection(
             setIcon(clearBtn, 'trash-2');
             clearBtn.addEventListener('click', () => {
                 palette.length = 0;
-                void plugin.saveSettings().then(() => {
+                void plugin.saveSettings(false).then(() => {
                     if (swatchStrip) swatchStrip.setColors(palette);
                     refreshYourColors();
                 });
@@ -201,7 +201,7 @@ export function renderPaletteSection(
                         .replace('{count}', String(newColors.length))
                         .replace('{max}', String(MAX_PALETTE_COLORS))
                 );
-                void plugin.saveSettings();
+                void plugin.saveSettings(false);
                 
                 // If palette is empty, re-render to hide clear button
                 if (palette.length === 0) {
