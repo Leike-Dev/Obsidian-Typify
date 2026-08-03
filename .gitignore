@@ -29,3 +29,8 @@ PUBLISHING.md
 # Auto-generated commit message
 commit_msg.txt
 AI_COMMIT_GUIDELINES.md
+
+# Development-only (local)
+.hotreload
+.obsidian-vault-path
+CHANGELOG_DRAFT.md
