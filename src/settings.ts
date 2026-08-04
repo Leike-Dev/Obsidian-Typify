@@ -1,4 +1,4 @@
-import { PluginSettingTab, App, Setting, Notice, SettingDefinitionItem } from 'obsidian';
+import { PluginSettingTab, App, Setting, Notice, SettingDefinitionItem, setIcon } from 'obsidian';
 import { StyleEditorModal } from './ui/StyleEditorModal';
 import { StyleManagerModal } from './ui/StyleManagerModal';
 import { ExportSettingsModal } from './ui/ExportSettingsModal';
@@ -118,13 +118,13 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                                 .filter(p => p.length > 0);
 
                             for (const prop of props) {
-                                const chip = chipsContainer.createDiv({ cls: 'typify-target-chip' });
-                                chip.createSpan({ text: prop, cls: 'typify-target-chip-text' });
-                                const removeBtn = chip.createEl('button', {
-                                    cls: 'typify-target-chip-remove',
-                                    attr: { 'aria-label': 'Remove' }
+                                const chip = chipsContainer.createSpan({ cls: 'setting-hotkey' });
+                                chip.appendText(prop + ' ');
+                                const removeBtn = chip.createSpan({
+                                    cls: 'setting-hotkey-icon setting-delete-hotkey',
+                                    attr: { 'aria-label': 'Remover' }
                                 });
-                                removeBtn.setText('\u00d7');
+                                setIcon(removeBtn, 'x');
                                 removeBtn.addEventListener('click', () => {
                                     void this.removeProperty(prop);
                                     renderTargetChips();
