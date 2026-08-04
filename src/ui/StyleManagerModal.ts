@@ -143,38 +143,42 @@ export class StyleManagerModal extends Modal {
             return;
         }
 
-        for (const style of filtered) {
-            const realIndex = styles.indexOf(style);
-            this.renderItem(style, realIndex);
+        const canReorder = lowerFilter === '' && scope !== '__show_all__';
+
+        for (let i = 0; i < filtered.length; i++) {
+            const style = filtered[i]!;
+            this.renderItem(style, i, filtered, canReorder);
         }
     }
 
-    private renderItem(style: StatusStyle, index: number): void {
+    private renderItem(style: StatusStyle, visualIndex: number, filtered: StatusStyle[], canReorder: boolean): void {
         if (!this.listContainerEl) return;
 
         const item = this.listContainerEl.createDiv({ cls: 'typify-manager-item' });
 
         const reorderSection = item.createDiv({ cls: 'typify-manager-reorder-btns' });
 
-        const upBtn = reorderSection.createEl('button', {
-            cls: 'clickable-icon typify-manager-reorder-btn',
-            attr: { 'aria-label': t('reorder_move_up') }
-        });
-        setIcon(upBtn, 'chevron-up');
-        upBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            void this.moveItem(index, -1);
-        });
+        if (canReorder) {
+            const upBtn = reorderSection.createEl('button', {
+                cls: 'clickable-icon typify-manager-reorder-btn',
+                attr: { 'aria-label': t('reorder_move_up') }
+            });
+            setIcon(upBtn, 'chevron-up');
+            upBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                void this.moveItem(visualIndex, -1, filtered);
+            });
 
-        const downBtn = reorderSection.createEl('button', {
-            cls: 'clickable-icon typify-manager-reorder-btn',
-            attr: { 'aria-label': t('reorder_move_down') }
-        });
-        setIcon(downBtn, 'chevron-down');
-        downBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            void this.moveItem(index, 1);
-        });
+            const downBtn = reorderSection.createEl('button', {
+                cls: 'clickable-icon typify-manager-reorder-btn',
+                attr: { 'aria-label': t('reorder_move_down') }
+            });
+            setIcon(downBtn, 'chevron-down');
+            downBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                void this.moveItem(visualIndex, 1, filtered);
+            });
+        }
 
         const infoSection = item.createDiv({ cls: 'typify-manager-item-info' });
 
@@ -262,6 +266,7 @@ export class StyleManagerModal extends Modal {
         }
 
         const actionsSection = item.createDiv({ cls: 'typify-manager-actions' });
+        const realIndex = this.plugin.settings.statusStyles.indexOf(style);
 
         const editBtn = actionsSection.createEl('button', {
             cls: 'clickable-icon typify-manager-edit-btn',
@@ -271,7 +276,6 @@ export class StyleManagerModal extends Modal {
         editBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             const currentScope = this.selectedScope;
-            this.close();
             new StyleEditorModal(
                 this.app,
                 this.plugin,
@@ -280,7 +284,7 @@ export class StyleManagerModal extends Modal {
                     new StyleManagerModal(this.app, this.plugin, this.onClose_cb, currentScope).open();
                 },
                 style,
-                index
+                realIndex
             ).open();
         });
 
@@ -291,18 +295,26 @@ export class StyleManagerModal extends Modal {
         setIcon(deleteBtn, 'trash-2');
         deleteBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            this.showDeleteConfirm(item, index);
+            this.showDeleteConfirm(item, realIndex);
         });
     }
 
-    private async moveItem(index: number, direction: number): Promise<void> {
-        const styles = this.plugin.settings.statusStyles;
-        const newIndex = index + direction;
-        if (newIndex < 0 || newIndex >= styles.length) return;
+    private async moveItem(visualIndex: number, direction: number, filtered: StatusStyle[]) {
+        const newVisualIndex = visualIndex + direction;
+        if (newVisualIndex < 0 || newVisualIndex >= filtered.length) return;
 
-        const temp = styles[index]!;
-        styles[index] = styles[newIndex]!;
-        styles[newIndex] = temp;
+        const item1 = filtered[visualIndex]!;
+        const item2 = filtered[newVisualIndex]!;
+
+        const { statusStyles: styles } = this.plugin.settings;
+        const realIndex1 = styles.indexOf(item1);
+        const realIndex2 = styles.indexOf(item2);
+
+        if (realIndex1 === -1 || realIndex2 === -1) return;
+
+        const temp = styles[realIndex1]!;
+        styles[realIndex1] = styles[realIndex2]!;
+        styles[realIndex2] = temp;
 
         await this.plugin.saveSettings();
         this.refreshList();
