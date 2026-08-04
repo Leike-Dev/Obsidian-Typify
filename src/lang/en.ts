@@ -158,6 +158,8 @@ export const en = {
     'link_styles_toggle_desc': 'Replaces URLs in pills with the style name, keeping the native link click behavior.',
     'link_url_title': 'Associated Link',
     'link_url_placeholder': 'Enter a URL\u2026',
+    'prefix_match_title': 'Prefix match',
+    'prefix_match_desc': 'When enabled, any URL starting with this value will match (case-insensitive).',
     // UI Components
     'ui_components_title': 'Other styles',
     'ui_components_desc': 'Enable or disable visual components for the tags.',

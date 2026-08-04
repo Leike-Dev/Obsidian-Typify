@@ -140,6 +140,8 @@ export const fr = {
     'link_styles_toggle_desc': 'Remplace les URL dans les pilules par le nom du style, en conservant le comportement de clic natif du lien.',
     'link_url_title': 'Lien associé',
     'link_url_placeholder': 'Entrez une URL…',
+    'prefix_match_title': 'Correspondance par préfixe',
+    'prefix_match_desc': 'Lorsqu\'activé, toute URL commençant par cette valeur correspondra (insensible à la casse).',
     // UI Components
     'ui_components_title': 'Autres styles',
     'ui_components_desc': 'Activer ou désactiver les composants visuels des étiquettes.',

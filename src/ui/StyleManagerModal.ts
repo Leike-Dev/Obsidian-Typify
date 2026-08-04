@@ -248,6 +248,9 @@ export class StyleManagerModal extends Modal {
         if (style.matchValue) {
             metaRow.createSpan({ text: ' \u00b7 ' });
             metaRow.createSpan({ text: t('link_url_title') });
+            if (style.prefixMatch !== false) {
+                metaRow.createSpan({ text: ` (${t('prefix_match_title')})` });
+            }
         }
 
         // In "show all" mode, display the scope group

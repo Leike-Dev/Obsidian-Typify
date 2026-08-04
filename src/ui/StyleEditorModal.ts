@@ -26,9 +26,10 @@ export class StyleEditorModal extends Modal {
     private baseColor = DEFAULT_STATUS_COLOR;
     private icon = '';
     private appliesTo: string[] = [];
-    private shape: 'pill' | 'rectangle' | 'flat' | '' = '';
-    private colorMode: 'subtle' | 'solid' | '' = '';
+    private shape: 'pill' | 'rectangle' | 'flat' | '' = 'pill';
+    private colorMode: 'subtle' | 'solid' | '' = 'subtle';
     private matchValue = '';
+    private prefixMatch = true;
 
     // DOM references for live preview updates
     private previewPillLight: HTMLElement | null = null;
@@ -50,6 +51,7 @@ export class StyleEditorModal extends Modal {
             this.shape = editStyle.shape || 'pill';
             this.colorMode = editStyle.colorMode || 'subtle';
             this.matchValue = editStyle.matchValue || '';
+            this.prefixMatch = editStyle.prefixMatch !== false;
         }
     }
 
@@ -220,8 +222,6 @@ export class StyleEditorModal extends Modal {
                             this.icon = `favicon:${domain}`;
                             this.renderIconButton();
                             this.updatePreview();
-                            // Optional Notice, but UI changing is enough indication
-                            // new Notice(t('favicon_fetch_success').replace('{domain}', domain));
                         }
                         
                         btn.setDisabled(false);
@@ -229,6 +229,15 @@ export class StyleEditorModal extends Modal {
                     });
                 });
             }
+
+            new Setting(contentEl)
+                .setName(t('prefix_match_title'))
+                .setDesc(t('prefix_match_desc'))
+                .addToggle(toggle => toggle
+                    .setValue(this.prefixMatch)
+                    .onChange(value => {
+                        this.prefixMatch = value;
+                    }));
         }
 
         // ============================================================
@@ -481,9 +490,9 @@ export class StyleEditorModal extends Modal {
             icon: this.icon
         };
 
-        // Only add matchValue if set
         if (this.matchValue.trim()) {
             style.matchValue = this.matchValue.trim();
+            style.prefixMatch = this.prefixMatch;
         }
 
         // Only add appliesTo if scoped
@@ -493,12 +502,12 @@ export class StyleEditorModal extends Modal {
 
         // Only add shape if not the default
         if (this.shape !== 'pill') {
-            style.shape = this.shape as 'pill' | 'rectangle' | 'flat';
+            style.shape = this.shape;
         }
 
         // Only add colorMode if not the default
         if (this.colorMode !== 'subtle') {
-            style.colorMode = this.colorMode as 'subtle' | 'solid';
+            style.colorMode = this.colorMode;
         }
 
         // Update existing or push new
@@ -540,7 +549,7 @@ export class StyleEditorModal extends Modal {
             const thumb = card.createDiv({ cls: 'typify-fmt-thumb' });
             insertSvg(thumb, opt.svg);
 
-            card.createEl('span', { text: t(opt.labelKey), cls: 'typify-fmt-label' });
+            card.createSpan({ text: t(opt.labelKey), cls: 'typify-fmt-label' });
 
             card.setAttribute('role', 'button');
             card.setAttribute('tabindex', '0');

@@ -57,7 +57,7 @@ export function renderPaletteSection(
         const thumb = card.createDiv({ cls: 'typify-fmt-thumb' });
         insertSvg(thumb, opt.svg);
 
-        card.createEl('span', { text: t(opt.labelKey), cls: 'typify-fmt-label' });
+        card.createSpan({ text: t(opt.labelKey), cls: 'typify-fmt-label' });
 
         card.setAttribute('role', 'button');
         card.setAttribute('tabindex', '0');
@@ -94,7 +94,7 @@ export function renderPaletteSection(
 
     // Controls Row
     const controlsContainer = previewContainer.createDiv({ cls: 'typify-palette-actions-row' });
-    controlsContainer.createDiv({ cls: 'typify-palette-actions-left' });
+    const leftControls = controlsContainer.createDiv({ cls: 'typify-palette-actions-left' });
     const rightControls = controlsContainer.createDiv({ cls: 'typify-palette-actions-right' });
 
     // Declare a reference to the strip to update it later
@@ -122,13 +122,21 @@ export function renderPaletteSection(
         renderPreviewDots(previewBox, previewColors);
         addAllBtn.addClass('is-disabled');
 
-        void plugin.saveSettings().then(() => { 
+        void plugin.saveSettings(false).then(() => { 
             if (refreshYourColors) refreshYourColors();
         });
     });
 
-    // 2. "Regenerar" button
-    generateBtn = rightControls.createDiv({
+    // 2. Color Picker (left)
+    const colorInputWrapper = leftControls.createDiv({ cls: 'typify-color-input-wrapper typify-palette-color-picker' });
+    const colorInput = colorInputWrapper.createEl('input', { type: 'color' });
+    colorInput.value = baseColorHex;
+    colorInput.addEventListener('input', (e) => {
+        baseColorHex = (e.target as HTMLInputElement).value;
+    });
+
+    // 3. "Regenerar" button (left)
+    generateBtn = leftControls.createDiv({
         cls: 'clickable-icon typify-palette-generate-btn is-disabled',
         attr: { 'aria-label': t('palette_regenerate_aria') }
     });
@@ -139,14 +147,6 @@ export function renderPaletteSection(
         previewColors = generator(5, baseColorHex);
         renderPreviewDots(previewBox, previewColors);
         addAllBtn.removeClass('is-disabled');
-    });
-
-    // 3. Color Picker
-    const colorInputWrapper = rightControls.createDiv({ cls: 'typify-color-input-wrapper typify-palette-color-picker' });
-    const colorInput = colorInputWrapper.createEl('input', { type: 'color' });
-    colorInput.value = baseColorHex;
-    colorInput.addEventListener('input', (e) => {
-        baseColorHex = (e.target as HTMLInputElement).value;
     });
 
 
@@ -179,7 +179,7 @@ export function renderPaletteSection(
             setIcon(clearBtn, 'trash-2');
             clearBtn.addEventListener('click', () => {
                 palette.length = 0;
-                void plugin.saveSettings().then(() => {
+                void plugin.saveSettings(false).then(() => {
                     if (swatchStrip) swatchStrip.setColors(palette);
                     refreshYourColors();
                 });
@@ -201,7 +201,7 @@ export function renderPaletteSection(
                         .replace('{count}', String(newColors.length))
                         .replace('{max}', String(MAX_PALETTE_COLORS))
                 );
-                void plugin.saveSettings();
+                void plugin.saveSettings(false);
                 
                 // If palette is empty, re-render to hide clear button
                 if (palette.length === 0) {

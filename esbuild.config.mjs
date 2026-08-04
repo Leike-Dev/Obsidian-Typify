@@ -1,6 +1,26 @@
 import esbuild from "esbuild";
 import process from "process";
 import { builtinModules } from "module";
+import fs from "fs";
+import path from "path";
+
+const vaultPathFile = ".obsidian-vault-path";
+const vaultDest = fs.existsSync(vaultPathFile) ? fs.readFileSync(vaultPathFile, 'utf8').trim() : null;
+
+const copyToVaultPlugin = {
+    name: 'copy-to-vault',
+    setup(build) {
+        build.onEnd(() => {
+            if (vaultDest) {
+                if (!fs.existsSync(vaultDest)) fs.mkdirSync(vaultDest, { recursive: true });
+                ['main.js', 'styles.css', 'manifest.json', '.hotreload'].forEach(file => {
+                    if (fs.existsSync(file)) fs.copyFileSync(file, path.join(vaultDest, file));
+                });
+                console.log(`\n✅ Arquivos copiados para o cofre Obsidian em: ${vaultDest}`);
+            }
+        });
+    },
+};
 
 const banner =
     `/*
@@ -41,6 +61,7 @@ const jsContext = await esbuild.context({
     sourcemap: prod ? false : "inline",
     treeShaking: true,
     outfile: "main.js",
+    plugins: [copyToVaultPlugin],
 });
 
 /* --------------------------------------------------------------------------
@@ -52,6 +73,7 @@ const cssContext = await esbuild.context({
     minify: prod,
     logLevel: "info",
     outfile: "styles.css",
+    plugins: [copyToVaultPlugin],
 });
 
 if (prod) {
