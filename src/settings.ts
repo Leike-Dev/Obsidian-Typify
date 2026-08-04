@@ -389,7 +389,9 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
             if (!frontmatter) continue;
             for (const key of Object.keys(frontmatter)) {
                 if (key === 'position') continue;
-                properties.add(key);
+                if (Array.isArray(frontmatter[key])) {
+                    properties.add(key);
+                }
             }
         }
         return [...properties].sort((a, b) => a.localeCompare(b));
