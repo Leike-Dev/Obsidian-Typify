@@ -1,4 +1,4 @@
-import { PluginSettingTab, App, Setting, Notice, setIcon } from 'obsidian';
+import { PluginSettingTab, App, Setting, Notice, SettingDefinitionItem } from 'obsidian';
 import { StyleEditorModal } from './ui/StyleEditorModal';
 import { StyleManagerModal } from './ui/StyleManagerModal';
 import { ExportSettingsModal } from './ui/ExportSettingsModal';
@@ -16,296 +16,314 @@ import { t } from './lang/helpers';
 
 /**
  * Settings Tab for the Typify plugin.
- * Handles configuration of target property, status styles, and import/export.
+ * Uses the declarative settings API (Obsidian 1.13+) for search indexing
+ * and rendering. Complex UI sections use SettingDefinitionRender for
+ * imperative control within the declarative framework.
  */
 export class CustomStatusIconsSettingTab extends PluginSettingTab {
     plugin: TypifyPlugin;
-    togglesExpanded = false;
-    experimentalSectionEl: HTMLElement | null = null;
-    noticesSetting: Setting | null = null;
+    private noticesSetting: Setting | null = null;
 
     constructor(app: App, plugin: TypifyPlugin) {
         super(app, plugin);
         this.plugin = plugin;
+        this.icon = 'sparkles';
     }
 
-    getSettingDefinitions() {
-        return {} as any;
+    update(): void {
+        super.update();
     }
 
-    /**
-     * Renders the settings tab content.
-     */
-    display(): void {
-        const { containerEl } = this;
-        containerEl.empty();
-        containerEl.addClass('typify-settings-container');
+    getSettingDefinitions(): SettingDefinitionItem[] {
+        const defs: SettingDefinitionItem[] = [];
 
-        // General settings at the top, without a heading
-        // (per Obsidian Plugin Guidelines: avoid a top-level heading like the plugin name)
+        // ================================================================
+        // CHANGELOG & NOTICES (top-level, no heading)
+        // ================================================================
+        defs.push({
+            name: t('changelog_title'),
+            desc: t('changelog_desc'),
+            render: (setting: Setting) => {
+                setting.addButton(button => button
+                    .setButtonText(t('changelog_button'))
+                    .onClick(() => {
+                        new ChangelogModal(this.app, this.plugin.manifest, () => { this.update(); }).open();
+                    }));
 
-        const changelogSetting = new Setting(containerEl)
-            .setName(t('changelog_title'))
-            .setDesc(t('changelog_desc'))
-            .addButton(button => button
-                .setButtonText(t('changelog_button'))
-                .onClick(() => {
-                    new ChangelogModal(this.app, this.plugin.manifest, () => { this.display(); }).open();
-                }));
+                if (this.plugin.settings.lastSeenVersion !== this.plugin.manifest.version) {
+                    const nameEl = setting.nameEl;
+                    nameEl.setText(t('changelog_title') + ' ');
+                    nameEl.createSpan({ text: t('changelog_badge_new'), cls: 'typify-changelog-badge-new' });
+                }
+            }
+        });
 
-        if (this.plugin.settings.lastSeenVersion !== this.plugin.manifest.version) {
-            const nameEl = changelogSetting.nameEl;
-            nameEl.setText(t('changelog_title') + ' ');
-            nameEl.createSpan({ text: t('changelog_badge_new'), cls: 'typify-changelog-badge-new' });
-        }
-
-        this.noticesSetting = new Setting(containerEl)
-            .setName(t('notices_title'))
-            .setDesc(t('notices_desc'))
-            .addButton(button => button
-                .setButtonText(t('notices_button'))
-                .onClick(() => {
-                    new NoticesModal(this.app, this.plugin).open();
-                }));
-
-        this.renderNoticesBadge();
+        defs.push({
+            name: t('notices_title'),
+            desc: t('notices_desc'),
+            render: (setting: Setting) => {
+                this.noticesSetting = setting;
+                setting.addButton(button => button
+                    .setButtonText(t('notices_button'))
+                    .onClick(() => {
+                        new NoticesModal(this.app, this.plugin).open();
+                    }));
+                this.renderNoticesBadge();
+            }
+        });
 
         // ================================================================
         // SECTION: GENERAL
         // ================================================================
-        new Setting(containerEl).setName(t('section_configuration_title')).setHeading();
-
-        // ================================================================
-        // TARGET PROPERTY
-        // ================================================================
-        new Setting(containerEl)
-            .setName(t('target_property_title'))
-            .setDesc(t('target_property_desc'))
-            .addText(text => {
-                text
-                    .setPlaceholder(t('target_property_placeholder'))
-                    .setValue(this.plugin.settings.targetProperty)
-                    .onChange(async (value) => {
-                        this.plugin.settings.targetProperty = value;
-                        await this.plugin.saveSettings();
-                    });
-                text.inputEl.addEventListener('blur', () => {
-                    this.display();
-                });
-            });
-
-
-        // ================================================================
-        // CUSTOM ICONS
-        // ================================================================
-        new Setting(containerEl)
-            .setName(t('custom_icons_toggle_title'))
-            .setDesc(t('custom_icons_toggle_desc'))
-            .addToggle(toggle => toggle
-                .setValue(this.plugin.settings.enableCustomIcons)
-                .onChange(async (value) => {
-                    this.plugin.settings.enableCustomIcons = value;
-                    await this.plugin.saveSettings();
-                    if (value) {
-                        try {
-                            const result = await this.plugin.customIconsManager.initialize();
-                            if (result.loaded > 0) {
-                                new Notice(t('custom_icons_loaded').replace('{count}', String(result.loaded)));
-                            } else {
-                                new Notice(t('custom_icons_empty'));
-                            }
-                            // Errors are already surfaced to the user via Notice;
-                            // no additional console output needed.
-                        } catch (e) {
-                            new Notice(t('custom_icons_error'));
-                            console.error('[Typify] Custom icons error:', e);
-                        }
-                    } else {
-                        // Clear cache so custom icons stop rendering immediately
-                        this.plugin.customIconsManager.clear();
+        defs.push({
+            type: 'group' as const,
+            heading: t('section_configuration_title'),
+            items: [
+                // Target Property — simple text control
+                {
+                    name: t('target_property_title'),
+                    desc: t('target_property_desc'),
+                    control: {
+                        type: 'text' as const,
+                        key: 'targetProperty',
+                        placeholder: t('target_property_placeholder')
                     }
-
-                    this.renderNoticesBadge();
-                }));
-
-
-
-
-        // ================================================================
-
-        // SECTION: STYLES (Styles Management)
-        // ================================================================
-        new Setting(containerEl).setName(t('section_styles_title')).setHeading();
-
-        // 1. ADD STATUS
-        new Setting(containerEl)
-            .setName(t('add_status_title'))
-            .setDesc(t('add_status_desc'))
-            .addButton(button => button
-                .setButtonText(t('add_status_button'))
-                .setCta()
-                .onClick(() => {
-                    new StyleEditorModal(this.app, this.plugin, () => { this.display(); }).open();
-                }));
-
-        // 2. MANAGE STYLES (New Button)
-        new Setting(containerEl)
-            .setName(t('manage_styles_title'))
-            .setDesc(t('manage_styles_desc'))
-            .addButton(button => button
-                .setButtonText(t('manage_styles_button'))
-                .onClick(() => {
-                    new StyleManagerModal(this.app, this.plugin, () => { this.display(); }).open();
-                }));
-
-        // ================================================================
-        // COLLAPSIBLE UI COMPONENTS SECTION
-        // ================================================================
-        const isTogglesOpen = this.togglesExpanded;
-
-        const togglesHeader = new Setting(containerEl)
-            .setName(t('ui_components_title'))
-            .setDesc(t('ui_components_desc'));
-
-        togglesHeader.settingEl.classList.add("typify-dropdown-header");
-        if (isTogglesOpen) {
-            togglesHeader.settingEl.classList.add("is-expanded");
-        }
-
-        const toggleIconToggles = togglesHeader.controlEl.createSpan({ cls: "typify-dropdown-icon" });
-        setIcon(toggleIconToggles, isTogglesOpen ? "chevron-down" : "chevron-right");
-        togglesHeader.settingEl.classList.add("typify-clickable-header");
-
-        const togglesContainer = containerEl.createDiv({ cls: "typify-dropdown-container" });
-        togglesContainer.style.display = isTogglesOpen ? "block" : "none";
-
-        togglesHeader.settingEl.addEventListener("click", () => {
-            const newState = !this.togglesExpanded;
-            this.togglesExpanded = newState;
-            togglesContainer.style.display = newState ? "block" : "none";
-            toggleIconToggles.empty();
-            setIcon(toggleIconToggles, newState ? "chevron-down" : "chevron-right");
-            if (newState) {
-                togglesHeader.settingEl.classList.add("is-expanded");
-            } else {
-                togglesHeader.settingEl.classList.remove("is-expanded");
-            }
+                },
+                // Custom Icons — needs side-effects on toggle
+                {
+                    name: t('custom_icons_toggle_title'),
+                    desc: t('custom_icons_toggle_desc'),
+                    render: (setting: Setting) => {
+                        setting.addToggle(toggle => toggle
+                            .setValue(this.plugin.settings.enableCustomIcons)
+                            .onChange(async (value) => {
+                                this.plugin.settings.enableCustomIcons = value;
+                                await this.plugin.saveSettings();
+                                if (value) {
+                                    try {
+                                        const result = await this.plugin.customIconsManager.initialize();
+                                        if (result.loaded > 0) {
+                                            new Notice(t('custom_icons_loaded').replace('{count}', String(result.loaded)));
+                                        } else {
+                                            new Notice(t('custom_icons_empty'));
+                                        }
+                                    } catch (e) {
+                                        new Notice(t('custom_icons_error'));
+                                        console.error('[Typify] Custom icons error:', e);
+                                    }
+                                } else {
+                                    this.plugin.customIconsManager.clear();
+                                }
+                                this.update();
+                            }));
+                    }
+                }
+            ]
         });
 
-        // 3. HIDE REMOVE BUTTON (X)
-        new Setting(togglesContainer)
-            .setName(t('hide_remove_button_title'))
-            .setDesc(t('hide_remove_button_desc'))
-            .addDropdown(dropdown => {
-                dropdown.addOption('none', t('hide_remove_button_none'));
-                dropdown.addOption('properties', t('hide_remove_button_properties'));
-                dropdown.addOption('bases', t('hide_remove_button_bases'));
-                dropdown.addOption('both', t('hide_remove_button_both'));
-                
-                dropdown.setValue(this.plugin.settings.hideRemoveButton);
-                
-                dropdown.onChange(async (value) => {
-                    this.plugin.settings.hideRemoveButton = value as 'none' | 'properties' | 'bases' | 'both';
-                    await this.plugin.saveSettings();
-                });
-            });
-
-        new Setting(togglesContainer)
-            .setName(t('hide_remove_button_hover_title'))
-            .setDesc(t('hide_remove_button_hover_desc'))
-            .addToggle(toggle => toggle
-                .setValue(this.plugin.settings.hideRemoveButtonHover)
-                .onChange(async (value) => {
-                    this.plugin.settings.hideRemoveButtonHover = value;
-                    await this.plugin.saveSettings();
-                    this.plugin.updateBodyClasses();
-                }));
-
         // ================================================================
-        // LINK STYLES
+        // SECTION: STYLES
         // ================================================================
-        new Setting(togglesContainer)
-            .setName(t('link_styles_toggle_title'))
-            .setDesc(t('link_styles_toggle_desc'))
-            .addToggle(toggle => toggle
-                .setValue(this.plugin.settings.enableLinkStyles)
-                .onChange(async (value) => {
-                    this.plugin.settings.enableLinkStyles = value;
-                    await this.plugin.saveSettings();
-                }));
-
-        // CUSTOM PALETTE TOGGLE (with Experimental badge)
-        const paletteSetting = new Setting(togglesContainer)
-            .setDesc(t('custom_palette_toggle_desc'))
-            .addToggle(toggle => toggle
-                .setValue(this.plugin.settings.enableCustomPalette)
-                .onChange(async (value) => {
-                    this.plugin.settings.enableCustomPalette = value;
-                    await this.plugin.saveSettings();
-                    this.renderExperimentalSection();
-                }));
-
-        // Set name with experimental badge
-        const nameEl = paletteSetting.nameEl;
-        nameEl.setText(t('custom_palette_toggle_title') + ' ');
-        nameEl.createSpan({ text: t('experimental_tag'), cls: 'typify-experimental-tag' });
-
-        // FAVICONS TOGGLE (with Experimental badge)
-        const faviconsSetting = new Setting(togglesContainer)
-            .setDesc(t('favicon_manager_toggle_desc'))
-            .addToggle(toggle => toggle
-                .setValue(this.plugin.settings.enableFavicons)
-                .onChange(async (value) => {
-                    this.plugin.settings.enableFavicons = value;
-                    await this.plugin.saveSettings();
-                    
-                    if (value) {
-                        await this.plugin.faviconManager.initialize();
-                    } else {
-                        this.plugin.faviconManager.cleanupActiveUrls();
+        defs.push({
+            type: 'group' as const,
+            heading: t('section_styles_title'),
+            items: [
+                // Add Status
+                {
+                    name: t('add_status_title'),
+                    desc: t('add_status_desc'),
+                    render: (setting: Setting) => {
+                        setting.addButton(button => button
+                            .setButtonText(t('add_status_button'))
+                            .setCta()
+                            .onClick(() => {
+                                new StyleEditorModal(this.app, this.plugin, () => { this.update(); }).open();
+                            }));
                     }
-                    this.renderExperimentalSection();
-                    this.renderNoticesBadge();
-                }));
-
-        const favNameEl = faviconsSetting.nameEl;
-        favNameEl.setText(t('favicon_manager_title') + ' ');
-        favNameEl.createSpan({ text: t('experimental_tag'), cls: 'typify-experimental-tag' });
+                },
+                // Manage Styles
+                {
+                    name: t('manage_styles_title'),
+                    desc: t('manage_styles_desc'),
+                    render: (setting: Setting) => {
+                        setting.addButton(button => button
+                            .setButtonText(t('manage_styles_button'))
+                            .onClick(() => {
+                                new StyleManagerModal(this.app, this.plugin, () => { this.update(); }).open();
+                            }));
+                    }
+                }
+            ]
+        });
 
         // ================================================================
-        // SECTION: EXPERIMENTAL (visible only when palette or favicons are enabled)
+        // GROUP: UI COMPONENTS (other styles)
         // ================================================================
-        this.experimentalSectionEl = containerEl.createDiv();
-        this.renderExperimentalSection();
+        defs.push({
+            type: 'group' as const,
+            heading: t('ui_components_title'),
+            cls: 'typify-settings-ui-group',
+            items: [
+                // Hide Remove Button — dropdown
+                {
+                    name: t('hide_remove_button_title'),
+                    desc: t('hide_remove_button_desc'),
+                    control: {
+                        type: 'dropdown' as const,
+                        key: 'hideRemoveButton',
+                        options: {
+                            'none': t('hide_remove_button_none'),
+                            'properties': t('hide_remove_button_properties'),
+                            'bases': t('hide_remove_button_bases'),
+                            'both': t('hide_remove_button_both')
+                        }
+                    }
+                },
+
+                // Hide Remove Button Hover — needs side-effect for body class
+                {
+                    name: t('hide_remove_button_hover_title'),
+                    desc: t('hide_remove_button_hover_desc'),
+                    render: (setting: Setting) => {
+                        setting.addToggle(toggle => toggle
+                            .setValue(this.plugin.settings.hideRemoveButtonHover)
+                            .onChange(async (value) => {
+                                this.plugin.settings.hideRemoveButtonHover = value;
+                                await this.plugin.saveSettings();
+                                this.plugin.updateBodyClasses();
+                            }));
+                    }
+                },
+
+                // Link Styles — simple toggle
+                {
+                    name: t('link_styles_toggle_title'),
+                    desc: t('link_styles_toggle_desc'),
+                    control: {
+                        type: 'toggle' as const,
+                        key: 'enableLinkStyles'
+                    }
+                },
+
+                // Custom Palette Toggle — needs side-effect + experimental badge
+                {
+                    name: t('custom_palette_toggle_title'),
+                    desc: t('custom_palette_toggle_desc'),
+                    render: (setting: Setting) => {
+                        setting.addToggle(toggle => toggle
+                            .setValue(this.plugin.settings.enableCustomPalette)
+                            .onChange(async (value) => {
+                                this.plugin.settings.enableCustomPalette = value;
+                                await this.plugin.saveSettings();
+                                this.update();
+                            }));
+
+                        const nameEl = setting.nameEl;
+                        nameEl.setText(t('custom_palette_toggle_title') + ' ');
+                        nameEl.createSpan({ text: t('experimental_tag'), cls: 'typify-experimental-tag' });
+                    }
+                },
+
+                // Favicons Toggle — needs side-effect + experimental badge
+                {
+                    name: t('favicon_manager_title'),
+                    desc: t('favicon_manager_toggle_desc'),
+                    render: (setting: Setting) => {
+                        setting.addToggle(toggle => toggle
+                            .setValue(this.plugin.settings.enableFavicons)
+                            .onChange(async (value) => {
+                                this.plugin.settings.enableFavicons = value;
+                                await this.plugin.saveSettings();
+                                if (value) {
+                                    await this.plugin.faviconManager.initialize();
+                                } else {
+                                    this.plugin.faviconManager.cleanupActiveUrls();
+                                }
+                                this.update();
+                            }));
+
+                        const favNameEl = setting.nameEl;
+                        favNameEl.setText(t('favicon_manager_title') + ' ');
+                        favNameEl.createSpan({ text: t('experimental_tag'), cls: 'typify-experimental-tag' });
+                    }
+                }
+            ]
+        });
 
         // ================================================================
-        // DATA MANAGEMENT
+        // SECTION: EXPERIMENTAL (conditional on palette or favicons)
         // ================================================================
-        new Setting(containerEl).setName(t('section_data_management_title')).setHeading();
+        defs.push({
+            type: 'group' as const,
+            heading: t('section_experimental_title'),
+            cls: 'typify-experimental-heading',
+            visible: () => this.plugin.settings.enableCustomPalette || this.plugin.settings.enableFavicons,
+            items: [
+                // Palette Manager
+                {
+                    name: t('palette_title'),
+                    desc: t('palette_manager_desc'),
+                    visible: () => this.plugin.settings.enableCustomPalette,
+                    render: (setting: Setting) => {
+                        setting.addButton(button => button
+                            .setButtonText(t('manage_styles_button'))
+                            .onClick(() => {
+                                new PaletteModal(this.app, this.plugin, () => { this.update(); }).open();
+                            }));
+                    }
+                },
 
-        // EXPORT
-        new Setting(containerEl)
-            .setName(t('export_title'))
-            .setDesc(t('export_desc'))
-            .addButton(button => button
-                .setButtonText(t('export_button'))
-                .onClick(() => {
-                    new ExportSettingsModal(this.app, this.plugin).open();
-                }));
+                // Favicon Manager
+                {
+                    name: t('favicon_manager_title'),
+                    desc: t('favicon_manager_desc'),
+                    visible: () => this.plugin.settings.enableFavicons,
+                    render: (setting: Setting) => {
+                        setting.addButton(button => button
+                            .setButtonText(t('manage_styles_button'))
+                            .onClick(() => {
+                                new FaviconsModal(this.app, this.plugin, () => { this.update(); }).open();
+                            }));
+                    }
+                }
+            ]
+        });
 
-        // IMPORT
-        new Setting(containerEl)
-            .setName(t('import_title'))
-            .setDesc(t('import_desc'))
-            .addButton(button => button
-                .setButtonText(t('import_button'))
-                .onClick(() => {
-                    new ImportSettingsModal(this.app, this.plugin, () => { this.display(); }).open();
-                }));
+        // ================================================================
+        // SECTION: DATA MANAGEMENT
+        // ================================================================
+        defs.push({
+            type: 'group' as const,
+            heading: t('section_data_management_title'),
+            items: [
+                // Export
+                {
+                    name: t('export_title'),
+                    desc: t('export_desc'),
+                    render: (setting: Setting) => {
+                        setting.addButton(button => button
+                            .setButtonText(t('export_button'))
+                            .onClick(() => {
+                                new ExportSettingsModal(this.app, this.plugin).open();
+                            }));
+                    }
+                },
+                // Import
+                {
+                    name: t('import_title'),
+                    desc: t('import_desc'),
+                    render: (setting: Setting) => {
+                        setting.addButton(button => button
+                            .setButtonText(t('import_button'))
+                            .onClick(() => {
+                                new ImportSettingsModal(this.app, this.plugin, () => { this.update(); }).open();
+                            }));
+                    }
+                }
+            ]
+        });
 
-
-
-
+        return defs;
     }
 
     private getActiveNoticesCount(): number {
@@ -315,9 +333,10 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         if (this.plugin.settings.enableFavicons) count++; // Local cache active notice
         return count;
     }
+
     private renderNoticesBadge() {
         if (!this.noticesSetting) return;
-        
+
         // Remove existing badge if any
         const existingBadge = this.noticesSetting.controlEl.querySelector('.typify-notices-badge-container');
         if (existingBadge) {
@@ -329,44 +348,9 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
             const badgeContainer = createDiv();
             badgeContainer.addClass('typify-notices-badge-container');
             badgeContainer.createSpan({ text: activeNoticesCount.toString(), cls: 'typify-notices-badge' });
-            
+
             // Insert the badge before the button
             this.noticesSetting.controlEl.prepend(badgeContainer);
-        }
-    }
-
-    private renderExperimentalSection() {
-        if (!this.experimentalSectionEl) return;
-        
-        this.experimentalSectionEl.empty();
-        const showExperimental = this.plugin.settings.enableCustomPalette || this.plugin.settings.enableFavicons;
-        this.experimentalSectionEl.style.display = showExperimental ? "block" : "none";
-
-        if (!showExperimental) return;
-
-        const experimentalHeading = new Setting(this.experimentalSectionEl).setName(t('section_experimental_title')).setHeading();
-        experimentalHeading.settingEl.addClass('typify-experimental-heading');
-
-        if (this.plugin.settings.enableCustomPalette) {
-            new Setting(this.experimentalSectionEl)
-                .setName(t('palette_title'))
-                .setDesc(t('palette_manager_desc'))
-                .addButton(button => button
-                    .setButtonText(t('manage_styles_button'))
-                    .onClick(() => {
-                        new PaletteModal(this.app, this.plugin, () => { this.display(); }).open();
-                    }));
-        }
-
-        if (this.plugin.settings.enableFavicons) {
-            new Setting(this.experimentalSectionEl)
-                .setName(t('favicon_manager_title'))
-                .setDesc(t('favicon_manager_desc'))
-                .addButton(button => button
-                    .setButtonText(t('manage_styles_button'))
-                    .onClick(() => {
-                        new FaviconsModal(this.app, this.plugin, () => { this.display(); }).open();
-                    }));
         }
     }
 }
