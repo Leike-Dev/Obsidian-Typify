@@ -210,6 +210,28 @@
     flex-shrink: 0;
 }
 
+.typify-manager-drag-handle {
+    cursor: grab;
+    color: var(--text-muted);
+}
+
+.typify-manager-drag-handle:active {
+    cursor: grabbing;
+}
+
+/* Drag and Drop states */
+.typify-drag-active {
+    opacity: 0.4;
+}
+
+.typify-drag-over {
+    border-top: 2px solid var(--interactive-accent) !important;
+}
+
+.typify-is-dragging .typify-manager-item * {
+    pointer-events: none;
+}
+
 .typify-manager-delete-btn {
     color: var(--text-muted);
     transition: color 0.15s ease;

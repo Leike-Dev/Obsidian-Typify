@@ -1,4 +1,4 @@
-import { App, Modal, Notice, setIcon } from 'obsidian';
+import { App, Modal, Notice, setIcon, Platform } from 'obsidian';
 import TypifyPlugin from '../main';
 import { StatusStyle, DEFAULT_STATUS_COLOR } from '../types';
 import { StyleEditorModal } from './StyleEditorModal';
@@ -15,6 +15,7 @@ export class StyleManagerModal extends Modal {
     private batchHintEl: HTMLElement | null = null;
 
     private selectedScope = '__show_all__';
+    private draggedVisualIndex: number = -1;
 
     constructor(app: App, plugin: TypifyPlugin, onClose?: () => void, initialScope?: string) {
         super(app);
@@ -159,25 +160,75 @@ export class StyleManagerModal extends Modal {
         const reorderSection = item.createDiv({ cls: 'typify-manager-reorder-btns' });
 
         if (canReorder) {
-            const upBtn = reorderSection.createEl('button', {
-                cls: 'clickable-icon typify-manager-reorder-btn',
-                attr: { 'aria-label': t('reorder_move_up') }
-            });
-            setIcon(upBtn, 'chevron-up');
-            upBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                void this.moveItem(visualIndex, -1, filtered);
-            });
+            if (Platform.isMobile) {
+                const upBtn = reorderSection.createEl('button', {
+                    cls: 'clickable-icon typify-manager-reorder-btn',
+                    attr: { 'aria-label': t('reorder_move_up') }
+                });
+                setIcon(upBtn, 'chevron-up');
+                upBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // On mobile, just do the math directly instead of dragging
+                    void this.dropItem(visualIndex, Math.max(0, visualIndex - 1), filtered);
+                });
 
-            const downBtn = reorderSection.createEl('button', {
-                cls: 'clickable-icon typify-manager-reorder-btn',
-                attr: { 'aria-label': t('reorder_move_down') }
-            });
-            setIcon(downBtn, 'chevron-down');
-            downBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                void this.moveItem(visualIndex, 1, filtered);
-            });
+                const downBtn = reorderSection.createEl('button', {
+                    cls: 'clickable-icon typify-manager-reorder-btn',
+                    attr: { 'aria-label': t('reorder_move_down') }
+                });
+                setIcon(downBtn, 'chevron-down');
+                downBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    void this.dropItem(visualIndex, Math.min(filtered.length - 1, visualIndex + 1), filtered);
+                });
+            } else {
+                item.setAttr('draggable', 'true');
+                
+                const dragHandle = reorderSection.createDiv({
+                    cls: 'clickable-icon extra-setting-button mod-drag-handle typify-manager-drag-handle',
+                    attr: { 'aria-label': 'Arraste para reorganizar', 'tabindex': '-1' }
+                });
+                setIcon(dragHandle, 'menu');
+
+                item.addEventListener('dragstart', (e) => {
+                    this.draggedVisualIndex = visualIndex;
+                    if (e.dataTransfer) {
+                        e.dataTransfer.effectAllowed = 'move';
+                        e.dataTransfer.setData('text/plain', '');
+                    }
+                    item.addClass('typify-drag-active');
+                    this.listContainerEl?.addClass('typify-is-dragging');
+                });
+
+                item.addEventListener('dragend', () => {
+                    this.draggedVisualIndex = -1;
+                    item.removeClass('typify-drag-active');
+                    this.listContainerEl?.removeClass('typify-is-dragging');
+                });
+
+                item.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+                });
+
+                item.addEventListener('dragenter', () => {
+                    if (this.draggedVisualIndex !== -1 && this.draggedVisualIndex !== visualIndex) {
+                        item.addClass('typify-drag-over');
+                    }
+                });
+
+                item.addEventListener('dragleave', () => {
+                    item.removeClass('typify-drag-over');
+                });
+
+                item.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    item.removeClass('typify-drag-over');
+                    if (this.draggedVisualIndex !== -1 && this.draggedVisualIndex !== visualIndex) {
+                        void this.dropItem(this.draggedVisualIndex, visualIndex, filtered);
+                    }
+                });
+            }
         }
 
         const infoSection = item.createDiv({ cls: 'typify-manager-item-info' });
@@ -299,22 +350,28 @@ export class StyleManagerModal extends Modal {
         });
     }
 
-    private async moveItem(visualIndex: number, direction: number, filtered: StatusStyle[]) {
-        const newVisualIndex = visualIndex + direction;
-        if (newVisualIndex < 0 || newVisualIndex >= filtered.length) return;
+    private async dropItem(sourceVisualIndex: number, targetVisualIndex: number, filtered: StatusStyle[]) {
+        if (sourceVisualIndex === targetVisualIndex) return;
 
-        const item1 = filtered[visualIndex]!;
-        const item2 = filtered[newVisualIndex]!;
+        const sourceItem = filtered[sourceVisualIndex];
+        const targetItem = filtered[targetVisualIndex];
+        if (!sourceItem || !targetItem) return;
 
         const { statusStyles: styles } = this.plugin.settings;
-        const realIndex1 = styles.indexOf(item1);
-        const realIndex2 = styles.indexOf(item2);
+        const sourceRealIndex = styles.indexOf(sourceItem);
+        if (sourceRealIndex === -1) return;
 
-        if (realIndex1 === -1 || realIndex2 === -1) return;
-
-        const temp = styles[realIndex1]!;
-        styles[realIndex1] = styles[realIndex2]!;
-        styles[realIndex2] = temp;
+        // Remove source
+        styles.splice(sourceRealIndex, 1);
+        
+        // Recalculate target real index
+        const targetRealIndex = styles.indexOf(targetItem);
+        if (targetRealIndex === -1) return;
+        
+        const isMovingDown = sourceVisualIndex < targetVisualIndex;
+        const insertIndex = targetRealIndex + (isMovingDown ? 1 : 0);
+        
+        styles.splice(insertIndex, 0, sourceItem);
 
         await this.plugin.saveSettings();
         this.refreshList();
