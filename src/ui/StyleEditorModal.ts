@@ -549,7 +549,7 @@ export class StyleEditorModal extends Modal {
             const thumb = card.createDiv({ cls: 'typify-fmt-thumb' });
             insertSvg(thumb, opt.svg);
 
-            card.createEl('span', { text: t(opt.labelKey), cls: 'typify-fmt-label' });
+            card.createSpan({ text: t(opt.labelKey), cls: 'typify-fmt-label' });
 
             card.setAttribute('role', 'button');
             card.setAttribute('tabindex', '0');
