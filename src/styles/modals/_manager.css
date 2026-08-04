@@ -210,6 +210,28 @@
     flex-shrink: 0;
 }
 
+.typify-manager-drag-handle {
+    cursor: grab;
+    color: var(--text-muted);
+}
+
+.typify-manager-drag-handle:active {
+    cursor: grabbing;
+}
+
+/* Drag and Drop states */
+.typify-drag-active {
+    opacity: 0.4;
+}
+
+.typify-drag-over {
+    border-top: 2px solid var(--interactive-accent) !important;
+}
+
+.typify-is-dragging .typify-manager-item * {
+    pointer-events: none;
+}
+
 .typify-manager-delete-btn {
     color: var(--text-muted);
     transition: color 0.15s ease;
@@ -250,4 +272,89 @@
     color: var(--text-muted);
     font-size: var(--font-ui-small);
     padding: var(--size-4-8) var(--size-4-4);
+}
+
+/* --------------------------------------------------------------------------
+   Reorder Buttons
+   -------------------------------------------------------------------------- */
+
+.typify-manager-reorder-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    flex-shrink: 0;
+}
+
+.typify-manager-reorder-btn {
+    padding: 2px;
+    --icon-size: 14px;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.typify-manager-reorder-btn:hover {
+    color: var(--text-normal);
+}
+
+/* --------------------------------------------------------------------------
+   Batch Create Hint
+   -------------------------------------------------------------------------- */
+
+.typify-manager-batch-hint {
+    margin-top: var(--size-4-3);
+}
+
+.typify-batch-hint-line {
+    margin-bottom: var(--size-4-1);
+}
+
+.typify-batch-hint-text {
+    font-size: var(--font-ui-smaller);
+    color: var(--text-muted);
+}
+
+.typify-batch-hint-action {
+    font-size: var(--font-ui-smaller);
+    color: var(--interactive-accent);
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.typify-batch-hint-action:hover {
+    color: var(--text-normal);
+    text-decoration: underline;
+}
+
+.typify-batch-hint-note {
+    font-size: var(--font-ui-smaller);
+    color: var(--text-muted);
+}
+
+.typify-inline-code {
+    color: var(--code-normal);
+    font-size: var(--code-size);
+    background-color: var(--code-background);
+    vertical-align: baseline;
+    -webkit-box-decoration-break: clone;
+    border-radius: 3px;
+    padding: 1px 4px;
+}
+
+.typify-batch-confirm {
+    padding: var(--size-4-3) var(--size-4-4);
+    background: var(--background-secondary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 12px;
+}
+
+.typify-batch-confirm-text {
+    font-size: var(--font-ui-small);
+    color: var(--text-normal);
+    margin-bottom: var(--size-4-2);
+}
+
+.typify-batch-confirm-btns {
+    display: flex;
+    gap: var(--size-4-2);
 }

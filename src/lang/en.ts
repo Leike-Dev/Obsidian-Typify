@@ -6,7 +6,7 @@ export const en = {
     // Target Property
     'target_property_title': 'Target property',
     'target_property_desc': 'The property name(s) to apply styles to (e.g., "status", "priority")',
-    'target_property_placeholder': 'Property',
+    'target_property_placeholder': 'Type a property, then select to add',
 
     // Create Style
     'add_status_title': 'Create a new style',
@@ -100,7 +100,25 @@ export const en = {
     'delete_style_confirm': 'Delete "{name}"?',
     'style_deleted': 'Style "{name}" deleted.',
     'confirm_button': 'Confirm',
-    'scope_all': 'All properties',
+    'scope_all': 'Any property',
+
+    'scope_show_all': 'Show all',
+    'scope_specific': 'Specific property',
+    'batch_create_detected_before': 'Found {count} unstyled value(s) for this property. ',
+    'batch_create_detected_action': 'Create them all',
+    'batch_create_detected_after': '?',
+    'batch_create_already_global_before': 'Note: ',
+    'batch_create_already_global_after': ' already exist as global styles.',
+    'batch_create_all_global_before': 'Note: ',
+    'batch_create_all_global_after': ' already exist as global styles. No batch creation needed.',
+    'batch_create_too_many': 'Found {count} values for this property (exceeds the limit of 50 for batch creation).',
+    'batch_create_confirm_title': 'Confirm batch creation',
+    'batch_create_confirm_desc': 'Styles will be created for the following values: {values}',
+    'batch_create_success': '{count} style(s) created in batch.',
+    'reorder_move_up': 'Move up',
+    'reorder_move_down': 'Move down',
+    'target_property_add': 'Add',
+    'target_property_empty_input': 'Please enter a property name',
 
     // Shape
     'shape_title': 'Shape',

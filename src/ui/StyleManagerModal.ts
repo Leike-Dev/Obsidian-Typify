@@ -1,30 +1,29 @@
-import { App, Modal, Notice, setIcon } from 'obsidian';
+import { App, Modal, Notice, setIcon, Platform } from 'obsidian';
 import TypifyPlugin from '../main';
-import { StatusStyle } from '../types';
+import { StatusStyle, DEFAULT_STATUS_COLOR } from '../types';
 import { StyleEditorModal } from './StyleEditorModal';
 import { t } from '../lang/helpers';
 
-/**
- * Modal for managing existing styles.
- * Displays a searchable list with delete (+ confirmation) capability.
- */
 export class StyleManagerModal extends Modal {
     plugin: TypifyPlugin;
     private onClose_cb?: () => void;
 
-    // DOM refs
     private listContainerEl: HTMLElement | null = null;
     private searchInput: HTMLInputElement | null = null;
     private scopeSelect: HTMLSelectElement | null = null;
     private countEl: HTMLElement | null = null;
+    private batchHintEl: HTMLElement | null = null;
 
-    // Filter state
-    private selectedScope = '__all__';
+    private selectedScope = '__show_all__';
+    private draggedVisualIndex: number = -1;
 
-    constructor(app: App, plugin: TypifyPlugin, onClose?: () => void) {
+    constructor(app: App, plugin: TypifyPlugin, onClose?: () => void, initialScope?: string) {
         super(app);
         this.plugin = plugin;
         this.onClose_cb = onClose;
+        if (initialScope) {
+            this.selectedScope = initialScope;
+        }
     }
 
     onOpen() {
@@ -34,7 +33,6 @@ export class StyleManagerModal extends Modal {
 
         this.setTitle(t('manage_styles_modal_title'));
 
-        // Search + scope filter row
         const searchContainer = contentEl.createDiv({ cls: 'typify-manager-search-container' });
 
         this.searchInput = searchContainer.createEl('input', {
@@ -46,54 +44,60 @@ export class StyleManagerModal extends Modal {
             this.refreshList();
         });
 
-        // Scope dropdown
         this.scopeSelect = searchContainer.createEl('select', {
             cls: 'typify-manager-scope-select dropdown',
         });
         this.populateScopeOptions();
+        // Restore previously selected scope after repopulating options
+        if (this.scopeSelect && this.selectedScope !== '__show_all__') {
+            this.scopeSelect.value = this.selectedScope;
+        }
         this.scopeSelect.addEventListener('change', () => {
-            this.selectedScope = this.scopeSelect?.value ?? '__all__';
+            this.selectedScope = this.scopeSelect?.value ?? '__show_all__';
             this.refreshList();
         });
 
-        // Count label
         this.countEl = contentEl.createDiv({ cls: 'typify-manager-count' });
 
-        // List container
         this.listContainerEl = contentEl.createDiv({ cls: 'typify-manager-list' });
+
+        this.batchHintEl = contentEl.createDiv({ cls: 'typify-manager-batch-hint' });
 
         this.refreshList();
     }
 
-    /**
-     * Builds the scope dropdown options from target properties + existing style scopes.
-     */
     private populateScopeOptions(): void {
         if (!this.scopeSelect) return;
         this.scopeSelect.empty();
 
-        // "All" option
-        const allOpt = this.scopeSelect.createEl('option', { text: t('scope_all'), value: '__all__' });
-        allOpt.value = '__all__';
+        // "全部显示" — shows all styles (default)
+        const showAllOpt = this.scopeSelect.createEl('option', {
+            text: t('scope_show_all'),
+            value: '__show_all__',
+        });
+        showAllOpt.value = '__show_all__';
 
-        // Collect unique scopes: from settings targetProperty + from existing styles
+        // "任意属性" — shows only global (no appliesTo) styles
+        const allPropsOpt = this.scopeSelect.createEl('option', {
+            text: t('scope_all'),
+            value: '__all__',
+        });
+        allPropsOpt.value = '__all__';
+
         const scopes = new Set<string>();
 
-        // From configured target properties
         const targetProps = this.plugin.settings.targetProperty
             .split(',')
             .map(p => p.trim())
             .filter(p => p.length > 0);
         targetProps.forEach(p => scopes.add(p));
 
-        // From existing style scopes
         for (const style of this.plugin.settings.statusStyles) {
             if (style.appliesTo && style.appliesTo.length > 0) {
                 scopes.add(style.appliesTo[0]!);
             }
         }
 
-        // Sort alphabetically and add to dropdown
         const sorted = [...scopes].sort((a, b) => a.localeCompare(b));
         for (const scope of sorted) {
             const opt = this.scopeSelect.createEl('option', { text: scope, value: scope });
@@ -101,17 +105,11 @@ export class StyleManagerModal extends Modal {
         }
     }
 
-    /**
-     * Convenience: re-renders the list using current filter state.
-     */
     private refreshList(): void {
         this.renderList(this.searchInput?.value ?? '', this.selectedScope);
+        this.renderBatchHint(this.selectedScope);
     }
 
-    /**
-     * Renders the style list, filtered by the given search term and scope.
-     * The scope dropdown determines which group to show; no group headers needed.
-     */
     private renderList(filter: string, scope: string): void {
         if (!this.listContainerEl || !this.countEl) return;
         this.listContainerEl.empty();
@@ -119,26 +117,23 @@ export class StyleManagerModal extends Modal {
         const lowerFilter = filter.toLowerCase();
         const styles = this.plugin.settings.statusStyles;
 
-        // Filter by text (name only) AND by selected scope
         const filtered = styles.filter(s => {
-            // Text filter (name only — scope is handled by the dropdown)
             if (lowerFilter !== '' && !s.name.toLowerCase().includes(lowerFilter)) {
                 return false;
             }
 
-            // Scope filter: __all__ matches styles without appliesTo (global)
+            if (scope === '__show_all__') return true;
+
             const styleScope = (s.appliesTo && s.appliesTo.length > 0)
                 ? s.appliesTo[0]!.toLowerCase()
                 : '__all__';
             return styleScope === scope.toLowerCase();
         });
 
-        // Update count
         this.countEl.setText(
             t('manage_styles_count').replace('{count}', String(filtered.length))
         );
 
-        // Empty state
         if (filtered.length === 0) {
             this.listContainerEl.createDiv({
                 text: styles.length === 0
@@ -149,44 +144,109 @@ export class StyleManagerModal extends Modal {
             return;
         }
 
-        // Render items (no group headers — the dropdown determines the scope)
-        for (const style of filtered) {
-            this.renderItem(style, styles.indexOf(style));
+        const canReorder = lowerFilter === '' && scope !== '__show_all__';
+
+        for (let i = 0; i < filtered.length; i++) {
+            const style = filtered[i]!;
+            this.renderItem(style, i, filtered, canReorder);
         }
     }
 
-    /**
-     * Renders a single style item card.
-     */
-    private renderItem(style: StatusStyle, index: number): void {
+    private renderItem(style: StatusStyle, visualIndex: number, filtered: StatusStyle[], canReorder: boolean): void {
         if (!this.listContainerEl) return;
 
         const item = this.listContainerEl.createDiv({ cls: 'typify-manager-item' });
 
-        // Left section: color dot + info
+        const reorderSection = item.createDiv({ cls: 'typify-manager-reorder-btns' });
+
+        if (canReorder) {
+            if (Platform.isMobile) {
+                const upBtn = reorderSection.createEl('button', {
+                    cls: 'clickable-icon typify-manager-reorder-btn',
+                    attr: { 'aria-label': t('reorder_move_up') }
+                });
+                setIcon(upBtn, 'chevron-up');
+                upBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // On mobile, just do the math directly instead of dragging
+                    void this.dropItem(visualIndex, Math.max(0, visualIndex - 1), filtered);
+                });
+
+                const downBtn = reorderSection.createEl('button', {
+                    cls: 'clickable-icon typify-manager-reorder-btn',
+                    attr: { 'aria-label': t('reorder_move_down') }
+                });
+                setIcon(downBtn, 'chevron-down');
+                downBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    void this.dropItem(visualIndex, Math.min(filtered.length - 1, visualIndex + 1), filtered);
+                });
+            } else {
+                item.setAttr('draggable', 'true');
+                
+                const dragHandle = reorderSection.createDiv({
+                    cls: 'clickable-icon extra-setting-button mod-drag-handle typify-manager-drag-handle',
+                    attr: { 'aria-label': 'Arraste para reorganizar', 'tabindex': '-1' }
+                });
+                setIcon(dragHandle, 'menu');
+
+                item.addEventListener('dragstart', (e) => {
+                    this.draggedVisualIndex = visualIndex;
+                    if (e.dataTransfer) {
+                        e.dataTransfer.effectAllowed = 'move';
+                        e.dataTransfer.setData('text/plain', '');
+                    }
+                    item.addClass('typify-drag-active');
+                    this.listContainerEl?.addClass('typify-is-dragging');
+                });
+
+                item.addEventListener('dragend', () => {
+                    this.draggedVisualIndex = -1;
+                    item.removeClass('typify-drag-active');
+                    this.listContainerEl?.removeClass('typify-is-dragging');
+                });
+
+                item.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+                });
+
+                item.addEventListener('dragenter', () => {
+                    if (this.draggedVisualIndex !== -1 && this.draggedVisualIndex !== visualIndex) {
+                        item.addClass('typify-drag-over');
+                    }
+                });
+
+                item.addEventListener('dragleave', () => {
+                    item.removeClass('typify-drag-over');
+                });
+
+                item.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    item.removeClass('typify-drag-over');
+                    if (this.draggedVisualIndex !== -1 && this.draggedVisualIndex !== visualIndex) {
+                        void this.dropItem(this.draggedVisualIndex, visualIndex, filtered);
+                    }
+                });
+            }
+        }
+
         const infoSection = item.createDiv({ cls: 'typify-manager-item-info' });
 
-        // Color dot
         const dot = infoSection.createSpan({ cls: 'typify-manager-color-dot' });
         dot.setCssStyles({ backgroundColor: style.baseColor });
 
-        // Text block
         const textBlock = infoSection.createDiv({ cls: 'typify-manager-item-text' });
 
-        // Name row (with icon if present)
         const nameRow = textBlock.createDiv({ cls: 'typify-manager-item-name' });
         nameRow.setText(style.name);
 
-        // Metadata row
         const metaRow = textBlock.createDiv({ cls: 'typify-manager-meta' });
 
-        // Icon info
         if (style.icon) {
             const iconMeta = metaRow.createSpan({ cls: 'typify-manager-icon-meta' });
-
-            // Show small icon preview
             const iconPreview = iconMeta.createSpan({ cls: 'typify-manager-icon-preview' });
-            
+
             if (style.icon.startsWith('img:')) {
                 const name = style.icon.replace('img:', '');
                 const dataUri = this.plugin.customImagesManager?.getImageDataUri(name);
@@ -230,19 +290,16 @@ export class StyleManagerModal extends Modal {
             }
         }
 
-        // Shape info
         const shapeText = style.shape === 'flat' ? t('shape_flat') : style.shape === 'rectangle' ? t('shape_rectangle') : t('shape_pill');
         if (metaRow.childElementCount > 0) {
             metaRow.createSpan({ text: ' \u00b7 ' });
         }
         metaRow.createSpan({ text: shapeText });
 
-        // Color mode info
         const modeText = style.colorMode === 'solid' ? t('color_mode_solid') : t('color_mode_subtle');
         metaRow.createSpan({ text: ' \u00b7 ' });
         metaRow.createSpan({ text: modeText });
 
-        // Associated link info
         if (style.matchValue) {
             metaRow.createSpan({ text: ' \u00b7 ' });
             metaRow.createSpan({ text: t('link_url_title') });
@@ -251,10 +308,17 @@ export class StyleManagerModal extends Modal {
             }
         }
 
-        // Right section: action buttons
-        const actionsSection = item.createDiv({ cls: 'typify-manager-actions' });
+        // In "show all" mode, display the scope group
+        if (this.selectedScope === '__show_all__') {
+            const groupLabel = (style.appliesTo && style.appliesTo.length > 0)
+                ? style.appliesTo[0]
+                : t('scope_all');
+            metaRow.createSpan({ text: ` (${groupLabel})` });
+        }
 
-        // Edit button
+        const actionsSection = item.createDiv({ cls: 'typify-manager-actions' });
+        const realIndex = this.plugin.settings.statusStyles.indexOf(style);
+
         const editBtn = actionsSection.createEl('button', {
             cls: 'clickable-icon typify-manager-edit-btn',
             attr: { 'aria-label': t('edit_style_title') }
@@ -262,21 +326,19 @@ export class StyleManagerModal extends Modal {
         setIcon(editBtn, 'pencil');
         editBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            this.close();
+            const currentScope = this.selectedScope;
             new StyleEditorModal(
                 this.app,
                 this.plugin,
                 () => {
-                    // Re-open manager after saving to show updated list
                     this.onClose_cb?.();
-                    new StyleManagerModal(this.app, this.plugin, this.onClose_cb).open();
+                    new StyleManagerModal(this.app, this.plugin, this.onClose_cb, currentScope).open();
                 },
                 style,
-                index
+                realIndex
             ).open();
         });
 
-        // Delete button
         const deleteBtn = actionsSection.createEl('button', {
             cls: 'clickable-icon typify-manager-delete-btn',
             attr: { 'aria-label': t('delete_button') }
@@ -284,18 +346,230 @@ export class StyleManagerModal extends Modal {
         setIcon(deleteBtn, 'trash-2');
         deleteBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            this.showDeleteConfirm(item, index);
+            this.showDeleteConfirm(item, realIndex);
         });
     }
 
-    /**
-     * Shows inline delete confirmation replacing the item content.
-     */
+    private async dropItem(sourceVisualIndex: number, targetVisualIndex: number, filtered: StatusStyle[]) {
+        if (sourceVisualIndex === targetVisualIndex) return;
+
+        const sourceItem = filtered[sourceVisualIndex];
+        const targetItem = filtered[targetVisualIndex];
+        if (!sourceItem || !targetItem) return;
+
+        const { statusStyles: styles } = this.plugin.settings;
+        const sourceRealIndex = styles.indexOf(sourceItem);
+        if (sourceRealIndex === -1) return;
+
+        // Remove source
+        styles.splice(sourceRealIndex, 1);
+        
+        // Recalculate target real index
+        const targetRealIndex = styles.indexOf(targetItem);
+        if (targetRealIndex === -1) return;
+        
+        const isMovingDown = sourceVisualIndex < targetVisualIndex;
+        const insertIndex = targetRealIndex + (isMovingDown ? 1 : 0);
+        
+        styles.splice(insertIndex, 0, sourceItem);
+
+        await this.plugin.saveSettings();
+        this.refreshList();
+    }
+
+    private renderBatchHint(scope: string): void {
+        if (!this.batchHintEl) return;
+        this.batchHintEl.empty();
+
+        if (scope === '__show_all__') return;
+
+        const candidateValues = this.getCandidateValuesForScope(scope);
+        if (candidateValues.length === 0) return;
+
+        // Names that exist in the current scope
+        const existingInScope = new Set(
+            this.plugin.settings.statusStyles
+                .filter(s => {
+                    const styleScope = (s.appliesTo && s.appliesTo.length > 0)
+                        ? s.appliesTo[0]!.toLowerCase()
+                        : '__all__';
+                    return styleScope === scope.toLowerCase();
+                })
+                .map(s => s.name.toLowerCase())
+        );
+
+        // Names that exist in global ("任意属性")
+        const existingGlobal = new Set(
+            this.plugin.settings.statusStyles
+                .filter(s => !s.appliesTo || s.appliesTo.length === 0)
+                .map(s => s.name.toLowerCase())
+        );
+
+        // Values not in current scope
+        const notInScope = candidateValues.filter(v => !existingInScope.has(v.toLowerCase()));
+        if (notInScope.length === 0) return;
+
+        // Among those, separate: already in global vs truly new
+        const alreadyGlobal = notInScope.filter(v => existingGlobal.has(v.toLowerCase()));
+        const trulyNew = notInScope.filter(v => !existingGlobal.has(v.toLowerCase()));
+
+        const totalUncreated = notInScope.length;
+
+        if (totalUncreated > 50) {
+            this.batchHintEl.createSpan({
+                text: t('batch_create_too_many').replace('{count}', String(totalUncreated)),
+                cls: 'typify-batch-hint-text'
+            });
+            return;
+        }
+
+        // Helper: render a list of values as inline-code spans separated by ", "
+        const renderInlineCodeList = (parent: HTMLElement, values: string[]) => {
+            values.forEach((val, i) => {
+                parent.createEl('span', { text: val, cls: 'typify-inline-code' });
+                if (i < values.length - 1) {
+                    parent.createSpan({ text: ', ' });
+                }
+            });
+        };
+
+        // Case 1: All candidates already in global — no batch create needed
+        if (trulyNew.length === 0 && alreadyGlobal.length > 0) {
+            const note = this.batchHintEl.createDiv({ cls: 'typify-batch-hint-line' });
+            note.createSpan({
+                text: t('batch_create_all_global_before'),
+                cls: 'typify-batch-hint-note'
+            });
+            renderInlineCodeList(note, alreadyGlobal);
+            note.createSpan({
+                text: t('batch_create_all_global_after'),
+                cls: 'typify-batch-hint-note'
+            });
+            return;
+        }
+
+        // Case 2: Some truly new values — show batch create prompt
+        const hintText = this.batchHintEl.createDiv({ cls: 'typify-batch-hint-line' });
+        hintText.createSpan({
+            text: t('batch_create_detected_before').replace('{count}', String(trulyNew.length)),
+            cls: 'typify-batch-hint-text'
+        });
+        const actionEl = hintText.createEl('b', {
+            text: t('batch_create_detected_action'),
+            cls: 'typify-batch-hint-action'
+        });
+        hintText.createSpan({
+            text: t('batch_create_detected_after'),
+            cls: 'typify-batch-hint-text'
+        });
+
+        actionEl.addEventListener('click', () => {
+            this.showBatchCreateConfirm(scope, trulyNew);
+        });
+
+        // If some values already exist in global, show supplementary note
+        if (alreadyGlobal.length > 0) {
+            const globalNote = this.batchHintEl.createDiv({ cls: 'typify-batch-hint-line' });
+            globalNote.createSpan({
+                text: t('batch_create_already_global_before'),
+                cls: 'typify-batch-hint-note'
+            });
+            renderInlineCodeList(globalNote, alreadyGlobal);
+            globalNote.createSpan({
+                text: t('batch_create_already_global_after'),
+                cls: 'typify-batch-hint-note'
+            });
+        }
+    }
+
+    private getCandidateValuesForScope(scope: string): string[] {
+        const values = new Set<string>();
+
+        const { app } = this;
+        const files = app.vault.getMarkdownFiles();
+        for (const file of files) {
+            const cache = app.metadataCache.getFileCache(file);
+            const frontmatter = cache?.frontmatter;
+            if (!frontmatter) continue;
+
+            const val: unknown = frontmatter[scope];
+            if (val == null) continue;
+
+            if (Array.isArray(val)) {
+                for (const v of val) {
+                    if (typeof v === 'string' && v.trim()) {
+                        values.add(v.trim());
+                    }
+                }
+            } else if (typeof val === 'string' && val.trim()) {
+                values.add(val.trim());
+            }
+        }
+
+        return [...values].sort((a, b) => a.localeCompare(b));
+    }
+
+    private showBatchCreateConfirm(scope: string, trulyNew: string[]): void {
+        if (!this.batchHintEl) return;
+        this.batchHintEl.empty();
+
+        if (trulyNew.length === 0) {
+            return;
+        }
+
+        const confirmEl = this.batchHintEl.createDiv({ cls: 'typify-batch-confirm' });
+        confirmEl.createDiv({
+            text: t('batch_create_confirm_desc').replace('{values}', trulyNew.join(', ')),
+            cls: 'typify-batch-confirm-text'
+        });
+
+        const btnGroup = confirmEl.createDiv({ cls: 'typify-batch-confirm-btns' });
+
+        const confirmBtn = btnGroup.createEl('button', {
+            text: t('confirm_button'),
+            cls: 'mod-cta'
+        });
+        confirmBtn.addEventListener('click', () => {
+            void (async () => {
+                let created = 0;
+                const existingNames = new Set(
+                    this.plugin.settings.statusStyles.map(s => s.name.toLowerCase())
+                );
+
+                for (const val of trulyNew) {
+                    if (existingNames.has(val.toLowerCase())) continue;
+
+                    const style: StatusStyle = {
+                        name: val,
+                        baseColor: DEFAULT_STATUS_COLOR,
+                        icon: '',
+                        appliesTo: [scope],
+                        shape: 'pill',
+                        colorMode: 'subtle'
+                    };
+                    this.plugin.settings.statusStyles.push(style);
+                    created++;
+                }
+
+                await this.plugin.saveSettings();
+                new Notice(t('batch_create_success').replace('{count}', String(created)));
+                this.populateScopeOptions();
+                this.refreshList();
+            })();
+        });
+
+        const cancelBtn = btnGroup.createEl('button', {
+            text: t('cancel_button')
+        });
+        cancelBtn.addEventListener('click', () => {
+            this.renderBatchHint(scope);
+        });
+    }
+
     private showDeleteConfirm(itemEl: HTMLElement, index: number): void {
         const style = this.plugin.settings.statusStyles[index];
         if (!style) return;
 
-        // Create confirmation overlay
         const confirmEl = itemEl.createDiv({ cls: 'typify-manager-confirm' });
         confirmEl.createSpan({
             text: t('delete_style_confirm').replace('{name}', style.name),
@@ -304,7 +578,6 @@ export class StyleManagerModal extends Modal {
 
         const btnGroup = confirmEl.createDiv({ cls: 'typify-manager-confirm-btns' });
 
-        // Confirm button
         const confirmBtn = btnGroup.createEl('button', {
             text: t('confirm_button'),
             cls: 'mod-warning'
@@ -319,7 +592,6 @@ export class StyleManagerModal extends Modal {
             })();
         });
 
-        // Cancel button
         const cancelBtn = btnGroup.createEl('button', {
             text: t('cancel_button')
         });

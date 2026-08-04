@@ -1,4 +1,4 @@
-import { PluginSettingTab, App, Setting, Notice, SettingDefinitionItem } from 'obsidian';
+import { PluginSettingTab, App, Setting, Notice, SettingDefinitionItem, setIcon } from 'obsidian';
 import { StyleEditorModal } from './ui/StyleEditorModal';
 import { StyleManagerModal } from './ui/StyleManagerModal';
 import { ExportSettingsModal } from './ui/ExportSettingsModal';
@@ -7,6 +7,7 @@ import { PaletteModal } from './ui/PaletteModal';
 import { FaviconsModal } from './ui/FaviconsModal';
 import { ChangelogModal } from './ui/ChangelogModal';
 import { NoticesModal } from './ui/NoticesModal';
+import { PropertySuggest } from './ui/property-suggest';
 import type TypifyPlugin from './main';
 import { t } from './lang/helpers';
 
@@ -79,14 +80,59 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
             type: 'group' as const,
             heading: t('section_configuration_title'),
             items: [
-                // Target Property — simple text control
+                // Target Property — tags with autocomplete
                 {
                     name: t('target_property_title'),
                     desc: t('target_property_desc'),
-                    control: {
-                        type: 'text' as const,
-                        key: 'targetProperty',
-                        placeholder: t('target_property_placeholder')
+                    render: (setting: Setting) => {
+                        const propInputWrapper = setting.controlEl.createDiv({
+                            cls: 'typify-target-property-wrapper'
+                        });
+
+                        const propInput = propInputWrapper.createEl('input', {
+                            type: 'text',
+                            cls: 'typify-target-property-input',
+                            attr: {
+                                placeholder: t('target_property_placeholder'),
+                                spellcheck: 'false'
+                            }
+                        });
+
+                        // Obsidian-native autocomplete via AbstractInputSuggest
+                        const propSuggest = new PropertySuggest(this.app, propInput, () => this.getAllPropertyNames());
+                        propSuggest.onSelect((prop) => {
+                            void this.addProperty(prop);
+                            propInput.value = '';
+                            renderTargetChips();
+                        });
+
+                        const chipsContainer = propInputWrapper.createDiv({
+                            cls: 'typify-target-property-chips'
+                        });
+
+                        const renderTargetChips = () => {
+                            chipsContainer.empty();
+                            const props = this.plugin.settings.targetProperty
+                                .split(',')
+                                .map(p => p.trim())
+                                .filter(p => p.length > 0);
+
+                            for (const prop of props) {
+                                const chip = chipsContainer.createSpan({ cls: 'setting-hotkey' });
+                                chip.appendText(prop + ' ');
+                                const removeBtn = chip.createSpan({
+                                    cls: 'setting-hotkey-icon setting-delete-hotkey',
+                                    attr: { 'aria-label': 'Remover' }
+                                });
+                                setIcon(removeBtn, 'x');
+                                removeBtn.addEventListener('click', () => {
+                                    void this.removeProperty(prop);
+                                    renderTargetChips();
+                                });
+                            }
+                        };
+
+                        renderTargetChips();
                     }
                 },
                 // Custom Icons — needs side-effects on toggle
@@ -334,6 +380,46 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         return count;
     }
 
+    private getAllPropertyNames(): string[] {
+        const properties = new Set<string>();
+        const files = this.app.vault.getMarkdownFiles();
+        for (const file of files) {
+            const cache = this.app.metadataCache.getFileCache(file);
+            const frontmatter = cache?.frontmatter;
+            if (!frontmatter) continue;
+            for (const key of Object.keys(frontmatter)) {
+                if (key === 'position') continue;
+                if (Array.isArray(frontmatter[key])) {
+                    properties.add(key);
+                }
+            }
+        }
+        return [...properties].sort((a, b) => a.localeCompare(b));
+    }
+
+    private async addProperty(prop: string): Promise<void> {
+        const props = this.plugin.settings.targetProperty
+            .split(',')
+            .map(p => p.trim().toLowerCase())
+            .filter(p => p.length > 0);
+
+        if (props.includes(prop.toLowerCase())) return;
+
+        const current = this.plugin.settings.targetProperty.trim();
+        this.plugin.settings.targetProperty = current
+            ? `${current}, ${prop}`
+            : prop;
+        await this.plugin.saveSettings();
+    }
+
+    private async removeProperty(prop: string): Promise<void> {
+        const props = this.plugin.settings.targetProperty
+            .split(',')
+            .map(p => p.trim())
+            .filter(p => p.length > 0 && p.toLowerCase() !== prop.toLowerCase());
+        this.plugin.settings.targetProperty = props.join(', ');
+        await this.plugin.saveSettings();
+    }
     private renderNoticesBadge() {
         if (!this.noticesSetting) return;
 

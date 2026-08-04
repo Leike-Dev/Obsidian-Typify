@@ -6,7 +6,7 @@ export const zhCN = {
     // 目标属性
     'target_property_title': '目标属性',
     'target_property_desc': '要应用样式的属性名称（例如："status"、"priority"）',
-    'target_property_placeholder': '属性',
+    'target_property_placeholder': '输入属性后选择并添加',
 
     // 创建样式
     'add_status_title': '创建新样式',
@@ -24,7 +24,7 @@ export const zhCN = {
     'add_icon_tooltip': '选择图标',
     'remove_icon_tooltip': '移除图标',
     'applies_to_title': '应用于',
-    'applies_to_all_option': '所有属性',
+    'applies_to_all_option': '任意属性',
 
     // 删除
     'delete_button': '删除样式',
@@ -101,6 +101,24 @@ export const zhCN = {
     'style_deleted': '样式「{name}」已删除。',
     'confirm_button': '确认',
     'scope_all': '所有属性',
+
+    'scope_show_all': '全部显示',
+    'scope_specific': '特定属性',
+    'batch_create_detected_before': '检测到该属性还有 {count} 个值尚未创建，是否',
+    'batch_create_detected_action': '批量创建',
+    'batch_create_detected_after': '？',
+    'batch_create_already_global_before': '该属性中 ',
+    'batch_create_already_global_after': ' 已存在于「任意属性」中。',
+    'batch_create_all_global_before': '该属性中 ',
+    'batch_create_all_global_after': ' 已存在于「任意属性」中，无需批量创建。',
+    'batch_create_too_many': '检测到该属性共有 {count} 个候选值，数量过多暂不支持批量创建。',
+    'batch_create_confirm_title': '确认批量创建',
+    'batch_create_confirm_desc': '将创建以下属性值的样式：{values}',
+    'batch_create_success': '已批量创建 {count} 个样式。',
+    'reorder_move_up': '上移',
+    'reorder_move_down': '下移',
+    'target_property_add': '添加',
+    'target_property_empty_input': '请输入属性名称',
 
     // 形状
     'shape_title': '形状',
