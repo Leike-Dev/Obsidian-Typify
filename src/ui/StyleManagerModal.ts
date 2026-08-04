@@ -78,7 +78,7 @@ export class StyleManagerModal extends Modal {
 
         // "任意属性" — shows only global (no appliesTo) styles
         const allPropsOpt = this.scopeSelect.createEl('option', {
-            text: t('applies_to_all_option'),
+            text: t('scope_all'),
             value: '__all__',
         });
         allPropsOpt.value = '__all__';
@@ -257,7 +257,7 @@ export class StyleManagerModal extends Modal {
         if (this.selectedScope === '__show_all__') {
             const groupLabel = (style.appliesTo && style.appliesTo.length > 0)
                 ? style.appliesTo[0]
-                : t('applies_to_all_option');
+                : t('scope_all');
             metaRow.createSpan({ text: ` (${groupLabel})` });
         }
 
