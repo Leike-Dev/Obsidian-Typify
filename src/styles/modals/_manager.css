@@ -320,10 +320,10 @@
 }
 
 .typify-batch-confirm {
-    padding: var(--size-4-2) var(--size-4-3);
-    background: var(--background-primary-alt);
+    padding: var(--size-4-3) var(--size-4-4);
+    background: var(--background-secondary);
     border: 1px solid var(--background-modifier-border);
-    border-radius: var(--radius-s);
+    border-radius: 12px;
 }
 
 .typify-batch-confirm-text {
