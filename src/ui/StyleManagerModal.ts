@@ -504,7 +504,7 @@ export class StyleManagerModal extends Modal {
         // Helper: render a list of values as inline-code spans separated by ", "
         const renderInlineCodeList = (parent: HTMLElement, values: string[]) => {
             values.forEach((val, i) => {
-                parent.createEl('span', { text: val, cls: 'typify-inline-code' });
+                parent.createSpan({ text: val, cls: 'typify-inline-code' });
                 if (i < values.length - 1) {
                     parent.createSpan({ text: ', ' });
                 }
