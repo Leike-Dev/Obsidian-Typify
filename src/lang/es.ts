@@ -93,10 +93,26 @@ export const es = {
 
     // Modal Gestor de Estilos
     'manage_styles_modal_title': 'Gestionar estilos',
-    'manage_styles_search': 'Filtrar...',
+    'manage_styles_search': 'Buscar...',
     'manage_styles_count': '{count} estilo(s)',
     'manage_styles_empty': 'No se han creado estilos aún.',
     'manage_styles_no_results': 'Ningún estilo coincide con la búsqueda.',
+    'sort_recent': 'Reciente',
+    'sort_color': 'Color',
+    'sort_shape': 'Forma',
+    'sort_icon': 'Icono',
+    'sort_hasicon': 'Con Icono',
+    'sort_noicon': 'Sin Icono',
+    'sort_icon_lucide': 'Lucide',
+    'sort_icon_emoji': 'Emoji',
+    'sort_icon_custom': 'Personalizado',
+    'sort_icon_img': 'Imagen',
+    'sort_colormode': 'Relleno',
+    'sort_link': 'Enlace',
+    'sort_hasurl': 'Con Enlace',
+    'sort_nourl': 'Sin Enlace',
+    'sort_more': 'Más opciones',
+    'sort_less': 'Menos',
     'delete_style_confirm': '¿Eliminar "{name}"?',
     'style_deleted': 'Estilo "{name}" eliminado.',
     'confirm_button': 'Confirmar',
@@ -255,16 +271,16 @@ export const es = {
     // Static Tips / Usage Tips
     'notice_usage_list_title': 'Propiedad de Lista',
     'notice_usage_list_desc': 'El efecto del estilo solo se aplica a las propiedades de tipo Lista en Obsidian.',
-    
+
     'notice_usage_case_title': 'Mayúsculas y Minúsculas',
     'notice_usage_case_desc': 'El plugin no distingue entre mayúsculas y minúsculas para el nombre de la propiedad objetivo o los nombres definidos para las etiquetas. Ejemplo: `Status` y `status` son la misma propiedad.',
-    
+
     'notice_usage_priority_title': 'Prioridad de Alcance',
     'notice_usage_priority_desc': 'Si dos estilos tienen el mismo nombre pero diferentes alcances (ej. uno en "Todas las propiedades" y otro en una propiedad específica), el estilo más específico tendrá prioridad para esa propiedad.',
-    
+
     'notice_usage_multiple_title': 'Múltiples Propiedades Objetivo',
     'notice_usage_multiple_desc': 'Puede usar más de una propiedad como objetivo. Simplemente agregue una coma entre las opciones. Ejemplo: `Status, Priority`.',
-    
+
     'notice_custom_images_title': 'Imágenes personalizadas',
     'notice_custom_images_desc': 'Coloca tus archivos de imagen (PNG, JPG, etc.) de hasta 50KB en la carpeta img/ en el directorio del plugin.',
 

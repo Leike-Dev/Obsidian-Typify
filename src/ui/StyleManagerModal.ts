@@ -1,4 +1,4 @@
-import { App, Modal, Notice, setIcon, Platform } from 'obsidian';
+import { App, Modal, Notice, setIcon } from 'obsidian';
 import TypifyPlugin from '../main';
 import { StatusStyle, DEFAULT_STATUS_COLOR } from '../types';
 import { StyleEditorModal } from './StyleEditorModal';
@@ -13,9 +13,13 @@ export class StyleManagerModal extends Modal {
     private scopeSelect: HTMLSelectElement | null = null;
     private countEl: HTMLElement | null = null;
     private batchHintEl: HTMLElement | null = null;
+    private sortChipsContainerEl: HTMLElement | null = null;
+    private isSortExpanded = false;
 
     private selectedScope = '__show_all__';
-    private draggedVisualIndex: number = -1;
+    private sortMode: 'recent' | 'az' | 'za' | 'color' = 'recent';
+    private activeFilter: string | null = null;
+    private expandedFilterCategory: string | null = null;
 
     constructor(app: App, plugin: TypifyPlugin, onClose?: () => void, initialScope?: string) {
         super(app);
@@ -57,9 +61,12 @@ export class StyleManagerModal extends Modal {
             this.refreshList();
         });
 
-        this.countEl = contentEl.createDiv({ cls: 'typify-manager-count' });
+        this.sortChipsContainerEl = contentEl.createDiv({ cls: 'typify-sort-chips' });
 
+        this.countEl = contentEl.createDiv({ cls: 'typify-manager-count' });
         this.listContainerEl = contentEl.createDiv({ cls: 'typify-manager-list' });
+
+        this.renderSortChips();
 
         this.batchHintEl = contentEl.createDiv({ cls: 'typify-manager-batch-hint' });
 
@@ -110,6 +117,152 @@ export class StyleManagerModal extends Modal {
         this.renderBatchHint(this.selectedScope);
     }
 
+    private renderSortChips(): void {
+        if (!this.sortChipsContainerEl) return;
+        this.sortChipsContainerEl.empty();
+
+        if (this.expandedFilterCategory) {
+            const backChip = this.sortChipsContainerEl.createSpan({ cls: 'typify-notice-tag typify-sort-chip typify-sort-toggle' });
+            setIcon(backChip.createSpan(), 'chevron-left');
+            backChip.addEventListener('click', () => {
+                this.expandedFilterCategory = null;
+                this.renderSortChips();
+            });
+
+            let subOptions: { id: string, label: string }[] = [];
+            if (this.expandedFilterCategory === 'shape') {
+                subOptions = [
+                    { id: 'shape:pill', label: t('shape_pill') },
+                    { id: 'shape:rectangle', label: t('shape_rectangle') },
+                    { id: 'shape:flat', label: t('shape_flat') }
+                ];
+            } else if (this.expandedFilterCategory === 'colormode') {
+                subOptions = [
+                    { id: 'colormode:solid', label: t('color_mode_solid') },
+                    { id: 'colormode:subtle', label: t('color_mode_subtle') }
+                ];
+            } else if (this.expandedFilterCategory === 'icon') {
+                subOptions = [
+                    { id: 'icon:has', label: t('sort_hasicon') },
+                    { id: 'icon:no', label: t('sort_noicon') },
+                    { id: 'icon:lucide', label: t('sort_icon_lucide') },
+                    { id: 'icon:emoji', label: t('sort_icon_emoji') },
+                    { id: 'icon:custom', label: t('sort_icon_custom') },
+                    { id: 'icon:img', label: t('sort_icon_img') }
+                ];
+            } else if (this.expandedFilterCategory === 'hasurl') {
+                subOptions = [
+                    { id: 'hasurl:yes', label: t('sort_hasurl') },
+                    { id: 'hasurl:no', label: t('sort_nourl') }
+                ];
+            }
+
+            for (const opt of subOptions) {
+                const chip = this.sortChipsContainerEl.createSpan({
+                    text: opt.label,
+                    cls: `typify-notice-tag typify-sort-chip${this.activeFilter === opt.id ? ' is-active' : ''}`
+                });
+                chip.addEventListener('click', () => {
+                    this.activeFilter = this.activeFilter === opt.id ? null : opt.id;
+                    this.expandedFilterCategory = null;
+                    this.renderSortChips();
+                    this.refreshList();
+                });
+            }
+            return;
+        }
+
+        type SortModeId = 'recent' | 'az' | 'za' | 'color';
+        const sortOptions: { id: SortModeId, label: string }[] = [
+            { id: 'recent', label: t('sort_recent') },
+            { id: 'az', label: 'A → Z' },
+            { id: 'za', label: 'Z → A' },
+            { id: 'color', label: t('sort_color') }
+        ];
+
+        const primaryIds = ['recent', 'az', 'color'];
+
+        const visibleSorts = this.isSortExpanded
+            ? sortOptions
+            : sortOptions.filter(o => primaryIds.includes(o.id) || o.id === this.sortMode);
+
+        for (const opt of visibleSorts) {
+            const chip = this.sortChipsContainerEl.createSpan({
+                text: opt.label,
+                cls: `typify-notice-tag typify-sort-chip${this.sortMode === opt.id ? ' is-active' : ''}`
+            });
+            chip.addEventListener('click', () => {
+                this.sortMode = opt.id;
+                this.renderSortChips();
+                this.refreshList();
+            });
+        }
+
+        const filterCategories = [
+            { id: 'shape', label: t('shape_title') },
+            { id: 'icon', label: t('sort_icon') },
+            { id: 'colormode', label: t('sort_colormode') },
+            { id: 'hasurl', label: t('sort_link') }
+        ];
+
+        if (this.isSortExpanded || this.activeFilter) {
+            for (const cat of filterCategories) {
+                if (!this.isSortExpanded && this.activeFilter && !this.activeFilter.startsWith(cat.id + ':')) continue;
+
+                const isActiveCat = this.activeFilter?.startsWith(cat.id + ':');
+                const chip = this.sortChipsContainerEl.createSpan({
+                    cls: `typify-notice-tag typify-sort-chip${isActiveCat ? ' is-active' : ''}`
+                });
+                chip.createSpan({ text: isActiveCat ? this.getActiveFilterLabel() : cat.label });
+                setIcon(chip.createSpan({ cls: 'typify-sort-chip-icon' }), 'chevron-down');
+
+                chip.addEventListener('click', () => {
+                    this.expandedFilterCategory = cat.id;
+                    this.renderSortChips();
+                });
+
+                if (isActiveCat) {
+                    const clearBtn = this.sortChipsContainerEl.createSpan({
+                        cls: 'typify-notice-tag typify-sort-chip typify-sort-clear'
+                    });
+                    setIcon(clearBtn.createSpan(), 'x');
+                    clearBtn.addEventListener('click', () => {
+                        this.activeFilter = null;
+                        this.renderSortChips();
+                        this.refreshList();
+                    });
+                }
+            }
+        }
+
+        const toggleChip = this.sortChipsContainerEl.createSpan({
+            text: this.isSortExpanded ? t('sort_less') : t('sort_more'),
+            cls: 'typify-notice-tag typify-sort-chip typify-sort-toggle'
+        });
+        toggleChip.addEventListener('click', () => {
+            this.isSortExpanded = !this.isSortExpanded;
+            this.renderSortChips();
+        });
+    }
+
+    private getActiveFilterLabel(): string {
+        if (!this.activeFilter) return '';
+        if (this.activeFilter === 'shape:pill') return t('shape_pill');
+        if (this.activeFilter === 'shape:rectangle') return t('shape_rectangle');
+        if (this.activeFilter === 'shape:flat') return t('shape_flat');
+        if (this.activeFilter === 'colormode:solid') return t('color_mode_solid');
+        if (this.activeFilter === 'colormode:subtle') return t('color_mode_subtle');
+        if (this.activeFilter === 'icon:has') return t('sort_hasicon');
+        if (this.activeFilter === 'icon:no') return t('sort_noicon');
+        if (this.activeFilter === 'icon:lucide') return t('sort_icon_lucide');
+        if (this.activeFilter === 'icon:emoji') return t('sort_icon_emoji');
+        if (this.activeFilter === 'icon:custom') return t('sort_icon_custom');
+        if (this.activeFilter === 'icon:img') return t('sort_icon_img');
+        if (this.activeFilter === 'hasurl:yes') return t('sort_hasurl');
+        if (this.activeFilter === 'hasurl:no') return t('sort_nourl');
+        return '';
+    }
+
     private renderList(filter: string, scope: string): void {
         if (!this.listContainerEl || !this.countEl) return;
         this.listContainerEl.empty();
@@ -117,18 +270,44 @@ export class StyleManagerModal extends Modal {
         const lowerFilter = filter.toLowerCase();
         const styles = this.plugin.settings.statusStyles;
 
-        const filtered = styles.filter(s => {
+        let filtered = styles.filter(s => {
             if (lowerFilter !== '' && !s.name.toLowerCase().includes(lowerFilter)) {
                 return false;
             }
 
-            if (scope === '__show_all__') return true;
+            if (scope !== '__show_all__') {
+                const styleScope = (s.appliesTo && s.appliesTo.length > 0)
+                    ? s.appliesTo[0]!.toLowerCase()
+                    : '__all__';
+                if (styleScope !== scope.toLowerCase()) return false;
+            }
 
-            const styleScope = (s.appliesTo && s.appliesTo.length > 0)
-                ? s.appliesTo[0]!.toLowerCase()
-                : '__all__';
-            return styleScope === scope.toLowerCase();
+            if (this.activeFilter) {
+                if (this.activeFilter === 'shape:pill' && s.shape !== 'pill') return false;
+                if (this.activeFilter === 'shape:rectangle' && s.shape !== 'rectangle') return false;
+                if (this.activeFilter === 'shape:flat' && s.shape !== 'flat') return false;
+                if (this.activeFilter === 'colormode:solid' && s.colorMode !== 'solid') return false;
+                if (this.activeFilter === 'colormode:subtle' && s.colorMode !== 'subtle') return false;
+                if (this.activeFilter === 'icon:has' && !s.icon) return false;
+                if (this.activeFilter === 'icon:no' && s.icon) return false;
+                if (this.activeFilter === 'icon:lucide' && (!s.icon || s.icon.includes(':'))) return false;
+                if (this.activeFilter === 'icon:emoji' && (!s.icon || !s.icon.startsWith('emoji:'))) return false;
+                if (this.activeFilter === 'icon:custom' && (!s.icon || !s.icon.startsWith('custom:'))) return false;
+                if (this.activeFilter === 'icon:img' && (!s.icon || (!s.icon.startsWith('img:') && !s.icon.startsWith('favicon:')))) return false;
+                if (this.activeFilter === 'hasurl:yes' && !s.matchValue) return false;
+                if (this.activeFilter === 'hasurl:no' && s.matchValue) return false;
+            }
+
+            return true;
         });
+
+        if (this.sortMode === 'az') {
+            filtered = filtered.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (this.sortMode === 'za') {
+            filtered = filtered.sort((a, b) => b.name.localeCompare(a.name));
+        } else if (this.sortMode === 'color') {
+            filtered = filtered.sort((a, b) => a.baseColor.localeCompare(b.baseColor));
+        }
 
         this.countEl.setText(
             t('manage_styles_count').replace('{count}', String(filtered.length))
@@ -144,92 +323,16 @@ export class StyleManagerModal extends Modal {
             return;
         }
 
-        const canReorder = lowerFilter === '' && scope !== '__show_all__';
-
         for (let i = 0; i < filtered.length; i++) {
             const style = filtered[i]!;
-            this.renderItem(style, i, filtered, canReorder);
+            this.renderItem(style);
         }
     }
 
-    private renderItem(style: StatusStyle, visualIndex: number, filtered: StatusStyle[], canReorder: boolean): void {
+    private renderItem(style: StatusStyle): void {
         if (!this.listContainerEl) return;
 
         const item = this.listContainerEl.createDiv({ cls: 'typify-manager-item' });
-
-        const reorderSection = item.createDiv({ cls: 'typify-manager-reorder-btns' });
-
-        if (canReorder) {
-            if (Platform.isMobile) {
-                const upBtn = reorderSection.createEl('button', {
-                    cls: 'clickable-icon typify-manager-reorder-btn',
-                    attr: { 'aria-label': t('reorder_move_up') }
-                });
-                setIcon(upBtn, 'chevron-up');
-                upBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    // On mobile, just do the math directly instead of dragging
-                    void this.dropItem(visualIndex, Math.max(0, visualIndex - 1), filtered);
-                });
-
-                const downBtn = reorderSection.createEl('button', {
-                    cls: 'clickable-icon typify-manager-reorder-btn',
-                    attr: { 'aria-label': t('reorder_move_down') }
-                });
-                setIcon(downBtn, 'chevron-down');
-                downBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    void this.dropItem(visualIndex, Math.min(filtered.length - 1, visualIndex + 1), filtered);
-                });
-            } else {
-                item.setAttr('draggable', 'true');
-                
-                const dragHandle = reorderSection.createDiv({
-                    cls: 'clickable-icon extra-setting-button mod-drag-handle typify-manager-drag-handle',
-                    attr: { 'aria-label': 'Arraste para reorganizar', 'tabindex': '-1' }
-                });
-                setIcon(dragHandle, 'menu');
-
-                item.addEventListener('dragstart', (e) => {
-                    this.draggedVisualIndex = visualIndex;
-                    if (e.dataTransfer) {
-                        e.dataTransfer.effectAllowed = 'move';
-                        e.dataTransfer.setData('text/plain', '');
-                    }
-                    item.addClass('typify-drag-active');
-                    this.listContainerEl?.addClass('typify-is-dragging');
-                });
-
-                item.addEventListener('dragend', () => {
-                    this.draggedVisualIndex = -1;
-                    item.removeClass('typify-drag-active');
-                    this.listContainerEl?.removeClass('typify-is-dragging');
-                });
-
-                item.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
-                });
-
-                item.addEventListener('dragenter', () => {
-                    if (this.draggedVisualIndex !== -1 && this.draggedVisualIndex !== visualIndex) {
-                        item.addClass('typify-drag-over');
-                    }
-                });
-
-                item.addEventListener('dragleave', () => {
-                    item.removeClass('typify-drag-over');
-                });
-
-                item.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    item.removeClass('typify-drag-over');
-                    if (this.draggedVisualIndex !== -1 && this.draggedVisualIndex !== visualIndex) {
-                        void this.dropItem(this.draggedVisualIndex, visualIndex, filtered);
-                    }
-                });
-            }
-        }
 
         const infoSection = item.createDiv({ cls: 'typify-manager-item-info' });
 
@@ -350,32 +453,7 @@ export class StyleManagerModal extends Modal {
         });
     }
 
-    private async dropItem(sourceVisualIndex: number, targetVisualIndex: number, filtered: StatusStyle[]) {
-        if (sourceVisualIndex === targetVisualIndex) return;
 
-        const sourceItem = filtered[sourceVisualIndex];
-        const targetItem = filtered[targetVisualIndex];
-        if (!sourceItem || !targetItem) return;
-
-        const { statusStyles: styles } = this.plugin.settings;
-        const sourceRealIndex = styles.indexOf(sourceItem);
-        if (sourceRealIndex === -1) return;
-
-        // Remove source
-        styles.splice(sourceRealIndex, 1);
-        
-        // Recalculate target real index
-        const targetRealIndex = styles.indexOf(targetItem);
-        if (targetRealIndex === -1) return;
-        
-        const isMovingDown = sourceVisualIndex < targetVisualIndex;
-        const insertIndex = targetRealIndex + (isMovingDown ? 1 : 0);
-        
-        styles.splice(insertIndex, 0, sourceItem);
-
-        await this.plugin.saveSettings();
-        this.refreshList();
-    }
 
     private renderBatchHint(scope: string): void {
         if (!this.batchHintEl) return;

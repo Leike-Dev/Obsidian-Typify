@@ -120,12 +120,12 @@ export default class TypifyPlugin extends Plugin {
         if (rebuildCss) {
             // Re-build stylesheet and cache
             this.styleManager.buildCache(); 
+            this.updateBodyClasses();
             
             if (this.domManager) {
                 this.domManager.reprocessAllPills();
                 this.domManager.refreshProcessing();
             }
-            this.updateBodyClasses();
         }
     }
 

@@ -93,10 +93,26 @@ export const fr = {
 
     // Modal Gestionnaire de Styles
     'manage_styles_modal_title': 'Gérer les styles',
-    'manage_styles_search': 'Filtrer...',
+    'manage_styles_search': 'Rechercher...',
     'manage_styles_count': '{count} style(s)',
     'manage_styles_empty': 'Aucun style créé pour le moment.',
     'manage_styles_no_results': 'Aucun style ne correspond à votre recherche.',
+    'sort_recent': 'Récent',
+    'sort_color': 'Couleur',
+    'sort_shape': 'Forme',
+    'sort_icon': 'Icône',
+    'sort_hasicon': 'Avec Icône',
+    'sort_noicon': 'Sans Icône',
+    'sort_icon_lucide': 'Lucide',
+    'sort_icon_emoji': 'Emoji',
+    'sort_icon_custom': 'Personnalisé',
+    'sort_icon_img': 'Image',
+    'sort_colormode': 'Remplissage',
+    'sort_link': 'Lien',
+    'sort_hasurl': 'Avec Lien',
+    'sort_nourl': 'Sans Lien',
+    'sort_more': 'Plus d\'options',
+    'sort_less': 'Moins',
     'delete_style_confirm': 'Supprimer « {name} » ?',
     'style_deleted': 'Style « {name} » supprimé.',
     'confirm_button': 'Confirmer',
@@ -254,16 +270,16 @@ export const fr = {
     // Static Tips / Usage Tips
     'notice_usage_list_title': 'Propriété de Liste',
     'notice_usage_list_desc': 'L\'effet de style n\'est appliqué qu\'aux propriétés de type Liste dans Obsidian.',
-    
+
     'notice_usage_case_title': 'Sensibilité à la Casse',
     'notice_usage_case_desc': 'Le plugin ne fait pas la distinction entre les majuscules et les minuscules pour le nom de la propriété cible ou les noms définis pour les étiquettes. Exemple : `Status` et `status` sont la même propriété.',
-    
+
     'notice_usage_priority_title': 'Priorité de Portée',
     'notice_usage_priority_desc': 'Si deux styles ont le même nom mais des portées différentes (ex. l\'un dans "Toutes les propriétés" et l\'autre dans une propriété spécifique), le style le plus spécifique aura la priorité pour cette propriété.',
-    
+
     'notice_usage_multiple_title': 'Cibles Multiples',
     'notice_usage_multiple_desc': 'Vous pouvez cibler plus d\'une propriété. Ajoutez simplement une virgule entre les options. Exemple : `Status, Priority`.',
-    
+
     'notice_custom_images_title': 'Images personnalisées',
     'notice_custom_images_desc': 'Placez vos fichiers image (PNG, JPG, etc.) d\'une taille maximale de 50 Ko dans le dossier img/ du répertoire du plugin.',
 

@@ -93,10 +93,26 @@ export const zhCN = {
 
     // 样式管理器弹窗
     'manage_styles_modal_title': '管理样式',
-    'manage_styles_search': '筛选…',
+    'manage_styles_search': '搜索…',
     'manage_styles_count': '{count} 个样式',
     'manage_styles_empty': '尚未创建任何样式。',
     'manage_styles_no_results': '没有匹配的样式。',
+    'sort_recent': '最近',
+    'sort_color': '颜色',
+    'sort_shape': '形状',
+    'sort_icon': '图标',
+    'sort_hasicon': '有图标',
+    'sort_noicon': '无图标',
+    'sort_icon_lucide': 'Lucide',
+    'sort_icon_emoji': 'Emoji',
+    'sort_icon_custom': '自定义',
+    'sort_icon_img': '图像',
+    'sort_colormode': '填充模式',
+    'sort_link': '链接',
+    'sort_hasurl': '带链接',
+    'sort_nourl': '无链接',
+    'sort_more': '更多选项',
+    'sort_less': '收起',
     'delete_style_confirm': '确定删除「{name}」？',
     'style_deleted': '样式「{name}」已删除。',
     'confirm_button': '确认',
@@ -254,16 +270,16 @@ export const zhCN = {
     // Static Tips / Usage Tips
     'notice_usage_list_title': '列表属性',
     'notice_usage_list_desc': '样式效果仅应用于 Obsidian 中的列表类型属性。',
-    
+
     'notice_usage_case_title': '大小写不敏感',
     'notice_usage_case_desc': '该插件对目标属性名和为标签定义的名称均不区分大小写。示例：`Status` 和 `status` 是同一个属性。',
-    
+
     'notice_usage_priority_title': '作用域优先级',
     'notice_usage_priority_desc': '如果两个样式名称相同但作用域不同（例如，一个在“所有属性”中，另一个在特定属性中），则更具体的样式将优先应用于该属性。',
-    
+
     'notice_usage_multiple_title': '多个目标属性',
     'notice_usage_multiple_desc': '您可以将多个属性作为目标。只需在选项之间添加逗号即可。示例：`Status, Priority`。',
-    
+
     'notice_custom_images_title': '自定义图片',
     'notice_custom_images_desc': '请将最大 50KB 的图片文件（PNG、JPG 等）放在插件目录中的 img/ 文件夹中。',
 

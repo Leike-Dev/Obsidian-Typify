@@ -93,10 +93,26 @@ export const ptBR = {
 
     // Modal de Gerenciamento de Estilos
     'manage_styles_modal_title': 'Gerenciar estilos',
-    'manage_styles_search': 'Filtrar...',
+    'manage_styles_search': 'Buscar...',
     'manage_styles_count': '{count} estilo(s)',
     'manage_styles_empty': 'Nenhum estilo criado ainda.',
     'manage_styles_no_results': 'Nenhum estilo corresponde à busca.',
+    'sort_recent': 'Recente',
+    'sort_color': 'Cor',
+    'sort_shape': 'Formato',
+    'sort_icon': 'Ícone',
+    'sort_hasicon': 'Com Ícone',
+    'sort_noicon': 'Sem Ícone',
+    'sort_icon_lucide': 'Lucide',
+    'sort_icon_emoji': 'Emoji',
+    'sort_icon_custom': 'Customizado',
+    'sort_icon_img': 'Imagem',
+    'sort_colormode': 'Preenchimento',
+    'sort_link': 'Link',
+    'sort_hasurl': 'Com Link',
+    'sort_nourl': 'Sem Link',
+    'sort_more': 'Mais opções',
+    'sort_less': 'Menos',
     'delete_style_confirm': 'Excluir "{name}"?',
     'style_deleted': 'Estilo "{name}" excluído.',
     'confirm_button': 'Confirmar',
@@ -255,16 +271,16 @@ export const ptBR = {
     // Dicas de Uso / Static Notices
     'notice_usage_list_title': 'Propriedade de Lista',
     'notice_usage_list_desc': 'O efeito do estilo só é aplicado em propriedades do tipo Lista no Obsidian.',
-    
+
     'notice_usage_case_title': 'Maiúsculas e Minúsculas',
     'notice_usage_case_desc': 'O plugin não faz distinção de maiúsculas e minúsculas para o nome da propriedade alvo ou os nomes definidos para as tags. Exemplo: `Status` e `status` são a mesma propriedade.',
-    
+
     'notice_usage_priority_title': 'Prioridade de Escopo',
     'notice_usage_priority_desc': 'Se dois estilos possuem o mesmo nome, mas escopos diferentes (ex: um em "Todas as propriedades" e outro em uma propriedade específica), o estilo mais específico terá prioridade para aquela propriedade.',
-    
+
     'notice_usage_multiple_title': 'Múltiplas Propriedades Alvo',
     'notice_usage_multiple_desc': 'Você pode usar mais de uma propriedade como alvo. Apenas adicione uma vírgula entre as opções. Exemplo: `Status, Priority`.',
-    
+
     'notice_custom_images_title': 'Imagens personalizadas',
     'notice_custom_images_desc': 'Coloque seus arquivos de imagem (PNG, JPG, etc.) de até 50KB na pasta img/ no diretório do plugin.',
 

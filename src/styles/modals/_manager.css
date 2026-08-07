@@ -210,28 +210,6 @@
     flex-shrink: 0;
 }
 
-.typify-manager-drag-handle {
-    cursor: grab;
-    color: var(--text-muted);
-}
-
-.typify-manager-drag-handle:active {
-    cursor: grabbing;
-}
-
-/* Drag and Drop states */
-.typify-drag-active {
-    opacity: 0.4;
-}
-
-.typify-drag-over {
-    border-top: 2px solid var(--interactive-accent) !important;
-}
-
-.typify-is-dragging .typify-manager-item * {
-    pointer-events: none;
-}
-
 .typify-manager-delete-btn {
     color: var(--text-muted);
     transition: color 0.15s ease;
@@ -275,26 +253,52 @@
 }
 
 /* --------------------------------------------------------------------------
-   Reorder Buttons
+   Sort Chips
    -------------------------------------------------------------------------- */
 
-.typify-manager-reorder-btns {
+.typify-sort-chips {
     display: flex;
-    flex-direction: column;
-    gap: 0;
-    flex-shrink: 0;
+    flex-wrap: wrap;
+    gap: var(--size-4-2);
+    margin-bottom: var(--size-4-3);
 }
 
-.typify-manager-reorder-btn {
-    padding: 2px;
-    --icon-size: 14px;
-    color: var(--text-muted);
+.typify-sort-chip {
     cursor: pointer;
+    user-select: none;
+    transition: all 0.15s ease;
+    opacity: 0.7;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 
-.typify-manager-reorder-btn:hover {
-    color: var(--text-normal);
+.typify-sort-chip svg {
+    width: 14px;
+    height: 14px;
 }
+
+.typify-sort-chip:hover {
+    opacity: 1;
+}
+
+.typify-sort-chip.is-active {
+    opacity: 1;
+    background-color: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border-color: var(--interactive-accent);
+}
+
+.typify-sort-toggle {
+    opacity: 0.5;
+    border-style: dashed;
+    font-weight: 500;
+}
+
+.typify-sort-toggle:hover {
+    opacity: 0.8;
+}
+
 
 /* --------------------------------------------------------------------------
    Batch Create Hint
@@ -337,6 +341,7 @@
     background-color: var(--code-background);
     vertical-align: baseline;
     -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
     border-radius: 3px;
     padding: 1px 4px;
 }
