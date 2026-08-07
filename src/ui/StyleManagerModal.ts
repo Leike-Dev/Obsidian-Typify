@@ -14,10 +14,9 @@ export class StyleManagerModal extends Modal {
     private countEl: HTMLElement | null = null;
     private batchHintEl: HTMLElement | null = null;
     private sortChipsContainerEl: HTMLElement | null = null;
-    private isSortExpanded = false;
 
     private selectedScope = '__show_all__';
-    private sortMode: 'recent' | 'az' | 'za' | 'color' = 'recent';
+    private sortMode: 'recent' | 'az' | 'za' = 'recent';
     private activeFilter: string | null = null;
     private expandedFilterCategory: string | null = null;
 
@@ -121,6 +120,40 @@ export class StyleManagerModal extends Modal {
         if (!this.sortChipsContainerEl) return;
         this.sortChipsContainerEl.empty();
 
+        this.sortChipsContainerEl.createSpan({
+            text: t('manage_styles_sort_label'),
+            cls: 'typify-sort-group-label'
+        });
+
+        type SortModeId = 'recent' | 'az' | 'za';
+        const sortOptions: { id: SortModeId, label: string }[] = [
+            { id: 'recent', label: t('sort_recent') },
+            { id: 'az', label: 'A → Z' },
+            { id: 'za', label: 'Z → A' }
+        ];
+
+        for (const opt of sortOptions) {
+            const chip = this.sortChipsContainerEl.createSpan({
+                text: opt.label,
+                cls: `typify-notice-tag typify-sort-chip${this.sortMode === opt.id ? ' is-active' : ''}`
+            });
+            chip.addEventListener('click', () => {
+                this.sortMode = opt.id;
+                this.renderSortChips();
+                this.refreshList();
+            });
+        }
+
+        this.sortChipsContainerEl.createSpan({
+            text: '|',
+            cls: 'typify-sort-separator'
+        });
+
+        this.sortChipsContainerEl.createSpan({
+            text: t('manage_styles_filter_label'),
+            cls: 'typify-sort-group-label'
+        });
+
         if (this.expandedFilterCategory) {
             const backChip = this.sortChipsContainerEl.createSpan({ cls: 'typify-notice-tag typify-sort-chip typify-sort-toggle' });
             setIcon(backChip.createSpan(), 'chevron-left');
@@ -169,46 +202,15 @@ export class StyleManagerModal extends Modal {
                     this.refreshList();
                 });
             }
-            return;
-        }
+        } else {
+            const filterCategories = [
+                { id: 'shape', label: t('shape_title') },
+                { id: 'icon', label: t('sort_icon') },
+                { id: 'colormode', label: t('sort_colormode') },
+                { id: 'hasurl', label: t('sort_link') }
+            ];
 
-        type SortModeId = 'recent' | 'az' | 'za' | 'color';
-        const sortOptions: { id: SortModeId, label: string }[] = [
-            { id: 'recent', label: t('sort_recent') },
-            { id: 'az', label: 'A → Z' },
-            { id: 'za', label: 'Z → A' },
-            { id: 'color', label: t('sort_color') }
-        ];
-
-        const primaryIds = ['recent', 'az', 'color'];
-
-        const visibleSorts = this.isSortExpanded
-            ? sortOptions
-            : sortOptions.filter(o => primaryIds.includes(o.id) || o.id === this.sortMode);
-
-        for (const opt of visibleSorts) {
-            const chip = this.sortChipsContainerEl.createSpan({
-                text: opt.label,
-                cls: `typify-notice-tag typify-sort-chip${this.sortMode === opt.id ? ' is-active' : ''}`
-            });
-            chip.addEventListener('click', () => {
-                this.sortMode = opt.id;
-                this.renderSortChips();
-                this.refreshList();
-            });
-        }
-
-        const filterCategories = [
-            { id: 'shape', label: t('shape_title') },
-            { id: 'icon', label: t('sort_icon') },
-            { id: 'colormode', label: t('sort_colormode') },
-            { id: 'hasurl', label: t('sort_link') }
-        ];
-
-        if (this.isSortExpanded || this.activeFilter) {
             for (const cat of filterCategories) {
-                if (!this.isSortExpanded && this.activeFilter && !this.activeFilter.startsWith(cat.id + ':')) continue;
-
                 const isActiveCat = this.activeFilter?.startsWith(cat.id + ':');
                 const chip = this.sortChipsContainerEl.createSpan({
                     cls: `typify-notice-tag typify-sort-chip${isActiveCat ? ' is-active' : ''}`
@@ -234,15 +236,6 @@ export class StyleManagerModal extends Modal {
                 }
             }
         }
-
-        const toggleChip = this.sortChipsContainerEl.createSpan({
-            text: this.isSortExpanded ? t('sort_less') : t('sort_more'),
-            cls: 'typify-notice-tag typify-sort-chip typify-sort-toggle'
-        });
-        toggleChip.addEventListener('click', () => {
-            this.isSortExpanded = !this.isSortExpanded;
-            this.renderSortChips();
-        });
     }
 
     private getActiveFilterLabel(): string {
@@ -305,8 +298,6 @@ export class StyleManagerModal extends Modal {
             filtered = filtered.sort((a, b) => a.name.localeCompare(b.name));
         } else if (this.sortMode === 'za') {
             filtered = filtered.sort((a, b) => b.name.localeCompare(a.name));
-        } else if (this.sortMode === 'color') {
-            filtered = filtered.sort((a, b) => a.baseColor.localeCompare(b.baseColor));
         }
 
         this.countEl.setText(

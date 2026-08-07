@@ -80,6 +80,53 @@
 }
 
 /* --------------------------------------------------------------------------
+   Sort Chips Area
+   -------------------------------------------------------------------------- */
+
+.typify-sort-chips {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 6px;
+    margin-bottom: var(--size-4-3);
+    padding-bottom: 4px; /* for scrollbar space */
+}
+
+.typify-sort-chips::-webkit-scrollbar {
+    height: 4px;
+}
+
+.typify-sort-chips::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.typify-sort-chips::-webkit-scrollbar-thumb {
+    background: var(--background-modifier-border);
+    border-radius: 4px;
+}
+
+.typify-sort-group-label {
+    font-size: var(--font-ui-smaller);
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding-right: 2px;
+    white-space: nowrap;
+}
+
+.typify-sort-separator {
+    color: var(--background-modifier-border);
+    margin: 0 4px;
+    font-weight: 300;
+}
+
+.typify-sort-chips > span {
+    flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
    Scrollable List
    -------------------------------------------------------------------------- */
 
