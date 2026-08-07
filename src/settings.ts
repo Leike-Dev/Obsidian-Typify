@@ -382,6 +382,13 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
 
     private getAllPropertyNames(): string[] {
         const properties = new Set<string>();
+        
+        // Get currently added properties to filter them out
+        const addedProps = this.plugin.settings.targetProperty
+            .split(',')
+            .map(p => p.trim().toLowerCase())
+            .filter(p => p.length > 0);
+
         const files = this.app.vault.getMarkdownFiles();
         for (const file of files) {
             const cache = this.app.metadataCache.getFileCache(file);
@@ -390,7 +397,9 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
             for (const key of Object.keys(frontmatter)) {
                 if (key === 'position') continue;
                 if (Array.isArray(frontmatter[key])) {
-                    properties.add(key);
+                    if (!addedProps.includes(key.toLowerCase())) {
+                        properties.add(key);
+                    }
                 }
             }
         }
