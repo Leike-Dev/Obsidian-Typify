@@ -98,6 +98,7 @@ export const ptBR = {
     'manage_styles_empty': 'Nenhum estilo criado ainda.',
     'manage_styles_no_results': 'Nenhum estilo corresponde à busca.',
     'sort_recent': 'Recente',
+    'sort_alpha': 'Alfabética',
     'sort_shape': 'Formato',
     'sort_icon': 'Ícone',
     'sort_hasicon': 'Com Ícone',

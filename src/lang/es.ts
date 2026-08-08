@@ -98,6 +98,7 @@ export const es = {
     'manage_styles_empty': 'No se han creado estilos aún.',
     'manage_styles_no_results': 'Ningún estilo coincide con la búsqueda.',
     'sort_recent': 'Reciente',
+    'sort_alpha': 'Alfabético',
     'sort_shape': 'Forma',
     'sort_icon': 'Icono',
     'sort_hasicon': 'Con Icono',

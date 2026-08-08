@@ -90,7 +90,8 @@
     overflow-x: auto;
     gap: 6px;
     margin-bottom: var(--size-4-3);
-    padding-bottom: 4px; /* for scrollbar space */
+    padding-bottom: 4px;
+    /* for scrollbar space */
 }
 
 .typify-sort-chips::-webkit-scrollbar {
@@ -122,7 +123,7 @@
     font-weight: 300;
 }
 
-.typify-sort-chips > span {
+.typify-sort-chips>span {
     flex-shrink: 0;
 }
 

@@ -98,6 +98,7 @@ export const zhCN = {
     'manage_styles_empty': '尚未创建任何样式。',
     'manage_styles_no_results': '没有匹配的样式。',
     'sort_recent': '最近',
+    'sort_alpha': '字母顺序',
     'sort_shape': '形状',
     'sort_icon': '图标',
     'sort_hasicon': '有图标',
