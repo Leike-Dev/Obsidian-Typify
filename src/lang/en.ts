@@ -240,6 +240,7 @@ export const en = {
     'favicon_fetch_success': 'Favicon for {domain} downloaded successfully!',
 
     // Changelog
+    'changelog_tab_all': 'All',
     'changelog_title': 'Changelog',
     'changelog_desc': 'See what the latest update brought.',
     'changelog_button': 'View changelog',

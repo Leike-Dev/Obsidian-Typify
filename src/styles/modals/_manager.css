@@ -86,25 +86,10 @@
 .typify-sort-chips {
     display: flex;
     align-items: center;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    flex-wrap: wrap;
     gap: 6px;
     margin-bottom: var(--size-4-3);
     padding-bottom: 4px;
-    /* for scrollbar space */
-}
-
-.typify-sort-chips::-webkit-scrollbar {
-    height: 4px;
-}
-
-.typify-sort-chips::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.typify-sort-chips::-webkit-scrollbar-thumb {
-    background: var(--background-modifier-border);
-    border-radius: 4px;
 }
 
 .typify-sort-group-label {
@@ -132,7 +117,7 @@
    -------------------------------------------------------------------------- */
 
 .typify-manager-list {
-    max-height: 400px;
+    height: 400px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -300,17 +285,6 @@
     padding: var(--size-4-8) var(--size-4-4);
 }
 
-/* --------------------------------------------------------------------------
-   Sort Chips
-   -------------------------------------------------------------------------- */
-
-.typify-sort-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-4-2);
-    margin-bottom: var(--size-4-3);
-}
-
 .typify-sort-chip {
     cursor: pointer;
     user-select: none;
@@ -335,6 +309,11 @@
     background-color: var(--interactive-accent);
     color: var(--text-on-accent);
     border-color: var(--interactive-accent);
+}
+
+.typify-sort-chip.is-active .typify-tag-count {
+    background-color: var(--text-on-accent);
+    color: var(--interactive-accent);
 }
 
 .typify-sort-toggle {

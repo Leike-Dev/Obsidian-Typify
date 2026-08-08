@@ -240,6 +240,7 @@ export const zhCN = {
     'favicon_fetch_success': '{domain} 的图标下载成功！',
 
     // 更新日志
+    'changelog_tab_all': '全部',
     'changelog_title': '更新日志',
     'changelog_desc': '查看最新更新带来的新内容。',
     'changelog_button': '查看更新日志',

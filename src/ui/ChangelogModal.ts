@@ -121,6 +121,9 @@ function renderInlineCode(container: HTMLElement, text: string): void {
 export class ChangelogModal extends Modal {
 	private manifest: PluginManifest;
 	private onCloseCallback?: () => void;
+	private activeTab: "ALL" | EntryTag = "ALL";
+	private sortChipsContainerEl: HTMLElement | null = null;
+	private listContainerEl: HTMLElement | null = null;
 
 	constructor(app: App, manifest: PluginManifest, onCloseCallback?: () => void) {
 		super(app);
@@ -161,36 +164,12 @@ export class ChangelogModal extends Modal {
 
 		// Body (Scrollable)
 		const body = contentEl.createDiv({ cls: "typify-modal-body" });
+		
+		this.sortChipsContainerEl = body.createDiv({ cls: "typify-sort-chips typify-changelog-tabs" });
+		this.listContainerEl = body.createDiv({ cls: "typify-manager-list typify-changelog-list" });
 
-		for (const group of TAG_GROUPS) {
-			const groupEntries = latest.entries.filter((e) =>
-				group.tags.includes(e.tag)
-			);
-			if (!groupEntries.length) continue;
-
-			const box = body.createDiv({ cls: `typify-notice-box ${group.boxClass}` });
-
-			// Group title
-			const boxTitle = box.createDiv({ cls: "typify-box-title" });
-			boxTitle.style.color = group.titleColor;
-
-			const iconSpan = boxTitle.createSpan({ cls: "typify-box-icon" });
-			setIcon(iconSpan, group.icon);
-
-			boxTitle.createSpan({
-				text: t(group.labelKey),
-				cls: "typify-box-title-text",
-			});
-
-			// Entries
-			const list = box.createDiv({ cls: "typify-entry-list typify-manager-list" });
-			for (const entry of groupEntries) {
-				const row = list.createDiv({ cls: "typify-entry-row" });
-
-				const textEl = row.createSpan({ cls: "typify-entry-text" });
-				renderInlineCode(textEl, entry.text);
-			}
-		}
+		this.renderTabs(latest);
+		this.renderList(latest);
 
 		// Footer
 		const foot = contentEl.createDiv({ cls: "typify-modal-foot" });
@@ -233,5 +212,71 @@ export class ChangelogModal extends Modal {
 			text: t('cancel_button'),
 		});
 		closeBtn.addEventListener("click", () => this.close());
+	}
+
+	private renderTabs(latest: ChangelogVersion): void {
+		if (!this.sortChipsContainerEl) return;
+		this.sortChipsContainerEl.empty();
+
+		const allCount = latest.entries.length;
+		const allChip = this.sortChipsContainerEl.createSpan({
+			cls: `typify-notice-tag typify-sort-chip${this.activeTab === "ALL" ? ' is-active' : ''}`
+		});
+		allChip.createSpan({ text: t('changelog_tab_all') });
+		allChip.createSpan({ text: allCount.toString(), cls: 'typify-tag-count' });
+		
+		allChip.addEventListener('click', () => {
+			this.activeTab = "ALL";
+			this.renderTabs(latest);
+			this.renderList(latest);
+		});
+
+		for (const group of TAG_GROUPS) {
+			const groupEntries = latest.entries.filter((e) => group.tags.includes(e.tag));
+			if (!groupEntries.length) continue;
+
+			const chip = this.sortChipsContainerEl.createSpan({
+				cls: `typify-notice-tag typify-sort-chip${this.activeTab === group.tags[0] ? ' is-active' : ''}`
+			});
+			setIcon(chip.createSpan({ cls: 'typify-sort-chip-icon' }), group.icon);
+			chip.createSpan({ text: t(group.labelKey) });
+			chip.createSpan({ text: groupEntries.length.toString(), cls: 'typify-tag-count' });
+			
+			chip.addEventListener('click', () => {
+				this.activeTab = group.tags[0]!;
+				this.renderTabs(latest);
+				this.renderList(latest);
+			});
+		}
+	}
+
+	private renderList(latest: ChangelogVersion): void {
+		if (!this.listContainerEl) return;
+		this.listContainerEl.empty();
+
+		let entriesToRender = latest.entries;
+		if (this.activeTab !== "ALL") {
+			const activeGroup = TAG_GROUPS.find(g => g.tags[0] === this.activeTab);
+			if (activeGroup) {
+				entriesToRender = latest.entries.filter(e => activeGroup.tags.includes(e.tag));
+			}
+		}
+
+		for (const entry of entriesToRender) {
+			const group = TAG_GROUPS.find(g => g.tags.includes(entry.tag));
+			const iconName = group ? group.icon : 'info';
+			
+			const item = this.listContainerEl.createDiv({ cls: 'typify-manager-item typify-changelog-item' });
+			
+			const iconContainer = item.createDiv({ cls: 'typify-manager-item-info' });
+			const iconEl = iconContainer.createSpan({ cls: 'typify-box-icon' });
+			if (group) {
+				iconEl.style.color = group.titleColor;
+			}
+			setIcon(iconEl, iconName);
+			
+			const textEl = iconContainer.createSpan({ cls: 'typify-entry-text' });
+			renderInlineCode(textEl, entry.text);
+		}
 	}
 }

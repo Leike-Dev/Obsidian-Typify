@@ -241,6 +241,7 @@ export const es = {
     'favicon_fetch_success': '¡Favicon de {domain} descargado con éxito!',
 
     // Registro de cambios
+    'changelog_tab_all': 'Todo',
     'changelog_title': 'Registro de cambios',
     'changelog_desc': 'Mira lo que trajo la última actualización.',
     'changelog_button': 'Ver novedades',

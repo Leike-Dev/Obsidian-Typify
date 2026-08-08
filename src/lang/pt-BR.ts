@@ -241,6 +241,7 @@ export const ptBR = {
     'favicon_fetch_success': 'Favicon de {domain} baixado com sucesso!',
 
     // Quadro de novidades
+    'changelog_tab_all': 'Tudo',
     'changelog_title': 'Quadro de novidades',
     'changelog_desc': 'Veja o que a última atualização trouxe de novo.',
     'changelog_button': 'Ver novidades',

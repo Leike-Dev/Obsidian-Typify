@@ -51,60 +51,32 @@
 }
 
 /* --------------------------------------------------------------------------
-   Notice Boxes
+   Entries List & Items
    -------------------------------------------------------------------------- */
 
-.typify-notice-box {
-    border-radius: 6px;
-    padding: 11px 14px;
-    border: 1px solid;
+.typify-changelog-tabs {
+    margin-bottom: var(--size-4-4);
 }
 
-.typify-box-warn {
-    background: var(--typify-warn-bg);
-    border-color: var(--typify-warn-bd);
+.typify-changelog-list {
+    height: 400px;
+    overflow-y: auto;
+    padding: 0 4px;
 }
 
-.typify-box-info {
-    background: var(--typify-info-bg);
-    border-color: var(--typify-info-bd);
+.typify-changelog-item {
+    background: transparent;
+    border: none;
+    padding: var(--size-4-1) 0;
 }
 
-.typify-box-ok {
-    background: var(--typify-ok-bg);
-    border-color: var(--typify-ok-bd);
+.typify-changelog-item:hover {
+    background: transparent;
+    border-color: transparent;
 }
 
-.typify-box-brk {
-    background: var(--typify-brk-bg);
-    border-color: var(--typify-brk-bd);
-}
-
-/* Box Inner Title */
-.typify-box-title {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--font-interface);
-    font-size: var(--font-ui-small, 13px);
-    font-weight: 500;
-    margin-bottom: 8px;
-}
-
-.typify-box-ok .typify-box-title {
-    color: var(--typify-ok);
-}
-
-.typify-box-info .typify-box-title {
-    color: var(--typify-info);
-}
-
-.typify-box-warn .typify-box-title {
-    color: var(--typify-warn);
-}
-
-.typify-box-brk .typify-box-title {
-    color: var(--typify-brk);
+.typify-changelog-item .typify-manager-item-info {
+    align-items: flex-start;
 }
 
 .typify-box-icon {
@@ -119,36 +91,16 @@
     stroke-width: 2.2px;
 }
 
-/* --------------------------------------------------------------------------
-   Entries
-   -------------------------------------------------------------------------- */
-
-.typify-entry-list {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+.typify-changelog-item .typify-box-icon {
+    margin-top: 2.5px;
+    flex-shrink: 0;
 }
 
-.typify-notice-box .typify-manager-list {
-    max-height: 90px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    margin-top: 8px;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 6px, black calc(100% - 6px), transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0, black 6px, black calc(100% - 6px), transparent 100%);
-}
-
-.typify-entry-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    font-family: var(--font-interface);
+.typify-changelog-item .typify-entry-text {
+    flex: 1;
     font-size: var(--font-ui-small, 13px);
     line-height: 1.55;
-}
-
-.typify-entry-text {
-    flex: 1;
+    color: var(--text-normal);
 }
 
 /* --------------------------------------------------------------------------

@@ -240,6 +240,7 @@ export const fr = {
     'favicon_fetch_success': 'Favicon de {domain} téléchargé avec succès !',
 
     // Journal des modifications
+    'changelog_tab_all': 'Tout',
     'changelog_title': 'Journal des modifications',
     'changelog_desc': 'Découvrez les nouveautés de la dernière mise à jour.',
     'changelog_button': 'Voir les nouveautés',
