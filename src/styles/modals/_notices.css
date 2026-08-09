@@ -66,17 +66,6 @@
     user-select: none;
 }
 
-.typify-notice-tag:hover {
-    background-color: var(--background-modifier-hover);
-    color: var(--text-normal);
-}
-
-.typify-notice-tag.is-active {
-    background-color: color-mix(in srgb, var(--interactive-accent) 15%, transparent);
-    border-color: color-mix(in srgb, var(--interactive-accent) 50%, transparent);
-    color: var(--interactive-accent);
-}
-
 .typify-tag-label {
     font-weight: 600;
 }
@@ -90,14 +79,8 @@
     font-weight: 600;
 }
 
-.typify-notice-tag.is-active .typify-tag-count {
-    background-color: var(--interactive-accent);
-    color: var(--text-on-accent);
-}
-
-
 .typify-notices-list {
-    max-height: 400px;
+    height: 400px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -115,34 +98,20 @@
 }
 
 .typify-notice-item {
-    display: flex;
-    flex-direction: row;
+    background: transparent;
+    border: none;
+    padding: var(--size-4-1) 0;
+}
+
+.typify-notice-item .typify-manager-item-info {
     align-items: flex-start;
-    gap: 12px;
-    padding: 14px 16px;
-    border-radius: var(--radius-m, 8px);
-}
-
-.typify-notice-item.is-warning {
-    background-color: color-mix(in srgb, var(--text-warning) 8%, transparent);
-    border: 1px solid color-mix(in srgb, var(--text-warning) 30%, transparent);
-}
-
-.typify-notice-item.is-info {
-    background-color: color-mix(in srgb, var(--color-blue) 8%, transparent);
-    border: 1px solid color-mix(in srgb, var(--color-blue) 30%, transparent);
-}
-
-.typify-notice-item.is-system {
-    background-color: color-mix(in srgb, var(--color-green) 8%, transparent);
-    border: 1px solid color-mix(in srgb, var(--color-green) 30%, transparent);
 }
 
 .typify-notice-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 3px;
+    margin-top: 2px;
 }
 
 .typify-notice-icon svg {

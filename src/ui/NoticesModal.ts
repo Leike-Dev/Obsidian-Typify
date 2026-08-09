@@ -21,7 +21,7 @@ export class NoticesModal extends Modal {
 
         const notices = this.getActiveNotices();
 
-        const tagsContainer = contentEl.createDiv({ cls: 'typify-notices-tags' });
+        const tagsContainer = contentEl.createDiv({ cls: 'typify-sort-chips typify-notices-tags' });
         const listContainer = contentEl.createDiv({ cls: 'typify-notices-list' });
 
         const renderList = () => {
@@ -34,12 +34,14 @@ export class NoticesModal extends Modal {
                 listContainer.createEl('p', { text: t('notices_empty'), cls: 'typify-no-notices' });
             } else {
                 for (const notice of filteredNotices) {
-                    const itemEl = listContainer.createDiv({ cls: `typify-notice-item is-${notice.type}` });
+                    const itemEl = listContainer.createDiv({ cls: `typify-manager-item typify-notice-item is-${notice.type}` });
 
-                    const iconEl = itemEl.createDiv({ cls: `typify-notice-icon typify-notice-${notice.type}` });
+                    const infoEl = itemEl.createDiv({ cls: 'typify-manager-item-info' });
+
+                    const iconEl = infoEl.createDiv({ cls: `typify-box-icon typify-notice-icon typify-notice-${notice.type}` });
                     setIcon(iconEl, notice.icon);
 
-                    const textContainer = itemEl.createDiv({ cls: 'typify-notice-text' });
+                    const textContainer = infoEl.createDiv({ cls: 'typify-manager-item-text typify-notice-text' });
                     const titleEl = textContainer.createDiv({ text: notice.title, cls: 'typify-notice-item-title' });
                     titleEl.addClass(`typify-notice-${notice.type}`);
                     textContainer.createDiv({ text: notice.desc, cls: 'typify-notice-item-desc' });
@@ -56,7 +58,7 @@ export class NoticesModal extends Modal {
             });
 
             const createTag = (id: string, label: string, count: number) => {
-                const tagEl = tagsContainer.createDiv({ cls: `typify-notice-tag ${this.currentFilter === id ? 'is-active' : ''}` });
+                const tagEl = tagsContainer.createDiv({ cls: `typify-notice-tag typify-sort-chip ${this.currentFilter === id ? 'is-active' : ''}` });
                 tagEl.createSpan({ text: label, cls: 'typify-tag-label' });
                 tagEl.createSpan({ text: count.toString(), cls: 'typify-tag-count' });
                 tagEl.onClickEvent(() => {
