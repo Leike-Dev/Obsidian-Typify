@@ -172,7 +172,7 @@ export class StyleManagerModal extends Modal {
                 cls: `typify-notice-tag typify-sort-chip${isAlphaActive ? ' is-active' : ''}`
             });
             alphaChip.createSpan({ text: isAlphaActive ? (this.sortMode === 'az' ? 'A → Z' : 'Z → A') : t('sort_alpha') });
-            setIcon(alphaChip.createSpan({ cls: 'typify-sort-chip-icon' }), 'chevron-down');
+            setIcon(alphaChip.createSpan({ cls: 'typify-sort-chip-icon' }), 'corner-down-right');
 
             alphaChip.addEventListener('click', () => {
                 this.expandedSortAlpha = true;
@@ -260,7 +260,7 @@ export class StyleManagerModal extends Modal {
                     cls: `typify-notice-tag typify-sort-chip${isActiveCat ? ' is-active' : ''}`
                 });
                 chip.createSpan({ text: isActiveCat ? this.getActiveFilterLabel(activeOptId) : cat.label });
-                setIcon(chip.createSpan({ cls: 'typify-sort-chip-icon' }), 'chevron-down');
+                setIcon(chip.createSpan({ cls: 'typify-sort-chip-icon' }), 'corner-down-right');
 
                 chip.addEventListener('click', () => {
                     this.expandedFilterCategory = cat.id;
