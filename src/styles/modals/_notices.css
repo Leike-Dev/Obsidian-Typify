@@ -66,10 +66,6 @@
     user-select: none;
 }
 
-.typify-tag-label {
-    font-weight: 600;
-}
-
 .typify-tag-count {
     background-color: var(--background-modifier-border-hover);
     color: var(--text-muted);

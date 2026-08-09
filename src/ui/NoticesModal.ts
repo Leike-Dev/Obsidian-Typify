@@ -59,7 +59,7 @@ export class NoticesModal extends Modal {
 
             const createTag = (id: string, label: string, count: number) => {
                 const tagEl = tagsContainer.createDiv({ cls: `typify-notice-tag typify-sort-chip ${this.currentFilter === id ? 'is-active' : ''}` });
-                tagEl.createSpan({ text: label, cls: 'typify-tag-label' });
+                tagEl.createSpan({ text: label });
                 tagEl.createSpan({ text: count.toString(), cls: 'typify-tag-count' });
                 tagEl.onClickEvent(() => {
                     this.currentFilter = id;
