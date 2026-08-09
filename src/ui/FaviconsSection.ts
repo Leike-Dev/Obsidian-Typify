@@ -48,11 +48,14 @@ export class FaviconsSection {
             card.setAttribute('tabindex', '0');
             card.setAttribute('aria-label', opt.label);
 
-            const selectCard = async () => {
+            const selectCard = () => {
+                if (this.plugin.settings.faviconProvider === opt.key) return;
+                
                 cardGrid.findAll('.typify-fmt-card').forEach(c => c.removeClass('is-selected'));
                 card.addClass('is-selected');
                 this.plugin.settings.faviconProvider = opt.key;
-                await this.plugin.saveData(this.plugin.settings);
+                
+                void this.plugin.saveData(this.plugin.settings);
             };
 
             card.addEventListener('click', () => void selectCard());
