@@ -47,7 +47,7 @@
     font-size: var(--font-ui-small, 13px);
     color: var(--text-muted);
     margin-top: 0;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 /* --------------------------------------------------------------------------
@@ -55,12 +55,10 @@
    -------------------------------------------------------------------------- */
 
 .typify-changelog-tabs {
-    margin-bottom: var(--size-4-4);
+    margin-bottom: 4px;
 }
 
 .typify-changelog-list {
-    height: 400px;
-    overflow-y: auto;
     padding: 0 4px;
 }
 
