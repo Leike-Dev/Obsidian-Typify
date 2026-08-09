@@ -1,5 +1,4 @@
 
-
 <div align="center">
   <img src="./assets/images/banner_1.jpg"/>
   
@@ -76,6 +75,7 @@ Si el nombre de tu estilo es "Google Traductor" y el valor asociado en *Valor Co
 ## Instalación
 
 ### Instalación Manual
+
 1. Descarga la última versión: `main.js`, `manifest.json` y `styles.css`.
 
 2. Crea una carpeta llamada `typify` dentro del directorio `.obsidian/plugins/`.
@@ -97,17 +97,11 @@ Si el nombre de tu estilo es "Google Traductor" y el valor asociado en *Valor Co
 Aquí tienes algunas de las características y mejoras planeadas para futuras actualizaciones:
 
 - **🎨 Píldoras Simples**: Estilos minimalistas y sin color. Se pueden configurar o aplicar automáticamente a valores no definidos en propiedades estilizadas.
-
 - **🪤 Diagnóstico de Errores**: Un panel para diagnosticar problemas del plugin y generar un informe para facilitar la resolución de problemas.
-
 - **🏳️‍🌈 Múltiples Colores**: Nuevo panel para tener y administrar múltiples tarjetas de colores.
-
-- **🔮 Padding de la Píldora**: Ajusta el tamaño y la longitud de las píldoras, así como el tamaño de la fuente y del ícono.
-
-- **🎲 Etiquetas Numéricas**: Expansión del estilo Typify al tipo número, permitiendo la creación de estilos personalizados para etiquetas numéricas.
-
-- **📊 Píldoras de Referencia**: Mostrar la cantidad total de referencias que tiene esa información en tu bóveda en lugar de mostrar un ícono (ej: una etiqueta de autor que muestre "X" referencias).
-
+- **🎲 Etiquetas Numéricas**: Expansión del estilo Typify al tipo número, permitiendo la creación de estilos personalizados para etiquetas numéricas. *(Evaluando)*
+- ~~**🔮 Padding de la Píldora**: Ajusta el tamaño y la longitud de las píldoras, así como el tamaño de la fuente y del ícono.~~ *(Congelado)*
+- ~~**📊 Píldoras de Referencia**: Mostrar la cantidad total de referencias que tiene esa información en tu bóveda en lugar de mostrar un ícono (ej: una etiqueta de autor que muestre "X" referencias).~~ *(Congelado)*
 - ~~**🔗 Simplificación de Enlaces**: Limpiar y acortar automáticamente URLs externas que se muestran en píldoras (ej. `www.google.com` simplificado a `google.com`).~~ --> ¡Implementado de otra manera! :D
 - ~~**🌐 Iconos de Favicon**: Opción para buscar y mostrar automáticamente el favicon de un sitio web para enlaces externos que no tengan un icono personalizado configurado.~~ --> ¡Implementado! :D
 - ~~**🗂️ Nueva Interfaz de Gestión**: Reemplazar la larga lista de estilos por un diseño basado en pestañas (tabs) similar al utilizado en el modal de búsqueda de iconos, con soporte para desplazamiento horizontal.~~ --> ¡Implementado! :D
@@ -120,7 +114,6 @@ Si quieres compilar el plugin tú mismo, haz lo siguiente:
 1. Clona este repositorio.
 2. Ejecuta `npm install`.
 3. Ejecuta `npm run dev` para iniciar la compilación en modo watch.
-
 
 ## Aviso Legal
 

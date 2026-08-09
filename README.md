@@ -1,5 +1,4 @@
 
-
 <div align="center">
   <img src="./docs/assets/images/banner_1.jpg"/>
   
@@ -76,6 +75,7 @@ If your style name is "Google Translate" and the matched value in *Match Value* 
 ## Installation
 
 ### Manual Installation
+
 1. Download the latest release: `main.js`, `manifest.json`, and `styles.css`.
 
 2. Create a folder called `typify` inside your `.obsidian/plugins/` directory.
@@ -97,17 +97,11 @@ If your style name is "Google Translate" and the matched value in *Match Value* 
 Here are some of the features and improvements planned for future updates:
 
 - **🎨 Simple Pills**: Minimalist and colorless styles. Can be configured or automatically applied to undefined values in styled properties.
-
 - **🪤 Error Diagnostics**: A panel to diagnose plugin issues and generate a report to facilitate troubleshooting.
-
 - **🏳️‍🌈 Multiple Colors**: New panel to have and manage multiple color cards.
-
-- **🔮 Pill Padding**: Adjust the size and length of the pills, as well as the font and icon size.
-
-- **🎲 Numeric Tags**: Expansion of Typify style to the number type, allowing the creation of custom styles for number tags.
-
-- **📊 Reference Pills**: Display the total amount of references that information has in your vault instead of showing an icon (e.g., an author tag showing "X" references).
-
+- **🎲 Numeric Tags**: Expansion of Typify style to the number type, allowing the creation of custom styles for number tags. *(Evaluating)*
+- ~~**🔮 Pill Padding**: Adjust the size and length of the pills, as well as the font and icon size.~~ *(Frozen)*
+- ~~**📊 Reference Pills**: Display the total amount of references that information has in your vault instead of showing an icon (e.g., an author tag showing "X" references).~~ *(Frozen)*
 - ~~**🔗 Link Simplification**: Automatically clean and shorten external URLs displayed in pills (e.g., `www.google.com` simplified to `google.com`).~~ --> Implemented differently! :D
 - ~~**🌐 Favicon Support**: Automatically fetch and display website favicons for external links that do not have a custom icon configured.~~ --> Implemented! :D
 - ~~**🗂️ Tabbed Management UI**: Overhaul the settings panel to replace the long list of styles with a tab-based organization system (matching the icon search layout), complete with horizontal scrolling.~~ --> Implemented! :D
@@ -120,7 +114,6 @@ If you want to build the plugin yourself, do the following:
 1. Clone this repository.
 2. Run `npm install`.
 3. Run `npm run dev` to start compilation in watch mode.
-
 
 ## Disclaimer
 

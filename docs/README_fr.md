@@ -1,5 +1,4 @@
 
-
 <div align="center">
   <img src="./assets/images/banner_1.jpg"/>
   
@@ -76,6 +75,7 @@ Si le nom de votre style est "Google Traduction" et la valeur correspondante dan
 ## Installation
 
 ### Installation manuelle
+
 1. Téléchargez la dernière version : `main.js`, `manifest.json` et `styles.css`.
 
 2. Créez un dossier `typify` dans le répertoire `.obsidian/plugins/`.
@@ -97,17 +97,11 @@ Si le nom de votre style est "Google Traduction" et la valeur correspondante dan
 Voici quelques-unes des fonctionnalités et améliorations prévues pour les futures mises à jour :
 
 - **🎨 Pilules Simples** : Styles minimalistes et sans couleur. Peuvent être configurés ou appliqués automatiquement aux valeurs non définies dans les propriétés stylisées.
-
 - **🪤 Diagnostic d'Erreurs** : Un panneau pour diagnostiquer les problèmes du plugin et générer un rapport pour faciliter le dépannage.
-
 - **🏳️‍🌈 Couleurs Multiples** : Nouveau panneau pour avoir et gérer plusieurs cartes de couleurs.
-
-- **🔮 Rembourrage de la Pilule** : Ajustez la taille et la longueur des pilules, ainsi que la taille de la police et de l'icône.
-
-- **🎲 Balises Numériques** : Expansion du style Typify au type nombre, permettant la création de styles personnalisés pour les balises de nombre.
-
-- **📊 Pilules de Référence** : Afficher la quantité totale de références de cette information dans votre coffre au lieu de montrer une icône (ex. : une balise d'auteur affichant "X" références).
-
+- **🎲 Balises Numériques** : Expansion du style Typify au type nombre, permettant la création de styles personnalisés pour les balises de nombre. *(En évaluation)*
+- ~~**🔮 Rembourrage de la Pilule** : Ajustez la taille et la longueur des pilules, ainsi que la taille de la police et de l'icône.~~ *(Gelé)*
+- ~~**📊 Pilules de Référence** : Afficher la quantité totale de références de cette information dans votre coffre au lieu de montrer une icône (ex. : une balise d'auteur affichant "X" références).~~ *(Gelé)*
 - ~~**🔗 Simplification des Liens** : Nettoyer et raccourcir automatiquement les URL externes affichées dans les pilules (ex. : `www.google.com` simplifié en `google.com`).~~ --> Implémenté différemment ! :D
 - ~~**🌐 Prise en charge des Favicons** : Option pour récupérer et afficher automatiquement le favicon du site pour les liens externes sans icône personnalisée configurée.~~ --> Implémenté ! :D
 - ~~**🗂️ Nouvelle Interface de Gestion** : Remplacer la longue liste de styles par une disposition par onglets (tabs) similaire à celle du modal de recherche d'icônes, avec prise en charge du défilement horizontal.~~ --> Implémenté ! :D
@@ -120,7 +114,6 @@ Si vous souhaitez compiler le plugin vous-même, procédez comme suit :
 1. Clonez ce dépôt.
 2. Exécutez `npm install`.
 3. Exécutez `npm run dev` pour démarrer la compilation en mode watch.
-
 
 ## Avertissement
 

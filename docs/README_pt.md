@@ -1,5 +1,4 @@
 
-
 <div align="center">
   <img src="./assets/images/banner_1.jpg"/>
   
@@ -20,7 +19,7 @@ Transforme a visualização dos seus metadados entediantes em uma visualização
 
 Typify é um plugin para o Obsidian que permite que você crie estilos únicos para seus metadados. O que antes era limitado apenas às tags, agora pode ser personalizado para qualquer propriedade do Obsidian.
 
-## Recursos 
+## Recursos
 
 - **🎨 Estilos customizáveis**: Crie estilos únicos para seus metadados.
 
@@ -76,6 +75,7 @@ Se o nome do estilo for, por exemplo, "Google Tradutor" e o valor configurado no
 ## Instalação
 
 ### Instalação Manual
+
 1. Baixe a última release: `main.js`, `manifest.json` e `styles.css`.
 
 2. Crie uma pasta `typify` dentro do diretório `.obsidian/plugins/`.
@@ -92,23 +92,16 @@ Se o nome do estilo for, por exemplo, "Google Tradutor" e o valor configurado no
 > [!Warning]  
 > O tema **Minimal** possui algumas inconsistências de layout conhecidas quando utilizado em conjunto com o plugin Typify (como tamanhos desproporcionais de fontes ou cortes de elementos). Embora eu esteja trabalhando ativamente para mitigar e resolver essas limitações em cada atualização, recomendo utilizá-lo ciente destas inconsistências temporárias.
 
-
 ## Roadmap
 
 Aqui estão alguns dos recursos e melhorias planejados para futuras atualizações:
 
 - **🎨 Pílulas Simples**: Estilos minimalistas e sem cor. Podem ser configurados ou aplicados automaticamente a valores não definidos em propriedades estilizadas.
-
 - **🪤 Diagnóstico de Erros**: Um painel para diagnosticar problemas do plugin e gerar um relatório para facilitar a solução de problemas.
-
 - **🏳️‍🌈 Múltiplas Cores**: Novo painel para ter e gerênciar múltiplos cartões de cores.
-
-- **🔮 Padding da Pílula**: Ajuste o tamanho e comprimento das pílulas, bem como o tamanho da fonte e do ícone.
-
-- **🎲 Tags Númericas**: Expansão do estilo Typify para o tipo número, permitindo a criação de estilos personalizados para tags de número.
-
-- **📊 Pílulas de Referência**: Exibir a quantidade total de referências que aquela informação possui no seu cofre em vez de mostrar um ícone (ex: uma tag de autor exibindo "X" referências).
-
+- **🎲 Tags Numéricas**: Expansão do estilo Typify para o tipo número, permitindo a criação de estilos personalizados para tags de número. *(Avaliando)*
+- ~~**🔮 Padding da Pílula**: Ajuste o tamanho e comprimento das pílulas, bem como o tamanho da fonte e do ícone.~~ *(Congelado)*
+- ~~**📊 Pílulas de Referência**: Exibir a quantidade total de referências que aquela informação possui no seu cofre em vez de mostrar um ícone (ex: uma tag de autor exibindo "X" referências).~~ *(Congelado)*
 - ~~**🔗 Simplificação de Links**: Limpar e encurtar URLs externas exibidas nas pílulas de forma automática (ex: `www.google.com` simplificado para `google.com`).~~ --> Implementado de outra forma! :D
 - ~~**🌐 Ícones de Favicon**: Opção de buscar e exibir automaticamente o favicon do site para links externos que não tenham um ícone personalizado configurado.~~ --> Implementado! :D
 - ~~**🗂️ Nova Tela de Gerenciamento**: Substituir a longa lista de estilos por um esquema de abas (tabs) igual ao usado no modal de busca, incluindo suporte a rolagem horizontal quando houver muitas abas.~~~ Implementado! :D
@@ -122,10 +115,9 @@ Caso você queira compilar o plugin, faça o seguinte:
 2. Execute `npm install`.
 3. Execute `npm run dev` para iniciar a compilação em modo watch.
 
-
 ## Disclaimer
 
-Esse plugin nasceu pelo meu desejo de ter mais opção de customização para as propriedades, igual há no Notion, mas do jeito Obsidian de ser. 
+Esse plugin nasceu pelo meu desejo de ter mais opção de customização para as propriedades, igual há no Notion, mas do jeito Obsidian de ser.
 
 E vale dizer que sem a grande ajuda do [Antigravity](https://antigravity.google/) nada disso seria possível. Claro, não houve mágica feita com um clique, mas sim cuidado com cada prompt, além de muita revisão e testes.
 
