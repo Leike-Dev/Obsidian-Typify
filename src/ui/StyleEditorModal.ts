@@ -41,10 +41,12 @@ export class StyleEditorModal extends Modal {
         this.plugin = plugin;
         this.onSave = onSave;
 
-        // Pre-populate form if editing
-        if (editStyle && editIndex !== undefined) {
-            this.editIndex = editIndex;
-            this.styleName = editStyle.name;
+        // Pre-populate form if editing or duplicating
+        if (editStyle) {
+            if (editIndex !== undefined) {
+                this.editIndex = editIndex;
+            }
+            this.styleName = editIndex !== undefined ? editStyle.name : `${editStyle.name} (${t('copy_suffix')})`;
             this.baseColor = editStyle.baseColor;
             this.icon = editStyle.icon || '';
             this.appliesTo = editStyle.appliesTo ? [...editStyle.appliesTo] : [];

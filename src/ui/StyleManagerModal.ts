@@ -338,7 +338,9 @@ export class StyleManagerModal extends Modal {
             return true;
         });
 
-        if (this.sortMode === 'az') {
+        if (this.sortMode === 'recent') {
+            filtered = [...filtered].reverse();
+        } else if (this.sortMode === 'az') {
             filtered = filtered.sort((a, b) => a.name.localeCompare(b.name));
         } else if (this.sortMode === 'za') {
             filtered = filtered.sort((a, b) => b.name.localeCompare(a.name));
@@ -456,6 +458,25 @@ export class StyleManagerModal extends Modal {
 
         const actionsSection = item.createDiv({ cls: 'typify-manager-actions' });
         const realIndex = this.plugin.settings.statusStyles.indexOf(style);
+
+        const duplicateBtn = actionsSection.createEl('button', {
+            cls: 'clickable-icon typify-manager-duplicate-btn',
+            attr: { 'aria-label': t('duplicate_style') }
+        });
+        setIcon(duplicateBtn, 'copy');
+        duplicateBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const currentScope = this.selectedScope;
+            new StyleEditorModal(
+                this.app,
+                this.plugin,
+                () => {
+                    this.onClose_cb?.();
+                    new StyleManagerModal(this.app, this.plugin, this.onClose_cb, currentScope).open();
+                },
+                style
+            ).open();
+        });
 
         const editBtn = actionsSection.createEl('button', {
             cls: 'clickable-icon typify-manager-edit-btn',

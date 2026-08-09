@@ -28,6 +28,8 @@ export const zhCN = {
 
     // 删除
     'delete_button': '删除样式',
+    'duplicate_style': '复制样式',
+    'copy_suffix': '副本',
 
     // 图标选择器
     'icon_picker_placeholder': '输入以搜索图标…',

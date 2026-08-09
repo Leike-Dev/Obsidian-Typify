@@ -28,6 +28,8 @@ export const ptBR = {
 
     // Excluir
     'delete_button': 'Excluir estilo',
+    'duplicate_style': 'Duplicar estilo',
+    'copy_suffix': 'cópia',
 
     // Seletor de Ícones
     'icon_picker_placeholder': 'Digite para buscar ícones...',

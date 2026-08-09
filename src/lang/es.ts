@@ -28,6 +28,8 @@ export const es = {
 
     // Eliminar
     'delete_button': 'Eliminar estilo',
+    'duplicate_style': 'Duplicar estilo',
+    'copy_suffix': 'copia',
 
     // Selector de Íconos
     'icon_picker_placeholder': 'Escribe para buscar íconos...',
