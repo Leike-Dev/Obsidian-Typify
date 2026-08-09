@@ -96,7 +96,7 @@
     font-size: var(--font-ui-smaller);
     text-transform: uppercase;
     color: var(--text-muted);
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 0.05em;
     padding-right: 2px;
     white-space: nowrap;

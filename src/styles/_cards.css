@@ -11,7 +11,7 @@
 }
 
 .typify-card-section-title {
-    font-weight: normal;
+    font-weight: 500;
     font-size: var(--font-ui-small);
     color: var(--text-normal);
     margin-bottom: 12px;
