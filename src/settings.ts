@@ -74,17 +74,12 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         });
 
         // ================================================================
-        // SECTION: GENERAL
+        // TARGET PROPERTY (top-level)
         // ================================================================
         defs.push({
-            type: 'group' as const,
-            heading: t('section_configuration_title'),
-            items: [
-                // Target Property — tags with autocomplete
-                {
-                    name: t('target_property_title'),
-                    desc: t('target_property_desc'),
-                    render: (setting: Setting) => {
+            name: t('target_property_title'),
+            desc: t('target_property_desc'),
+            render: (setting: Setting) => {
                         const propInputWrapper = setting.controlEl.createDiv({
                             cls: 'typify-target-property-wrapper'
                         });
@@ -134,37 +129,6 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
 
                         renderTargetChips();
                     }
-                },
-                // Custom Icons — needs side-effects on toggle
-                {
-                    name: t('custom_icons_toggle_title'),
-                    desc: t('custom_icons_toggle_desc'),
-                    render: (setting: Setting) => {
-                        setting.addToggle(toggle => toggle
-                            .setValue(this.plugin.settings.enableCustomIcons)
-                            .onChange(async (value) => {
-                                this.plugin.settings.enableCustomIcons = value;
-                                await this.plugin.saveSettings();
-                                if (value) {
-                                    try {
-                                        const result = await this.plugin.customIconsManager.initialize();
-                                        if (result.loaded > 0) {
-                                            new Notice(t('custom_icons_loaded').replace('{count}', String(result.loaded)));
-                                        } else {
-                                            new Notice(t('custom_icons_empty'));
-                                        }
-                                    } catch (e) {
-                                        new Notice(t('custom_icons_error'));
-                                        console.error('[Typify] Custom icons error:', e);
-                                    }
-                                } else {
-                                    this.plugin.customIconsManager.clear();
-                                }
-                                this.update();
-                            }));
-                    }
-                }
-            ]
         });
 
         // ================================================================
@@ -237,6 +201,36 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                                 this.plugin.settings.hideRemoveButtonHover = value;
                                 await this.plugin.saveSettings();
                                 this.plugin.updateBodyClasses();
+                            }));
+                    }
+                },
+
+                // Custom Icons — needs side-effects on toggle
+                {
+                    name: t('custom_icons_toggle_title'),
+                    desc: t('custom_icons_toggle_desc'),
+                    render: (setting: Setting) => {
+                        setting.addToggle(toggle => toggle
+                            .setValue(this.plugin.settings.enableCustomIcons)
+                            .onChange(async (value) => {
+                                this.plugin.settings.enableCustomIcons = value;
+                                await this.plugin.saveSettings();
+                                if (value) {
+                                    try {
+                                        const result = await this.plugin.customIconsManager.initialize();
+                                        if (result.loaded > 0) {
+                                            new Notice(t('custom_icons_loaded').replace('{count}', String(result.loaded)));
+                                        } else {
+                                            new Notice(t('custom_icons_empty'));
+                                        }
+                                    } catch (e) {
+                                        new Notice(t('custom_icons_error'));
+                                        console.error('[Typify] Custom icons error:', e);
+                                    }
+                                } else {
+                                    this.plugin.customIconsManager.clear();
+                                }
+                                this.update();
                             }));
                     }
                 },
