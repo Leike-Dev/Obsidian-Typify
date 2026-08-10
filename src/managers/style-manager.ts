@@ -98,8 +98,9 @@ export class StyleManager {
 
             const classString = isImage ? `${className} typify-is-image` : isEmoji ? `${className} typify-is-emoji` : className;
 
-            // Populate lookup structures
-            if (style.prefixMatch && style.matchValue) {
+            // Prefix matching was introduced as enabled by default. Treat legacy
+            // styles without an explicit prefixMatch value the same way as the UI.
+            if (style.prefixMatch !== false && style.matchValue) {
                 if (style.appliesTo && style.appliesTo.length > 0) {
                     style.appliesTo.forEach(prop => {
                         this.prefixScopedList.push({ prefix: valueKey, prop: prop.toLowerCase(), classString });
