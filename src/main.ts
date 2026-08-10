@@ -5,7 +5,7 @@ import { CustomIconsManager } from './managers/custom-icons';
 import { CustomImagesManager } from './managers/custom-images';
 import { t } from './lang/helpers';
 import { StyleManager } from './managers/style-manager';
-import { DOMManager } from './managers/dom-manager';
+import { OptimizedDOMManager } from './managers/optimized-dom-manager';
 import { FaviconManager } from './managers/favicon-manager';
 
 export default class TypifyPlugin extends Plugin {
@@ -14,7 +14,7 @@ export default class TypifyPlugin extends Plugin {
     customImagesManager!: CustomImagesManager;
     faviconManager!: FaviconManager;
     styleManager!: StyleManager;
-    domManager!: DOMManager;
+    domManager!: OptimizedDOMManager;
     private cachedTargetProps: string[] | null = null;
 
     async onload() {
@@ -80,7 +80,7 @@ export default class TypifyPlugin extends Plugin {
         // Build style cache O(1) and CSS stylesheet before parsing the DOM
         this.styleManager.buildCache();
 
-        this.domManager = new DOMManager(this, this.styleManager);
+        this.domManager = new OptimizedDOMManager(this, this.styleManager);
         this.domManager.init();
 
         this.updateBodyClasses();
