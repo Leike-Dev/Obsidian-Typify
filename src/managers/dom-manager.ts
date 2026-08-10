@@ -206,14 +206,16 @@ export class DOMManager {
             }
         });
 
-        // 2. Process any unstyled pills that might now match a newly imported or modified style
-        activeDocument.body.findAll('[data-typify-observed]').forEach(container => {
-            if (container.classList.contains('metadata-container')) {
-                this.processMetadataContainer(container);
-            } else if (container.classList.contains('bases-view')) {
-                this.processBasesView(container);
-                this.processBasesCardsView(container);
-            }
+        // 2. Re-scan all currently rendered roots so previously unstyled values
+        // can become matches immediately after a style rule changes. This must not
+        // depend on the observer bookkeeping marker: settings can change while a
+        // root is rendered but not yet marked as observed.
+        activeDocument.body.findAll('.metadata-container').forEach(container => {
+            this.processMetadataContainer(container);
+        });
+        activeDocument.body.findAll('.bases-view').forEach(view => {
+            this.processBasesView(view);
+            this.processBasesCardsView(view);
         });
     }
 
