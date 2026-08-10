@@ -163,7 +163,7 @@ export class DOMManager {
                                 mutation.attributeName === 'data-property-key' ||
                                 mutation.attributeName === 'class')
                         ) {
-                            return; 
+                            return;
                         }
                         processNode(mutation.target);
                     }
@@ -175,8 +175,22 @@ export class DOMManager {
             this.refreshProcessing();
         }));
 
-        this.plugin.registerEvent(this.plugin.app.workspace.on('active-leaf-change', () => {
-            this.refreshProcessing();
+        this.plugin.registerEvent(this.plugin.app.workspace.on('active-leaf-change', (leaf) => {
+            if (!leaf) return;
+
+            // Obsidian can keep inactive tabs as DeferredView instances. Wait for
+            // the newly active leaf to finish loading, then force one full pass so
+            // already-observed Bases/Canvas roots receive current style rules.
+            void leaf.loadIfDeferred()
+                .then(() => {
+                    this.refreshProcessing();
+                    this.reprocessAllPills();
+                })
+                .catch(() => {
+                    // The normal refresh path remains a safe fallback if the leaf
+                    // cannot be loaded for any reason.
+                    this.refreshProcessing();
+                });
         }));
 
         // Robust fallback for dynamic views like Canvas that lazy-load elements without triggering workspace events
