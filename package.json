@@ -11,7 +11,8 @@
         "version": "node dev/version-bump.mjs",
         "gen-icons": "node dev/generate-icons.mjs",
         "commit": "node dev/commit-helper.mjs",
-        "lint": "eslint ."
+        "lint": "eslint .",
+        "test": "node tests/run-tests.mjs"
     },
     "keywords": [],
     "author": "Flavio Azurita",
