@@ -206,6 +206,8 @@ export class DOMManager {
      * This is useful when settings/styles change and we need to update classes (e.g. adding typify-is-image).
      */
     reprocessAllPills() {
+        if (!this.observer) return;
+
         // 1. Reprocess all currently styled pills (in case their style changed or was removed)
         activeDocument.body.findAll('.custom-status-icon-pill').forEach(pill => {
             const propertyKey = pill.getAttribute('data-property-key');
