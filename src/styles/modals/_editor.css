@@ -33,3 +33,20 @@
     display: block;
     border-top: none;
 }
+
+/* Responsive Settings for the Modal */
+.modal-content.typify-editor-modal .setting-item {
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.modal-content.typify-editor-modal .setting-item-info {
+    flex: 1 1 200px;
+    min-width: 120px;
+}
+
+.modal-content.typify-editor-modal .setting-item-control {
+    flex: 0 0 auto;
+    justify-content: flex-end;
+    max-width: 100%;
+}
