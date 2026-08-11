@@ -216,7 +216,6 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                             .setValue(this.plugin.settings.enableCustomIcons)
                             .onChange(async (value) => {
                                 this.plugin.settings.enableCustomIcons = value;
-                                await this.plugin.saveSettings();
                                 if (value) {
                                     try {
                                         const result = await this.plugin.customIconsManager.initialize();
@@ -232,6 +231,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                                 } else {
                                     this.plugin.customIconsManager.clear();
                                 }
+                                await this.plugin.saveSettings();
                                 this.update();
                             }));
                     }
@@ -279,12 +279,12 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                             .setValue(this.plugin.settings.enableFavicons)
                             .onChange(async (value) => {
                                 this.plugin.settings.enableFavicons = value;
-                                await this.plugin.saveSettings();
                                 if (value) {
                                     await this.plugin.faviconManager.initialize();
                                 } else {
                                     this.plugin.faviconManager.cleanupActiveUrls();
                                 }
+                                await this.plugin.saveSettings();
                                 this.update();
                             }));
 
