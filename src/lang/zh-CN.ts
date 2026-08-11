@@ -18,12 +18,16 @@ export const zhCN = {
 
     // 样式控件
     'status_name_title': '名称',
+    'status_name_desc': '定义用于识别和匹配样式的名称。',
     'base_color_title': '基础颜色',
+    'base_color_desc': '定义用于生成样式视觉变体的颜色。',
     'icon_title': '图标',
+    'icon_desc': '选择显示在样式名称旁边的图标。',
 
     'add_icon_tooltip': '选择图标',
     'remove_icon_tooltip': '移除图标',
     'applies_to_title': '应用于',
+    'applies_to_desc': '将样式限制为特定属性或将其应用于所有目标属性。',
     'applies_to_all_option': '任意属性',
 
     // 删除
@@ -177,9 +181,10 @@ export const zhCN = {
     'link_styles_toggle_title': '关联链接',
     'link_styles_toggle_desc': '将药丸中的 URL 替换为样式名称，同时保留原生的链接点击行为。',
     'link_url_title': '关联链接',
+    'link_url_desc': '定义用于匹配和设置链接样式的URL，保持原始目标可点击。',
     'link_url_placeholder': '输入网址…',
     'prefix_match_title': '前缀匹配',
-    'prefix_match_desc': '启用后，以该网址开头的任意链接都会匹配（忽略大小写）。',
+    'prefix_match_desc': '将样式应用于以关联链接开头的任何URL，不区分大小写。',
     // UI Components
     'ui_components_title': '其他样式',
     'ui_components_desc': '启用或禁用标签的视觉组件。',

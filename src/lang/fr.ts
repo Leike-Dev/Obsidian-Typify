@@ -18,12 +18,16 @@ export const fr = {
 
     // Contrôles de Style
     'status_name_title': 'Nom',
+    'status_name_desc': 'Définit le nom utilisé pour identifier et faire correspondre le style.',
     'base_color_title': 'Couleur de base',
+    'base_color_desc': 'Définit la couleur utilisée pour générer les variations visuelles du style.',
     'icon_title': 'Icône',
+    'icon_desc': 'Sélectionne l\'icône affichée à côté du nom du style.',
 
     'add_icon_tooltip': 'Choisir une icône',
     'remove_icon_tooltip': 'Supprimer l\'icône',
     'applies_to_title': 'S\'applique à',
+    'applies_to_desc': 'Limite le style à une propriété spécifique ou l\'applique à toutes les propriétés cibles.',
     'applies_to_all_option': 'Toutes les propriétés',
 
     // Supprimer
@@ -177,9 +181,10 @@ export const fr = {
     'link_styles_toggle_title': 'Liens associés',
     'link_styles_toggle_desc': 'Remplace les URL dans les pilules par le nom du style, en conservant le comportement de clic natif du lien.',
     'link_url_title': 'Lien associé',
+    'link_url_desc': 'Définit l\'URL utilisée pour faire correspondre et styliser les liens, en gardant la destination d\'origine cliquable.',
     'link_url_placeholder': 'Entrez une URL…',
     'prefix_match_title': 'Correspondance par préfixe',
-    'prefix_match_desc': 'Lorsqu\'activé, toute URL commençant par cette valeur correspondra (insensible à la casse).',
+    'prefix_match_desc': 'Applique le style à n\'importe quelle URL qui commence par le Lien Associé, insensible à la casse.',
     // UI Components
     'ui_components_title': 'Autres styles',
     'ui_components_desc': 'Activer ou désactiver les composants visuels des étiquettes.',

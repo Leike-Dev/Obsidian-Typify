@@ -18,12 +18,16 @@ export const es = {
 
     // Controles de Estilo
     'status_name_title': 'Nombre',
+    'status_name_desc': 'Define el nombre usado para identificar y hacer coincidir el estilo.',
     'base_color_title': 'Color base',
+    'base_color_desc': 'Define el color utilizado para generar las variaciones visuales del estilo.',
     'icon_title': 'Ícono',
+    'icon_desc': 'Selecciona el ícono que se muestra junto al nombre del estilo.',
 
     'add_icon_tooltip': 'Elegir ícono',
     'remove_icon_tooltip': 'Quitar ícono',
     'applies_to_title': 'Aplica a',
+    'applies_to_desc': 'Limita el estilo a una propiedad específica o lo aplica a todas las propiedades objetivo.',
     'applies_to_all_option': 'Todas las propiedades',
 
     // Eliminar
@@ -178,9 +182,10 @@ export const es = {
     'link_styles_toggle_title': 'Enlaces asociados',
     'link_styles_toggle_desc': 'Reemplaza las URL en las píldoras por el nombre del estilo, manteniendo el comportamiento de clic nativo.',
     'link_url_title': 'Enlace asociado',
+    'link_url_desc': 'Define la URL utilizada para coincidir y dar estilo a los enlaces, manteniendo el destino original en el que se puede hacer clic.',
     'link_url_placeholder': 'Ingresa una URL\u2026',
     'prefix_match_title': 'Coincidencia por prefijo',
-    'prefix_match_desc': 'Cuando está habilitado, cualquier URL que comience con este valor coincidirá (sin distinción de mayúsculas y minúsculas).',
+    'prefix_match_desc': 'Aplica el estilo a cualquier URL que comience con el Enlace Asociado, sin distinguir mayúsculas de minúsculas.',
     // UI Components
     'ui_components_title': 'Otros estilos',
     'ui_components_desc': 'Habilita o deshabilita componentes visuales de las etiquetas.',

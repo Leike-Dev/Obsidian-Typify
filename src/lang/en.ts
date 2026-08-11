@@ -17,13 +17,20 @@ export const en = {
     'new_status_name': 'New style',
 
     // Style Controls
+    'group_design_title': 'Appearance',
+    'group_behavior_title': 'Behavior',
+    'group_preview_title': 'Preview',
     'status_name_title': 'Name',
+    'status_name_desc': 'Defines the name used to identify and match the style.',
     'base_color_title': 'Base color',
+    'base_color_desc': 'Defines the color used to generate the style\'s visual variations.',
     'icon_title': 'Icon',
+    'icon_desc': 'Selects the icon displayed next to the style name.',
 
     'add_icon_tooltip': 'Choose icon',
     'remove_icon_tooltip': 'Remove icon',
     'applies_to_title': 'Applies to',
+    'applies_to_desc': 'Limits the style to a specific property or applies it to all target properties.',
     'applies_to_all_option': 'All properties',
 
     // Delete
@@ -177,9 +184,10 @@ export const en = {
     'link_styles_toggle_title': 'Associated links',
     'link_styles_toggle_desc': 'Replaces URLs in pills with the style name, keeping the native link click behavior.',
     'link_url_title': 'Associated Link',
+    'link_url_desc': 'Defines the URL used to match and style links, keeping the original destination clickable.',
     'link_url_placeholder': 'Enter a URL\u2026',
     'prefix_match_title': 'Prefix match',
-    'prefix_match_desc': 'When enabled, any URL starting with this value will match (case-insensitive).',
+    'prefix_match_desc': 'Applies the style to any URL that starts with the Associated Link, case-insensitive.',
     // UI Components
     'ui_components_title': 'Other styles',
     'ui_components_desc': 'Enable or disable visual components for the tags.',

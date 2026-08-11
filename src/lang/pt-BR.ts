@@ -17,13 +17,20 @@ export const ptBR = {
     'new_status_name': 'Novo estilo',
 
     // Controles do Estilo
+    'group_design_title': 'Aparência',
+    'group_behavior_title': 'Comportamento',
+    'group_preview_title': 'Pré-visualização',
     'status_name_title': 'Nome',
+    'status_name_desc': 'Define o nome usado para identificar e corresponder ao estilo.',
     'base_color_title': 'Cor base',
+    'base_color_desc': 'Define a cor usada para gerar as variações visuais do estilo.',
     'icon_title': 'Ícone',
+    'icon_desc': 'Seleciona o ícone exibido junto ao nome do estilo.',
 
     'add_icon_tooltip': 'Escolher ícone',
     'remove_icon_tooltip': 'Remover ícone',
     'applies_to_title': 'Aplica-se a',
+    'applies_to_desc': 'Limita o estilo a uma propriedade específica ou o aplica a todas as propriedades alvo.',
     'applies_to_all_option': 'Todas as propriedades',
 
     // Excluir
@@ -178,9 +185,10 @@ export const ptBR = {
     'link_styles_toggle_title': 'Links associados',
     'link_styles_toggle_desc': 'Substitui URLs nas pílulas pelo nome do estilo, mantendo o clique nativo do link.',
     'link_url_title': 'Link associado',
+    'link_url_desc': 'Define a URL usada para corresponder e estilizar links, mantendo o destino original clicável.',
     'link_url_placeholder': 'Insira uma URL\u2026',
     'prefix_match_title': 'Correspondência por prefixo',
-    'prefix_match_desc': 'Quando ativado, qualquer URL que comece com este valor será correspondido (sem distinção de maiúsculas e minúsculas).',
+    'prefix_match_desc': 'Aplica o estilo a qualquer URL que comece com o Link associado, sem diferenciar maiúsculas de minúsculas.',
     // UI Components
     'ui_components_title': 'Outros estilos',
     'ui_components_desc': 'Ative ou desative os componentes visuais das tags.',

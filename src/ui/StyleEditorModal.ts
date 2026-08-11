@@ -1,4 +1,4 @@
-import { App, Modal, Notice, Setting, setIcon } from 'obsidian';
+import { App, Modal, Notice, SettingGroup, setIcon } from 'obsidian';
 import type TypifyPlugin from '../main';
 import { StatusStyle, DEFAULT_STATUS_COLOR } from '../types';
 import { generatePalette } from '../utils';
@@ -62,189 +62,215 @@ export class StyleEditorModal extends Modal {
         contentEl.empty();
         contentEl.addClass('typify-editor-modal');
 
+
         // Header
         this.setTitle(this.editIndex !== null ? t('edit_style_title') : t('create_style_title'));
 
         // ============================================================
-        // INPUTS
+        // INPUTS (Groups)
         // ============================================================
 
+        const generalGroup = new SettingGroup(contentEl);
+
         // Style Name
-        new Setting(contentEl)
-            .setName(t('status_name_title'))
-            .addText(text => text
-                .setPlaceholder(t('status_name_placeholder'))
-                .setValue(this.styleName)
-                .onChange(value => {
-                    this.styleName = value;
-                    this.updatePreview();
-                }));
+        generalGroup.addSetting(setting => {
+            setting.setName(t('status_name_title'))
+                .setDesc(t('status_name_desc'))
+                .addText(text => text
+                    .setPlaceholder(t('status_name_placeholder'))
+                    .setValue(this.styleName)
+                    .onChange(value => {
+                        this.styleName = value;
+                        this.updatePreview();
+                    }));
+        });
+
+        const designGroup = new SettingGroup(contentEl).setHeading(t('group_design_title'));
 
         // Shape — card grid
-        this.renderCardSection(contentEl, 'shape_title', [
-            { key: 'pill',      labelKey: 'shape_pill',      svg: THUMB_PILL },
-            { key: 'rectangle', labelKey: 'shape_rectangle', svg: THUMB_RECT },
-            { key: 'flat',      labelKey: 'shape_flat',      svg: THUMB_FLAT },
-        ], this.shape, (key) => {
-            this.shape = key as 'pill' | 'rectangle' | 'flat';
-            this.updatePreview();
+        designGroup.addSetting(setting => {
+            setting.settingEl.empty();
+            setting.settingEl.addClass('typify-card-setting');
+            this.renderCardSection(setting.settingEl, 'shape_title', [
+                { key: 'pill', labelKey: 'shape_pill', svg: THUMB_PILL },
+                { key: 'rectangle', labelKey: 'shape_rectangle', svg: THUMB_RECT },
+                { key: 'flat', labelKey: 'shape_flat', svg: THUMB_FLAT },
+            ], this.shape, (key) => {
+                this.shape = key as 'pill' | 'rectangle' | 'flat';
+                this.updatePreview();
+            });
         });
 
         // Color Mode — card grid
-        this.renderCardSection(contentEl, 'color_mode_title', [
-            { key: 'subtle', labelKey: 'color_mode_subtle', svg: THUMB_SOFT },
-            { key: 'solid',  labelKey: 'color_mode_solid',  svg: THUMB_SOLID },
-        ], this.colorMode, (key) => {
-            this.colorMode = key as 'subtle' | 'solid';
-            this.updatePreview();
+        designGroup.addSetting(setting => {
+            setting.settingEl.empty();
+            setting.settingEl.addClass('typify-card-setting');
+            this.renderCardSection(setting.settingEl, 'color_mode_title', [
+                { key: 'subtle', labelKey: 'color_mode_subtle', svg: THUMB_SOFT },
+                { key: 'solid', labelKey: 'color_mode_solid', svg: THUMB_SOLID },
+            ], this.colorMode, (key) => {
+                this.colorMode = key as 'subtle' | 'solid';
+                this.updatePreview();
+            });
         });
 
         // Base Color
-        const colorSetting = new Setting(contentEl)
-            .setClass('typify-color-picker-setting')
-            .setName(t('base_color_title'));
+        designGroup.addSetting(setting => {
+            setting.setClass('typify-color-picker-setting')
+                .setName(t('base_color_title'))
+                .setDesc(t('base_color_desc'))
+                .addColorPicker(color => {
+                    color.setValue(this.baseColor);
 
-        colorSetting.addColorPicker(color => {
-            color.setValue(this.baseColor);
+                    // Native datalist for color palette shortcuts
+                    const paletteColors = this.plugin.settings.customPalette;
+                    if (this.plugin.settings.enableCustomPalette && paletteColors.length > 0) {
+                        const datalistId = 'typify-palette-list-' + Math.random().toString(36).substring(7);
+                        const datalist = contentEl.createEl('datalist', { attr: { id: datalistId } });
+                        for (const hex of paletteColors) {
+                            datalist.createEl('option', { value: hex });
+                        }
 
-            // Native datalist for color palette shortcuts
-            const paletteColors = this.plugin.settings.customPalette;
-            if (this.plugin.settings.enableCustomPalette && paletteColors.length > 0) {
-                const datalistId = 'typify-palette-list-' + Math.random().toString(36).substring(7);
-                const datalist = contentEl.createEl('datalist', { attr: { id: datalistId } });
-                for (const hex of paletteColors) {
-                    datalist.createEl('option', { value: hex });
-                }
+                        const pickerInput = setting.controlEl.querySelector('input[type="color"]');
+                        if (pickerInput instanceof HTMLInputElement) {
+                            pickerInput.setAttribute('list', datalistId);
+                        }
+                    }
 
-                const pickerInput = colorSetting.controlEl.querySelector('input[type="color"]');
-                if (pickerInput instanceof HTMLInputElement) {
-                    pickerInput.setAttribute('list', datalistId);
-                }
-            }
-
-            color.onChange(value => {
-                this.baseColor = value;
-                this.updatePreview();
-            });
+                    color.onChange(value => {
+                        this.baseColor = value;
+                        this.updatePreview();
+                    });
+                });
         });
 
         // Icon
-        const iconSetting = new Setting(contentEl)
-            .setName(t('icon_title'));
-
-        // Icon preview + choose button
-        iconSetting.addButton(btn => {
-            this.iconBtnEl = btn.buttonEl;
-            this.renderIconButton();
-            btn.onClick(() => {
-                new IconPickerModal(
-                    this.app,
-                    this.plugin.settings.recentIcons,
-                    this.plugin.settings.enableCustomIcons
-                        ? this.plugin.customIconsManager
-                        : null,
-                    this.plugin.customImagesManager,
-                    (chosenIcon: string) => {
-                        this.icon = chosenIcon;
+        designGroup.addSetting(setting => {
+            setting.setName(t('icon_title'))
+                .setDesc(t('icon_desc'))
+                .addButton(btn => {
+                    this.iconBtnEl = btn.buttonEl;
+                    this.renderIconButton();
+                    btn.onClick(() => {
+                        new IconPickerModal(
+                            this.app,
+                            this.plugin.settings.recentIcons,
+                            this.plugin.settings.enableCustomIcons
+                                ? this.plugin.customIconsManager
+                                : null,
+                            this.plugin.customImagesManager,
+                            (chosenIcon: string) => {
+                                this.icon = chosenIcon;
+                                this.renderIconButton();
+                                this.updatePreview();
+                            }
+                        ).open();
+                    });
+                })
+                .addButton(btn => {
+                    btn.setIcon('x');
+                    btn.setTooltip(t('remove_icon_tooltip'));
+                    btn.buttonEl.addClass('typify-btn-remove-icon');
+                    btn.onClick(() => {
+                        this.icon = '';
                         this.renderIconButton();
                         this.updatePreview();
-                    }
-                ).open();
-            });
+                    });
+                });
         });
 
-        // Remove icon button (only shown when icon is set)
-        iconSetting.addButton(btn => {
-            btn.setIcon('x');
-            btn.setTooltip(t('remove_icon_tooltip'));
-            btn.buttonEl.addClass('typify-btn-remove-icon');
-            btn.onClick(() => {
-                this.icon = '';
-                this.renderIconButton();
-                this.updatePreview();
-            });
-        });
+        contentEl.createDiv({ cls: 'typify-spacer' });
+
+        const behaviorGroup = new SettingGroup(contentEl).setHeading(t('group_behavior_title'));
 
         // Applies To (Scope)
-        new Setting(contentEl)
-            .setName(t('applies_to_title'))
-            .addDropdown(dropdown => {
-                dropdown.addOption('all', t('applies_to_all_option'));
+        behaviorGroup.addSetting(setting => {
+            setting.setName(t('applies_to_title'))
+                .setDesc(t('applies_to_desc'))
+                .addDropdown(dropdown => {
+                    dropdown.addOption('all', t('applies_to_all_option'));
 
-                // Parse target properties from settings
-                const properties = this.plugin.settings.targetProperty
-                    .split(',')
-                    .map(p => p.trim())
-                    .filter(p => p.length > 0);
+                    // Parse target properties from settings
+                    const properties = this.plugin.settings.targetProperty
+                        .split(',')
+                        .map(p => p.trim())
+                        .filter(p => p.length > 0);
 
-                // Add each property as an option
-                properties.forEach(prop => {
-                    dropdown.addOption(prop, prop);
+                    // Add each property as an option
+                    properties.forEach(prop => {
+                        dropdown.addOption(prop, prop);
+                    });
+
+                    // Set initial value based on current appliesTo state
+                    const initialValue = (this.appliesTo.length > 0) ? this.appliesTo[0]! : 'all';
+                    // Fallback to 'all' if the saved value is not an available dropdown option
+                    const validValue = properties.includes(initialValue) ? initialValue : 'all';
+                    dropdown.setValue(validValue);
+                    dropdown.onChange(value => {
+                        this.appliesTo = value === 'all' ? [] : [value];
+                    });
                 });
-
-                // Set initial value based on current appliesTo state
-                const initialValue = (this.appliesTo.length > 0) ? this.appliesTo[0]! : 'all';
-                // Fallback to 'all' if the saved value is not an available dropdown option
-                const validValue = properties.includes(initialValue) ? initialValue : 'all';
-                dropdown.setValue(validValue);
-                dropdown.onChange(value => {
-                    this.appliesTo = value === 'all' ? [] : [value];
-                });
-            });
+        });
 
         // Link URL (only shown when link styles are enabled)
         if (this.plugin.settings.enableLinkStyles) {
-            const linkSetting = new Setting(contentEl)
-                .setName(t('link_url_title'))
-                .addText(text => {
-                    text.setPlaceholder(t('link_url_placeholder'))
-                        .setValue(this.matchValue)
-                        .onChange(value => {
-                            this.matchValue = value;
-                        });
-                });
-
-            if (this.plugin.settings.enableFavicons) {
-                linkSetting.addButton(btn => {
-                    btn.setIcon('search');
-                    btn.setTooltip(t('favicon_fetch_tooltip'));
-                    btn.onClick(async () => {
-                        const domain = FaviconManager.extractDomain(this.matchValue);
-                        if (!domain) {
-                            new Notice(t('favicon_invalid_url'));
-                            return;
-                        }
-                        
-                        btn.setDisabled(true);
-                        btn.setIcon('loader');
-                        
-                        const uri = await this.plugin.faviconManager.fetchFavicon(domain);
-                        
-                        if (uri) {
-                            this.icon = `favicon:${domain}`;
-                            this.renderIconButton();
-                            this.updatePreview();
-                        }
-                        
-                        btn.setDisabled(false);
-                        btn.setIcon('search');
+            behaviorGroup.addSetting(setting => {
+                setting.setName(t('link_url_title'))
+                    .setDesc(t('link_url_desc'))
+                    .addText(text => {
+                        text.setPlaceholder(t('link_url_placeholder'))
+                            .setValue(this.matchValue)
+                            .onChange(value => {
+                                this.matchValue = value;
+                            });
                     });
-                });
-            }
 
-            new Setting(contentEl)
-                .setName(t('prefix_match_title'))
-                .setDesc(t('prefix_match_desc'))
-                .addToggle(toggle => toggle
-                    .setValue(this.prefixMatch)
-                    .onChange(value => {
-                        this.prefixMatch = value;
-                    }));
+                if (this.plugin.settings.enableFavicons) {
+                    setting.addButton(btn => {
+                        btn.setIcon('search');
+                        btn.setTooltip(t('favicon_fetch_tooltip'));
+                        btn.onClick(async () => {
+                            const domain = FaviconManager.extractDomain(this.matchValue);
+                            if (!domain) {
+                                new Notice(t('favicon_invalid_url'));
+                                return;
+                            }
+
+                            btn.setDisabled(true);
+                            btn.setIcon('loader');
+
+                            const uri = await this.plugin.faviconManager.fetchFavicon(domain);
+
+                            if (uri) {
+                                this.icon = `favicon:${domain}`;
+                                this.renderIconButton();
+                                this.updatePreview();
+                            }
+
+                            btn.setDisabled(false);
+                            btn.setIcon('search');
+                        });
+                    });
+                }
+            });
+
+            behaviorGroup.addSetting(setting => {
+                setting.setName(t('prefix_match_title'))
+                    .setDesc(t('prefix_match_desc'))
+                    .addToggle(toggle => toggle
+                        .setValue(this.prefixMatch)
+                        .onChange(value => {
+                            this.prefixMatch = value;
+                        }));
+            });
         }
 
         // ============================================================
         // PREVIEW
         // ============================================================
+        contentEl.createDiv({ cls: 'typify-spacer' });
+        new SettingGroup(contentEl).setHeading(t('group_preview_title'));
+
         const previewContainer = contentEl.createDiv({ cls: 'typify-preview-card' });
 
         // Light preview

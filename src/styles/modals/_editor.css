@@ -18,3 +18,18 @@
     font-size: var(--font-ui-small);
     color: var(--text-normal);
 }
+
+.modal-content.typify-editor-modal .setting-item-heading .setting-item-name {
+    color: var(--setting-group-heading-color);
+    font-size: var(--setting-group-heading-size);
+    font-weight: var(--setting-group-heading-weight);
+}
+
+.typify-spacer {
+    height: 24px;
+}
+
+.typify-card-setting {
+    display: block;
+    border-top: none;
+}
