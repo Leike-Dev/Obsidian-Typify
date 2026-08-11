@@ -17,6 +17,8 @@ import { insertSvg } from '../utils/svg-utils';
 export class StyleEditorModal extends Modal {
     plugin: TypifyPlugin;
     private onSave?: () => void;
+    private onCancel?: () => void;
+    private saved = false;
 
     // Edit mode: when set, we update an existing style instead of creating new
     private editIndex: number | null = null;
@@ -36,10 +38,11 @@ export class StyleEditorModal extends Modal {
     private previewPillDark: HTMLElement | null = null;
     private iconBtnEl: HTMLElement | null = null;
 
-    constructor(app: App, plugin: TypifyPlugin, onSave?: () => void, editStyle?: StatusStyle, editIndex?: number) {
+    constructor(app: App, plugin: TypifyPlugin, onSave?: () => void, editStyle?: StatusStyle, editIndex?: number, onCancel?: () => void) {
         super(app);
         this.plugin = plugin;
         this.onSave = onSave;
+        this.onCancel = onCancel;
 
         // Pre-populate form if editing or duplicating
         if (editStyle) {
@@ -551,6 +554,7 @@ export class StyleEditorModal extends Modal {
         new Notice(t(noticeKey).replace('{name}', name));
 
         // Notify caller to refresh
+        this.saved = true;
         this.onSave?.();
 
         this.close();
@@ -603,5 +607,10 @@ export class StyleEditorModal extends Modal {
     onClose() {
         const { contentEl } = this;
         contentEl.empty();
+        // If the editor was closed without saving (cancel/ESC/click outside),
+        // reopen the manager modal so the user isn't left with no modal.
+        if (!this.saved) {
+            this.onCancel?.();
+        }
     }
 }

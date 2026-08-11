@@ -15,6 +15,10 @@ export class DOMManager {
         this.styleManager = styleManager;
     }
 
+    private getDocs(): Set<Document> {
+        return new Set([document, activeDocument]);
+    }
+
     init() {
         const processNode = (node: Node) => {
             if (!node.instanceOf(HTMLElement)) return;
@@ -209,29 +213,31 @@ export class DOMManager {
         if (!this.observer) return;
 
         // 1. Reprocess all currently styled pills (in case their style changed or was removed)
-        activeDocument.body.findAll('.custom-status-icon-pill').forEach(pill => {
-            const propertyKey = pill.getAttribute('data-property-key');
-            if (propertyKey) {
-                this.processPill(pill, propertyKey);
-            }
-        });
-        activeDocument.body.findAll('.custom-status-icon-value').forEach(el => {
-            const propertyKey = el.getAttribute('data-property-key');
-            if (propertyKey) {
-                this.processValueListElement(el, propertyKey);
-            }
-        });
+        this.getDocs().forEach(doc => {
+            doc.body.findAll('.custom-status-icon-pill').forEach(pill => {
+                const propertyKey = pill.getAttribute('data-property-key');
+                if (propertyKey) {
+                    this.processPill(pill, propertyKey);
+                }
+            });
+            doc.body.findAll('.custom-status-icon-value').forEach(el => {
+                const propertyKey = el.getAttribute('data-property-key');
+                if (propertyKey) {
+                    this.processValueListElement(el, propertyKey);
+                }
+            });
 
-        // 2. Re-scan all currently rendered roots so previously unstyled values
-        // can become matches immediately after a style rule changes. This must not
-        // depend on the observer bookkeeping marker: settings can change while a
-        // root is rendered but not yet marked as observed.
-        activeDocument.body.findAll('.metadata-container').forEach(container => {
-            this.processMetadataContainer(container);
-        });
-        activeDocument.body.findAll('.bases-view').forEach(view => {
-            this.processBasesView(view);
-            this.processBasesCardsView(view);
+            // 2. Re-scan all currently rendered roots so previously unstyled values
+            // can become matches immediately after a style rule changes. This must not
+            // depend on the observer bookkeeping marker: settings can change while a
+            // root is rendered but not yet marked as observed.
+            doc.body.findAll('.metadata-container').forEach(container => {
+                this.processMetadataContainer(container);
+            });
+            doc.body.findAll('.bases-view').forEach(view => {
+                this.processBasesView(view);
+                this.processBasesCardsView(view);
+            });
         });
     }
 
@@ -241,29 +247,31 @@ export class DOMManager {
         // Re-attach <style> if it was removed externally
         this.styleManager.ensureAttached();
 
-        // Only query elements that haven't been observed yet to keep the polling extremely lightweight
-        const unobservedContainers = activeDocument.body.findAll('.metadata-container:not([data-typify-observed])');
-        unobservedContainers.forEach(container => {
-            this.processMetadataContainer(container);
-            container.setAttribute('data-typify-observed', 'true');
-            this.observer?.observe(container, {
-                childList: true,
-                subtree: true,
-                attributes: true,
-                characterData: true
+        this.getDocs().forEach(doc => {
+            // Only query elements that haven't been observed yet to keep the polling extremely lightweight
+            const unobservedContainers = doc.body.findAll('.metadata-container:not([data-typify-observed])');
+            unobservedContainers.forEach(container => {
+                this.processMetadataContainer(container);
+                container.setAttribute('data-typify-observed', 'true');
+                this.observer?.observe(container, {
+                    childList: true,
+                    subtree: true,
+                    attributes: true,
+                    characterData: true
+                });
             });
-        });
 
-        const unobservedBasesViews = activeDocument.body.findAll('.bases-view:not([data-typify-observed])');
-        unobservedBasesViews.forEach(view => {
-            this.processBasesView(view);
-            this.processBasesCardsView(view);
-            view.setAttribute('data-typify-observed', 'true');
-            this.observer?.observe(view, {
-                childList: true,
-                subtree: true,
-                attributes: true,
-                characterData: true
+            const unobservedBasesViews = doc.body.findAll('.bases-view:not([data-typify-observed])');
+            unobservedBasesViews.forEach(view => {
+                this.processBasesView(view);
+                this.processBasesCardsView(view);
+                view.setAttribute('data-typify-observed', 'true');
+                this.observer?.observe(view, {
+                    childList: true,
+                    subtree: true,
+                    attributes: true,
+                    characterData: true
+                });
             });
         });
     }
@@ -455,43 +463,45 @@ export class DOMManager {
             this.observer.disconnect();
             this.observer = null;
         }
-        activeDocument.body.findAll('[data-typify-observed]').forEach(el => {
-            el.removeAttribute('data-typify-observed');
-        });
-        activeDocument.body.findAll('.custom-status-icon-pill').forEach(el => {
-            el.classList.remove('custom-status-icon-pill');
-            el.removeAttribute('data-value');
-            el.removeAttribute('data-property-key');
-            this.styleManager.clearStyle(el);
+        this.getDocs().forEach(doc => {
+            doc.body.findAll('[data-typify-observed]').forEach(el => {
+                el.removeAttribute('data-typify-observed');
+            });
+            doc.body.findAll('.custom-status-icon-pill').forEach(el => {
+                el.classList.remove('custom-status-icon-pill');
+                el.removeAttribute('data-value');
+                el.removeAttribute('data-property-key');
+                this.styleManager.clearStyle(el);
 
-            // Restore external link text if it was modified
-            const linkContent = el.querySelector('.multi-select-pill-content.external-link');
-            if (linkContent instanceof HTMLElement) {
-                const href = linkContent.getAttribute('data-href');
-                if (href && linkContent.textContent?.trim() !== href) {
-                    linkContent.textContent = href;
+                // Restore external link text if it was modified
+                const linkContent = el.querySelector('.multi-select-pill-content.external-link');
+                if (linkContent instanceof HTMLElement) {
+                    const href = linkContent.getAttribute('data-href');
+                    if (href && linkContent.textContent?.trim() !== href) {
+                        linkContent.textContent = href;
+                    }
                 }
-            }
-        });
-        activeDocument.body.findAll('.custom-status-icon-value').forEach(el => {
-            el.classList.remove('custom-status-icon-value');
-            el.removeAttribute('data-value');
-            el.removeAttribute('data-property-key');
-            this.styleManager.clearStyle(el);
+            });
+            doc.body.findAll('.custom-status-icon-value').forEach(el => {
+                el.classList.remove('custom-status-icon-value');
+                el.removeAttribute('data-value');
+                el.removeAttribute('data-property-key');
+                this.styleManager.clearStyle(el);
 
-            const linkContent = el.querySelector('.external-link');
-            if (linkContent instanceof HTMLElement) {
-                const href = linkContent.getAttribute('href');
-                if (href && linkContent.textContent?.trim() !== href) {
-                    linkContent.textContent = href;
+                const linkContent = el.querySelector('.external-link');
+                if (linkContent instanceof HTMLElement) {
+                    const href = linkContent.getAttribute('href');
+                    if (href && linkContent.textContent?.trim() !== href) {
+                        linkContent.textContent = href;
+                    }
                 }
-            }
-        });
-        activeDocument.body.findAll('.typify-single-value').forEach(el => {
-            const parent = el.parentElement;
-            if (parent) {
-                parent.textContent = el.textContent || '';
-            }
+            });
+            doc.body.findAll('.typify-single-value').forEach(el => {
+                const parent = el.parentElement;
+                if (parent) {
+                    parent.textContent = el.textContent || '';
+                }
+            });
         });
     }
 }

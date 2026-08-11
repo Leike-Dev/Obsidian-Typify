@@ -467,14 +467,21 @@ export class StyleManagerModal extends Modal {
         duplicateBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             const currentScope = this.selectedScope;
+            const onCloseCb = this.onClose_cb;
+            this.onClose_cb = undefined;   // prevent close callback from firing
+            this.close();                   // close this manager before opening editor
             new StyleEditorModal(
                 this.app,
                 this.plugin,
                 () => {
-                    this.onClose_cb?.();
-                    new StyleManagerModal(this.app, this.plugin, this.onClose_cb, currentScope).open();
+                    onCloseCb?.();
+                    new StyleManagerModal(this.app, this.plugin, onCloseCb, currentScope).open();
                 },
-                style
+                style,
+                undefined,
+                () => {
+                    new StyleManagerModal(this.app, this.plugin, onCloseCb, currentScope).open();
+                }
             ).open();
         });
 
@@ -486,15 +493,21 @@ export class StyleManagerModal extends Modal {
         editBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             const currentScope = this.selectedScope;
+            const onCloseCb = this.onClose_cb;
+            this.onClose_cb = undefined;   // prevent close callback from firing
+            this.close();                   // close this manager before opening editor
             new StyleEditorModal(
                 this.app,
                 this.plugin,
                 () => {
-                    this.onClose_cb?.();
-                    new StyleManagerModal(this.app, this.plugin, this.onClose_cb, currentScope).open();
+                    onCloseCb?.();
+                    new StyleManagerModal(this.app, this.plugin, onCloseCb, currentScope).open();
                 },
                 style,
-                realIndex
+                realIndex,
+                () => {
+                    new StyleManagerModal(this.app, this.plugin, onCloseCb, currentScope).open();
+                }
             ).open();
         });
 

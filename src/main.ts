@@ -140,14 +140,17 @@ export default class TypifyPlugin extends Plugin {
     }
 
     public updateBodyClasses() {
-        activeDocument.body.classList.remove('typify-hide-x-none', 'typify-hide-x-properties', 'typify-hide-x-bases', 'typify-hide-x-both', 'typify-reveal-x-on-hover');
-        if (this.settings.hideRemoveButton && this.settings.hideRemoveButton !== 'none') {
-            activeDocument.body.classList.add(`typify-hide-x-${this.settings.hideRemoveButton}`);
-            
-            if (this.settings.hideRemoveButtonHover) {
-                activeDocument.body.classList.add('typify-reveal-x-on-hover');
+        const docs = new Set([document, activeDocument]);
+        docs.forEach(doc => {
+            doc.body.classList.remove('typify-hide-x-none', 'typify-hide-x-properties', 'typify-hide-x-bases', 'typify-hide-x-both', 'typify-reveal-x-on-hover');
+            if (this.settings.hideRemoveButton && this.settings.hideRemoveButton !== 'none') {
+                doc.body.classList.add(`typify-hide-x-${this.settings.hideRemoveButton}`);
+                
+                if (this.settings.hideRemoveButtonHover) {
+                    doc.body.classList.add('typify-reveal-x-on-hover');
+                }
             }
-        }
+        });
     }
 
     /**
@@ -157,10 +160,13 @@ export default class TypifyPlugin extends Plugin {
     private updateThemeCompat() {
         const rawTheme = this.app.vault.getConfig?.('cssTheme');
         const cssTheme = typeof rawTheme === 'string' ? rawTheme : '';
-        activeDocument.body.classList.toggle(
-            'typify-compat-minimal',
-            cssTheme.toLowerCase().includes('minimal')
-        );
+        const docs = new Set([document, activeDocument]);
+        docs.forEach(doc => {
+            doc.body.classList.toggle(
+                'typify-compat-minimal',
+                cssTheme.toLowerCase().includes('minimal')
+            );
+        });
     }
 
     /**
