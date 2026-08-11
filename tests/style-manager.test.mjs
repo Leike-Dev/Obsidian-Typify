@@ -68,7 +68,7 @@ function createManager(styles) {
     });
 }
 
-test('legacy styles with omitted prefixMatch keep prefix matching enabled', () => {
+test('legacy styles with omitted prefixMatch default to exact match', () => {
     const restoreDocument = installFakeStyleDocument();
     const manager = createManager([createStyle()]);
 
@@ -77,7 +77,7 @@ test('legacy styles with omitted prefixMatch keep prefix matching enabled', () =
 
         assert.equal(
             manager.findMatchingClass('https://github.com/Leike-Dev/Obsidian-Typify', 'LINK'),
-            'typify-style-0',
+            undefined,
         );
         assert.equal(
             manager.findMatchingClass('https://github.com/Leike-Dev/Obsidian-Typify', 'other'),
@@ -120,11 +120,13 @@ test('the longest matching prefix wins', () => {
         createStyle({
             name: 'GitHub',
             appliesTo: [],
+            prefixMatch: true,
         }),
         createStyle({
             name: 'Typify repository',
             matchValue: 'https://github.com/Leike-Dev',
             appliesTo: [],
+            prefixMatch: true,
         }),
     ]);
 

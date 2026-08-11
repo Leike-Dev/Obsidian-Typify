@@ -443,7 +443,7 @@ export class StyleManagerModal extends Modal {
         if (style.matchValue) {
             metaRow.createSpan({ text: ' \u00b7 ' });
             metaRow.createSpan({ text: t('link_url_title') });
-            if (style.prefixMatch !== false) {
+            if (style.prefixMatch === true) {
                 metaRow.createSpan({ text: ` (${t('prefix_match_title')})` });
             }
         }

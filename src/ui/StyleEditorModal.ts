@@ -29,7 +29,7 @@ export class StyleEditorModal extends Modal {
     private shape: 'pill' | 'rectangle' | 'flat' | '' = 'pill';
     private colorMode: 'subtle' | 'solid' | '' = 'subtle';
     private matchValue = '';
-    private prefixMatch = true;
+    private prefixMatch = false;
 
     // DOM references for live preview updates
     private previewPillLight: HTMLElement | null = null;
@@ -53,7 +53,7 @@ export class StyleEditorModal extends Modal {
             this.shape = editStyle.shape || 'pill';
             this.colorMode = editStyle.colorMode || 'subtle';
             this.matchValue = editStyle.matchValue || '';
-            this.prefixMatch = editStyle.prefixMatch !== false;
+            this.prefixMatch = editStyle.prefixMatch === true;
         }
     }
 
