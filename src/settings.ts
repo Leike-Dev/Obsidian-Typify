@@ -178,15 +178,17 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                 {
                     name: t('hide_remove_button_title'),
                     desc: t('hide_remove_button_desc'),
-                    control: {
-                        type: 'dropdown' as const,
-                        key: 'hideRemoveButton',
-                        options: {
-                            'none': t('hide_remove_button_none'),
-                            'properties': t('hide_remove_button_properties'),
-                            'bases': t('hide_remove_button_bases'),
-                            'both': t('hide_remove_button_both')
-                        }
+                    render: (setting: Setting) => {
+                        setting.addDropdown(dropdown => dropdown
+                            .addOption('none', t('hide_remove_button_none'))
+                            .addOption('properties', t('hide_remove_button_properties'))
+                            .addOption('bases', t('hide_remove_button_bases'))
+                            .addOption('both', t('hide_remove_button_both'))
+                            .setValue(this.plugin.settings.hideRemoveButton)
+                            .onChange(async (value) => {
+                                this.plugin.settings.hideRemoveButton = value as 'none' | 'properties' | 'bases' | 'both';
+                                await this.plugin.saveSettings();
+                            }));
                     }
                 },
 
@@ -239,9 +241,13 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                 {
                     name: t('link_styles_toggle_title'),
                     desc: t('link_styles_toggle_desc'),
-                    control: {
-                        type: 'toggle' as const,
-                        key: 'enableLinkStyles'
+                    render: (setting: Setting) => {
+                        setting.addToggle(toggle => toggle
+                            .setValue(this.plugin.settings.enableLinkStyles)
+                            .onChange(async (value) => {
+                                this.plugin.settings.enableLinkStyles = value;
+                                await this.plugin.saveSettings();
+                            }));
                     }
                 },
 
