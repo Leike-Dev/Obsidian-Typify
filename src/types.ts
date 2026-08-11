@@ -10,7 +10,7 @@ export interface StatusStyle {
     icon: string;
     appliesTo?: string[];
     shape?: 'pill' | 'rectangle' | 'flat';
-    colorMode?: 'subtle' | 'solid';
+    colorMode?: 'subtle' | 'solid' | 'simple';
 }
 
 export interface CustomStatusIconsSettings {

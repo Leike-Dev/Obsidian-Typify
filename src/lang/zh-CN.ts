@@ -161,6 +161,7 @@ export const zhCN = {
     'color_mode_title': '颜色模式',
     'color_mode_subtle': '柔和',
     'color_mode_solid': '纯色',
+    'color_mode_simple': '简约',
 
 
     // 编辑样式

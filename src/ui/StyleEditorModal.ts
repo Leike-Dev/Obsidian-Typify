@@ -4,7 +4,7 @@ import { StatusStyle, DEFAULT_STATUS_COLOR } from '../types';
 import { generatePalette } from '../utils';
 import { t, type TranslationKey } from '../lang/helpers';
 import { IconPickerModal } from './icon-picker';
-import { THUMB_PILL, THUMB_RECT, THUMB_FLAT, THUMB_SOFT, THUMB_SOLID } from './format-thumbs';
+import { THUMB_PILL, THUMB_RECT, THUMB_FLAT, THUMB_SOFT, THUMB_SOLID, THUMB_SIMPLE } from './format-thumbs';
 import { FaviconManager } from '../managers/favicon-manager';
 import { insertSvg } from '../utils/svg-utils';
 
@@ -27,7 +27,7 @@ export class StyleEditorModal extends Modal {
     private icon = '';
     private appliesTo: string[] = [];
     private shape: 'pill' | 'rectangle' | 'flat' | '' = 'pill';
-    private colorMode: 'subtle' | 'solid' | '' = 'subtle';
+    private colorMode: 'subtle' | 'solid' | 'simple' | '' = 'subtle';
     private matchValue = '';
     private prefixMatch = false;
 
@@ -106,10 +106,11 @@ export class StyleEditorModal extends Modal {
             setting.settingEl.empty();
             setting.settingEl.addClass('typify-card-setting');
             this.renderCardSection(setting.settingEl, 'color_mode_title', [
+                { key: 'simple', labelKey: 'color_mode_simple', svg: THUMB_SIMPLE },
                 { key: 'subtle', labelKey: 'color_mode_subtle', svg: THUMB_SOFT },
                 { key: 'solid', labelKey: 'color_mode_solid', svg: THUMB_SOLID },
             ], this.colorMode, (key) => {
-                this.colorMode = key as 'subtle' | 'solid';
+                this.colorMode = key as 'subtle' | 'solid' | 'simple';
                 this.updatePreview();
             });
         });
@@ -362,7 +363,7 @@ export class StyleEditorModal extends Modal {
     private updatePreview(): void {
         if (!this.previewPillLight || !this.previewPillDark) return;
 
-        const previewMode: 'subtle' | 'solid' = this.colorMode === 'solid' ? 'solid' : 'subtle';
+        const previewMode = this.colorMode === '' ? 'subtle' : this.colorMode;
         const palette = generatePalette(this.baseColor, previewMode);
         const displayName = this.styleName || t('new_status_name');
 

@@ -164,6 +164,7 @@ export const en = {
     'color_mode_title': 'Color mode',
     'color_mode_subtle': 'Subtle',
     'color_mode_solid': 'Solid',
+    'color_mode_simple': 'Outline',
 
 
     // Edit Style

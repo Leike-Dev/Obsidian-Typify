@@ -164,6 +164,7 @@ export const ptBR = {
     'color_mode_title': 'Modo de cor',
     'color_mode_subtle': 'Suave',
     'color_mode_solid': 'Sólido',
+    'color_mode_simple': 'Minimalista',
 
 
     // Editar Estilo

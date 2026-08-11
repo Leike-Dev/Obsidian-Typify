@@ -161,6 +161,7 @@ export const fr = {
     'color_mode_title': 'Mode de couleur',
     'color_mode_subtle': 'Subtil',
     'color_mode_solid': 'Solide',
+    'color_mode_simple': 'Contour',
 
 
     // Modifier le Style

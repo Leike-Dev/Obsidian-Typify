@@ -38,6 +38,13 @@ export const THUMB_SOLID = `<svg width="88" height="36" viewBox="0 0 88 36" fill
   <rect x="31" y="16" width="34" height="4" rx="2" class="svg-solid-fg"/>
 </svg>`;
 
+/** Simple/Outline color mode: semi-transparent background, solid border */
+export const THUMB_SIMPLE = `<svg width="88" height="36" viewBox="0 0 88 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="4" y="6" width="80" height="24" rx="12" class="svg-line" stroke-width="1.5"/>
+  <circle cx="20" cy="18" r="6" class="svg-fg"/>
+  <rect x="31" y="16" width="34" height="4" rx="2" class="svg-fg"/>
+</svg>`;
+
 // ============================================================================
 // HARMONY TYPE THUMBNAILS (for palette generator cards)
 // Fixed colors to visually communicate the harmony concept.

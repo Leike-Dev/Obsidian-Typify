@@ -161,6 +161,7 @@ export const es = {
     'color_mode_title': 'Modo de color',
     'color_mode_subtle': 'Sutil',
     'color_mode_solid': 'Sólido',
+    'color_mode_simple': 'Contorno',
 
 
     // Editar Estilo
