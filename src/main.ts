@@ -7,6 +7,8 @@ import { t } from './lang/helpers';
 import { StyleManager } from './managers/style-manager';
 import { DOMManager } from './managers/dom-manager';
 import { FaviconManager } from './managers/favicon-manager';
+import { registerCommands } from './commands';
+import { registerContextMenus } from './context-menus';
 
 export default class TypifyPlugin extends Plugin {
     settings!: CustomStatusIconsSettings;
@@ -24,6 +26,10 @@ export default class TypifyPlugin extends Plugin {
             this.settings.lastSeenVersion = version;
             void this.saveSettings();
         }));
+
+        // Register global commands and context menus
+        registerCommands(this);
+        registerContextMenus(this);
 
         // Initialize custom icons manager
         this.customIconsManager = new CustomIconsManager(this.app, this.manifest.id);

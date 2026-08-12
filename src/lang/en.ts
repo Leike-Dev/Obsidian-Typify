@@ -3,6 +3,14 @@ export const en = {
     'section_configuration_title': 'General',
     'section_data_management_title': 'Data management',
 
+    // Commands & Context Menus
+    'command_create_style': 'Create style',
+    'command_manage_styles': 'Manage styles',
+    'command_manage_favicons': 'Manage favicons',
+    'command_plugin_notices': 'Plugin notices',
+    'context_create_link_style': 'Create style for this link',
+    'context_edit_link_style': 'Edit style for this link',
+
     // Target Property
     'target_property_title': 'Target property',
     'target_property_desc': 'The property name(s) to apply styles to (e.g., "status", "priority")',

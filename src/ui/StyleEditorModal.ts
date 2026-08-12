@@ -38,7 +38,15 @@ export class StyleEditorModal extends Modal {
     private previewPillDark: HTMLElement | null = null;
     private iconBtnEl: HTMLElement | null = null;
 
-    constructor(app: App, plugin: TypifyPlugin, onSave?: () => void, editStyle?: StatusStyle, editIndex?: number, onCancel?: () => void) {
+    constructor(
+        app: App,
+        plugin: TypifyPlugin,
+        onSave?: () => void,
+        editStyle?: StatusStyle,
+        editIndex?: number,
+        onCancel?: () => void,
+        initialValues?: Partial<StatusStyle>
+    ) {
         super(app);
         this.plugin = plugin;
         this.onSave = onSave;
@@ -57,6 +65,18 @@ export class StyleEditorModal extends Modal {
             this.colorMode = editStyle.colorMode || 'subtle';
             this.matchValue = editStyle.matchValue || '';
             this.prefixMatch = editStyle.prefixMatch === true;
+        }
+
+        // Apply any explicit initial values ONLY when creating a new style (useful for Context Menus)
+        if (!editStyle && initialValues) {
+            if (initialValues.name !== undefined) this.styleName = initialValues.name;
+            if (initialValues.baseColor !== undefined) this.baseColor = initialValues.baseColor;
+            if (initialValues.icon !== undefined) this.icon = initialValues.icon;
+            if (initialValues.appliesTo !== undefined) this.appliesTo = [...initialValues.appliesTo];
+            if (initialValues.shape !== undefined) this.shape = initialValues.shape;
+            if (initialValues.colorMode !== undefined) this.colorMode = initialValues.colorMode;
+            if (initialValues.matchValue !== undefined) this.matchValue = initialValues.matchValue;
+            if (initialValues.prefixMatch !== undefined) this.prefixMatch = initialValues.prefixMatch;
         }
     }
 

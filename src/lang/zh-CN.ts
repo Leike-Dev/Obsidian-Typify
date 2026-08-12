@@ -3,6 +3,14 @@ export const zhCN = {
     'section_configuration_title': '常规',
     'section_data_management_title': '数据管理',
 
+    // 命令和上下文菜单
+    'command_create_style': '创建样式',
+    'command_manage_styles': '管理样式',
+    'command_manage_favicons': '管理网站图标 (Favicons)',
+    'command_plugin_notices': '插件通知',
+    'context_create_link_style': '为此链接创建样式',
+    'context_edit_link_style': '编辑此链接的样式',
+
     // 目标属性
     'target_property_title': '目标属性',
     'target_property_desc': '要应用样式的属性名称（例如："status"、"priority"）',

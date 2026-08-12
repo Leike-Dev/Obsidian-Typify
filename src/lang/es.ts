@@ -3,6 +3,14 @@ export const es = {
     'section_configuration_title': 'General',
     'section_data_management_title': 'Gestión de datos',
 
+    // Comandos y Menús contextuales
+    'command_create_style': 'Crear estilo',
+    'command_manage_styles': 'Gestionar estilos',
+    'command_manage_favicons': 'Gestionar favicons',
+    'command_plugin_notices': 'Avisos del plugin',
+    'context_create_link_style': 'Crear estilo para este enlace',
+    'context_edit_link_style': 'Editar estilo de este enlace',
+
     // Propiedad Objetivo
     'target_property_title': 'Propiedad objetivo',
     'target_property_desc': 'Nombre(s) de propiedad(es) a las que aplicar estilos (ej: "status", "priority")',

@@ -3,6 +3,14 @@ export const ptBR = {
     'section_configuration_title': 'Geral',
     'section_data_management_title': 'Gerenciamento de dados',
 
+    // Comandos & Menus de Contexto
+    'command_create_style': 'Criar estilo',
+    'command_manage_styles': 'Gerenciar estilos',
+    'command_manage_favicons': 'Gerenciar favicons',
+    'command_plugin_notices': 'Avisos do Typify',
+    'context_create_link_style': 'Criar estilo para este link',
+    'context_edit_link_style': 'Editar estilo deste link',
+
     // Propriedade Alvo
     'target_property_title': 'Propriedade alvo',
     'target_property_desc': 'O nome da(s) propriedade(s) para aplicar estilos (ex: "Status", "Status-1")',
