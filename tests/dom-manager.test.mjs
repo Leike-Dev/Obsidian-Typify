@@ -13,6 +13,7 @@ function restoreGlobal(name, descriptor) {
 
 test('reprocessAllPills exits before touching the DOM after cleanup', () => {
     const activeDocumentDescriptor = Object.getOwnPropertyDescriptor(globalThis, 'activeDocument');
+    const documentDescriptor = Object.getOwnPropertyDescriptor(globalThis, 'document');
     let activeDocumentReads = 0;
 
     Object.defineProperty(globalThis, 'activeDocument', {
@@ -20,6 +21,13 @@ test('reprocessAllPills exits before touching the DOM after cleanup', () => {
         get() {
             activeDocumentReads += 1;
             throw new Error('activeDocument must not be read after cleanup');
+        },
+    });
+
+    Object.defineProperty(globalThis, 'document', {
+        configurable: true,
+        get() {
+            throw new Error('document must not be read after cleanup');
         },
     });
 
@@ -31,11 +39,13 @@ test('reprocessAllPills exits before touching the DOM after cleanup', () => {
         assert.equal(activeDocumentReads, 0);
     } finally {
         restoreGlobal('activeDocument', activeDocumentDescriptor);
+        restoreGlobal('document', documentDescriptor);
     }
 });
 
 test('reprocessAllPills scans every currently rendered root while active', () => {
     const activeDocumentDescriptor = Object.getOwnPropertyDescriptor(globalThis, 'activeDocument');
+    const documentDescriptor = Object.getOwnPropertyDescriptor(globalThis, 'document');
     const selectors = [];
     const processedPills = [];
     const processedValues = [];
@@ -67,6 +77,17 @@ test('reprocessAllPills scans every currently rendered root while active', () =>
         },
     });
 
+    Object.defineProperty(globalThis, 'document', {
+        configurable: true,
+        value: {
+            body: {
+                findAll() {
+                    return [];
+                },
+            },
+        },
+    });
+
     try {
         const manager = Object.create(DOMManager.prototype);
         manager.observer = {};
@@ -91,6 +112,7 @@ test('reprocessAllPills scans every currently rendered root while active', () =>
         assert.deepEqual(processedCards, [basesView]);
     } finally {
         restoreGlobal('activeDocument', activeDocumentDescriptor);
+        restoreGlobal('document', documentDescriptor);
     }
 });
 

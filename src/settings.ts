@@ -10,6 +10,7 @@ import { NoticesModal } from './ui/NoticesModal';
 import { PropertySuggest } from './ui/property-suggest';
 import type TypifyPlugin from './main';
 import { t } from './lang/helpers';
+import { getAllPropertyNames, addProperty, removeProperty } from './utils/property-helpers';
 
 // ============================================================================
 // SETTINGS TAB
@@ -94,9 +95,9 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                         });
 
                         // Obsidian-native autocomplete via AbstractInputSuggest
-                        const propSuggest = new PropertySuggest(this.app, propInput, () => this.getAllPropertyNames());
+                        const propSuggest = new PropertySuggest(this.app, propInput, () => getAllPropertyNames(this.app, this.plugin));
                         propSuggest.onSelect((prop) => {
-                            void this.addProperty(prop);
+                            void addProperty(this.plugin, prop);
                             propInput.value = '';
                             renderTargetChips();
                         });
@@ -121,7 +122,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                                 });
                                 setIcon(removeBtn, 'x');
                                 removeBtn.addEventListener('click', () => {
-                                    void this.removeProperty(prop);
+                                    void removeProperty(this.plugin, prop);
                                     renderTargetChips();
                                 });
                             }
@@ -380,55 +381,6 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
         return count;
     }
 
-    private getAllPropertyNames(): string[] {
-        const properties = new Set<string>();
-        
-        // Get currently added properties to filter them out
-        const addedProps = this.plugin.settings.targetProperty
-            .split(',')
-            .map(p => p.trim().toLowerCase())
-            .filter(p => p.length > 0);
-
-        const files = this.app.vault.getMarkdownFiles();
-        for (const file of files) {
-            const cache = this.app.metadataCache.getFileCache(file);
-            const frontmatter = cache?.frontmatter;
-            if (!frontmatter) continue;
-            for (const key of Object.keys(frontmatter)) {
-                if (key === 'position') continue;
-                if (Array.isArray(frontmatter[key])) {
-                    if (!addedProps.includes(key.toLowerCase())) {
-                        properties.add(key);
-                    }
-                }
-            }
-        }
-        return [...properties].sort((a, b) => a.localeCompare(b));
-    }
-
-    private async addProperty(prop: string): Promise<void> {
-        const props = this.plugin.settings.targetProperty
-            .split(',')
-            .map(p => p.trim().toLowerCase())
-            .filter(p => p.length > 0);
-
-        if (props.includes(prop.toLowerCase())) return;
-
-        const current = this.plugin.settings.targetProperty.trim();
-        this.plugin.settings.targetProperty = current
-            ? `${current}, ${prop}`
-            : prop;
-        await this.plugin.saveSettings();
-    }
-
-    private async removeProperty(prop: string): Promise<void> {
-        const props = this.plugin.settings.targetProperty
-            .split(',')
-            .map(p => p.trim())
-            .filter(p => p.length > 0 && p.toLowerCase() !== prop.toLowerCase());
-        this.plugin.settings.targetProperty = props.join(', ');
-        await this.plugin.saveSettings();
-    }
     private renderNoticesBadge() {
         if (!this.noticesSetting) return;
 
