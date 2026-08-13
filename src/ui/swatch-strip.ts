@@ -22,7 +22,6 @@ export class SwatchStrip {
   // Reused elements
   private stripEl!: HTMLElement;
   private panelEl!: HTMLElement;
-  private panelDot!: HTMLElement;
   private panelHex!: HTMLElement;
 
   constructor(container: HTMLElement, options: SwatchStripOptions) {
@@ -122,8 +121,6 @@ export class SwatchStrip {
   private buildPanel() {
     this.panelEl.empty();
 
-    this.panelDot = this.panelEl.createDiv({ cls: "typify-panel-dot" });
-
     this.panelHex = this.panelEl.createSpan({ cls: "typify-panel-hex" });
 
     const actions = this.panelEl.createDiv({ cls: "typify-panel-actions" });
@@ -147,7 +144,8 @@ export class SwatchStrip {
     if (visible && this.selectedIndex !== null) {
       const hex = this.colors[this.selectedIndex];
       if (hex) {
-        this.panelDot.style.background = hex;
+        this.panelEl.setCssStyles({ backgroundImage: "" });
+        this.panelHex.setCssStyles({ color: "" });
         this.panelHex.setText(hex);
       }
     }

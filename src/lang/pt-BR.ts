@@ -213,7 +213,7 @@ export const ptBR = {
     'palette_saved_count': 'Cores salvas: {count} / {max}',
     'palette_add_color': 'Adicionar',
     'palette_max_reached': 'Máximo de {max} cores atingido.',
-    'palette_harmony_heading': 'Gerar paleta de cores',
+    'palette_harmony_heading': 'Gerar paleta',
     'palette_harmony_analogous': 'Análogas',
     'palette_harmony_complementary': 'Complementares',
     'palette_harmony_shades': 'Degradê',

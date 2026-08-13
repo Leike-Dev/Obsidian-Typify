@@ -33,12 +33,16 @@ export function renderPaletteSection(
     // ================================================================
     // SECTION 1: GENERATE COLOR PALETTE
     // ================================================================
-    containerEl.createDiv({ text: t('palette_harmony_heading'), cls: 'typify-card-section-title' });
+    const generateGroup = containerEl.createDiv({ cls: 'setting-group' });
 
+    const generateHeading = generateGroup.createDiv({ cls: 'setting-item setting-item-heading' });
+    const generateHeadingInfo = generateHeading.createDiv({ cls: 'setting-item-info' });
+    generateHeadingInfo.createDiv({ text: t('palette_harmony_heading'), cls: 'setting-item-name' });
 
+    const generateItems = generateGroup.createDiv({ cls: 'setting-items' });
 
     // Card grid for harmony types
-    const cardSection = containerEl.createDiv({ cls: 'typify-card-section typify-palette-card-section' });
+    const cardSection = generateItems.createDiv({ cls: 'setting-item typify-card-setting typify-palette-card-section' });
     const cardGrid = cardSection.createDiv({ cls: 'typify-card-grid' });
 
     const harmonyOptions: { key: HarmonyType; labelKey: TranslationKey; svg: string }[] = [
@@ -87,7 +91,8 @@ export function renderPaletteSection(
     let baseColorHex = '#5347EB';
 
     // Preview box (always visible container)
-    const previewContainer = containerEl.createDiv({ cls: 'typify-palette-preview-container' });
+    const previewSetting = generateItems.createDiv({ cls: 'setting-item typify-card-setting' });
+    const previewContainer = previewSetting.createDiv({ cls: 'typify-palette-preview-container' });
 
     const previewBox = previewContainer.createDiv({ cls: 'typify-palette-preview' });
     renderPreviewDots(previewBox, previewColors); // render initial placeholder
@@ -154,25 +159,33 @@ export function renderPaletteSection(
     // ================================================================
     // SECTION 2: YOUR COLORS
     // ================================================================
-    const yourColorsSection = containerEl.createDiv();
+    const yourColorsGroup = containerEl.createDiv({ cls: 'setting-group' });
+
+    const yourColorsHeading = yourColorsGroup.createDiv({ cls: 'setting-item setting-item-heading' });
+    const yourColorsHeadingInfo = yourColorsHeading.createDiv({ cls: 'setting-item-info' });
+    yourColorsHeadingInfo.createDiv({ text: t('palette_your_colors'), cls: 'setting-item-name' });
+    
+    const counterSpan = yourColorsHeadingInfo.createDiv({ cls: 'setting-item-description typify-palette-counter' });
+    
+    const yourColorsHeadingControl = yourColorsHeading.createDiv({ cls: 'setting-item-control' });
+
+    const yourColorsItems = yourColorsGroup.createDiv({ cls: 'setting-items' });
 
     refreshYourColors = () => {
-        yourColorsSection.empty();
+        yourColorsItems.empty();
+        yourColorsHeadingControl.empty();
 
-        const yourColorsRow = yourColorsSection.createDiv({ cls: 'typify-palette-your-colors-row' });
-        const yourColorsLeft = yourColorsRow.createDiv({ cls: 'typify-palette-your-colors-left' });
-        yourColorsLeft.createDiv({ text: t('palette_your_colors'), cls: 'typify-card-section-title' });
-        
-        const counterSpan = yourColorsLeft.createSpan({
-            text: t('palette_saved_count')
+        counterSpan.setText(
+            t('palette_saved_count')
                 .replace('{count}', String(palette.length))
-                .replace('{max}', String(MAX_PALETTE_COLORS)),
-            cls: 'typify-palette-counter'
-        });
+                .replace('{max}', String(MAX_PALETTE_COLORS))
+        );
+
+        const contentSetting = yourColorsItems.createDiv({ cls: 'setting-item typify-card-setting' });
 
         // Clear button inline with heading (only visible when there are colors)
         if (palette.length > 0) {
-            const clearBtn = yourColorsRow.createEl('button', {
+            const clearBtn = yourColorsHeadingControl.createEl('button', {
                 cls: 'clickable-icon typify-palette-clear-btn',
                 attr: { 'aria-label': t('palette_clear_tooltip') }
             });
@@ -187,7 +200,7 @@ export function renderPaletteSection(
         }
 
         // SwatchStrip container
-        const stripContainer = yourColorsSection.createDiv();
+        const stripContainer = contentSetting.createDiv();
 
         swatchStrip = new SwatchStrip(stripContainer, {
             colors: palette,

@@ -212,7 +212,7 @@ export const en = {
     'palette_saved_count': 'Saved colors: {count} / {max}',
     'palette_add_color': 'Add',
     'palette_max_reached': 'Maximum of {max} colors reached.',
-    'palette_harmony_heading': 'Generate color palette',
+    'palette_harmony_heading': 'Generate palette',
     'palette_harmony_analogous': 'Analogous',
     'palette_harmony_complementary': 'Complementary',
     'palette_harmony_shades': 'Shades',

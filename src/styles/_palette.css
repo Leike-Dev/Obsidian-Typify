@@ -9,25 +9,6 @@
    Palette Section (Modal)
    -------------------------------------------------------------------------- */
 
-/* "Your colors" heading row — title + clear button */
-.typify-palette-your-colors-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 8px;
-    margin-bottom: 15px;
-}
-
-.typify-palette-your-colors-left {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.typify-palette-your-colors-left .typify-card-section-title {
-    margin-bottom: 0;
-}
-
 /* Clear button (inline with heading) */
 .typify-palette-clear-btn {
     color: var(--text-muted);
@@ -42,8 +23,18 @@
 
 /* Card section inside palette (reuses .typify-card-grid / .typify-fmt-card) */
 .typify-palette-card-section {
-    padding: 0 0 4px 0;
     margin-bottom: 10px;
+    container-type: inline-size;
+}
+
+.typify-palette-card-section .typify-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+@container (max-width: 320px) {
+    .typify-palette-card-section .typify-card-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Counter — inline with heading */
@@ -59,15 +50,7 @@
     gap: 12px;
     border: 1px solid transparent;
     border-radius: var(--radius-l);
-    padding: 16px;
-    margin-bottom: 16px;
     background: var(--background-primary-alt);
-}
-
-.typify-palette-preview-header {
-    font-size: var(--font-ui-smaller);
-    color: var(--text-muted);
-    font-weight: 500;
 }
 
 /* Preview strip area */
@@ -276,14 +259,6 @@
 
 .typify-swatch-panel.is-visible {
     display: flex;
-}
-
-.typify-panel-dot {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    border: 0.5px solid var(--color-border-secondary);
 }
 
 .typify-panel-hex {
