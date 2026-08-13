@@ -394,3 +394,20 @@
     display: flex;
     gap: var(--size-4-2);
 }
+
+/* --------------------------------------------------------------------------
+   Settings sub-page
+   -------------------------------------------------------------------------- */
+
+/* The settings page already owns scrolling. Let the style list participate in
+   that scroll instead of creating a nested 400px scroll area. */
+.typify-manager-page {
+    min-width: 0;
+}
+
+.typify-manager-page .typify-manager-list {
+    height: auto;
+    overflow: visible;
+    -webkit-mask-image: none;
+    mask-image: none;
+}
