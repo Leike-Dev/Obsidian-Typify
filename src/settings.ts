@@ -168,6 +168,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                 {
                     type: 'page' as const,
                     name: t('ui_components_title'),
+                    desc: t('ui_components_desc'),
                     items: [
                         // Hide Remove Button — dropdown
                         {
