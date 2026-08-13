@@ -20,9 +20,13 @@
     margin-bottom: var(--size-4-3);
 }
 
-.typify-manager-search {
+.typify-manager-search-container .search-input-container {
     flex: 1;
     min-width: 0;
+}
+
+.typify-manager-search {
+    width: 100%;
     padding: var(--size-4-2) var(--size-4-3);
     border: 1px solid var(--background-modifier-border);
     border-radius: var(--input-radius);
