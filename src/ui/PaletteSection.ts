@@ -163,7 +163,6 @@ export function renderPaletteSection(
     // SECTION 2: YOUR COLORS
     // ================================================================
     let yourColorsGroup: SettingGroup;
-    let clearBtnComponent: ExtraButtonComponent | null = null;
 
     refreshYourColors = () => {
         // Re-create the entire group to properly manage heading extras
@@ -172,7 +171,7 @@ export function renderPaletteSection(
             yourColorsGroup.listEl.parentElement?.remove();
         }
 
-        const headingFrag = document.createDocumentFragment();
+        const headingFrag = new DocumentFragment();
         headingFrag.appendText(t('palette_your_colors'));
         headingFrag.createDiv({
             text: t('palette_saved_count')
@@ -187,7 +186,6 @@ export function renderPaletteSection(
         // Clear button in the heading (only when there are colors)
         if (palette.length > 0) {
             yourColorsGroup.addExtraButton(btn => {
-                clearBtnComponent = btn;
                 btn.setIcon('trash-2')
                     .setTooltip(t('palette_clear_tooltip'))
                     .onClick(() => {
