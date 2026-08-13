@@ -2,6 +2,13 @@ import { App, Modal, setIcon } from 'obsidian';
 import type TypifyPlugin from '../main';
 import { t } from '../lang/helpers';
 
+interface NoticeItem {
+    type: string;
+    icon: string;
+    title: string;
+    desc: string;
+}
+
 export class NoticesModal extends Modal {
     private plugin: TypifyPlugin;
 
@@ -58,18 +65,31 @@ export class NoticesModal extends Modal {
             });
 
             const createTag = (id: string, label: string, count: number) => {
-                const tagEl = tagsContainer.createDiv({ cls: `typify-notice-tag typify-sort-chip ${this.currentFilter === id ? 'is-active' : ''}` });
+                const isActive = this.currentFilter === id;
+                const tagEl = tagsContainer.createSpan({
+                    cls: `typify-notice-tag typify-sort-chip${isActive ? ' is-active' : ''}`,
+                    attr: {
+                        role: 'button',
+                        tabindex: '0',
+                        'aria-pressed': isActive ? 'true' : 'false'
+                    }
+                });
                 tagEl.createSpan({ text: label });
                 tagEl.createSpan({ text: count.toString(), cls: 'typify-tag-count' });
-                tagEl.onClickEvent(() => {
+                tagEl.addEventListener('click', () => {
                     this.currentFilter = id;
                     renderTags();
                     renderList();
                 });
+                tagEl.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        tagEl.click();
+                    }
+                });
             };
 
-            const allLabel = t('notices_tab_all');
-            createTag('all', allLabel, counts['all'] || 0);
+            createTag('all', t('notices_tab_all'), counts['all'] || 0);
 
             Object.keys(counts).forEach(type => {
                 if (type !== 'all') {
@@ -85,8 +105,8 @@ export class NoticesModal extends Modal {
         renderList();
     }
 
-    private getActiveNotices() {
-        const notices = [];
+    private getActiveNotices(): NoticeItem[] {
+        const notices: NoticeItem[] = [];
 
         if (this.plugin.settings.enableFavicons) {
             notices.push({
@@ -131,7 +151,7 @@ export class NoticesModal extends Modal {
 
         notices.push({
             type: 'info',
-            icon: 'case-sensitive', // Using an icon like 'case-sensitive' or 'text-cursor' or 'a-large-small' (lucide icons)
+            icon: 'case-sensitive',
             title: t('notice_usage_case_title'),
             desc: t('notice_usage_case_desc')
         });
@@ -156,7 +176,6 @@ export class NoticesModal extends Modal {
             title: t('notice_custom_images_title'),
             desc: t('notice_custom_images_desc')
         });
-
 
         return notices;
     }

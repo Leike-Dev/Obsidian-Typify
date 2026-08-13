@@ -34,7 +34,7 @@
    Notices Modal
    -------------------------------------------------------------------------- */
 
-.typify-notices-modal .modal-content {
+.typify-notices-modal {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -44,11 +44,11 @@
    Tags (Filters)
    -------------------------------------------------------------------------- */
 
-.typify-notices-tags {
+.typify-sort-chips.typify-notices-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 4px;
+    margin-bottom: 0;
 }
 
 .typify-notice-tag {

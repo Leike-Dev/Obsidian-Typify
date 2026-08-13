@@ -54,8 +54,8 @@
    Entries List & Items
    -------------------------------------------------------------------------- */
 
-.typify-changelog-tabs {
-    margin-bottom: 4px;
+.typify-sort-chips.typify-changelog-tabs {
+    margin-bottom: 0;
 }
 
 .typify-changelog-list {
