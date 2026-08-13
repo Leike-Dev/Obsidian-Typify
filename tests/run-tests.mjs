@@ -60,6 +60,7 @@ try {
         entryPoints: [
             'tests/dom-manager.test.mjs',
             'tests/style-manager.test.mjs',
+            'tests/import-roundtrip.test.mjs',
         ],
         bundle: true,
         platform: 'node',

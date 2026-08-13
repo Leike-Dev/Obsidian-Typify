@@ -1,7 +1,7 @@
-import { App, Modal, Notice } from 'obsidian';
+import { App, ButtonComponent, Modal, Notice } from 'obsidian';
 import type TypifyPlugin from '../main';
-import { StatusStyle } from '../types';
 import { t } from '../lang/helpers';
+import { validateStatusStyles } from '../utils/style-validator';
 
 /**
  * Modal for importing plugin settings via clipboard paste.
@@ -34,19 +34,16 @@ export class ImportSettingsModal extends Modal {
         // Buttons
         const btnContainer = contentEl.createDiv({ cls: 'modal-button-container' });
 
-        const importBtn = btnContainer.createEl('button', {
-            text: t('import_button'),
-            cls: 'mod-cta'
-        });
-        importBtn.addEventListener('click', () => {
-            void this.handleImport();
-        });
+        new ButtonComponent(btnContainer)
+            .setButtonText(t('import_button'))
+            .setCta()
+            .onClick(() => {
+                void this.handleImport();
+            });
 
-        const cancelBtn = btnContainer.createEl('button', {
-            text: t('cancel_button'),
-            cls: 'mod-cancel'
-        });
-        cancelBtn.addEventListener('click', () => { this.close(); });
+        new ButtonComponent(btnContainer)
+            .setButtonText(t('cancel_button'))
+            .onClick(() => { this.close(); });
     }
 
     /**
@@ -75,7 +72,7 @@ export class ImportSettingsModal extends Modal {
         }
 
         // Validate each style individually
-        const validStyles = this.validateStyles(data.statusStyles as Record<string, unknown>[]);
+        const validStyles = validateStatusStyles(data.statusStyles as Record<string, unknown>[]);
         const skipped = (data.statusStyles as unknown[]).length - validStyles.length;
 
         if (validStyles.length === 0) {
@@ -152,59 +149,6 @@ export class ImportSettingsModal extends Modal {
         this.close();
     }
 
-    private static readonly HEX_COLOR_RE = /^#[0-9a-f]{6}$/i;
-    private static readonly VALID_SHAPES = ['pill', 'rectangle', 'flat'];
-    private static readonly VALID_COLOR_MODES = ['subtle', 'solid'];
-
-    /**
-     * Validates an array of raw objects and returns only valid StatusStyle entries.
-     */
-    private validateStyles(raw: Record<string, unknown>[]): StatusStyle[] {
-        const valid: StatusStyle[] = [];
-
-        for (const item of raw) {
-            if (typeof item !== 'object' || item === null || Array.isArray(item)) continue;
-
-            // Required: name (non-empty string)
-            if (typeof item.name !== 'string' || !item.name.trim()) continue;
-
-            // Required: baseColor (valid hex)
-            if (typeof item.baseColor !== 'string' || !ImportSettingsModal.HEX_COLOR_RE.test(item.baseColor)) continue;
-
-            const style: StatusStyle = {
-                name: item.name.trim(),
-                baseColor: item.baseColor,
-                icon: typeof item.icon === 'string' ? item.icon : ''
-            };
-
-            // Optional: shape
-            if (typeof item.shape === 'string' && ImportSettingsModal.VALID_SHAPES.includes(item.shape)) {
-                style.shape = item.shape as StatusStyle['shape'];
-            }
-
-            // Optional: matchValue
-            if (typeof item.matchValue === 'string' && item.matchValue.trim() !== '') {
-                style.matchValue = item.matchValue.trim();
-            }
-
-            // Optional: colorMode
-            if (typeof item.colorMode === 'string' && ImportSettingsModal.VALID_COLOR_MODES.includes(item.colorMode)) {
-                style.colorMode = item.colorMode as StatusStyle['colorMode'];
-            }
-
-            // Optional: appliesTo (array of strings)
-            if (Array.isArray(item.appliesTo)) {
-                const filtered = (item.appliesTo as unknown[]).filter((v): v is string => typeof v === 'string' && v.trim() !== '');
-                if (filtered.length > 0) {
-                    style.appliesTo = filtered;
-                }
-            }
-
-            valid.push(style);
-        }
-
-        return valid;
-    }
 
     onClose() {
         this.contentEl.empty();

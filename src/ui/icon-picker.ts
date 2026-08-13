@@ -47,10 +47,7 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
     }
 
     private renderTabs() {
-        const inputContainer = this.modalEl.querySelector('.prompt-input-container');
-        if (!inputContainer) return;
-
-        this.tabsContainerEl = createDiv('typify-icon-tabs');
+        this.tabsContainerEl = createDiv({ cls: 'typify-icon-tabs', attr: { role: 'tablist' } });
 
         const tabs = [
             { id: 'lucide', label: t('tab_icons') },
@@ -60,7 +57,14 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
         ];
 
         tabs.forEach(tab => {
-            const tabEl = this.tabsContainerEl?.createDiv('typify-icon-tab');
+            const tabEl = this.tabsContainerEl?.createEl('button', {
+                cls: 'typify-icon-tab',
+                type: 'button',
+                attr: {
+                    role: 'tab',
+                    'aria-selected': this.currentTab === tab.id ? 'true' : 'false',
+                }
+            });
             if (!tabEl) return;
             tabEl.setText(tab.label);
             if (this.currentTab === tab.id) {
@@ -70,9 +74,13 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
             tabEl.addEventListener('click', () => {
                 if (this.currentTab === tab.id) return;
                 
-                // Update active class
-                this.tabsContainerEl?.querySelectorAll('.typify-icon-tab').forEach(el => { el.removeClass('is-active'); });
+                // Update active class and ARIA state
+                this.tabsContainerEl?.querySelectorAll('.typify-icon-tab').forEach(el => {
+                    el.removeClass('is-active');
+                    el.setAttribute('aria-selected', 'false');
+                });
                 tabEl.addClass('is-active');
+                tabEl.setAttribute('aria-selected', 'true');
                 
                 // Switch tab and refresh suggestions
                 this.currentTab = tab.id as 'lucide' | 'emoji' | 'custom' | 'images';
@@ -82,7 +90,8 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
             });
         });
 
-        inputContainer.insertAdjacentElement('afterend', this.tabsContainerEl);
+        // Insert tabs before the result container using public API element
+        this.resultContainerEl.insertAdjacentElement('beforebegin', this.tabsContainerEl);
     }
 
     /**
