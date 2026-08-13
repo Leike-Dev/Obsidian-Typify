@@ -163,136 +163,133 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                                 new StyleManagerModal(this.app, this.plugin, () => { this.update(); }).open();
                             }));
                     }
-                }
-            ]
-        });
-
-        // ================================================================
-        // GROUP: UI COMPONENTS (other styles)
-        // ================================================================
-        defs.push({
-            type: 'group' as const,
-            heading: t('ui_components_title'),
-            cls: 'typify-settings-ui-group',
-            items: [
-                // Hide Remove Button — dropdown
-                {
-                    name: t('hide_remove_button_title'),
-                    desc: t('hide_remove_button_desc'),
-                    render: (setting: Setting) => {
-                        setting.addDropdown(dropdown => dropdown
-                            .addOption('none', t('hide_remove_button_none'))
-                            .addOption('properties', t('hide_remove_button_properties'))
-                            .addOption('bases', t('hide_remove_button_bases'))
-                            .addOption('both', t('hide_remove_button_both'))
-                            .setValue(this.plugin.settings.hideRemoveButton)
-                            .onChange(async (value) => {
-                                this.plugin.settings.hideRemoveButton = value as 'none' | 'properties' | 'bases' | 'both';
-                                await this.plugin.saveSettings();
-                            }));
-                    }
                 },
-
-                // Hide Remove Button Hover — needs side-effect for body class
+                // Other styles
                 {
-                    name: t('hide_remove_button_hover_title'),
-                    desc: t('hide_remove_button_hover_desc'),
-                    render: (setting: Setting) => {
-                        setting.addToggle(toggle => toggle
-                            .setValue(this.plugin.settings.hideRemoveButtonHover)
-                            .onChange(async (value) => {
-                                this.plugin.settings.hideRemoveButtonHover = value;
-                                await this.plugin.saveSettings();
-                                this.plugin.updateBodyClasses();
-                            }));
-                    }
-                },
+                    type: 'page' as const,
+                    name: t('ui_components_title'),
+                    desc: t('ui_components_desc'),
+                    items: [
+                        // Hide Remove Button — dropdown
+                        {
+                            name: t('hide_remove_button_title'),
+                            desc: t('hide_remove_button_desc'),
+                            render: (setting: Setting) => {
+                                setting.addDropdown(dropdown => dropdown
+                                    .addOption('none', t('hide_remove_button_none'))
+                                    .addOption('properties', t('hide_remove_button_properties'))
+                                    .addOption('bases', t('hide_remove_button_bases'))
+                                    .addOption('both', t('hide_remove_button_both'))
+                                    .setValue(this.plugin.settings.hideRemoveButton)
+                                    .onChange(async (value) => {
+                                        this.plugin.settings.hideRemoveButton = value as 'none' | 'properties' | 'bases' | 'both';
+                                        await this.plugin.saveSettings();
+                                    }));
+                            }
+                        },
 
-                // Custom Icons — needs side-effects on toggle
-                {
-                    name: t('custom_icons_toggle_title'),
-                    desc: t('custom_icons_toggle_desc'),
-                    render: (setting: Setting) => {
-                        setting.addToggle(toggle => toggle
-                            .setValue(this.plugin.settings.enableCustomIcons)
-                            .onChange(async (value) => {
-                                this.plugin.settings.enableCustomIcons = value;
-                                if (value) {
-                                    try {
-                                        const result = await this.plugin.customIconsManager.initialize();
-                                        if (result.loaded > 0) {
-                                            new Notice(t('custom_icons_loaded').replace('{count}', String(result.loaded)));
+                        // Hide Remove Button Hover — needs side-effect for body class
+                        {
+                            name: t('hide_remove_button_hover_title'),
+                            desc: t('hide_remove_button_hover_desc'),
+                            render: (setting: Setting) => {
+                                setting.addToggle(toggle => toggle
+                                    .setValue(this.plugin.settings.hideRemoveButtonHover)
+                                    .onChange(async (value) => {
+                                        this.plugin.settings.hideRemoveButtonHover = value;
+                                        await this.plugin.saveSettings();
+                                        this.plugin.updateBodyClasses();
+                                    }));
+                            }
+                        },
+
+                        // Custom Icons — needs side-effects on toggle
+                        {
+                            name: t('custom_icons_toggle_title'),
+                            desc: t('custom_icons_toggle_desc'),
+                            render: (setting: Setting) => {
+                                setting.addToggle(toggle => toggle
+                                    .setValue(this.plugin.settings.enableCustomIcons)
+                                    .onChange(async (value) => {
+                                        this.plugin.settings.enableCustomIcons = value;
+                                        if (value) {
+                                            try {
+                                                const result = await this.plugin.customIconsManager.initialize();
+                                                if (result.loaded > 0) {
+                                                    new Notice(t('custom_icons_loaded').replace('{count}', String(result.loaded)));
+                                                } else {
+                                                    new Notice(t('custom_icons_empty'));
+                                                }
+                                            } catch (e) {
+                                                new Notice(t('custom_icons_error'));
+                                                console.error('[Typify] Custom icons error:', e);
+                                            }
                                         } else {
-                                            new Notice(t('custom_icons_empty'));
+                                            this.plugin.customIconsManager.clear();
                                         }
-                                    } catch (e) {
-                                        new Notice(t('custom_icons_error'));
-                                        console.error('[Typify] Custom icons error:', e);
-                                    }
-                                } else {
-                                    this.plugin.customIconsManager.clear();
-                                }
-                                await this.plugin.saveSettings();
-                                this.update();
-                            }));
-                    }
-                },
+                                        await this.plugin.saveSettings();
+                                        this.update();
+                                    }));
+                            }
+                        },
 
-                // Link Styles — simple toggle
-                {
-                    name: t('link_styles_toggle_title'),
-                    desc: t('link_styles_toggle_desc'),
-                    render: (setting: Setting) => {
-                        setting.addToggle(toggle => toggle
-                            .setValue(this.plugin.settings.enableLinkStyles)
-                            .onChange(async (value) => {
-                                this.plugin.settings.enableLinkStyles = value;
-                                await this.plugin.saveSettings();
-                            }));
-                    }
-                },
+                        // Link Styles — simple toggle
+                        {
+                            name: t('link_styles_toggle_title'),
+                            desc: t('link_styles_toggle_desc'),
+                            render: (setting: Setting) => {
+                                setting.addToggle(toggle => toggle
+                                    .setValue(this.plugin.settings.enableLinkStyles)
+                                    .onChange(async (value) => {
+                                        this.plugin.settings.enableLinkStyles = value;
+                                        await this.plugin.saveSettings();
+                                    }));
+                            }
+                        },
 
-                // Custom Palette Toggle — needs side-effect + experimental badge
-                {
-                    name: t('custom_palette_toggle_title'),
-                    desc: t('custom_palette_toggle_desc'),
-                    render: (setting: Setting) => {
-                        setting.addToggle(toggle => toggle
-                            .setValue(this.plugin.settings.enableCustomPalette)
-                            .onChange(async (value) => {
-                                this.plugin.settings.enableCustomPalette = value;
-                                await this.plugin.saveSettings();
-                                this.update();
-                            }));
+                        // Custom Palette Toggle — needs side-effect + experimental badge
+                        {
+                            name: t('custom_palette_toggle_title'),
+                            desc: t('custom_palette_toggle_desc'),
+                            render: (setting: Setting) => {
+                                setting.addToggle(toggle => toggle
+                                    .setValue(this.plugin.settings.enableCustomPalette)
+                                    .onChange(async (value) => {
+                                        this.plugin.settings.enableCustomPalette = value;
+                                        await this.plugin.saveSettings();
+                                        this.update();
+                                    }));
 
-                        const nameEl = setting.nameEl;
-                        nameEl.setText(t('custom_palette_toggle_title') + ' ');
-                        nameEl.createSpan({ text: t('experimental_tag'), cls: 'typify-experimental-tag' });
-                    }
-                },
+                                const nameEl = setting.nameEl;
+                                nameEl.setText(t('custom_palette_toggle_title') + ' ');
+                                nameEl.createSpan({ text: t('experimental_tag'), cls: 'typify-experimental-tag' });
+                            }
+                        },
 
-                // Favicons Toggle — needs side-effect + experimental badge
-                {
-                    name: t('favicon_manager_title'),
-                    desc: t('favicon_manager_toggle_desc'),
-                    render: (setting: Setting) => {
-                        setting.addToggle(toggle => toggle
-                            .setValue(this.plugin.settings.enableFavicons)
-                            .onChange(async (value) => {
-                                this.plugin.settings.enableFavicons = value;
-                                if (value) {
-                                    await this.plugin.faviconManager.initialize();
-                                } else {
-                                    this.plugin.faviconManager.cleanupActiveUrls();
-                                }
-                                await this.plugin.saveSettings();
-                                this.update();
-                            }));
+                        // Favicons Toggle — needs side-effect + experimental badge
+                        {
+                            name: t('favicon_manager_title'),
+                            desc: t('favicon_manager_toggle_desc'),
+                            render: (setting: Setting) => {
+                                setting.addToggle(toggle => toggle
+                                    .setValue(this.plugin.settings.enableFavicons)
+                                    .onChange(async (value) => {
+                                        this.plugin.settings.enableFavicons = value;
+                                        if (value) {
+                                            await this.plugin.faviconManager.initialize();
+                                        } else {
+                                            this.plugin.faviconManager.cleanupActiveUrls();
+                                        }
+                                        await this.plugin.saveSettings();
+                                        this.update();
+                                    }));
 
-                        const favNameEl = setting.nameEl;
-                        favNameEl.setText(t('favicon_manager_title') + ' ');
-                        favNameEl.createSpan({ text: t('experimental_tag'), cls: 'typify-experimental-tag' });
-                    }
+                                const favNameEl = setting.nameEl;
+                                favNameEl.setText(t('favicon_manager_title') + ' ');
+                                favNameEl.createSpan({ text: t('experimental_tag'), cls: 'typify-experimental-tag' });
+                            }
+                        }
+                    ]
                 }
             ]
         });
