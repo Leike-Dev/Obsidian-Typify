@@ -1,6 +1,6 @@
 import { PluginSettingTab, App, Setting, Notice, SettingDefinitionItem, setIcon } from 'obsidian';
 import { StyleEditorModal } from './ui/StyleEditorModal';
-import { StyleManagerModal } from './ui/StyleManagerModal';
+import { StyleManagerPage } from './ui/StyleManagerPage';
 import { ExportSettingsModal } from './ui/ExportSettingsModal';
 import { ImportSettingsModal } from './ui/ImportSettingsModal';
 import { PaletteModal } from './ui/PaletteModal';
@@ -154,15 +154,10 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                 },
                 // Manage Styles
                 {
+                    type: 'page' as const,
                     name: t('manage_styles_title'),
                     desc: t('manage_styles_desc'),
-                    render: (setting: Setting) => {
-                        setting.addButton(button => button
-                            .setButtonText(t('manage_styles_button'))
-                            .onClick(() => {
-                                new StyleManagerModal(this.app, this.plugin, () => { this.update(); }).open();
-                            }));
-                    }
+                    page: () => new StyleManagerPage(this.app, this.plugin)
                 },
                 // Other styles
                 {
