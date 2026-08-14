@@ -97,7 +97,8 @@ export class StyleEditorModal extends Modal {
 
         // Style Name
         generalGroup.addSetting(setting => {
-            setting.setName(t('status_name_title'))
+            setting.setClass('typify-stack-on-phone')
+                .setName(t('status_name_title'))
                 .setDesc(t('status_name_desc'))
                 .addText(text => text
                     .setPlaceholder(t('status_name_placeholder'))
@@ -108,7 +109,9 @@ export class StyleEditorModal extends Modal {
                     }));
         });
 
-        const designGroup = new SettingGroup(contentEl).setHeading(t('group_design_title'));
+        const designGroup = new SettingGroup(contentEl)
+            .setHeading(t('group_design_title'))
+            .addClass('typify-editor-section');
 
         // Shape — card grid
         designGroup.addSetting(setting => {
@@ -141,6 +144,7 @@ export class StyleEditorModal extends Modal {
         // Base Color
         designGroup.addSetting(setting => {
             setting.setClass('typify-color-picker-setting')
+                .setClass('typify-stack-on-phone')
                 .setName(t('base_color_title'))
                 .setDesc(t('base_color_desc'))
                 .addColorPicker(color => {
@@ -170,7 +174,8 @@ export class StyleEditorModal extends Modal {
 
         // Icon
         designGroup.addSetting(setting => {
-            setting.setName(t('icon_title'))
+            setting.setClass('typify-stack-on-phone')
+                .setName(t('icon_title'))
                 .setDesc(t('icon_desc'))
                 .addButton(btn => {
                     this.iconBtnEl = btn.buttonEl;
@@ -205,11 +210,14 @@ export class StyleEditorModal extends Modal {
 
         contentEl.createDiv({ cls: 'typify-spacer' });
 
-        const behaviorGroup = new SettingGroup(contentEl).setHeading(t('group_behavior_title'));
+        const behaviorGroup = new SettingGroup(contentEl)
+            .setHeading(t('group_behavior_title'))
+            .addClass('typify-editor-section');
 
         // Applies To (Scope)
         behaviorGroup.addSetting(setting => {
-            setting.setName(t('applies_to_title'))
+            setting.setClass('typify-stack-on-phone')
+                .setName(t('applies_to_title'))
                 .setDesc(t('applies_to_desc'))
                 .addDropdown(dropdown => {
                     dropdown.addOption('all', t('applies_to_all_option'));
@@ -239,7 +247,8 @@ export class StyleEditorModal extends Modal {
         // Link URL (only shown when link styles are enabled)
         if (this.plugin.settings.enableLinkStyles) {
             behaviorGroup.addSetting(setting => {
-                setting.setName(t('link_url_title'))
+                setting.setClass('typify-stack-on-phone')
+                    .setName(t('link_url_title'))
                     .setDesc(t('link_url_desc'))
                     .addText(text => {
                         text.setPlaceholder(t('link_url_placeholder'))
@@ -293,7 +302,9 @@ export class StyleEditorModal extends Modal {
         // PREVIEW
         // ============================================================
         contentEl.createDiv({ cls: 'typify-spacer' });
-        new SettingGroup(contentEl).setHeading(t('group_preview_title'));
+        new SettingGroup(contentEl)
+            .setHeading(t('group_preview_title'))
+            .addClass('typify-editor-section');
 
         const previewContainer = contentEl.createDiv({ cls: 'typify-preview-card' });
 

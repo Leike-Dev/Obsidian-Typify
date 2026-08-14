@@ -7,6 +7,15 @@
  * ========================================================================== */
 
 /* --------------------------------------------------------------------------
+   Spacing Tokens (semantic, overridden in _mobile.css for phone)
+   -------------------------------------------------------------------------- */
+
+body {
+    --typify-space-stack-gap:     var(--size-4-3);  /* gap between label and control when stacked (12px native) */
+    --typify-space-heading-above: var(--size-4-6);  /* distance above section headings */
+}
+
+/* --------------------------------------------------------------------------
    Badges & Tags (shared between Settings and Changelog)
    -------------------------------------------------------------------------- */
 

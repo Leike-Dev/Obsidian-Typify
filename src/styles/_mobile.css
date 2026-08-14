@@ -62,3 +62,54 @@ body.typify-compat-minimal .bases-view .bases-cards-container .bases-cards-prope
     padding: 1px 6px;
     font-size: var(--font-smaller);
 }
+
+/* --------------------------------------------------------------------------
+   Phone: Editor Modal — Stack labeled settings
+   -------------------------------------------------------------------------- */
+
+/* Place label and control on separate lines for the 5 marked settings */
+body.is-phone .modal-content.typify-editor-modal .setting-item.typify-stack-on-phone {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: var(--typify-space-stack-gap);
+}
+
+body.is-phone .modal-content.typify-editor-modal .setting-item.typify-stack-on-phone .setting-item-info {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+}
+
+body.is-phone .modal-content.typify-editor-modal .setting-item.typify-stack-on-phone .setting-item-control {
+    flex: 0 0 auto;
+    width: 100%;
+    margin-block-start: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Phone Spacing Tokens Overrides
+   -------------------------------------------------------------------------- */
+
+body.is-phone {
+    --typify-space-stack-gap:     var(--size-4-3); /* ~12px native gap between info and control */
+    --typify-space-heading-above: var(--size-4-4); /* ~14px/16px on mobile */
+}
+
+/* --------------------------------------------------------------------------
+   Phone: Editor Modal — Neutralize spacers, unify heading spacing
+   -------------------------------------------------------------------------- */
+
+/* Spacers are only needed on desktop/tablet; on phone the section class
+   provides the vertical distance between groups. */
+body.is-phone .modal-content.typify-editor-modal .typify-spacer {
+    display: none;
+}
+
+/* Uniform top distance for Design, Behavior, and Preview headings.
+   Increased specificity avoids !important while overcoming Obsidian native
+   mobile rules (which fail due to the hidden spacer breaking sibling selectors). */
+body.is-phone div.modal-content.typify-editor-modal div.typify-editor-section,
+body.is-phone div.modal-content.typify-editor-modal div.typify-editor-section>.setting-item-heading {
+    margin-top: var(--typify-space-heading-above);
+}
