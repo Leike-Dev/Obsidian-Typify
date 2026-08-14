@@ -128,7 +128,7 @@ export function renderPaletteSection(
                 renderPreviewDots(previewBox, previewColors);
                 addAllBtnComponent?.setDisabled(true);
 
-                void plugin.saveSettings(false).then(() => {
+                void plugin.saveSettings({}).then(() => {
                     if (refreshYourColors) refreshYourColors();
                 });
             });
@@ -190,7 +190,7 @@ export function renderPaletteSection(
                     .setTooltip(t('palette_clear_tooltip'))
                     .onClick(() => {
                         palette.length = 0;
-                        void plugin.saveSettings(false).then(() => {
+                        void plugin.saveSettings({}).then(() => {
                             if (swatchStrip) swatchStrip.setColors(palette);
                             refreshYourColors();
                         });
@@ -222,7 +222,7 @@ export function renderPaletteSection(
                                 .replace('{max}', String(MAX_PALETTE_COLORS))
                         );
                     }
-                    void plugin.saveSettings(false);
+                    void plugin.saveSettings({});
 
                     // If palette is empty, re-render to hide clear button
                     if (palette.length === 0) {

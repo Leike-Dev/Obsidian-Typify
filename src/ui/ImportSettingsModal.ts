@@ -135,7 +135,7 @@ export class ImportSettingsModal extends Modal {
             }
         }
 
-        await this.plugin.saveSettings();
+        await this.plugin.saveSettings({ rebuildStyles: true, updateBodyClasses: true });
 
 
         if (skipped > 0) {

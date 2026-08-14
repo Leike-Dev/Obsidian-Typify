@@ -160,7 +160,7 @@ export class StyleEditorModal extends Modal {
                         }
 
                         const pickerInput = setting.controlEl.querySelector('input[type="color"]');
-                        if (pickerInput instanceof HTMLInputElement) {
+                        if (pickerInput?.instanceOf(HTMLInputElement)) {
                             pickerInput.setAttribute('list', datalistId);
                         }
                     }
@@ -579,7 +579,7 @@ export class StyleEditorModal extends Modal {
         } else {
             this.plugin.settings.statusStyles.push(style);
         }
-        await this.plugin.saveSettings();
+        await this.plugin.saveSettings({ rebuildStyles: true });
 
         const noticeKey = this.editIndex !== null ? 'style_updated' : 'style_saved';
         new Notice(t(noticeKey).replace('{name}', name));

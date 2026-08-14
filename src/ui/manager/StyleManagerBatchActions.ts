@@ -177,7 +177,7 @@ export class StyleManagerBatchActions {
                         created++;
                     }
 
-                    await this.plugin.saveSettings();
+                    await this.plugin.saveSettings({ rebuildStyles: true });
                     new Notice(t('batch_create_success').replace('{count}', String(created)));
                     this.callbacks.onBatchCreated();
                 })();

@@ -52,7 +52,7 @@ export async function addProperty(plugin: TypifyPlugin, prop: string): Promise<v
     plugin.settings.targetProperty = current
         ? `${current}, ${prop}`
         : prop;
-    await plugin.saveSettings();
+    await plugin.saveSettings({ reprocessPills: true });
 }
 
 /**
@@ -65,5 +65,5 @@ export async function removeProperty(plugin: TypifyPlugin, prop: string): Promis
         .map(p => p.trim())
         .filter(p => p.length > 0 && p.toLowerCase() !== prop.toLowerCase());
     plugin.settings.targetProperty = props.join(', ');
-    await plugin.saveSettings();
+    await plugin.saveSettings({ reprocessPills: true });
 }

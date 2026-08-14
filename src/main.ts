@@ -10,6 +10,18 @@ import { FaviconManager } from './managers/favicon-manager';
 import { registerCommands } from './commands';
 import { registerContextMenus } from './context-menus';
 
+export interface SaveOptions {
+    /** Rebuild O(1) style lookup maps and dynamic stylesheet. */
+    rebuildStyles?: boolean;
+
+    /** Re-evaluate already rendered pills against current settings/styles.
+     *  Always enabled when rebuildStyles is true. */
+    reprocessPills?: boolean;
+
+    /** Apply Typify body classes (hide-x / reveal-on-hover). */
+    updateBodyClasses?: boolean;
+}
+
 export default class TypifyPlugin extends Plugin {
     settings!: CustomStatusIconsSettings;
     customIconsManager!: CustomIconsManager;
@@ -24,7 +36,7 @@ export default class TypifyPlugin extends Plugin {
 
         this.registerEvent(this.app.workspace.on('typify:version-seen', (version: string) => {
             this.settings.lastSeenVersion = version;
-            void this.saveSettings();
+            void this.saveSettings({});
         }));
 
         // Register global commands and context menus
@@ -119,19 +131,28 @@ export default class TypifyPlugin extends Plugin {
         this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData() as Partial<CustomStatusIconsSettings>);
     }
 
-    async saveSettings(rebuildCss: boolean = true) {
-        this.cachedTargetProps = null; 
+    async saveSettings(options: SaveOptions): Promise<void> {
+        const {
+            rebuildStyles = false,
+            updateBodyClasses = false,
+        } = options;
+
+        // rebuildStyles always implies reprocessPills
+        const reprocessPills = rebuildStyles || options.reprocessPills === true;
+
+        this.cachedTargetProps = null;
         await this.saveData(this.settings);
-        
-        if (rebuildCss) {
-            // Re-build stylesheet and cache
-            this.styleManager.buildCache(); 
+
+        if (rebuildStyles) {
+            this.styleManager.buildCache();
+        }
+
+        if (updateBodyClasses) {
             this.updateBodyClasses();
-            
-            if (this.domManager) {
-                this.domManager.reprocessAllPills();
-                this.domManager.refreshProcessing();
-            }
+        }
+
+        if (reprocessPills && this.domManager) {
+            this.domManager.reprocessAllPills();
         }
     }
 

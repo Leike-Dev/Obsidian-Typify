@@ -61,6 +61,7 @@ try {
             'tests/dom-manager.test.mjs',
             'tests/style-manager.test.mjs',
             'tests/import-roundtrip.test.mjs',
+            'tests/save-settings.test.mjs',
         ],
         bundle: true,
         platform: 'node',

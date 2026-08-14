@@ -55,7 +55,7 @@ export class FaviconsSection {
                 card.addClass('is-selected');
                 this.plugin.settings.faviconProvider = opt.key;
                 
-                void this.plugin.saveSettings();
+                void this.plugin.saveSettings({});
             };
 
             card.addEventListener('click', () => void selectCard());

@@ -178,7 +178,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                                     .setValue(this.plugin.settings.hideRemoveButton)
                                     .onChange(async (value) => {
                                         this.plugin.settings.hideRemoveButton = value as 'none' | 'properties' | 'bases' | 'both';
-                                        await this.plugin.saveSettings();
+                                        await this.plugin.saveSettings({ updateBodyClasses: true });
                                     }));
                             }
                         },
@@ -192,8 +192,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                                     .setValue(this.plugin.settings.hideRemoveButtonHover)
                                     .onChange(async (value) => {
                                         this.plugin.settings.hideRemoveButtonHover = value;
-                                        await this.plugin.saveSettings();
-                                        this.plugin.updateBodyClasses();
+                                        await this.plugin.saveSettings({ updateBodyClasses: true });
                                     }));
                             }
                         },
@@ -222,7 +221,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                                         } else {
                                             this.plugin.customIconsManager.clear();
                                         }
-                                        await this.plugin.saveSettings();
+                                        await this.plugin.saveSettings({ rebuildStyles: true });
                                         this.update();
                                     }));
                             }
@@ -237,7 +236,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                                     .setValue(this.plugin.settings.enableLinkStyles)
                                     .onChange(async (value) => {
                                         this.plugin.settings.enableLinkStyles = value;
-                                        await this.plugin.saveSettings();
+                                        await this.plugin.saveSettings({ reprocessPills: true });
                                     }));
                             }
                         },
@@ -251,7 +250,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                                     .setValue(this.plugin.settings.enableCustomPalette)
                                     .onChange(async (value) => {
                                         this.plugin.settings.enableCustomPalette = value;
-                                        await this.plugin.saveSettings();
+                                        await this.plugin.saveSettings({});
                                         this.update();
                                     }));
 
@@ -275,7 +274,7 @@ export class CustomStatusIconsSettingTab extends PluginSettingTab {
                                         } else {
                                             this.plugin.faviconManager.cleanupActiveUrls();
                                         }
-                                        await this.plugin.saveSettings();
+                                        await this.plugin.saveSettings({ rebuildStyles: true });
                                         this.update();
                                     }));
 

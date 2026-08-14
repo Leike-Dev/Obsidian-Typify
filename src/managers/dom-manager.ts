@@ -205,26 +205,33 @@ export class DOMManager {
         this.refreshProcessing();
     }
 
-    /**
-     * Forces a re-evaluation of all existing pills.
-     * This is useful when settings/styles change and we need to update classes (e.g. adding typify-is-image).
-     */
     reprocessAllPills() {
         if (!this.observer) return;
 
-        // 1. Reprocess all currently styled pills (in case their style changed or was removed)
+        const targetProps = this.plugin.getTargetProperties();
+
         this.getDocs().forEach(doc => {
+            // 1. Re-evaluate styled pills; fully clean if property was removed
             doc.body.findAll('.custom-status-icon-pill').forEach(pill => {
                 const propertyKey = pill.getAttribute('data-property-key');
-                if (propertyKey) {
-                    this.processPill(pill, propertyKey);
+                if (!propertyKey) return;
+
+                if (!targetProps.includes(propertyKey.toLowerCase())) {
+                    this.clearProcessedPill(pill);
+                    return;
                 }
+                this.processPill(pill, propertyKey);
             });
+
             doc.body.findAll('.custom-status-icon-value').forEach(el => {
                 const propertyKey = el.getAttribute('data-property-key');
-                if (propertyKey) {
-                    this.processValueListElement(el, propertyKey);
+                if (!propertyKey) return;
+
+                if (!targetProps.includes(propertyKey.toLowerCase())) {
+                    this.clearProcessedValue(el);
+                    return;
                 }
+                this.processValueListElement(el, propertyKey);
             });
 
             // 2. Re-scan all currently rendered roots so previously unstyled values
@@ -458,6 +465,55 @@ export class DOMManager {
         });
     }
 
+    /**
+     * Fully reverts a processed pill: removes Typify classes, data-attributes,
+     * dynamic styles, and restores the original URL text for external links.
+     */
+    private clearProcessedPill(pill: HTMLElement): void {
+        pill.classList.remove('custom-status-icon-pill');
+        pill.removeAttribute('data-value');
+        pill.removeAttribute('data-property-key');
+        this.styleManager.clearStyle(pill);
+
+        // Restore external link text if it was replaced with style display name
+        const linkContent = pill.querySelector('.multi-select-pill-content.external-link');
+        if (linkContent?.instanceOf(HTMLElement)) {
+            const href = linkContent.getAttribute('data-href');
+            if (href && linkContent.textContent?.trim() !== href) {
+                linkContent.textContent = href;
+            }
+        }
+    }
+
+    /**
+     * Fully reverts a processed value element (Bases cards): removes Typify
+     * classes, data-attributes, dynamic styles, and restores link text.
+     * If the element is a .typify-single-value wrapper, unwraps it.
+     */
+    private clearProcessedValue(element: HTMLElement): void {
+        element.classList.remove('custom-status-icon-value');
+        element.removeAttribute('data-value');
+        element.removeAttribute('data-property-key');
+        this.styleManager.clearStyle(element);
+
+        // Restore external link text
+        const linkContent = element.querySelector('.external-link');
+        if (linkContent?.instanceOf(HTMLElement)) {
+            const href = linkContent.getAttribute('href');
+            if (href && linkContent.textContent?.trim() !== href) {
+                linkContent.textContent = href;
+            }
+        }
+
+        // Unwrap single-value wrapper if present
+        if (element.classList.contains('typify-single-value')) {
+            const parent = element.parentElement;
+            if (parent) {
+                parent.textContent = element.textContent || '';
+            }
+        }
+    }
+
     cleanup() {
         if (this.observer) {
             this.observer.disconnect();
@@ -468,34 +524,12 @@ export class DOMManager {
                 el.removeAttribute('data-typify-observed');
             });
             doc.body.findAll('.custom-status-icon-pill').forEach(el => {
-                el.classList.remove('custom-status-icon-pill');
-                el.removeAttribute('data-value');
-                el.removeAttribute('data-property-key');
-                this.styleManager.clearStyle(el);
-
-                // Restore external link text if it was modified
-                const linkContent = el.querySelector('.multi-select-pill-content.external-link');
-                if (linkContent instanceof HTMLElement) {
-                    const href = linkContent.getAttribute('data-href');
-                    if (href && linkContent.textContent?.trim() !== href) {
-                        linkContent.textContent = href;
-                    }
-                }
+                this.clearProcessedPill(el);
             });
             doc.body.findAll('.custom-status-icon-value').forEach(el => {
-                el.classList.remove('custom-status-icon-value');
-                el.removeAttribute('data-value');
-                el.removeAttribute('data-property-key');
-                this.styleManager.clearStyle(el);
-
-                const linkContent = el.querySelector('.external-link');
-                if (linkContent instanceof HTMLElement) {
-                    const href = linkContent.getAttribute('href');
-                    if (href && linkContent.textContent?.trim() !== href) {
-                        linkContent.textContent = href;
-                    }
-                }
+                this.clearProcessedValue(el);
             });
+            // Catch any remaining single-value wrappers not covered above
             doc.body.findAll('.typify-single-value').forEach(el => {
                 const parent = el.parentElement;
                 if (parent) {

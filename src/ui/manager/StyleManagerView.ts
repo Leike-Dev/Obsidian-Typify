@@ -103,7 +103,7 @@ export class StyleManagerView {
                 void (async () => {
                     const deleted = this.plugin.settings.statusStyles[index];
                     this.plugin.settings.statusStyles.splice(index, 1);
-                    await this.plugin.saveSettings();
+                    await this.plugin.saveSettings({ rebuildStyles: true });
                     if (deleted) {
                         new Notice(t('style_deleted').replace('{name}', deleted.name));
                     }
