@@ -29,6 +29,12 @@
 
 .typify-palette-card-section .typify-card-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--size-4-1) var(--size-4-2);
+}
+
+.typify-palette-card-section .typify-fmt-card {
+    gap: var(--size-4-1);
+    padding: var(--size-4-2) var(--size-4-2) 7px;
 }
 
 @container (max-width: 320px) {

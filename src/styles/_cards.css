@@ -73,6 +73,27 @@
     display: block;
 }
 
+.typify-harmony-icon {
+    width: 64px;
+    height: 32px;
+    color: color-mix(in srgb, var(--text-normal) 60%, transparent);
+    transition: color 0.15s ease;
+}
+
+.typify-harmony-icon svg {
+    width: 26px;
+    height: 26px;
+    stroke-width: 1.75;
+}
+
+.typify-fmt-card:hover:not(.is-selected) .typify-harmony-icon {
+    color: var(--text-normal);
+}
+
+.typify-fmt-card.is-selected .typify-harmony-icon {
+    color: var(--interactive-accent);
+}
+
 .typify-fmt-thumb svg .svg-bg {
     fill: color-mix(in srgb, var(--text-normal) 10%, transparent);
     transition: fill 0.15s ease;

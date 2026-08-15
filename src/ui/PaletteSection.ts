@@ -2,18 +2,11 @@
 // PALETTE SECTION — Renders the palette manager inside the modal
 // ============================================================================
 
-import { ColorComponent, ExtraButtonComponent, Notice, SettingGroup } from 'obsidian';
+import { ColorComponent, ExtraButtonComponent, Notice, setIcon, SettingGroup } from 'obsidian';
 import type TypifyPlugin from '../main';
 import { t, type TranslationKey } from '../lang/helpers';
 import { HARMONY_GENERATORS, type HarmonyType } from './color-harmony';
 import { SwatchStrip } from './swatch-strip';
-import {
-    THUMB_SHADES,
-    THUMB_ANALOGOUS,
-    THUMB_COMPLEMENTARY,
-    THUMB_RANDOM
-} from './format-thumbs';
-import { insertSvg } from '../utils/svg-utils';
 
 const MAX_PALETTE_COLORS = 15;
 
@@ -43,18 +36,22 @@ export function renderPaletteSection(
 
         const cardGrid = setting.settingEl.createDiv({ cls: 'typify-card-grid' });
 
-        const harmonyOptions: { key: HarmonyType; labelKey: TranslationKey; svg: string }[] = [
-            { key: 'shades',        labelKey: 'palette_harmony_shades',        svg: THUMB_SHADES },
-            { key: 'analogous',     labelKey: 'palette_harmony_analogous',     svg: THUMB_ANALOGOUS },
-            { key: 'complementary', labelKey: 'palette_harmony_complementary', svg: THUMB_COMPLEMENTARY },
-            { key: 'random',        labelKey: 'palette_harmony_random',        svg: THUMB_RANDOM },
+        const harmonyOptions: { key: HarmonyType; labelKey: TranslationKey; icon: string; removeInnerPath?: boolean }[] = [
+            { key: 'shades',        labelKey: 'palette_harmony_shades',        icon: 'square-stack' },
+            { key: 'analogous',     labelKey: 'palette_harmony_analogous',     icon: 'bubbles', removeInnerPath: true },
+            { key: 'complementary', labelKey: 'palette_harmony_complementary', icon: 'blend' },
+            { key: 'random',        labelKey: 'palette_harmony_random',        icon: 'wand-sparkles' },
         ];
 
         for (const opt of harmonyOptions) {
             const card = cardGrid.createDiv({ cls: 'typify-fmt-card' });
 
-            const thumb = card.createDiv({ cls: 'typify-fmt-thumb' });
-            insertSvg(thumb, opt.svg);
+            const thumb = card.createDiv({ cls: 'typify-fmt-thumb typify-harmony-icon' });
+            setIcon(thumb, opt.icon);
+            if (opt.removeInnerPath) {
+                // Bubbles uses a single path for the highlight inside its largest circle.
+                thumb.querySelector('svg > path')?.remove();
+            }
 
             card.createSpan({ text: t(opt.labelKey), cls: 'typify-fmt-label' });
 

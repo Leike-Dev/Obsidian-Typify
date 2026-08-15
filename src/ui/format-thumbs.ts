@@ -46,40 +46,6 @@ export const THUMB_SIMPLE = `<svg width="88" height="36" viewBox="0 0 88 36" fil
 </svg>`;
 
 // ============================================================================
-// HARMONY TYPE THUMBNAILS (for palette generator cards)
-// Fixed colors to visually communicate the harmony concept.
-// ============================================================================
-
-/** Shades (Degradê): monochromatic lightness variations */
-export const THUMB_SHADES = `<svg width="88" height="48" viewBox="0 0 88 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="19.7" cy="24" r="10.8" class="svg-fg" opacity="0.25"/>
-  <circle cx="35.9" cy="24" r="10.8" class="svg-fg" opacity="0.5"/>
-  <circle cx="52.1" cy="24" r="10.8" class="svg-fg" opacity="0.75"/>
-  <circle cx="68.3" cy="24" r="10.8" class="svg-fg" opacity="1"/>
-</svg>`;
-
-/** Analogous: adjacent colors on the color wheel */
-export const THUMB_ANALOGOUS = `<svg width="88" height="48" viewBox="0 0 88 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="35.9" cy="30.075" r="10.8" class="svg-fg svg-stroke" opacity="0.3" stroke-width="2.025"></circle>
-  <circle cx="52.1" cy="30.075" r="10.8" class="svg-fg svg-stroke" opacity="1" stroke-width="2.025"></circle>
-  <circle cx="44" cy="17.925" r="10.8" class="svg-fg svg-stroke" opacity="0.6" stroke-width="2.025"></circle>
-</svg>`;
-
-/** Complementary: opposite hues with separator */
-export const THUMB_COMPLEMENTARY = `<svg width="88" height="48" viewBox="0 0 88 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="22.4" cy="24" r="18" class="svg-fg"/>
-  <circle cx="65.6" cy="24" r="18" class="svg-fg" opacity="0.3"/>
-</svg>`;
-
-/** Random: scattered colors */
-export const THUMB_RANDOM = `<svg width="88" height="48" viewBox="0 0 88 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="19.7" cy="24" r="10.8" class="svg-fg" opacity="1"/>
-  <circle cx="35.9" cy="24" r="10.8" class="svg-fg" opacity="0.3"/>
-  <circle cx="68.3" cy="24" r="10.8" class="svg-fg" opacity="0.8"/>
-  <circle cx="52.1" cy="24" r="10.8" class="svg-fg" opacity="0.5"/>
-</svg>`;
-
-// ============================================================================
 // Favicon Providers
 // ============================================================================
 
