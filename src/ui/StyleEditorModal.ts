@@ -302,19 +302,24 @@ export class StyleEditorModal extends Modal {
         // PREVIEW
         // ============================================================
         contentEl.createDiv({ cls: 'typify-spacer' });
-        new SettingGroup(contentEl)
+        const previewGroup = new SettingGroup(contentEl)
             .setHeading(t('group_preview_title'))
             .addClass('typify-editor-section');
 
-        const previewContainer = contentEl.createDiv({ cls: 'typify-preview-card' });
+        previewGroup.addSetting(setting => {
+            setting.settingEl.empty();
+            setting.settingEl.addClass('typify-card-setting');
 
-        // Light preview
-        const lightWrapper = previewContainer.createDiv({ cls: 'typify-preview-wrapper typify-preview-light' });
-        this.previewPillLight = lightWrapper.createSpan({ cls: 'typify-preview-pill' });
+            const previewContainer = setting.settingEl.createDiv({ cls: 'typify-preview-card' });
 
-        // Dark preview
-        const darkWrapper = previewContainer.createDiv({ cls: 'typify-preview-wrapper typify-preview-dark' });
-        this.previewPillDark = darkWrapper.createSpan({ cls: 'typify-preview-pill' });
+            // Light preview
+            const lightWrapper = previewContainer.createDiv({ cls: 'typify-preview-wrapper typify-preview-light' });
+            this.previewPillLight = lightWrapper.createSpan({ cls: 'typify-preview-pill' });
+
+            // Dark preview
+            const darkWrapper = previewContainer.createDiv({ cls: 'typify-preview-wrapper typify-preview-dark' });
+            this.previewPillDark = darkWrapper.createSpan({ cls: 'typify-preview-pill' });
+        });
 
         this.updatePreview();
 

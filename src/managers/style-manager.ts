@@ -126,7 +126,7 @@ export class StyleManager {
             const pillRadius = style.shape === 'flat' ? '0px' : style.shape === 'rectangle' ? '4px' : '14px';
 
             let iconUrl: string | null = null;
-            
+
             if (style.icon && style.icon.startsWith('custom:')) {
                 const iconName = style.icon.replace('custom:', '');
                 if (this.plugin.customIconsManager) {
@@ -135,9 +135,9 @@ export class StyleManager {
                 if (!iconUrl) {
                     const fallbackEl = getIcon('square');
                     if (fallbackEl) {
-                    // NOTE: outerHTML is used here for READ-ONLY serialization of Obsidian's
-                    // built-in SVG icons into CSS data URIs. No DOM mutation occurs.
-                    const svg = fallbackEl.outerHTML.replace(/currentColor/g, 'black');
+                        // NOTE: outerHTML is used here for READ-ONLY serialization of Obsidian's
+                        // built-in SVG icons into CSS data URIs. No DOM mutation occurs.
+                        const svg = fallbackEl.outerHTML.replace(/currentColor/g, 'black');
                         iconUrl = `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
                     }
                 }
@@ -220,7 +220,7 @@ body .${className} {
     findMatchingClass(value: string, propertyKey: string): string | undefined {
         const valLower = value.toLowerCase();
         const propLower = propertyKey.toLowerCase();
-        
+
         const scopedMatch = this.fastLookupMap.get(`${valLower}|${propLower}`);
         if (scopedMatch) return scopedMatch;
 

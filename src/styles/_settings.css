@@ -215,9 +215,14 @@
 
 .typify-preview-card {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: var(--size-4-4);
+    width: 100%;
+}
+
+.typify-preview-card > * {
+    margin: 0 !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -225,7 +230,7 @@
    -------------------------------------------------------------------------- */
 
 .typify-preview-wrapper {
-    flex: 1;
+    flex: 1 1 140px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -234,6 +239,8 @@
     border: 1px solid var(--background-modifier-border);
     position: relative;
     min-width: 140px;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* Adaptive Preview Backgrounds */
