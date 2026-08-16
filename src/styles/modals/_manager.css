@@ -262,15 +262,21 @@
     inset: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: var(--size-4-3);
-    background: var(--background-modifier-border);
+    justify-content: space-between;
+    gap: var(--size-4-2);
+    background: color-mix(in srgb, var(--background-modifier-error) 8%, var(--background-primary));
+    border: 1px solid color-mix(in srgb, var(--text-error) 22%, var(--background-modifier-border));
     border-radius: var(--radius-s);
     z-index: 1;
-    padding: var(--size-4-2) var(--size-4-3);
+    padding: var(--size-4-1) var(--size-4-2) var(--size-4-1) var(--size-4-3);
 }
 
 .typify-manager-confirm-text {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: var(--font-ui-small);
     font-weight: 500;
     color: var(--text-normal);
@@ -278,7 +284,9 @@
 
 .typify-manager-confirm-btns {
     display: flex;
-    gap: var(--size-4-1);
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
 }
 
 /* Empty state */

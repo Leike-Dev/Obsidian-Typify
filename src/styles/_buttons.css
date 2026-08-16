@@ -7,24 +7,24 @@
  * ========================================================================== */
 
 /* Global selectors for plugin modals and settings panel */
-.typify-settings-container button:not(.mod-cta):not(.mod-warning):not(.clickable-icon),
-.typify-editor-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon),
-.typify-palette-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon),
-.typify-manager-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon),
-.typify-import-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon),
-.typify-export-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon),
-.typify-favicon-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon) {
+.typify-settings-container button:not(.mod-cta):not(.mod-warning):not(.mod-destructive):not(.clickable-icon),
+.typify-editor-modal button:not(.mod-cta):not(.mod-warning):not(.mod-destructive):not(.clickable-icon),
+.typify-palette-modal button:not(.mod-cta):not(.mod-warning):not(.mod-destructive):not(.clickable-icon),
+.typify-manager-modal button:not(.mod-cta):not(.mod-warning):not(.mod-destructive):not(.clickable-icon),
+.typify-import-modal button:not(.mod-cta):not(.mod-warning):not(.mod-destructive):not(.clickable-icon),
+.typify-export-modal button:not(.mod-cta):not(.mod-warning):not(.mod-destructive):not(.clickable-icon),
+.typify-favicon-modal button:not(.mod-cta):not(.mod-warning):not(.mod-destructive):not(.clickable-icon) {
     background-color: var(--interactive-normal);
     color: var(--text-normal);
 }
 
-.typify-settings-container button:not(.mod-cta):not(.mod-warning):not(.clickable-icon):hover,
-.typify-editor-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon):hover,
-.typify-palette-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon):hover,
-.typify-manager-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon):hover,
-.typify-import-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon):hover,
-.typify-export-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon):hover,
-.typify-favicon-modal button:not(.mod-cta):not(.mod-warning):not(.clickable-icon):hover {
+.typify-settings-container button:not(.mod-cta):not(.mod-warning):not(.mod-destructive):not(.clickable-icon):hover,
+.typify-editor-modal button:not(.mod-cta):not(.mod-warning):not(.mod-destructive):not(.clickable-icon):hover,
+.typify-palette-modal button:not(.mod-cta):not(.mod-warning):not(.mod-destructive):not(.clickable-icon):hover,
+.typify-manager-modal button:not(.mod-cta):not(.mod-warning):not(.mod-destructive):not(.clickable-icon):hover,
+.typify-import-modal button:not(.mod-cta):not(.mod-warning):not(.mod-destructive):not(.clickable-icon):hover,
+.typify-export-modal button:not(.mod-cta):not(.mod-warning):not(.mod-destructive):not(.clickable-icon):hover,
+.typify-favicon-modal button:not(.mod-cta):not(.mod-warning):not(.mod-destructive):not(.clickable-icon):hover {
     background-color: var(--interactive-hover);
 }
 
@@ -72,4 +72,16 @@
 .typify-export-modal button.mod-warning:hover,
 .typify-favicon-modal button.mod-warning:hover {
     background-color: var(--background-modifier-error-hover);
+}
+
+/* Destructive Buttons (inline delete confirmation) */
+.typify-manager-confirm button.mod-destructive {
+    background-color: var(--text-error);
+    color: var(--text-on-accent);
+    border: none;
+}
+
+.typify-manager-confirm button.mod-destructive:hover {
+    background-color: color-mix(in srgb, var(--text-error) 85%, black);
+    color: var(--text-on-accent);
 }
