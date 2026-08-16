@@ -4,6 +4,7 @@
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
    ![Version](https://img.shields.io/badge/version-1.5.2-lightgreen.svg)
+   [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/azurita_a)
 
 </div>
 
@@ -96,10 +97,10 @@ Si le nom de votre style est "Google Traduction" et la valeur correspondante dan
 
 Voici quelques-unes des fonctionnalités et améliorations prévues pour les futures mises à jour :
 
-- **🎨 Pilules Simples** : Styles minimalistes et sans couleur. Peuvent être configurés ou appliqués automatiquement aux valeurs non définies dans les propriétés stylisées.
 - **🪤 Diagnostic d'Erreurs** : Un panneau pour diagnostiquer les problèmes du plugin et générer un rapport pour faciliter le dépannage.
 - **🏳️‍🌈 Couleurs Multiples** : Nouveau panneau pour avoir et gérer plusieurs cartes de couleurs.
 - **🎲 Balises Numériques** : Expansion du style Typify au type nombre, permettant la création de styles personnalisés pour les balises de nombre. *(En évaluation)*
+- ~~**🎨 Pilules Simples** : Styles minimalistes et sans couleur. Peuvent être configurés ou appliqués automatiquement aux valeurs non définies dans les propriétés stylisées.~~ Implémenté différemment ! :D
 - ~~**🔮 Rembourrage de la Pilule** : Ajustez la taille et la longueur des pilules, ainsi que la taille de la police et de l'icône.~~ *(Gelé)*
 - ~~**📊 Pilules de Référence** : Afficher la quantité totale de références de cette information dans votre coffre au lieu de montrer une icône (ex. : une balise d'auteur affichant "X" références).~~ *(Gelé)*
 - ~~**🔗 Simplification des Liens** : Nettoyer et raccourcir automatiquement les URL externes affichées dans les pilules (ex. : `www.google.com` simplifié en `google.com`).~~ --> Implémenté différemment ! :D

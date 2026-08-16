@@ -4,6 +4,7 @@
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
    ![Version](https://img.shields.io/badge/version-1.5.2-lightgreen.svg)
+   [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/azurita_a)
 
 </div>
 
@@ -96,10 +97,10 @@ Se o nome do estilo for, por exemplo, "Google Tradutor" e o valor configurado no
 
 Aqui estão alguns dos recursos e melhorias planejados para futuras atualizações:
 
-- **🎨 Pílulas Simples**: Estilos minimalistas e sem cor. Podem ser configurados ou aplicados automaticamente a valores não definidos em propriedades estilizadas.
 - **🪤 Diagnóstico de Erros**: Um painel para diagnosticar problemas do plugin e gerar um relatório para facilitar a solução de problemas.
 - **🏳️‍🌈 Múltiplas Cores**: Novo painel para ter e gerênciar múltiplos cartões de cores.
 - **🎲 Tags Numéricas**: Expansão do estilo Typify para o tipo número, permitindo a criação de estilos personalizados para tags de número. *(Avaliando)*
+- ~~**🎨 Pílulas Simples**: Estilos minimalistas e sem cor. Podem ser configurados ou aplicados automaticamente a valores não definidos em propriedades estilizadas.~~ Implementado de outra forma! :D
 - ~~**🔮 Padding da Pílula**: Ajuste o tamanho e comprimento das pílulas, bem como o tamanho da fonte e do ícone.~~ *(Congelado)*
 - ~~**📊 Pílulas de Referência**: Exibir a quantidade total de referências que aquela informação possui no seu cofre em vez de mostrar um ícone (ex: uma tag de autor exibindo "X" referências).~~ *(Congelado)*
 - ~~**🔗 Simplificação de Links**: Limpar e encurtar URLs externas exibidas nas pílulas de forma automática (ex: `www.google.com` simplificado para `google.com`).~~ --> Implementado de outra forma! :D

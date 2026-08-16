@@ -4,6 +4,7 @@
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
    ![Version](https://img.shields.io/badge/version-1.5.2-lightgreen.svg)
+   [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/azurita_a)
 
 </div>
 
@@ -96,10 +97,10 @@ Typify允许您创建更清晰的属性链接。 您无需查看难看的 `https
 
 以下是计划在未来更新中提供的一些功能和改进：
 
-- **🎨 简单胶囊**：极简和无色样式。可以配置或自动应用于样式属性中未定义的值。
 - **🪤 错误诊断**：一个用于诊断插件问题并生成报告以协助故障排除的面板。
 - **🏳️‍🌈 多种颜色**：用于拥有和管理多个颜色卡片的新面板。
 - **🎲 数字标签**：将 Typify 样式扩展到数字类型，允许为数字标签创建自定义样式。 *(评估中)*
+- ~~**🎨 简单胶囊**：极简和无色样式。可以配置或自动应用于样式属性中未定义的值。~~ 以另一种方式实现了！:D
 - ~~**🔮 胶囊内边距**：调整胶囊的大小和长度，以及字体和图标大小。~~ *(已冻结)*
 - ~~**📊 引用胶囊**：显示该信息在你的库中拥有的总引用量，而不是显示一个图标（例如：显示 "X" 个引用的作者标签）。~~ *(已冻结)*
 - ~~**🔗 链接简化**：自动清理和缩短显示在胶囊中的外部 URL（例如：将 `www.google.com` 简化为 `google.com`）。~~ --> 以另一种方式实现了！:D

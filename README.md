@@ -4,6 +4,7 @@
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
    ![Version](https://img.shields.io/badge/version-1.5.2-lightgreen.svg)
+   [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/azurita_a)
 
 </div>
 
@@ -96,10 +97,10 @@ If your style name is "Google Translate" and the matched value in *Match Value* 
 
 Here are some of the features and improvements planned for future updates:
 
-- **🎨 Simple Pills**: Minimalist and colorless styles. Can be configured or automatically applied to undefined values in styled properties.
 - **🪤 Error Diagnostics**: A panel to diagnose plugin issues and generate a report to facilitate troubleshooting.
 - **🏳️‍🌈 Multiple Colors**: New panel to have and manage multiple color cards.
 - **🎲 Numeric Tags**: Expansion of Typify style to the number type, allowing the creation of custom styles for number tags. *(Evaluating)*
+- ~~**🎨 Simple Pills**: Minimalist and colorless styles. Can be configured or automatically applied to undefined values in styled properties.~~ Implemented differently! :D
 - ~~**🔮 Pill Padding**: Adjust the size and length of the pills, as well as the font and icon size.~~ *(Frozen)*
 - ~~**📊 Reference Pills**: Display the total amount of references that information has in your vault instead of showing an icon (e.g., an author tag showing "X" references).~~ *(Frozen)*
 - ~~**🔗 Link Simplification**: Automatically clean and shorten external URLs displayed in pills (e.g., `www.google.com` simplified to `google.com`).~~ --> Implemented differently! :D

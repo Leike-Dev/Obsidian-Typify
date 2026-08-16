@@ -4,6 +4,7 @@
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
    ![Version](https://img.shields.io/badge/version-1.5.2-lightgreen.svg)
+   [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/azurita_a)
 
 </div>
 
@@ -96,10 +97,10 @@ Si el nombre de tu estilo es "Google Traductor" y el valor asociado en *Valor Co
 
 Aquí tienes algunas de las características y mejoras planeadas para futuras actualizaciones:
 
-- **🎨 Píldoras Simples**: Estilos minimalistas y sin color. Se pueden configurar o aplicar automáticamente a valores no definidos en propiedades estilizadas.
 - **🪤 Diagnóstico de Errores**: Un panel para diagnosticar problemas del plugin y generar un informe para facilitar la resolución de problemas.
 - **🏳️‍🌈 Múltiples Colores**: Nuevo panel para tener y administrar múltiples tarjetas de colores.
 - **🎲 Etiquetas Numéricas**: Expansión del estilo Typify al tipo número, permitiendo la creación de estilos personalizados para etiquetas numéricas. *(Evaluando)*
+- ~~**🎨 Píldoras Simples**: Estilos minimalistas y sin color. Se pueden configurar o aplicar automáticamente a valores no definidos en propiedades estilizadas.~~ ¡Implementado de otra manera! :D
 - ~~**🔮 Padding de la Píldora**: Ajusta el tamaño y la longitud de las píldoras, así como el tamaño de la fuente y del ícono.~~ *(Congelado)*
 - ~~**📊 Píldoras de Referencia**: Mostrar la cantidad total de referencias que tiene esa información en tu bóveda en lugar de mostrar un ícono (ej: una etiqueta de autor que muestre "X" referencias).~~ *(Congelado)*
 - ~~**🔗 Simplificación de Enlaces**: Limpiar y acortar automáticamente URLs externas que se muestran en píldoras (ej. `www.google.com` simplificado a `google.com`).~~ --> ¡Implementado de otra manera! :D
