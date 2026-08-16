@@ -221,8 +221,8 @@
     width: 100%;
 }
 
-.typify-preview-card > * {
-    margin: 0 !important;
+.setting-item .typify-preview-card > * {
+    margin: 0;
 }
 
 /* --------------------------------------------------------------------------
