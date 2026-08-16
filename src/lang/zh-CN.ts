@@ -250,6 +250,7 @@ export const zhCN = {
     'favicon_retry': '重试',
     'favicon_remove': '从缓存中移除',
     'favicon_empty_cache': '缓存中没有图标。',
+    'favicon_no_results': '未找到匹配的域名。',
     'favicon_fetch_tooltip': '获取图标',
     'favicon_invalid_url': '无效或不完整的URL。',
     'favicon_fetch_failed': '获取 {domain} 的图标失败',

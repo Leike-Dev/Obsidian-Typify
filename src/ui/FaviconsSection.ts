@@ -1,8 +1,7 @@
-import { App, ButtonComponent, ExtraButtonComponent, Notice, SearchComponent, setIcon } from 'obsidian';
-import { THUMB_FAVICON_DIRECT, THUMB_FAVICON_GOOGLE, THUMB_FAVICON_DUCKDUCKGO } from './format-thumbs';
+import { App, ButtonComponent, DropdownComponent, ExtraButtonComponent, Notice, SearchComponent, setIcon } from 'obsidian';
 import type TypifyPlugin from '../main';
 import { t } from '../lang/helpers';
-import { insertSvg } from '../utils/svg-utils';
+
 export class FaviconsSection {
     app: App;
     plugin: TypifyPlugin;
@@ -19,90 +18,53 @@ export class FaviconsSection {
     display(): void {
         this.containerEl.empty();
 
-        // Provider Selection
-        const headerContainer = this.containerEl.createDiv({ cls: 'typify-section-header-flex' });
-        headerContainer.createDiv({ text: t('favicon_provider_heading'), cls: 'typify-card-section-title', attr: { style: 'margin-bottom: 0;' } });
+        const toolbarEl = this.containerEl.createDiv({ cls: 'typify-favicon-toolbar' });
 
-        const cardSection = this.containerEl.createDiv({ cls: 'typify-card-section typify-palette-card-section' });
-        const cardGrid = cardSection.createDiv({ cls: 'typify-card-grid' });
-
-        const providerOptions: { key: 'google' | 'duckduckgo' | 'direct'; label: string; svg: string }[] = [
-            { key: 'direct', label: t('favicon_provider_direct'), svg: THUMB_FAVICON_DIRECT },
-            { key: 'google', label: t('favicon_provider_google'), svg: THUMB_FAVICON_GOOGLE },
-            { key: 'duckduckgo', label: t('favicon_provider_duckduckgo'), svg: THUMB_FAVICON_DUCKDUCKGO },
-        ];
-
-        for (const opt of providerOptions) {
-            const card = cardGrid.createDiv({ cls: 'typify-fmt-card' });
-            
-            if (this.plugin.settings.faviconProvider === opt.key) {
-                card.addClass('is-selected');
-            }
-
-            const thumb = card.createDiv({ cls: 'typify-fmt-thumb' });
-            insertSvg(thumb, opt.svg);
-
-            card.createSpan({ text: opt.label, cls: 'typify-fmt-label' });
-
-            card.setAttribute('role', 'button');
-            card.setAttribute('tabindex', '0');
-            card.setAttribute('aria-label', opt.label);
-
-            const selectCard = () => {
-                if (this.plugin.settings.faviconProvider === opt.key) return;
-                
-                cardGrid.findAll('.typify-fmt-card').forEach(c => c.removeClass('is-selected'));
-                card.addClass('is-selected');
-                this.plugin.settings.faviconProvider = opt.key;
-                
-                void this.plugin.saveSettings({});
-            };
-
-            card.addEventListener('click', () => void selectCard());
-            card.addEventListener('keydown', (e: KeyboardEvent) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    void selectCard();
-                }
-            });
-        }
-
-        // Section separator for Search/List
-        this.containerEl.createDiv({ text: t('favicon_manager_title'), cls: 'typify-card-section-title' });
-
-        const filterContainer = this.containerEl.createDiv({ cls: 'typify-manager-search-container' });
-        
         // Search input (native component)
-        const searchComponent = new SearchComponent(filterContainer)
+        const searchComponent = new SearchComponent(toolbarEl)
             .setPlaceholder(t('favicon_search_placeholder'))
             .onChange(() => {
-                this.searchInput = searchComponent.getValue().toLowerCase();
+                this.searchInput = searchComponent.getValue().trim().toLowerCase();
                 this.renderList();
             });
         searchComponent.inputEl.addClass('typify-manager-search');
 
-        // Refresh all button (native component)
-        const rightControls = filterContainer.createDiv({ cls: 'typify-palette-actions-right' });
-        const refreshAllBtn = new ButtonComponent(rightControls)
+        // Toolbar actions: Provider Dropdown + Refresh all button
+        const actionsEl = toolbarEl.createDiv({ cls: 'typify-favicon-toolbar-actions' });
+
+        const providerDropdown = new DropdownComponent(actionsEl)
+            .addOption('direct', t('favicon_provider_direct'))
+            .addOption('google', t('favicon_provider_google'))
+            .addOption('duckduckgo', t('favicon_provider_duckduckgo'))
+            .setValue(this.plugin.settings.faviconProvider)
+            .onChange(async (value) => {
+                this.plugin.settings.faviconProvider = value as 'direct' | 'google' | 'duckduckgo';
+                await this.plugin.saveSettings({});
+            });
+        providerDropdown.selectEl.addClass('typify-favicon-provider-select');
+        providerDropdown.selectEl.setAttribute('aria-label', t('favicon_provider_heading'));
+        providerDropdown.selectEl.title = t('favicon_provider_heading');
+
+        const refreshAllBtn = new ButtonComponent(actionsEl)
             .setButtonText(t('favicon_refresh_all'))
             .onClick(() => {
                 void (async () => {
                     const cache = this.plugin.faviconManager.getCache();
                     const failed = this.plugin.faviconManager.getFailedDomains();
                     const domains = Array.from(new Set([...Array.from(cache.keys()), ...Array.from(failed)]));
-                    
+
                     if (domains.length === 0) return;
-                    
+
                     refreshAllBtn.setButtonText(t('favicon_refreshing'));
                     refreshAllBtn.setDisabled(true);
-                    
+
                     let count = 0;
                     for (const domain of domains) {
                         await this.plugin.faviconManager.deleteFavicon(domain);
                         const success = await this.plugin.faviconManager.fetchFavicon(domain, true);
                         if (success) count++;
                     }
-                    
+
                     refreshAllBtn.setButtonText(t('favicon_refresh_all'));
                     refreshAllBtn.setDisabled(false);
                     const failedCount = domains.length - count;
@@ -135,40 +97,27 @@ export class FaviconsSection {
         this.listContainer.empty();
         const cache = this.plugin.faviconManager.getCache();
         const failed = this.plugin.faviconManager.getFailedDomains();
-        
+
         const allDomains = new Set([...Array.from(cache.keys()), ...Array.from(failed)]);
         const sortedDomains = Array.from(allDomains).sort();
+        const hasAnyDomains = sortedDomains.length > 0;
 
         let count = 0;
 
         for (const domain of sortedDomains) {
             if (this.searchInput && !domain.includes(this.searchInput)) continue;
-            
+
             count++;
             const itemEl = this.listContainer.createDiv({ cls: 'typify-manager-item typify-favicon-item' });
             const leftEl = itemEl.createDiv({ cls: 'typify-manager-item-info typify-favicon-item-left' });
-            
+
             const isFailed = failed.has(domain);
             const entry = cache.get(domain);
-            
-            // Status Line (left edge indicator)
-            const statusLine = leftEl.createDiv({ cls: 'typify-manager-color-dot' });
-            
+
             let isOutdated = false;
             if (!isFailed && entry) {
                 const thirtyDays = 30 * 24 * 60 * 60 * 1000;
                 isOutdated = (Date.now() - entry.mtime) > thirtyDays;
-            }
-
-            if (isFailed) {
-                statusLine.setCssStyles({ backgroundColor: 'var(--text-error)' });
-                statusLine.title = t('favicon_status_failed');
-            } else if (isOutdated) {
-                statusLine.setCssStyles({ backgroundColor: 'var(--color-orange)' });
-                statusLine.title = t('favicon_status_outdated');
-            } else {
-                statusLine.setCssStyles({ backgroundColor: 'var(--text-success)' });
-                statusLine.title = t('favicon_status_cached');
             }
 
             // Preview or fallback icon
@@ -183,7 +132,7 @@ export class FaviconsSection {
             const textBlock = leftEl.createDiv({ cls: 'typify-manager-item-text' });
             const nameRow = textBlock.createDiv({ cls: 'typify-manager-item-name' });
             nameRow.setText(domain);
-            
+
             const metaRow = textBlock.createDiv({ cls: 'typify-manager-meta' });
             if (isFailed) {
                 metaRow.createSpan({ text: t('favicon_meta_failed') }).setCssStyles({ color: 'var(--text-error)' });
@@ -191,7 +140,7 @@ export class FaviconsSection {
                 metaRow.createSpan({ text: t('favicon_meta_outdated') }).setCssStyles({ color: 'var(--color-orange)' });
             } else if (entry) {
                 const days = Math.floor((Date.now() - entry.mtime) / (1000 * 60 * 60 * 24));
-                const sizeKb = Math.ceil(entry.dataUri.length / 1024);
+                const sizeKb = Math.ceil(entry.size / 1024);
                 let text = '';
                 if (days === 0) {
                     text = t('favicon_meta_today').replace('{size}', String(sizeKb));
@@ -202,7 +151,7 @@ export class FaviconsSection {
                 metaRow.createSpan({ text });
             }
             const rightEl = itemEl.createDiv({ cls: 'typify-manager-actions typify-favicon-item-right' });
-            
+
             // Refresh button (native ExtraButtonComponent)
             new ExtraButtonComponent(rightEl)
                 .setIcon('refresh-cw')
@@ -229,7 +178,8 @@ export class FaviconsSection {
         }
 
         if (count === 0) {
-            this.listContainer.createDiv({ text: t('favicon_empty_cache'), cls: 'typify-favicon-empty-state' });
+            const emptyText = hasAnyDomains ? t('favicon_no_results') : t('favicon_empty_cache');
+            this.listContainer.createDiv({ text: emptyText, cls: 'typify-favicon-empty-state' });
         }
     }
 }

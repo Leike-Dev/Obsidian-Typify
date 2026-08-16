@@ -2,17 +2,67 @@
  * _favicon.css
  * 
  * Responsável pelos elementos visuais do sub-gerenciador de Favicons, que expõe
- * o status do cache local, dados de tamanho e botões interativos para recarregar favicons.
+ * a barra de ferramentas (busca, provedor e atualização), a lista do cache local
+ * com metadados e os botões de ação para cada domínio.
  * ========================================================================== */
 
-.typify-favicon-warning {
-    margin-bottom: 1rem;
+/* --------------------------------------------------------------------------
+   Toolbar: Search + Provider Dropdown + Refresh All
+   -------------------------------------------------------------------------- */
+
+.typify-favicon-toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--size-4-2);
+    margin-bottom: var(--size-4-3);
+    flex-wrap: wrap;
 }
+
+.typify-favicon-toolbar .search-input-container {
+    flex: 1 1 200px;
+    min-width: 0;
+}
+
+.typify-favicon-toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--size-4-2);
+    flex-shrink: 0;
+}
+
+.typify-favicon-provider-select {
+    font-size: var(--font-ui-small);
+}
+
+/* Mobile responsive toolbar */
+body.is-phone .typify-favicon-toolbar .search-input-container {
+    flex: 1 1 100%;
+}
+
+body.is-phone .typify-favicon-toolbar-actions {
+    width: 100%;
+    justify-content: space-between;
+}
+
+body.is-phone .typify-favicon-toolbar-actions .typify-favicon-provider-select {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+body.is-phone .typify-favicon-toolbar-actions button {
+    flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Favicon Items List
+   -------------------------------------------------------------------------- */
 
 .typify-favicon-item-left {
     display: flex;
     align-items: center;
     gap: 8px;
+    flex: 1;
+    min-width: 0;
 }
 
 .typify-favicon-preview {
@@ -24,49 +74,30 @@
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+    flex-shrink: 0;
 }
 
-.typify-favicon-domain {
-    font-weight: 500;
+.typify-favicon-preview svg {
+    width: 18px;
+    height: 18px;
+    color: var(--text-muted);
 }
 
 .typify-favicon-item-right {
     display: flex;
     gap: 8px;
-}
-
-.typify-favicon-empty-state {
-    color: var(--text-muted);
-    font-style: italic;
-    padding: 8px 0;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 /* --------------------------------------------------------------------------
-   Favicon Section Info Box
+   Empty State
    -------------------------------------------------------------------------- */
 
-.typify-section-header-flex {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
-}
-
-.typify-section-header-flex .typify-card-section-title {
-    margin-bottom: 0;
-}
-
-.typify-info-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+.typify-favicon-empty-state {
+    text-align: center;
     color: var(--text-muted);
-    cursor: pointer;
-    border-radius: 50%;
-    padding: 2px;
-}
-
-.typify-info-icon:hover {
-    color: var(--text-normal);
-    background-color: var(--background-modifier-hover);
+    font-size: var(--font-ui-small);
+    font-style: italic;
+    padding: var(--size-4-8) var(--size-4-4);
 }

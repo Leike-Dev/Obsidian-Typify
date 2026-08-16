@@ -253,6 +253,7 @@ export const en = {
     'favicon_retry': 'Retry',
     'favicon_remove': 'Remove from cache',
     'favicon_empty_cache': 'No favicons in cache.',
+    'favicon_no_results': 'No domains found.',
     'favicon_fetch_tooltip': 'Fetch favicon',
     'favicon_invalid_url': 'Invalid or incomplete URL.',
     'favicon_fetch_failed': 'Failed to fetch favicon for {domain}',

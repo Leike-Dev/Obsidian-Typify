@@ -254,6 +254,7 @@ export const ptBR = {
     'favicon_retry': 'Tentar novamente',
     'favicon_remove': 'Remover do cache',
     'favicon_empty_cache': 'Nenhum favicon no cache.',
+    'favicon_no_results': 'Nenhum domínio encontrado.',
     'favicon_fetch_tooltip': 'Buscar favicon',
     'favicon_invalid_url': 'URL inválida ou incompleta.',
     'favicon_fetch_failed': 'Falha ao baixar favicon de {domain}',

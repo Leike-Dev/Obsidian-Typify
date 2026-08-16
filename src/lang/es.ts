@@ -251,6 +251,7 @@ export const es = {
     'favicon_retry': 'Intentar de nuevo',
     'favicon_remove': 'Eliminar de la caché',
     'favicon_empty_cache': 'No hay favicons en la caché.',
+    'favicon_no_results': 'No se encontraron dominios.',
     'favicon_fetch_tooltip': 'Obtener favicon',
     'favicon_invalid_url': 'URL inválida o incompleta.',
     'favicon_fetch_failed': 'Error al descargar el favicon de {domain}',
