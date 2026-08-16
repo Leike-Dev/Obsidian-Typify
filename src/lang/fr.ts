@@ -1,6 +1,4 @@
 export const fr = {
-
-    'section_configuration_title': 'Général',
     'section_data_management_title': 'Gestion des données',
 
     // Commandes et Menus contextuels
@@ -31,7 +29,6 @@ export const fr = {
     'base_color_desc': 'Définit la couleur utilisée pour générer les variations visuelles du style.',
     'icon_title': 'Icône',
     'icon_desc': 'Sélectionne l\'icône affichée à côté du nom du style.',
-
     'add_icon_tooltip': 'Choisir une icône',
     'remove_icon_tooltip': 'Supprimer l\'icône',
     'applies_to_title': 'S\'applique à',
@@ -62,7 +59,6 @@ export const fr = {
     // Icônes Personnalisées
     'custom_icons_toggle_title': 'Icônes personnalisées',
     'custom_icons_toggle_desc': 'Activer les icônes SVG personnalisées dans le plugin.',
-    'custom_icons_info': 'Seuls les fichiers .svg de 100 Ko maximum sont pris en charge. Placez vos icônes dans le dossier icons/ du répertoire du plugin.',
     'custom_icons_loaded': '{count} icône(s) personnalisée(s) chargée(s) avec succès !',
     'custom_icons_empty': 'Aucun fichier SVG trouvé dans le dossier icons/. Ajoutez des fichiers .svg et réactivez.',
     'custom_icons_error': 'Erreur lors du chargement des icônes personnalisées.',
@@ -73,7 +69,6 @@ export const fr = {
     'custom_images_missing': '{count} image(s) introuvable(s) dans le dossier img/ : {names}.',
 
     // Messages d'Exportation
-
     'export_error': 'Échec de l\'exportation des paramètres.',
 
     // Modales d'Exportation/Importation
@@ -95,7 +90,6 @@ export const fr = {
 
     // Modal Créer un Style
     'create_style_title': 'Créer un style',
-
     'status_name_placeholder': 'Entrez le nom du style...',
     'save_button': 'Enregistrer',
     'cancel_button': 'Annuler',
@@ -113,7 +107,6 @@ export const fr = {
     'manage_styles_no_results': 'Aucun style ne correspond à votre recherche.',
     'sort_recent': 'Récent',
     'sort_alpha': 'Alphabétique',
-    'sort_shape': 'Forme',
     'sort_icon': 'Icône',
     'sort_hasicon': 'Avec Icône',
     'sort_noicon': 'Sans Icône',
@@ -127,15 +120,11 @@ export const fr = {
     'sort_nourl': 'Sans Lien',
     'manage_styles_sort_label': 'Tri',
     'manage_styles_filter_label': 'Filtres',
-    'sort_more': 'Plus d\'options',
-    'sort_less': 'Moins',
     'delete_style_confirm': 'Supprimer « {name} » ?',
     'style_deleted': 'Style « {name} » supprimé.',
     'confirm_button': 'Confirmer',
     'scope_all': 'Général',
-
     'scope_show_all': 'Afficher tout',
-    'scope_specific': 'Propriété spécifique',
     'batch_create_detected_before': 'Trouvé {count} valeur(s) sans style pour cette propriété. ',
     'batch_create_detected_action': 'Créer tout',
     'batch_create_detected_after': '?',
@@ -144,20 +133,14 @@ export const fr = {
     'batch_create_all_global_before': 'Note : ',
     'batch_create_all_global_after': ' existent déjà en tant que styles globaux. Aucune création n\'est nécessaire.',
     'batch_create_too_many': 'Trouvé {count} valeurs pour cette propriété (dépasse la limite de 50 pour la création par lots).',
-    'batch_create_confirm_title': 'Confirmer la création par lots',
     'batch_create_confirm_desc': 'Des styles seront créés pour les valeurs suivantes : {values}',
     'batch_create_success': '{count} style(s) créé(s) par lots.',
-    'reorder_move_up': 'Monter',
-    'reorder_move_down': 'Descendre',
-    'target_property_add': 'Ajouter',
-    'target_property_empty_input': 'Veuillez saisir un nom de propriété',
 
     // Forme
     'shape_title': 'Forme',
     'shape_pill': 'Pilule',
     'shape_rectangle': 'Rectangle',
     'shape_flat': 'Plat',
-
 
     // Tabs
     'tab_icons': 'Icônes',
@@ -170,7 +153,6 @@ export const fr = {
     'color_mode_subtle': 'Subtil',
     'color_mode_solid': 'Solide',
     'color_mode_simple': 'Contour',
-
 
     // Modifier le Style
     'edit_style_title': 'Modifier le style',
@@ -194,6 +176,7 @@ export const fr = {
     'link_url_placeholder': 'Entrez une URL…',
     'prefix_match_title': 'Correspondance par préfixe',
     'prefix_match_desc': 'Applique le style à n\'importe quelle URL qui commence par le Lien Associé, insensible à la casse.',
+
     // UI Components
     'ui_components_title': 'Autres styles',
     'ui_components_desc': 'Activer ou désactiver les composants visuels des étiquettes.',
@@ -207,14 +190,12 @@ export const fr = {
     'palette_manager_desc': 'Ajoutez, supprimez ou générez automatiquement des combinaisons de couleurs pour vos styles.',
     'palette_your_colors': 'Mes couleurs',
     'palette_saved_count': 'Couleurs enregistrées : {count} / {max}',
-    'palette_add_color': 'Ajouter',
     'palette_max_reached': 'Maximum de {max} couleurs atteint.',
     'palette_harmony_heading': 'Générer une palette',
     'palette_harmony_analogous': 'Analogues',
     'palette_harmony_complementary': 'Complémentaires',
     'palette_harmony_shades': 'Nuances',
     'palette_harmony_random': 'Aléatoires',
-
     'palette_clear_tooltip': 'Tout effacer',
     'palette_add_color_aria': 'Ajouter une couleur',
     'palette_color_copied': 'Couleur copiée !',
@@ -231,16 +212,11 @@ export const fr = {
     'favicon_refreshing': 'Actualisation...',
     'favicon_refresh_success': '{count} favicon(s) actualisé(s).',
     'favicon_refresh_partial': '{count} favicon(s) actualisé(s). {failed} ont échoué.',
-
     'favicon_provider_direct': 'Recherche directe',
     'favicon_provider_google': 'Google',
     'favicon_provider_duckduckgo': 'DuckDuckGo',
     'favicon_provider_heading': 'Fournisseur de favicons',
-
     'favicon_search_placeholder': 'Rechercher un domaine...',
-    'favicon_status_failed': 'Échec de l\'obtention (tentative précédente)',
-    'favicon_status_outdated': 'Obsolète (+30 jours)',
-    'favicon_status_cached': 'En cache',
     'favicon_meta_saved': 'Enregistré il y a {days} {day_word} · {size}KB',
     'favicon_meta_today': 'Enregistré aujourd\'hui · {size}KB',
     'favicon_meta_outdated': 'Peut-être obsolète · 30+ jours',
@@ -254,7 +230,6 @@ export const fr = {
     'favicon_fetch_tooltip': 'Obtenir le favicon',
     'favicon_invalid_url': 'URL invalide ou incomplète.',
     'favicon_fetch_failed': 'Échec du téléchargement du favicon pour {domain}',
-    'favicon_fetch_success': 'Favicon de {domain} téléchargé avec succès !',
 
     // Journal des modifications
     'changelog_tab_all': 'Tout',
@@ -275,7 +250,6 @@ export const fr = {
     // Plugin Notices
     'notices_title': 'Avis du plugin',
     'notices_desc': 'Informations et alertes sur les fonctionnalités actuellement actives.',
-
     'notices_empty': 'Aucun avis pour le moment.',
     'notices_button': 'Voir les avis',
     'notice_internet_title': 'Connexion Internet',
@@ -290,16 +264,12 @@ export const fr = {
     // Static Tips / Usage Tips
     'notice_usage_list_title': 'Propriété de Liste',
     'notice_usage_list_desc': 'L\'effet de style n\'est appliqué qu\'aux propriétés de type Liste dans Obsidian.',
-
     'notice_usage_case_title': 'Sensibilité à la Casse',
     'notice_usage_case_desc': 'Le plugin ne fait pas la distinction entre les majuscules et les minuscules pour le nom de la propriété cible ou les noms définis pour les étiquettes. Exemple : `Status` et `status` sont la même propriété.',
-
     'notice_usage_priority_title': 'Priorité de Portée',
     'notice_usage_priority_desc': 'Si deux styles ont le même nom mais des portées différentes (ex. l\'un dans "Toutes les propriétés" et l\'autre dans une propriété spécifique), le style le plus spécifique aura la priorité pour cette propriété.',
-
     'notice_usage_multiple_title': 'Cibles Multiples',
     'notice_usage_multiple_desc': 'Vous pouvez cibler plus d\'une propriété. Ajoutez simplement une virgule entre les options. Exemple : `Status, Priority`.',
-
     'notice_custom_images_title': 'Images personnalisées',
     'notice_custom_images_desc': 'Placez vos fichiers image (PNG, JPG, etc.) d\'une taille maximale de 50 Ko dans le dossier img/ du répertoire du plugin.',
 
@@ -307,5 +277,8 @@ export const fr = {
     'notices_tab_all': 'Tous les avis',
     'notices_tab_warning': 'Avertissement',
     'notices_tab_info': 'Info',
-    'notices_tab_system': 'Système'
+    'notices_tab_system': 'Système',
+    'group_design_title': 'Apparence',
+    'group_behavior_title': 'Comportement',
+    'group_preview_title': 'Aperçu'
 };

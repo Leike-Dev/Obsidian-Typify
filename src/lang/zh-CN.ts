@@ -1,6 +1,4 @@
 export const zhCN = {
-
-    'section_configuration_title': '常规',
     'section_data_management_title': '数据管理',
 
     // 命令和上下文菜单
@@ -31,7 +29,6 @@ export const zhCN = {
     'base_color_desc': '定义用于生成样式视觉变体的颜色。',
     'icon_title': '图标',
     'icon_desc': '选择显示在样式名称旁边的图标。',
-
     'add_icon_tooltip': '选择图标',
     'remove_icon_tooltip': '移除图标',
     'applies_to_title': '应用于',
@@ -62,7 +59,6 @@ export const zhCN = {
     // 自定义图标
     'custom_icons_toggle_title': '自定义图标',
     'custom_icons_toggle_desc': '在插件中启用自定义 SVG 图标。',
-    'custom_icons_info': '仅支持不超过 100KB 的 .svg 文件。请将图标放在插件目录的 icons/ 文件夹中。',
     'custom_icons_loaded': '成功加载 {count} 个自定义图标！',
     'custom_icons_empty': '在 icons/ 文件夹中未找到 SVG 文件。请添加 .svg 文件后重新启用。',
     'custom_icons_error': '加载自定义图标时出错。',
@@ -73,7 +69,6 @@ export const zhCN = {
     'custom_images_missing': '{count} 张图片未在 img/ 文件夹中找到：{names}。',
 
     // 导出消息
-
     'export_error': '导出设置失败。',
 
     // 导出/导入弹窗
@@ -95,7 +90,6 @@ export const zhCN = {
 
     // 创建样式弹窗
     'create_style_title': '创建样式',
-
     'status_name_placeholder': '请输入样式名称…',
     'save_button': '保存',
     'cancel_button': '取消',
@@ -113,7 +107,6 @@ export const zhCN = {
     'manage_styles_no_results': '没有匹配的样式。',
     'sort_recent': '最近',
     'sort_alpha': '字母顺序',
-    'sort_shape': '形状',
     'sort_icon': '图标',
     'sort_hasicon': '有图标',
     'sort_noicon': '无图标',
@@ -127,15 +120,11 @@ export const zhCN = {
     'sort_nourl': '无链接',
     'manage_styles_sort_label': '排序',
     'manage_styles_filter_label': '过滤',
-    'sort_more': '更多选项',
-    'sort_less': '收起',
     'delete_style_confirm': '确定删除「{name}」？',
     'style_deleted': '样式「{name}」已删除。',
     'confirm_button': '确认',
     'scope_all': '所有属性',
-
     'scope_show_all': '全部显示',
-    'scope_specific': '特定属性',
     'batch_create_detected_before': '检测到该属性还有 {count} 个值尚未创建，是否',
     'batch_create_detected_action': '批量创建',
     'batch_create_detected_after': '？',
@@ -144,20 +133,14 @@ export const zhCN = {
     'batch_create_all_global_before': '该属性中 ',
     'batch_create_all_global_after': ' 已存在于「任意属性」中，无需批量创建。',
     'batch_create_too_many': '检测到该属性共有 {count} 个候选值，数量过多暂不支持批量创建。',
-    'batch_create_confirm_title': '确认批量创建',
     'batch_create_confirm_desc': '将创建以下属性值的样式：{values}',
     'batch_create_success': '已批量创建 {count} 个样式。',
-    'reorder_move_up': '上移',
-    'reorder_move_down': '下移',
-    'target_property_add': '添加',
-    'target_property_empty_input': '请输入属性名称',
 
     // 形状
     'shape_title': '形状',
     'shape_pill': '胶囊',
     'shape_rectangle': '圆角矩形',
     'shape_flat': '直角矩形',
-
 
     // Tabs
     'tab_icons': '图标',
@@ -170,7 +153,6 @@ export const zhCN = {
     'color_mode_subtle': '柔和',
     'color_mode_solid': '纯色',
     'color_mode_simple': '简约',
-
 
     // 编辑样式
     'edit_style_title': '编辑样式',
@@ -194,6 +176,7 @@ export const zhCN = {
     'link_url_placeholder': '输入网址…',
     'prefix_match_title': '前缀匹配',
     'prefix_match_desc': '将样式应用于以关联链接开头的任何URL，不区分大小写。',
+
     // UI Components
     'ui_components_title': '其他样式',
     'ui_components_desc': '启用或禁用标签的视觉组件。',
@@ -207,14 +190,12 @@ export const zhCN = {
     'palette_manager_desc': '添加、删除或自动生成要在样式中使用的颜色组合。',
     'palette_your_colors': '我的颜色',
     'palette_saved_count': '已保存颜色：{count} / {max}',
-    'palette_add_color': '添加',
     'palette_max_reached': '已达到 {max} 种颜色的上限。',
     'palette_harmony_heading': '生成调色板',
     'palette_harmony_analogous': '类似色',
     'palette_harmony_complementary': '互补色',
     'palette_harmony_shades': '渐变',
     'palette_harmony_random': '随机',
-
     'palette_clear_tooltip': '全部清除',
     'palette_add_color_aria': '添加颜色',
     'palette_color_copied': '颜色已复制！',
@@ -231,16 +212,11 @@ export const zhCN = {
     'favicon_refreshing': '正在刷新...',
     'favicon_refresh_success': '{count} 个图标已刷新。',
     'favicon_refresh_partial': '{count} 个图标已刷新。{failed} 个失败。',
-
     'favicon_provider_direct': '直接搜索',
     'favicon_provider_google': 'Google',
     'favicon_provider_duckduckgo': 'DuckDuckGo',
     'favicon_provider_heading': '网站图标提供商',
-
     'favicon_search_placeholder': '搜索域名...',
-    'favicon_status_failed': '获取失败（上次尝试）',
-    'favicon_status_outdated': '已过期（超过30天）',
-    'favicon_status_cached': '已缓存',
     'favicon_meta_saved': '{days}{day_word}前保存 · {size}KB',
     'favicon_meta_today': '今天保存 · {size}KB',
     'favicon_meta_outdated': '可能已过期 · 30+天',
@@ -254,7 +230,6 @@ export const zhCN = {
     'favicon_fetch_tooltip': '获取图标',
     'favicon_invalid_url': '无效或不完整的URL。',
     'favicon_fetch_failed': '获取 {domain} 的图标失败',
-    'favicon_fetch_success': '{domain} 的图标下载成功！',
 
     // 更新日志
     'changelog_tab_all': '全部',
@@ -275,7 +250,6 @@ export const zhCN = {
     // Plugin Notices
     'notices_title': '插件通知',
     'notices_desc': '关于当前活动功能的信息和警报。',
-
     'notices_empty': '暂无通知。',
     'notices_button': '查看通知',
     'notice_internet_title': '互联网连接',
@@ -290,16 +264,12 @@ export const zhCN = {
     // Static Tips / Usage Tips
     'notice_usage_list_title': '列表属性',
     'notice_usage_list_desc': '样式效果仅应用于 Obsidian 中的列表类型属性。',
-
     'notice_usage_case_title': '大小写不敏感',
     'notice_usage_case_desc': '该插件对目标属性名和为标签定义的名称均不区分大小写。示例：`Status` 和 `status` 是同一个属性。',
-
     'notice_usage_priority_title': '作用域优先级',
     'notice_usage_priority_desc': '如果两个样式名称相同但作用域不同（例如，一个在“所有属性”中，另一个在特定属性中），则更具体的样式将优先应用于该属性。',
-
     'notice_usage_multiple_title': '多个目标属性',
     'notice_usage_multiple_desc': '您可以将多个属性作为目标。只需在选项之间添加逗号即可。示例：`Status, Priority`。',
-
     'notice_custom_images_title': '自定义图片',
     'notice_custom_images_desc': '请将最大 50KB 的图片文件（PNG、JPG 等）放在插件目录中的 img/ 文件夹中。',
 
@@ -307,5 +277,8 @@ export const zhCN = {
     'notices_tab_all': '所有通知',
     'notices_tab_warning': '警告',
     'notices_tab_info': '信息',
-    'notices_tab_system': '系统'
+    'notices_tab_system': '系统',
+    'group_design_title': '外观',
+    'group_behavior_title': '行为',
+    'group_preview_title': '预览'
 };

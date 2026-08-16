@@ -1,6 +1,4 @@
 export const es = {
-
-    'section_configuration_title': 'General',
     'section_data_management_title': 'Gestión de datos',
 
     // Comandos y Menús contextuales
@@ -31,7 +29,6 @@ export const es = {
     'base_color_desc': 'Define el color utilizado para generar las variaciones visuales del estilo.',
     'icon_title': 'Ícono',
     'icon_desc': 'Selecciona el ícono que se muestra junto al nombre del estilo.',
-
     'add_icon_tooltip': 'Elegir ícono',
     'remove_icon_tooltip': 'Quitar ícono',
     'applies_to_title': 'Aplica a',
@@ -62,7 +59,6 @@ export const es = {
     // Íconos Personalizados
     'custom_icons_toggle_title': 'Íconos personalizados',
     'custom_icons_toggle_desc': 'Habilitar íconos SVG personalizados en el plugin.',
-    'custom_icons_info': 'Solo se admiten archivos .svg de hasta 100KB. Coloca tus íconos en la carpeta icons/ dentro del directorio del plugin.',
     'custom_icons_loaded': '¡{count} ícono(s) personalizado(s) cargado(s) exitosamente!',
     'custom_icons_empty': 'No se encontraron archivos SVG en la carpeta icons/. Agrega archivos .svg y habilita nuevamente.',
     'custom_icons_error': 'Error al cargar íconos personalizados.',
@@ -73,7 +69,6 @@ export const es = {
     'custom_images_missing': '{count} imagen(es) no encontrada(s) en la carpeta img/: {names}.',
 
     // Mensajes de Exportación
-
     'export_error': 'Error al exportar configuración.',
 
     // Modales de Exportar/Importar
@@ -95,7 +90,6 @@ export const es = {
 
     // Modal Crear Estilo
     'create_style_title': 'Crear estilo',
-
     'status_name_placeholder': 'Ingresa el nombre del estilo...',
     'save_button': 'Guardar',
     'cancel_button': 'Cancelar',
@@ -113,7 +107,6 @@ export const es = {
     'manage_styles_no_results': 'Ningún estilo coincide con la búsqueda.',
     'sort_recent': 'Reciente',
     'sort_alpha': 'Alfabético',
-    'sort_shape': 'Forma',
     'sort_icon': 'Icono',
     'sort_hasicon': 'Con Icono',
     'sort_noicon': 'Sin Icono',
@@ -127,15 +120,11 @@ export const es = {
     'sort_nourl': 'Sin Enlace',
     'manage_styles_sort_label': 'Orden',
     'manage_styles_filter_label': 'Filtros',
-    'sort_more': 'Más opciones',
-    'sort_less': 'Menos',
     'delete_style_confirm': '¿Eliminar "{name}"?',
     'style_deleted': 'Estilo "{name}" eliminado.',
     'confirm_button': 'Confirmar',
     'scope_all': 'General',
-
     'scope_show_all': 'Mostrar todos',
-    'scope_specific': 'Propiedad específica',
     'batch_create_detected_before': 'Se encontraron {count} valor(es) sin estilo para esta propiedad. ',
     'batch_create_detected_action': 'Crear todos',
     'batch_create_detected_after': '?',
@@ -144,20 +133,14 @@ export const es = {
     'batch_create_all_global_before': 'Nota: ',
     'batch_create_all_global_after': ' ya existen como estilos globales. No se requiere creación en lote.',
     'batch_create_too_many': 'Se encontraron {count} valores para esta propiedad (excede el límite de 50 para creación en lote).',
-    'batch_create_confirm_title': 'Confirmar creación en lote',
     'batch_create_confirm_desc': 'Se crearán estilos para los siguientes valores: {values}',
     'batch_create_success': '{count} estilo(s) creado(s) en lote.',
-    'reorder_move_up': 'Subir',
-    'reorder_move_down': 'Bajar',
-    'target_property_add': 'Añadir',
-    'target_property_empty_input': 'Por favor, introduzca un nombre de propiedad',
 
     // Formato
     'shape_title': 'Forma',
     'shape_pill': 'Píldora',
     'shape_rectangle': 'Rectángulo',
     'shape_flat': 'Plano',
-
 
     // Tabs
     'tab_icons': 'Iconos',
@@ -171,7 +154,6 @@ export const es = {
     'color_mode_solid': 'Sólido',
     'color_mode_simple': 'Contorno',
 
-
     // Editar Estilo
     'edit_style_title': 'Editar estilo',
     'style_updated': '¡Estilo "{name}" actualizado!',
@@ -182,7 +164,6 @@ export const es = {
     'hide_remove_button_hover_title': 'Revelar botón "x" al pasar el ratón',
     'hide_remove_button_hover_desc': 'Si está activado, el botón de eliminación aparecerá cuando pases el ratón sobre la etiqueta.',
     'hide_remove_button_none': 'Ninguno (Predeterminado)',
-
     'hide_remove_button_properties': 'Solo en Propiedades',
     'hide_remove_button_bases': 'Solo en Bases',
     'hide_remove_button_both': 'En ambos',
@@ -195,6 +176,7 @@ export const es = {
     'link_url_placeholder': 'Ingresa una URL\u2026',
     'prefix_match_title': 'Coincidencia por prefijo',
     'prefix_match_desc': 'Aplica el estilo a cualquier URL que comience con el Enlace Asociado, sin distinguir mayúsculas de minúsculas.',
+
     // UI Components
     'ui_components_title': 'Otros estilos',
     'ui_components_desc': 'Habilita o deshabilita componentes visuales de las etiquetas.',
@@ -208,14 +190,12 @@ export const es = {
     'palette_manager_desc': 'Añade, elimina o genera combinaciones de colores automáticamente para usar en tus estilos.',
     'palette_your_colors': 'Mis colores',
     'palette_saved_count': 'Colores guardados: {count} / {max}',
-    'palette_add_color': 'Añadir',
     'palette_max_reached': 'Máximo de {max} colores alcanzado.',
     'palette_harmony_heading': 'Generar paleta',
     'palette_harmony_analogous': 'Análogos',
     'palette_harmony_complementary': 'Complementarios',
     'palette_harmony_shades': 'Tonos',
     'palette_harmony_random': 'Aleatorios',
-
     'palette_clear_tooltip': 'Borrar todo',
     'palette_add_color_aria': 'Añadir color',
     'palette_color_copied': '¡Color copiado!',
@@ -232,16 +212,11 @@ export const es = {
     'favicon_refreshing': 'Actualizando...',
     'favicon_refresh_success': '{count} favicon(s) actualizado(s).',
     'favicon_refresh_partial': '{count} favicon(s) actualizado(s). {failed} fallaron.',
-
     'favicon_provider_direct': 'Búsqueda directa',
     'favicon_provider_google': 'Google',
     'favicon_provider_duckduckgo': 'DuckDuckGo',
     'favicon_provider_heading': 'Proveedor de favicon',
-
     'favicon_search_placeholder': 'Buscar dominio...',
-    'favicon_status_failed': 'Fallo al obtener (intento previo)',
-    'favicon_status_outdated': 'Desactualizado (+30 días)',
-    'favicon_status_cached': 'En caché',
     'favicon_meta_saved': 'Guardado hace {days} {day_word} · {size}KB',
     'favicon_meta_today': 'Guardado hoy · {size}KB',
     'favicon_meta_outdated': 'Puede estar desactualizado · 30+ días',
@@ -255,7 +230,6 @@ export const es = {
     'favicon_fetch_tooltip': 'Obtener favicon',
     'favicon_invalid_url': 'URL inválida o incompleta.',
     'favicon_fetch_failed': 'Error al descargar el favicon de {domain}',
-    'favicon_fetch_success': '¡Favicon de {domain} descargado con éxito!',
 
     // Registro de cambios
     'changelog_tab_all': 'Todo',
@@ -276,7 +250,6 @@ export const es = {
     // Plugin Notices
     'notices_title': 'Avisos del plugin',
     'notices_desc': 'Información y alertas sobre las características activas actualmente.',
-
     'notices_empty': 'No hay avisos en este momento.',
     'notices_button': 'Ver avisos',
     'notice_internet_title': 'Conexión a Internet',
@@ -291,16 +264,12 @@ export const es = {
     // Static Tips / Usage Tips
     'notice_usage_list_title': 'Propiedad de Lista',
     'notice_usage_list_desc': 'El efecto del estilo solo se aplica a las propiedades de tipo Lista en Obsidian.',
-
     'notice_usage_case_title': 'Mayúsculas y Minúsculas',
     'notice_usage_case_desc': 'El plugin no distingue entre mayúsculas y minúsculas para el nombre de la propiedad objetivo o los nombres definidos para las etiquetas. Ejemplo: `Status` y `status` son la misma propiedad.',
-
     'notice_usage_priority_title': 'Prioridad de Alcance',
     'notice_usage_priority_desc': 'Si dos estilos tienen el mismo nombre pero diferentes alcances (ej. uno en "Todas las propiedades" y otro en una propiedad específica), el estilo más específico tendrá prioridad para esa propiedad.',
-
     'notice_usage_multiple_title': 'Múltiples Propiedades Objetivo',
     'notice_usage_multiple_desc': 'Puede usar más de una propiedad como objetivo. Simplemente agregue una coma entre las opciones. Ejemplo: `Status, Priority`.',
-
     'notice_custom_images_title': 'Imágenes personalizadas',
     'notice_custom_images_desc': 'Coloca tus archivos de imagen (PNG, JPG, etc.) de hasta 50KB en la carpeta img/ en el directorio del plugin.',
 
@@ -308,5 +277,8 @@ export const es = {
     'notices_tab_all': 'Todos los avisos',
     'notices_tab_warning': 'Aviso',
     'notices_tab_info': 'Info',
-    'notices_tab_system': 'Sistema'
+    'notices_tab_system': 'Sistema',
+    'group_design_title': 'Apariencia',
+    'group_behavior_title': 'Comportamiento',
+    'group_preview_title': 'Vista previa'
 };

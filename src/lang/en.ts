@@ -1,6 +1,4 @@
 export const en = {
-
-    'section_configuration_title': 'General',
     'section_data_management_title': 'Data management',
 
     // Commands & Context Menus
@@ -34,7 +32,6 @@ export const en = {
     'base_color_desc': 'Defines the color used to generate the style\'s visual variations.',
     'icon_title': 'Icon',
     'icon_desc': 'Selects the icon displayed next to the style name.',
-
     'add_icon_tooltip': 'Choose icon',
     'remove_icon_tooltip': 'Remove icon',
     'applies_to_title': 'Applies to',
@@ -65,7 +62,6 @@ export const en = {
     // Custom Icons
     'custom_icons_toggle_title': 'Custom icons',
     'custom_icons_toggle_desc': 'Enable custom SVG icons in the plugin.',
-    'custom_icons_info': 'Only .svg files up to 100KB are supported. Place your icons in the icons/ folder inside the plugin directory.',
     'custom_icons_loaded': '{count} custom icon(s) loaded successfully!',
     'custom_icons_empty': 'No SVG files found in the icons/ folder. Add .svg files and enable again.',
     'custom_icons_error': 'Error loading custom icons.',
@@ -76,7 +72,6 @@ export const en = {
     'custom_images_missing': '{count} image(s) not found in img/ folder: {names}.',
 
     // Export Messages
-
     'export_error': 'Failed to export settings.',
 
     // Export/Import Modals
@@ -98,7 +93,6 @@ export const en = {
 
     // Create Style Modal
     'create_style_title': 'Create style',
-
     'status_name_placeholder': 'Enter style name...',
     'save_button': 'Save',
     'cancel_button': 'Cancel',
@@ -116,7 +110,6 @@ export const en = {
     'manage_styles_no_results': 'No styles match your search.',
     'sort_recent': 'Recent',
     'sort_alpha': 'Alphabetical',
-    'sort_shape': 'Shape',
     'sort_icon': 'Icon',
     'sort_hasicon': 'With Icon',
     'sort_noicon': 'No Icon',
@@ -130,15 +123,11 @@ export const en = {
     'sort_nourl': 'No Link',
     'manage_styles_sort_label': 'Sort',
     'manage_styles_filter_label': 'Filters',
-    'sort_more': 'More options',
-    'sort_less': 'Less',
     'delete_style_confirm': 'Delete "{name}"?',
     'style_deleted': 'Style "{name}" deleted.',
     'confirm_button': 'Confirm',
     'scope_all': 'Any property',
-
     'scope_show_all': 'Show all',
-    'scope_specific': 'Specific property',
     'batch_create_detected_before': 'Found {count} unstyled value(s) for this property. ',
     'batch_create_detected_action': 'Create them all',
     'batch_create_detected_after': '?',
@@ -147,20 +136,14 @@ export const en = {
     'batch_create_all_global_before': 'Note: ',
     'batch_create_all_global_after': ' already exist as global styles. No batch creation needed.',
     'batch_create_too_many': 'Found {count} values for this property (exceeds the limit of 50 for batch creation).',
-    'batch_create_confirm_title': 'Confirm batch creation',
     'batch_create_confirm_desc': 'Styles will be created for the following values: {values}',
     'batch_create_success': '{count} style(s) created in batch.',
-    'reorder_move_up': 'Move up',
-    'reorder_move_down': 'Move down',
-    'target_property_add': 'Add',
-    'target_property_empty_input': 'Please enter a property name',
 
     // Shape
     'shape_title': 'Shape',
     'shape_pill': 'Pill',
     'shape_rectangle': 'Rectangle',
     'shape_flat': 'Flat',
-
 
     // Tabs
     'tab_icons': 'Icons',
@@ -174,17 +157,16 @@ export const en = {
     'color_mode_solid': 'Solid',
     'color_mode_simple': 'Outline',
 
-
     // Edit Style
     'edit_style_title': 'Edit style',
     'style_updated': 'Style "{name}" updated!',
+
     // Hide Remove Button
     'hide_remove_button_title': 'Hide "x" button on tags',
     'hide_remove_button_desc': 'Hides the remove icon for a cleaner and more discreet look.',
     'hide_remove_button_hover_title': 'Reveal remove button on hover',
     'hide_remove_button_hover_desc': 'If enabled, the remove button will appear when you hover over the tag.',
     'hide_remove_button_none': 'None (Default)',
-
     'hide_remove_button_properties': 'Only in Properties',
     'hide_remove_button_bases': 'Only in Bases',
     'hide_remove_button_both': 'In both',
@@ -197,6 +179,7 @@ export const en = {
     'link_url_placeholder': 'Enter a URL\u2026',
     'prefix_match_title': 'Prefix match',
     'prefix_match_desc': 'Applies the style to any URL that starts with the Associated Link, case-insensitive.',
+
     // UI Components
     'ui_components_title': 'Other styles',
     'ui_components_desc': 'Enable or disable visual components for the tags.',
@@ -210,14 +193,12 @@ export const en = {
     'palette_manager_desc': 'Add, remove or automatically generate color combinations to use in your styles.',
     'palette_your_colors': 'My colors',
     'palette_saved_count': 'Saved colors: {count} / {max}',
-    'palette_add_color': 'Add',
     'palette_max_reached': 'Maximum of {max} colors reached.',
     'palette_harmony_heading': 'Generate palette',
     'palette_harmony_analogous': 'Analogous',
     'palette_harmony_complementary': 'Complementary',
     'palette_harmony_shades': 'Shades',
     'palette_harmony_random': 'Random',
-
     'palette_clear_tooltip': 'Clear all',
     'palette_add_color_aria': 'Add color',
     'palette_color_copied': 'Color copied!',
@@ -234,16 +215,11 @@ export const en = {
     'favicon_refreshing': 'Refreshing...',
     'favicon_refresh_success': '{count} favicon(s) refreshed.',
     'favicon_refresh_partial': '{count} favicon(s) refreshed. {failed} failed.',
-
     'favicon_provider_direct': 'Direct search',
     'favicon_provider_google': 'Google',
     'favicon_provider_duckduckgo': 'DuckDuckGo',
     'favicon_provider_heading': 'Favicon provider',
-
     'favicon_search_placeholder': 'Search domain...',
-    'favicon_status_failed': 'Failed to fetch (previous attempt)',
-    'favicon_status_outdated': 'Outdated (+30 days)',
-    'favicon_status_cached': 'Cached',
     'favicon_meta_saved': 'Saved {days} {day_word} ago · {size}KB',
     'favicon_meta_today': 'Saved today · {size}KB',
     'favicon_meta_outdated': 'May be outdated · 30+ days',
@@ -257,7 +233,6 @@ export const en = {
     'favicon_fetch_tooltip': 'Fetch favicon',
     'favicon_invalid_url': 'Invalid or incomplete URL.',
     'favicon_fetch_failed': 'Failed to fetch favicon for {domain}',
-    'favicon_fetch_success': 'Favicon for {domain} downloaded successfully!',
 
     // Changelog
     'changelog_tab_all': 'All',
@@ -278,7 +253,6 @@ export const en = {
     // Plugin Notices
     'notices_title': 'Plugin notices',
     'notices_desc': 'Information and alerts about currently active features.',
-
     'notices_empty': 'No notices at the moment.',
     'notices_button': 'View notices',
     'notice_internet_title': 'Internet Connection',
@@ -293,16 +267,12 @@ export const en = {
     // Static Tips / Usage Tips
     'notice_usage_list_title': 'List Property',
     'notice_usage_list_desc': 'The style effect is only applied to List-type properties in Obsidian.',
-
     'notice_usage_case_title': 'Case Insensitive',
     'notice_usage_case_desc': 'The plugin is case-insensitive for both the target property name and the names defined for the tags. Example: `Status` and `status` are the same property.',
-
     'notice_usage_priority_title': 'Scope Priority',
     'notice_usage_priority_desc': 'If two styles have the same name but different scopes (e.g. one in "All properties" and another in a specific property), the more specific style will take precedence for that property.',
-
     'notice_usage_multiple_title': 'Multiple Target Properties',
     'notice_usage_multiple_desc': 'You can target more than one property. Just add a comma between the options. Example: `Status, Priority`.',
-
     'notice_custom_images_title': 'Custom Images',
     'notice_custom_images_desc': 'Place your image files (PNG, JPG, etc.) up to 50KB in the img/ folder in the plugin directory.',
 
