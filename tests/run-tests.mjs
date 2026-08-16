@@ -62,6 +62,7 @@ try {
             'tests/style-manager.test.mjs',
             'tests/import-roundtrip.test.mjs',
             'tests/save-settings.test.mjs',
+            'tests/i18n-keys.test.mjs',
         ],
         bundle: true,
         platform: 'node',

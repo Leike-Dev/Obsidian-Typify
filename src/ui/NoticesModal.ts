@@ -1,9 +1,18 @@
 import { App, Modal, setIcon } from 'obsidian';
 import type TypifyPlugin from '../main';
-import { t } from '../lang/helpers';
+import { t, type TranslationKey } from '../lang/helpers';
+
+const NOTICE_TYPES = ['warning', 'info', 'system'] as const;
+type NoticeType = typeof NOTICE_TYPES[number];
+
+const NOTICE_TAB_KEYS = {
+    warning: 'notices_tab_warning',
+    info: 'notices_tab_info',
+    system: 'notices_tab_system',
+} satisfies Record<NoticeType, TranslationKey>;
 
 interface NoticeItem {
-    type: string;
+    type: NoticeType;
     icon: string;
     title: string;
     desc: string;
@@ -59,9 +68,14 @@ export class NoticesModal extends Modal {
         const renderTags = () => {
             tagsContainer.empty();
             
-            const counts: Record<string, number> = { 'all': notices.length };
-            notices.forEach(n => {
-                counts[n.type] = (counts[n.type] || 0) + 1;
+            const counts: Record<NoticeType, number> = {
+                warning: 0,
+                info: 0,
+                system: 0,
+            };
+
+            notices.forEach(notice => {
+                counts[notice.type]++;
             });
 
             const createTag = (id: string, label: string, count: number) => {
@@ -89,16 +103,15 @@ export class NoticesModal extends Modal {
                 });
             };
 
-            createTag('all', t('notices_tab_all'), counts['all'] || 0);
+            createTag('all', t('notices_tab_all'), notices.length);
 
-            Object.keys(counts).forEach(type => {
-                if (type !== 'all') {
-                    const transKey = `notices_tab_${type}` as Parameters<typeof t>[0];
-                    const translated = t(transKey);
-                    const label = translated !== transKey ? translated : (type.charAt(0).toUpperCase() + type.slice(1));
-                    createTag(type, label, counts[type] || 0);
+            for (const type of NOTICE_TYPES) {
+                const count = counts[type];
+
+                if (count > 0) {
+                    createTag(type, t(NOTICE_TAB_KEYS[type]), count);
                 }
-            });
+            }
         };
 
         renderTags();
