@@ -20,7 +20,7 @@ Transforme a visualização dos seus metadados entediantes em uma visualização
 
 Typify é um plugin para o Obsidian que permite que você crie estilos únicos para seus metadados. O que antes era limitado apenas às tags, agora pode ser personalizado para qualquer propriedade do Obsidian.
 
-## Recursos
+<img src="./assets/images/Section Banner - Recursos (PT-BR) - 01.jpg"/>
 
 - **🎨 Estilos customizáveis**: Crie estilos únicos para seus metadados.
 
