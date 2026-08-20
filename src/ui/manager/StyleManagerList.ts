@@ -57,10 +57,13 @@ export class StyleManagerList {
             }
 
             if (scope !== '__show_all__') {
-                const styleScope = (s.appliesTo && s.appliesTo.length > 0)
-                    ? s.appliesTo[0]!.toLowerCase()
-                    : '__all__';
-                if (styleScope !== scope.toLowerCase()) return false;
+                if (scope === '__all__') {
+                    if (s.appliesTo && s.appliesTo.length > 0) return false;
+                } else {
+                    if (!s.appliesTo || s.appliesTo.length === 0) return false;
+                    const hasMatch = s.appliesTo.some(prop => prop.toLowerCase() === scope.toLowerCase());
+                    if (!hasMatch) return false;
+                }
             }
 
             for (const filterId of Object.values(activeFilters)) {
@@ -72,6 +75,7 @@ export class StyleManagerList {
                 if (filterId === 'shape:flat' && shape !== 'flat') return false;
                 if (filterId === 'colormode:solid' && colorMode !== 'solid') return false;
                 if (filterId === 'colormode:subtle' && colorMode !== 'subtle') return false;
+                if (filterId === 'colormode:simple' && colorMode !== 'simple') return false;
                 if (filterId === 'icon:has' && !s.icon) return false;
                 if (filterId === 'icon:no' && s.icon) return false;
                 if (filterId === 'icon:lucide' && (!s.icon || s.icon.includes(':'))) return false;
@@ -175,7 +179,7 @@ export class StyleManagerList {
         }
         metaRow.createSpan({ text: shapeText });
 
-        const modeText = style.colorMode === 'solid' ? t('color_mode_solid') : t('color_mode_subtle');
+        const modeText = style.colorMode === 'solid' ? t('color_mode_solid') : style.colorMode === 'simple' ? t('color_mode_simple') : t('color_mode_subtle');
         metaRow.createSpan({ text: ' \u00b7 ' });
         metaRow.createSpan({ text: modeText });
 
@@ -190,7 +194,7 @@ export class StyleManagerList {
         // In "show all" mode, display the scope group
         if (selectedScope === '__show_all__') {
             const groupLabel = (style.appliesTo && style.appliesTo.length > 0)
-                ? style.appliesTo[0]
+                ? style.appliesTo.join(', ')
                 : t('scope_all');
             metaRow.createSpan({ text: ` (${groupLabel})` });
         }

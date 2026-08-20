@@ -75,27 +75,42 @@ export class StyleManagerToolbar {
             value: '__all__',
         }).value = '__all__';
 
-        const scopes = new Set<string>();
+        const scopeMap = new Map<string, string>();
 
         const targetProps = this.plugin.settings.targetProperty
             .split(',')
             .map(p => p.trim())
             .filter(p => p.length > 0);
-        targetProps.forEach(p => scopes.add(p));
+        targetProps.forEach(p => scopeMap.set(p.toLowerCase(), p));
 
         for (const style of this.plugin.settings.statusStyles) {
             if (style.appliesTo && style.appliesTo.length > 0) {
-                scopes.add(style.appliesTo[0]!);
+                style.appliesTo.forEach(prop => {
+                    const lower = prop.toLowerCase();
+                    if (!scopeMap.has(lower)) {
+                        scopeMap.set(lower, prop);
+                    }
+                });
             }
         }
 
-        const sorted = [...scopes].sort((a, b) => a.localeCompare(b));
+        const sorted = Array.from(scopeMap.values()).sort((a, b) => a.localeCompare(b));
         for (const scope of sorted) {
             selectEl.createEl('option', { text: scope, value: scope }).value = scope;
         }
 
         // Restore previously selected scope
-        if (this.selectedScope !== '__show_all__') {
+        if (this.selectedScope !== '__show_all__' && this.selectedScope !== '__all__') {
+            const lowerScope = this.selectedScope.toLowerCase();
+            if (scopeMap.has(lowerScope)) {
+                this.selectedScope = scopeMap.get(lowerScope)!;
+                this.scopeDropdown.setValue(this.selectedScope);
+            } else {
+                this.selectedScope = '__show_all__';
+                this.scopeDropdown.setValue('__show_all__');
+                setTimeout(() => this.callbacks.onChange(), 0);
+            }
+        } else if (this.selectedScope !== '__show_all__') {
             this.scopeDropdown.setValue(this.selectedScope);
         }
     }

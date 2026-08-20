@@ -156,7 +156,8 @@ export class StyleManagerFilters {
         } else if (this.expandedFilterCategory === 'colormode') {
             subOptions = [
                 { id: 'colormode:solid', label: t('color_mode_solid') },
-                { id: 'colormode:subtle', label: t('color_mode_subtle') }
+                { id: 'colormode:subtle', label: t('color_mode_subtle') },
+                { id: 'colormode:simple', label: t('color_mode_simple') }
             ];
         } else if (this.expandedFilterCategory === 'icon') {
             subOptions = [
@@ -244,6 +245,7 @@ export class StyleManagerFilters {
         if (id === 'shape:flat') return t('shape_flat');
         if (id === 'colormode:solid') return t('color_mode_solid');
         if (id === 'colormode:subtle') return t('color_mode_subtle');
+        if (id === 'colormode:simple') return t('color_mode_simple');
         if (id === 'icon:has') return t('sort_hasicon');
         if (id === 'icon:no') return t('sort_noicon');
         if (id === 'icon:lucide') return t('sort_icon_lucide');

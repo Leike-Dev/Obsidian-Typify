@@ -15,7 +15,28 @@ const testMocks = {
             namespace: 'typify-test-mocks',
         }));
         context.onLoad({ filter: /^obsidian$/, namespace: 'typify-test-mocks' }, () => ({
-            contents: 'export const getIcon = () => null;',
+            contents: `
+                export const getIcon = () => null;
+                export const getLanguage = () => 'en';
+                export const setIcon = () => {};
+                export class ExtraButtonComponent {
+                    constructor(el) { this.el = el; }
+                    setIcon() { return this; }
+                    setTooltip() { return this; }
+                    onClick() { return this; }
+                }
+                export class DropdownComponent { 
+                    constructor(el) { this.selectEl = { empty: () => {}, createEl: () => ({}) }; }
+                    onChange() { return this; }
+                    setValue() { return this; }
+                }
+                export class SearchComponent { 
+                    constructor(el) { this.inputEl = { addClass: () => {} }; }
+                    setPlaceholder() { return this; }
+                    onChange() { return this; }
+                    getValue() { return ''; }
+                }
+            `,
             loader: 'js',
         }));
 
@@ -63,6 +84,7 @@ try {
             'tests/import-roundtrip.test.mjs',
             'tests/save-settings.test.mjs',
             'tests/i18n-keys.test.mjs',
+            'tests/manager-filters.test.mjs',
         ],
         bundle: true,
         platform: 'node',
