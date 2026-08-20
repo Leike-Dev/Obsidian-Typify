@@ -4,6 +4,7 @@ import { t } from '../lang/helpers';
 import { CustomIconsManager } from '../managers/custom-icons';
 import { CustomImagesManager } from '../managers/custom-images';
 import { EMOJIS } from '../constants/emojis';
+import { insertSvg } from '../utils/svg-utils';
 
 // ============================================================================
 // ICON PICKER MODAL - Fuzzy search for icons and images
@@ -177,13 +178,8 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
             const name = icon.replace('custom:', '');
             const svgContent = this.customIconsManager?.getSvgContent(name);
             if (svgContent) {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(svgContent, 'image/svg+xml');
-                const svg = doc.documentElement;
-                if (svg.instanceOf(SVGElement)) {
-                    iconEl.empty();
-                    iconEl.appendChild(svg);
-                }
+                iconEl.empty();
+                insertSvg(iconEl, svgContent, true);
             } else {
                 setIcon(iconEl, 'square');
             }

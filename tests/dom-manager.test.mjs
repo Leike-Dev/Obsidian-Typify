@@ -91,7 +91,10 @@ test('reprocessAllPills scans every currently rendered root while active', () =>
     try {
         const manager = Object.create(DOMManager.prototype);
         manager.observer = {};
-        manager.plugin = { getTargetProperties: () => ['status'] };
+        manager.plugin = {
+            getTargetProperties: () => ['status'],
+            windowManager: { getDocuments: () => [globalThis.document, globalThis.activeDocument].filter(Boolean) }
+        };
         manager.processPill = (...args) => processedPills.push(args);
         manager.processValueListElement = (...args) => processedValues.push(args);
         manager.processMetadataContainer = (container) => processedMetadata.push(container);

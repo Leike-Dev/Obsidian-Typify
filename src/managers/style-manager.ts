@@ -4,7 +4,8 @@ import { generatePalette } from '../utils';
 
 export class StyleManager {
     private plugin: TypifyPlugin;
-    private styleElement: HTMLStyleElement | null = null;
+    private styleElements = new Map<Document, HTMLStyleElement>();
+    private currentCss: string = '';
     // O(1) Lookup cache: key = value.toLowerCase() + '|' + propertyKey
     private fastLookupMap = new Map<string, string>();
     // Cache for global fallbacks: key = value.toLowerCase()
@@ -29,13 +30,6 @@ export class StyleManager {
         this.styleInfoMap.clear();
         this.prefixScopedList = [];
         this.prefixGlobalList = [];
-
-        if (!this.styleElement || !this.styleElement.isConnected) {
-            if (this.styleElement) this.styleElement.remove();
-            this.styleElement = createEl('style');
-            this.styleElement.id = 'typify-dynamic-styles';
-            document.head.appendChild(this.styleElement);
-        }
 
         let cssContent = '';
         const styles = this.plugin.settings.statusStyles;
@@ -205,8 +199,35 @@ body .${className} {
 
 
 
-        if (this.styleElement) {
-            this.styleElement.textContent = cssContent;
+        this.currentCss = cssContent;
+        this.updateAllDocuments();
+    }
+
+    private updateAllDocuments() {
+        if (!this.plugin.windowManager) return;
+        const docs = this.plugin.windowManager.getDocuments();
+        docs.forEach(doc => this.injectIntoDocument(doc));
+    }
+
+    injectIntoDocument(doc: Document) {
+        let styleEl = this.styleElements.get(doc);
+        if (!styleEl || !styleEl.isConnected) {
+            if (styleEl) styleEl.remove();
+            styleEl = doc.createElement('style');
+            styleEl.id = 'typify-dynamic-styles';
+            doc.head.appendChild(styleEl);
+            this.styleElements.set(doc, styleEl);
+        }
+        if (styleEl.textContent !== this.currentCss) {
+            styleEl.textContent = this.currentCss;
+        }
+    }
+
+    removeFromDocument(doc: Document) {
+        const styleEl = this.styleElements.get(doc);
+        if (styleEl) {
+            styleEl.remove();
+            this.styleElements.delete(doc);
         }
     }
 
@@ -287,18 +308,15 @@ body .${className} {
      * Re-injects it into the active document if it was removed externally.
      */
     ensureAttached(): void {
-        if (!this.styleElement || this.styleElement.isConnected) return;
-        document.head.appendChild(this.styleElement);
+        this.updateAllDocuments();
     }
 
     /**
      * Cleans up the injected stylesheet on unload.
      */
     cleanup() {
-        if (this.styleElement) {
-            this.styleElement.remove();
-            this.styleElement = null;
-        }
+        this.styleElements.forEach(el => el.remove());
+        this.styleElements.clear();
         this.fastLookupMap.clear();
         this.globalFallbackMap.clear();
         this.styleInfoMap.clear();

@@ -114,14 +114,18 @@ export class FaviconManager {
      * 2. DuckDuckGo API fallback
      * Processes into a transparent 32x32 PNG and saves it locally.
      */
-    async fetchFavicon(domain: string, silent = false): Promise<string | null> {
-        if (this.cache.has(domain)) {
+    async fetchFavicon(domain: string, silent = false, force = false): Promise<string | null> {
+        if (!force && this.cache.has(domain)) {
             return this.cache.get(domain)!.dataUri;
         }
 
-        if (this.failedDomains.has(domain)) {
+        if (!force && this.failedDomains.has(domain)) {
             if (!silent) new Notice(t('favicon_fetch_failed').replace('{domain}', domain));
             return null;
+        }
+
+        if (force) {
+            this.failedDomains.delete(domain);
         }
 
         return new Promise<string | null>((resolve) => {
@@ -139,7 +143,11 @@ export class FaviconManager {
                     }
 
                     if (!buffer) {
-                        await this.markAsFailed(domain);
+                        try {
+                            await this.markAsFailed(domain);
+                        } catch (e2) {
+                            console.error(`Typify: Failed to save favicon marker for ${domain}`, e2);
+                        }
                         if (!silent) new Notice(t('favicon_fetch_failed').replace('{domain}', domain));
                         resolve(null);
                         return;
@@ -150,7 +158,11 @@ export class FaviconManager {
                     resolve(savedUri);
                 } catch (e) {
                     console.error(`Typify: Favicon process failed for ${domain}`, e);
-                    await this.markAsFailed(domain);
+                    try {
+                        await this.markAsFailed(domain);
+                    } catch (e2) {
+                        console.error(`Typify: Failed to save favicon marker for ${domain}`, e2);
+                    }
                     resolve(null);
                 } finally {
                     this.activeRequests--;
@@ -179,7 +191,12 @@ export class FaviconManager {
 
     private async tryFetch(url: string): Promise<ArrayBuffer | null> {
         try {
-            const response = await requestUrl({ url, method: 'GET', throw: false });
+            const fetchPromise = requestUrl({ url, method: 'GET', throw: false });
+            const timeoutPromise = new Promise<never>((_, reject) => {
+                setTimeout(() => reject(new Error('Timeout')), 15000);
+            });
+            const response = await Promise.race([fetchPromise, timeoutPromise]);
+
             if (response.status === 200 && response.arrayBuffer) {
                 // Ensure it's not a generic HTML bot protection page
                 const contentType = response.headers['content-type']?.toLowerCase() || '';

@@ -15,8 +15,8 @@ export class DOMManager {
         this.styleManager = styleManager;
     }
 
-    private getDocs(): Set<Document> {
-        return new Set([document, activeDocument]);
+    private getDocs(): Document[] {
+        return this.plugin.windowManager ? this.plugin.windowManager.getDocuments() : [document];
     }
 
     init() {

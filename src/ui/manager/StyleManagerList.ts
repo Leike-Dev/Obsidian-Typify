@@ -7,6 +7,7 @@ import type TypifyPlugin from '../../main';
 import { StatusStyle } from '../../types';
 import { t } from '../../lang/helpers';
 import type { SortMode } from './StyleManagerFilters';
+import { insertSvg } from '../../utils/svg-utils';
 
 export interface ListCallbacks {
     onEdit: (style: StatusStyle, realIndex: number) => void;
@@ -144,13 +145,8 @@ export class StyleManagerList {
                 const name = style.icon.replace('custom:', '');
                 const svgContent = this.plugin.customIconsManager?.getSvgContent(name);
                 if (svgContent) {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(svgContent, 'image/svg+xml');
-                    const svg = doc.documentElement;
-                    if (svg.instanceOf(SVGElement)) {
-                        iconPreview.empty();
-                        iconPreview.appendChild(svg);
-                    }
+                    iconPreview.empty();
+                    insertSvg(iconPreview, svgContent, true);
                 } else {
                     setIcon(iconPreview, 'image');
                 }

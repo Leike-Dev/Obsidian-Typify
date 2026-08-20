@@ -365,13 +365,8 @@ export class StyleEditorModal extends Modal {
                 const name = this.icon.replace('custom:', '');
                 const svgContent = this.plugin.customIconsManager?.getSvgContent(name);
                 if (svgContent) {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(svgContent, 'image/svg+xml');
-                    const svg = doc.documentElement;
-                    if (svg.instanceOf(SVGElement)) {
-                        this.iconBtnEl.empty();
-                        this.iconBtnEl.appendChild(svg);
-                    }
+                    this.iconBtnEl.empty();
+                    insertSvg(this.iconBtnEl, svgContent, true);
                 } else {
                     setIcon(this.iconBtnEl, 'image');
                 }
@@ -461,13 +456,8 @@ export class StyleEditorModal extends Modal {
             const name = this.icon.replace('custom:', '');
             const svgContent = this.plugin.customIconsManager?.getSvgContent(name);
             if (svgContent) {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(svgContent, 'image/svg+xml');
-                const svgEl = doc.documentElement;
-                if (svgEl.instanceOf(SVGElement)) {
-                    iconSpan.empty();
-                    iconSpan.appendChild(svgEl);
-                }
+                iconSpan.empty();
+                insertSvg(iconSpan, svgContent, true);
             }
         } else if (this.icon.startsWith('favicon:')) {
             const domain = this.icon.replace('favicon:', '');

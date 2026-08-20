@@ -60,10 +60,11 @@ export class FaviconsSection {
 
                     let count = 0;
                     for (const domain of domains) {
-                        await this.plugin.faviconManager.deleteFavicon(domain);
-                        const success = await this.plugin.faviconManager.fetchFavicon(domain, true);
+                        const success = await this.plugin.faviconManager.fetchFavicon(domain, true, true);
                         if (success) count++;
                     }
+                    this.plugin.styleManager.buildCache();
+                    if (this.plugin.domManager) this.plugin.domManager.reprocessAllPills();
 
                     refreshAllBtn.setButtonText(t('favicon_refresh_all'));
                     refreshAllBtn.setDisabled(false);
@@ -153,14 +154,19 @@ export class FaviconsSection {
             const rightEl = itemEl.createDiv({ cls: 'typify-manager-actions typify-favicon-item-right' });
 
             // Refresh button (native ExtraButtonComponent)
-            new ExtraButtonComponent(rightEl)
+            const refreshBtn = new ExtraButtonComponent(rightEl)
                 .setIcon('refresh-cw')
                 .setTooltip(t('favicon_retry'))
                 .onClick(() => {
                     void (async () => {
-                        await this.plugin.faviconManager.deleteFavicon(domain);
-                        await this.plugin.faviconManager.fetchFavicon(domain, false);
-                        this.renderList();
+                        refreshBtn.setDisabled(true);
+                        try {
+                            await this.plugin.faviconManager.fetchFavicon(domain, false, true);
+                            this.plugin.styleManager.buildCache();
+                            if (this.plugin.domManager) this.plugin.domManager.reprocessAllPills();
+                        } finally {
+                            this.renderList();
+                        }
                     })();
                 });
 
@@ -170,8 +176,14 @@ export class FaviconsSection {
                 .setTooltip(t('favicon_remove'))
                 .onClick(() => {
                     void (async () => {
-                        await this.plugin.faviconManager.deleteFavicon(domain);
-                        this.renderList();
+                        deleteBtn.setDisabled(true);
+                        try {
+                            await this.plugin.faviconManager.deleteFavicon(domain);
+                            this.plugin.styleManager.buildCache();
+                            if (this.plugin.domManager) this.plugin.domManager.reprocessAllPills();
+                        } finally {
+                            this.renderList();
+                        }
                     })();
                 });
             deleteBtn.extraSettingsEl.addClass('typify-manager-delete-btn');

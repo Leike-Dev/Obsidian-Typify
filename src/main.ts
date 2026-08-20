@@ -6,6 +6,7 @@ import { CustomImagesManager } from './managers/custom-images';
 import { t } from './lang/helpers';
 import { StyleManager } from './managers/style-manager';
 import { DOMManager } from './managers/dom-manager';
+import { WindowManager } from './managers/window-manager';
 import { FaviconManager } from './managers/favicon-manager';
 import { registerCommands } from './commands';
 import { registerContextMenus } from './context-menus';
@@ -27,6 +28,7 @@ export default class TypifyPlugin extends Plugin {
     customIconsManager!: CustomIconsManager;
     customImagesManager!: CustomImagesManager;
     faviconManager!: FaviconManager;
+    windowManager!: WindowManager;
     styleManager!: StyleManager;
     domManager!: DOMManager;
     private cachedTargetProps: string[] | null = null;
@@ -94,6 +96,9 @@ export default class TypifyPlugin extends Plugin {
 
         this.addSettingTab(new CustomStatusIconsSettingTab(this.app, this));
 
+        this.windowManager = new WindowManager(this);
+        this.windowManager.initialize();
+
         this.styleManager = new StyleManager(this);
         // Build style cache O(1) and CSS stylesheet before parsing the DOM
         this.styleManager.buildCache();
@@ -120,11 +125,17 @@ export default class TypifyPlugin extends Plugin {
         if (this.faviconManager) {
             this.faviconManager.cleanupActiveUrls();
         }
-        activeDocument.body.classList.remove(
-            'typify-hide-x-none', 'typify-hide-x-properties',
-            'typify-hide-x-bases', 'typify-hide-x-both',
-            'typify-compat-minimal'
-        );
+        if (this.windowManager) {
+            const docs = this.windowManager.getDocuments();
+            docs.forEach(doc => {
+                doc.body.classList.remove(
+                    'typify-hide-x-none', 'typify-hide-x-properties',
+                    'typify-hide-x-bases', 'typify-hide-x-both',
+                    'typify-compat-minimal', 'typify-reveal-x-on-hover'
+                );
+            });
+            this.windowManager.cleanup();
+        }
     }
 
     async loadSettings() {
@@ -167,7 +178,7 @@ export default class TypifyPlugin extends Plugin {
     }
 
     public updateBodyClasses() {
-        const docs = new Set([document, activeDocument]);
+        const docs = this.windowManager ? this.windowManager.getDocuments() : [document];
         docs.forEach(doc => {
             doc.body.classList.remove('typify-hide-x-none', 'typify-hide-x-properties', 'typify-hide-x-bases', 'typify-hide-x-both', 'typify-reveal-x-on-hover');
             if (this.settings.hideRemoveButton && this.settings.hideRemoveButton !== 'none') {
@@ -187,7 +198,7 @@ export default class TypifyPlugin extends Plugin {
     private updateThemeCompat() {
         const rawTheme = this.app.vault.getConfig?.('cssTheme');
         const cssTheme = typeof rawTheme === 'string' ? rawTheme : '';
-        const docs = new Set([document, activeDocument]);
+        const docs = this.windowManager ? this.windowManager.getDocuments() : [document];
         docs.forEach(doc => {
             doc.body.classList.toggle(
                 'typify-compat-minimal',

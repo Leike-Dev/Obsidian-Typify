@@ -159,7 +159,10 @@ test('reprocessAllPills clears pills when property is removed from targets', () 
     try {
         const manager = Object.create(DOMManager.prototype);
         manager.observer = {};
-        manager.plugin = { getTargetProperties: () => ['status'] };
+        manager.plugin = {
+            getTargetProperties: () => ['status'],
+            windowManager: { getDocuments: () => [globalThis.document, globalThis.activeDocument].filter(Boolean) }
+        };
         manager.styleManager = { clearStyle: () => {} };
         manager.processPill = (...args) => processedPills.push(args);
         manager.processMetadataContainer = () => {};
@@ -228,7 +231,10 @@ test('reprocessAllPills restores link text when property is removed', () => {
     try {
         const manager = Object.create(DOMManager.prototype);
         manager.observer = {};
-        manager.plugin = { getTargetProperties: () => ['status'] };
+        manager.plugin = {
+            getTargetProperties: () => ['status'],
+            windowManager: { getDocuments: () => [globalThis.document, globalThis.activeDocument].filter(Boolean) }
+        };
         manager.styleManager = { clearStyle: () => {} };
         manager.processPill = () => {};
         manager.processMetadataContainer = () => {};
@@ -293,7 +299,10 @@ test('reprocessAllPills unwraps .typify-single-value when property is removed', 
     try {
         const manager = Object.create(DOMManager.prototype);
         manager.observer = {};
-        manager.plugin = { getTargetProperties: () => ['status'] };
+        manager.plugin = {
+            getTargetProperties: () => ['status'],
+            windowManager: { getDocuments: () => [globalThis.document, globalThis.activeDocument].filter(Boolean) }
+        };
         manager.styleManager = { clearStyle: () => {} };
         manager.processPill = () => {};
         manager.processMetadataContainer = () => {};
