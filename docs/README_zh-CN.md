@@ -1,16 +1,20 @@
-
 <div align="center">
-  <img src="./assets/images/banner_1.jpg"/>
+  <img src="./assets/images/Section_Banner/zh-CN/Banner.png"/>
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
    ![Version](https://img.shields.io/badge/version-1.5.2-lightgreen.svg)
    [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/azurita_a)
+   [![Obsidian](https://img.shields.io/badge/Obsidian-%23483699.svg?&logo=obsidian&logoColor=white)](https://community.obsidian.md/plugins/typify)
 
 </div>
 
 <div align="center">
 
-   [English](../README.md) | [Português](./README_pt.md) | [Español](./README_es.md) | [Français](./README_fr.md) | 简体中文
+   [英语](../README.md) 
+   | [葡萄牙语](./README_pt.md) 
+   | [西班牙语](./README_es.md) 
+   | [法语](./README_fr.md) 
+   | 简体中文
 
 </div>
 
@@ -20,43 +24,22 @@
 
 Typify 是一款 Obsidian 插件，让你可以为元数据创建独特的样式。以前仅限于标签的功能，现在可以应用于任何 Obsidian 属性。
 
-## 功能特性
 
-- **🎨 自定义样式**：为你的元数据创建独特的样式。
+## ![功能特性](assets/images/Section_Banner/zh-CN/01_功能特性.svg)
 
-- **✨ 1700+ 图标**：内置模糊搜索，涵盖整个 Lucide 图标库。
+强大且易于使用，Typify 允许您以任何方式自定义 Obsidian 属性，提供多种选项和功能。以下是部分功能特性：
 
-- **🌑 明暗模式**：颜色自动适配你的 Obsidian 主题。
+- **1700+ 图标**
+- **三种标签样式和形状可供选择**
+- **自定义图标**
+- **颜色自动适配明暗模式**
+- **自定义链接**
 
-- **🚫 可选图标**：支持纯文本标签（只需移除图标！）。
+✨ 想要了解 Typify 的所有功能吗？查看
+[完整功能列表和详细指南](features/README_zh-CN.md)。
 
-- **🧩 自定义图标**：图标不够用？你可以轻松使用自己的图标。
 
-- **🌍 国际化**：完整支持英语、巴西葡萄牙语、西班牙语、法语和简体中文。
-
-- **💾 导出/导入**：轻松备份和分享你的配置。
-
-- **📋 Bases 插件**：样式同样适用于 Bases 视图（表格和卡片）。
-
-- **🎯 范围样式**：使用"应用于"将样式限定到特定属性。
-
-- **🖼️ 图片标签**：上传你自己的本地图片（PNG、JPG、SVG），用作联系人头像或自定义图标。
-
-- **👁️ 隐藏移除按钮**：全局或按视图隐藏“X”按钮，以创建只读的标签外观。
-
-- **♾️ Canvas 支持**：完全兼容 Obsidian Canvas，动态渲染样式。
-
-- **🔗 关联链接 (Associated Links)**：将药丸中的 URL 替换为样式名称，同时保留原生的链接点击行为。
-
-- **😀 表情符号图标 (Emoji Icons)**：支持直接选择和使用原生 Emoji 作为标签图标。
-
-- **🎨 调色板**：保存您最喜欢的颜色，或使用智能的色彩和谐预设，实时创建完美的调色板。
-
-- **🌐 链接网站图标 (Favicons)**：通过安全的本地缓存管理器，自动将真实的网站图标关联到您的关联链接标签。
-
-- **📰 更新日志板**：直接在插件设置中以您的母语跟踪 Typify 的更新和改进。
-
-## 使用方法
+## ![使用方法](assets/images/Section_Banner/zh-CN/02_使用方法.svg)
 
 转换您的属性非常简单！
 
@@ -66,16 +49,8 @@ Typify 是一款 Obsidian 插件，让你可以为元数据创建独特的样式
 
 ![如何使用 Typify](assets/gifs/how-to-use-demo.gif)
 
-### 🔗 关联链接
 
-Typify允许您创建更清晰的属性链接。 您无需查看难看的 `https://...` URL，而是可以将其与样式关联起来！
-如果您的样式名称为 "Google 翻译"，并且在 *匹配值* 中的关联值为 URL `https://translate.google.com/`，该插件将隐藏该 URL，并完美呈现可点击的胶囊状名称 "Google 翻译"。
-
-![关联链接演示](assets/gifs/associated-links-demo.gif)
-
-## 安装
-
-### 手动安装
+## ![安装](assets/images/Section_Banner/zh-CN/03_安装.svg)
 
 1. 下载最新版本：`main.js`、`manifest.json` 和 `styles.css`。
 
@@ -85,38 +60,121 @@ Typify允许您创建更清晰的属性链接。 您无需查看难看的 `https
 
 4. 重新加载 Obsidian 并启用插件。
 
-## 注意事项
 
+## ![注意事项](assets/images/Section_Banner/zh-CN/04_注意事项.svg)
 > [!Warning]  
 > 导入设置会**替换所有现有样式**。备份之后创建的样式将会丢失。
 
 > [!Warning]  
 > **Minimal** 主题在与 Typify 插件一起使用时存在一些已知的排版不一致问题（例如字体大小不均或元素被裁剪）。虽然我在每次更新中都在积极解决和缓解这些限制，但在使用该主题时，请注意这些暂时的不一致情况。
 
-## 路线图 (Roadmap)
+
+## ![常见问题](assets/images/Section_Banner/zh-CN/08_常见问题.svg)
+
+
+<details>
+  <summary> 🤔
+    <b>哪些类型的属性是兼容的？</b>
+  </summary>
+
+> 目前 Typify 只支持**列表**类型的属性。
+
+</details>
+
+<details>  
+  <summary> 🏷️
+    <b>为什么属性没有被应用样式？</b>
+  </summary>
+
+> 请检查您是否在插件设置中添加了该属性，以及它是否为列表类型。
+
+</details>
+
+<details>
+  <summary> 🎨
+    <b>我可以自定义图标或使用 Lucide 图标吗？</b>
+  </summary>
+
+> 是的！插件允许您自定义使用的图标。您可以选择使用 Lucide 图标、您自己喜欢的 SVG 图标、Emoji 表情符号甚至图片。但请记得在插件设置中开启自定义图标选项，同时请注意查看插件警告面板中的限制说明 :D。
+
+</details>
+
+<details>
+  <summary> 📱
+    <b>Typify 支持 Obsidian 移动端吗？</b>
+  </summary>
+
+> 支持！Typify 完全兼容 Obsidian 移动端。因此您可以放心地整理您的笔记。
+
+</details>
+
+<details>  
+  <summary> 💾
+    <b>网站图标缓存是如何工作的？</b>
+  </summary>
+
+> Typify 会将下载的网站图标缓存在本地以在链接上显示。未经用户的明确同意，不会更新任何内容。
+
+</details>
+
+<details>
+  <summary> 🌐
+    <b>Typify 会向外部服务发送任何数据吗？</b>
+  </summary>
+
+> 不会。该插件仅在用户明确请求搜索时，才会与网站图标获取服务通信。我们使用的部分服务提供商包括 Google 和 DuckDuckGo（对于获取网站图标，某些选项可能优于其他选项）。
+
+</details>
+
+<details>
+  <summary> 🧹
+    <b>卸载插件后我的属性会怎样？</b>
+  </summary>
+
+> 什么都不会发生。您的属性将继续存在于您的库中，只是不再带有自定义样式。
+
+</details>
+
+<details>
+  <summary> 🎭
+    <b>Typify 会与 CSS 主题或代码片段冲突吗？</b>
+  </summary>
+
+> 不会，因为该插件不会覆盖您使用的主题的任何全局样式，反之亦然。
+
+</details>
+
+<details>
+  <summary> 📋
+    <b>如何报告问题或提出功能建议？</b>
+  </summary>
+
+> 如果您遇到任何问题，请在插件的代码仓库中提交 Issue。我会尽快修复。
+
+</details>
+
+
+## ![路线图](assets/images/Section_Banner/zh-CN/05_路线图.svg)
 
 以下是计划在未来更新中提供的一些功能和改进：
 
 - **🪤 错误诊断**：一个用于诊断插件问题并生成报告以协助故障排除的面板。
 - **🏳️‍🌈 多种颜色**：用于拥有和管理多个颜色卡片的新面板。
 - **🎲 数字标签**：将 Typify 样式扩展到数字类型，允许为数字标签创建自定义样式。 *(评估中)*
-- ~~**🎨 简单胶囊**：极简和无色样式。可以配置或自动应用于样式属性中未定义的值。~~ 以另一种方式实现了！:D
-- ~~**🔮 胶囊内边距**：调整胶囊的大小和长度，以及字体和图标大小。~~ *(已冻结)*
-- ~~**📊 引用胶囊**：显示该信息在你的库中拥有的总引用量，而不是显示一个图标（例如：显示 "X" 个引用的作者标签）。~~ *(已冻结)*
-- ~~**🔗 链接简化**：自动清理和缩短显示在胶囊中的外部 URL（例如：将 `www.google.com` 简化为 `google.com`）。~~ --> 以另一种方式实现了！:D
-- ~~**🌐 网站图标支持 (Favicon Support)**：对于未配置自定义图标的外部链接，自动获取并显示网站的 Favicon。~~ --> 已实现！:D
-- ~~**🗂️ 选项卡式管理界面 (Tabbed Management UI)**：重构设置面板，将冗长的样式列表替换为类似于图标搜索布局的选项卡式组织系统，并支持水平滚动。~~ --> 已实现！:D
-- ~~**😀 表情符号图标 (Emoji Icons)**：支持直接选择和使用原生 Emoji 作为标签图标。~~ --> 已实现！:3
+- **🔮 胶囊内边距**：调整胶囊的大小和长度，以及字体和图标大小。 *(已冻结)*
+- **📊 引用胶囊**：显示该信息在你的库中拥有的总引用量，而不是显示一个图标（例如：显示 "X" 个引用的作者标签）。 *(已冻结)*
 
-## 开发
 
-如果你想自己构建插件，请执行以下操作：
+## ![开发](assets/images/Section_Banner/zh-CN/06_开发.svg)
+
+如果你想在本地构建插件，请执行以下操作：
 
 1. 克隆此仓库。
 2. 运行 `npm install`。
 3. 运行 `npm run dev` 以启动监视模式编译。
 
-## 免责声明
+
+## ![免责声明](assets/images/Section_Banner/zh-CN/07_免责声明.svg)
 
 这个插件诞生于我对属性拥有更多自定义选项的渴望，类似于 Notion，但以 Obsidian 的方式实现。
 

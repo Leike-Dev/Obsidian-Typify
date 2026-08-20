@@ -1,16 +1,20 @@
-
 <div align="center">
-  <img src="./assets/images/banner_1.jpg"/>
+  <img src="./assets/images/Section_Banner/es/Banner.png"/>
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
    ![Version](https://img.shields.io/badge/version-1.5.2-lightgreen.svg)
    [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/azurita_a)
+   [![Obsidian](https://img.shields.io/badge/Obsidian-%23483699.svg?&logo=obsidian&logoColor=white)](https://community.obsidian.md/plugins/typify)
 
 </div>
 
 <div align="center">
 
-   [English](../README.md) | [Português](./README_pt.md) | Español | [Français](./README_fr.md) | [简体中文](./README_zh-CN.md)
+   [Inglés](../README.md) 
+   | [Portugués](./README_pt.md) 
+   | Español 
+   | [Francés](./README_fr.md) 
+   | [Chino Simplificado](./README_zh-CN.md)
 
 </div>
 
@@ -20,43 +24,22 @@
 
 Typify es un plugin para Obsidian que te permite crear estilos únicos para tus metadatos. Lo que antes estaba limitado a las etiquetas, ahora puede personalizarse para cualquier propiedad de Obsidian.
 
-## Características
 
-- **🎨 Estilos personalizables**: Crea estilos únicos para tus metadatos.
+## ![Características](assets/images/Section_Banner/es/01_Características.svg)
 
-- **✨ 1700+ íconos**: Búsqueda fuzzy integrada para toda la biblioteca de íconos Lucide.
+Potente y fácil de usar, Typify te permite personalizar tus propiedades de Obsidian de la manera que desees, con una variedad de opciones y características. Algunas de las características incluyen:
 
-- **🌑 Modo claro/oscuro**: Los colores se adaptan automáticamente a tu tema de Obsidian.
+- **Más de 1700 íconos**
+- **Tres estilos de etiquetas y formas para elegir**
+- **Íconos personalizados**
+- **Colores adaptables para modo claro y oscuro automáticamente**
+- **Enlaces personalizados**
 
-- **🚫 Íconos opcionales**: Soporte para píldoras solo con texto (¡simplemente quita el ícono!).
+✨ ¿Quieres ver todo lo que Typify puede hacer? Consulta la 
+[lista completa de características y guías detalladas](features/README_es.md).
 
-- **🧩 Íconos personalizados**: ¿Pocos íconos? Puedes usar los tuyos fácilmente.
 
-- **🌍 Internacionalización**: Totalmente traducido a inglés, portugués (Brasil), español, francés y chino simplificado.
-
-- **💾 Exportar/Importar**: Haz copias de seguridad y comparte tus configuraciones fácilmente.
-
-- **📋 Plugin Bases**: Los estilos también funcionan en las vistas de Bases (tabla y tarjetas).
-
-- **🎯 Estilos por propiedad**: Limita un estilo a propiedades específicas usando "Aplica a".
-
-- **🖼️ Etiquetas con Imágenes**: Sube tus propias imágenes locales (PNG, JPG, SVG) para usarlas como avatares de contacto o íconos personalizados.
-
-- **👁️ Ocultar Botón de Eliminar**: Oculta estéticamente el botón "X" globalmente o por vista para crear píldoras de solo lectura.
-
-- **♾️ Soporte para Canvas**: Totalmente compatible con Obsidian Canvas, renderizando los estilos dinámicamente.
-
-- **🔗 Enlaces Asociados**: Reemplaza las URL en las píldoras por el nombre del estilo, manteniendo el comportamiento de clic nativo.
-
-- **😀 Iconos de Emojis**: Soporte para seleccionar y utilizar emojis nativos directamente como iconos en las píldoras.
-
-- **🎨 Paleta de colores**: Guarda tus colores favoritos o usa los ajustes preestablecidos de armonía inteligente para crear paletas perfectas en tiempo real.
-
-- **🌐 Favicons de enlaces**: Asocia automáticamente favicons reales de sitios web a tus etiquetas de enlaces asociados, con un administrador seguro de caché local.
-
-- **📰 Tablero de novedades**: Sigue las actualizaciones y mejoras de Typify directamente desde la configuración del plugin, en tu propio idioma.
-
-## Cómo Usar
+## ![Cómo Usar](assets/images/Section_Banner/es/02_Cómo_usar.svg)
 
 ¡Es muy simple transformar tus propiedades!
 
@@ -66,16 +49,8 @@ Typify es un plugin para Obsidian que te permite crear estilos únicos para tus 
 
 ![Cómo Usar Typify](assets/gifs/how-to-use-demo.gif)
 
-### 🔗 Enlaces Asociados
 
-Typify te permite crear enlaces de propiedades mucho más limpios. En lugar de ver una URL fea `https://...`, ¡puedes asociarla a un Estilo!
-Si el nombre de tu estilo es "Google Traductor" y el valor asociado en *Valor Coincidente* es la URL `https://translate.google.com/`, el plugin ocultará la URL y renderizará perfectamente el nombre "Google Traductor" como una píldora en la que se puede hacer clic.
-
-![Demostración de Enlace Asociado](assets/gifs/associated-links-demo.gif)
-
-## Instalación
-
-### Instalación Manual
+## ![Instalación](assets/images/Section_Banner/es/03_Instalación.svg)
 
 1. Descarga la última versión: `main.js`, `manifest.json` y `styles.css`.
 
@@ -85,38 +60,121 @@ Si el nombre de tu estilo es "Google Traductor" y el valor asociado en *Valor Co
 
 4. Recarga Obsidian y activa el plugin.
 
-## Avisos
 
+## ![Avisos](assets/images/Section_Banner/es/04_Avisos.svg)
 > [!Warning]  
 > La importación de configuraciones **reemplaza todos los estilos existentes**. Los estilos creados después del respaldo se perderán.
 
 > [!Warning]  
-> El tema **Minimal** presenta algunas inconsistencias de diseño conocidas cuando se usa junto con Typify (como tamaños de fuente desproporcionados o elementos recortados). Aunque estoy trabajando activamente para mitigar y resolver estas limitaciones en cada actualización, tenga en cuenta estas inconsistencias temporales al usar este tema.
+> El tema **Minimal** presenta algunas inconsistencias de diseño conocidas cuando se usa junto con Typify (como tamaños de fuente desproporcionados o elementos recortados). Aunque estoy trabajando activamente para mitigar y resolver estas limitaciones en cada actualización, ten en cuenta estas inconsistencias temporales al usar este tema.
 
-## Roadmap
+
+## ![Preguntas frecuentes](assets/images/Section_Banner/es/08_Preguntas_frecuentes.svg)
+
+
+<details>
+  <summary> 🤔
+    <b>¿Qué tipos de propiedades son compatibles?</b>
+  </summary>
+
+> Actualmente Typify solo estiliza propiedades de tipo **lista**.
+
+</details>
+
+<details>  
+  <summary> 🏷️
+    <b>¿Por qué una propiedad no se está estilizando?</b>
+  </summary>
+
+> Verifica si agregaste la propiedad en la configuración del plugin y si es de tipo lista. 
+
+</details>
+
+<details>
+  <summary> 🎨
+    <b>¿Puedo usar iconos personalizados o de Lucide?</b>
+  </summary>
+
+> ¡Sí! El plugin permite personalizar el icono usado. Puedes elegir usar los iconos Lucide, iconos svg de tu preferencia, emojis o incluso imágenes. Ah, pero recuerda activar las opciones de personalización de iconos en la configuración del plugin. Además de consultar las limitaciones en el panel de avisos del plugin :D.
+
+</details>
+
+<details>
+  <summary> 📱
+    <b>¿Typify funciona en Obsidian Mobile?</b>
+  </summary>
+
+> ¡Sí! Typify es compatible con Obsidian Mobile. Así que no tengas miedo de organizar tus notas.
+
+</details>
+
+<details>  
+  <summary> 💾
+    <b>¿Cómo funciona el caché de favicons?</b>
+  </summary>
+
+> Typify almacena localmente favicons descargados para mostrar en los enlaces. Nada se actualiza sin el consentimiento expreso del usuario.
+
+</details>
+
+<details>
+  <summary> 🌐
+    <b>¿Typify envía algún dato a servicios externos?</b>
+  </summary>
+
+> No. El plugin solo se comunica con el servicio de recuperación de favicons cuando el usuario solicita expresamente la búsqueda. Algunos proveedores son Google y DuckDuckGo (algunas opciones son mejores que otras para obtener favicons).
+
+</details>
+
+<details>
+  <summary> 🧹
+    <b>¿Qué pasa con mis propiedades al desinstalar el plugin?</b>
+  </summary>
+
+> Nada. Tus propiedades seguirán existiendo en tu bóveda, solo que no estarán estilizadas. 
+
+</details>
+
+<details>
+  <summary> 🎭
+    <b>¿Puede Typify entrar en conflicto con temas o snippets CSS?</b>
+  </summary>
+
+> No, ya que el plugin no sobrescribe ningún estilo global del tema utilizado o viceversa.
+
+</details>
+
+<details>
+  <summary> 📋
+    <b>¿Cómo reportar un problema o sugerir una función?</b>
+  </summary>
+
+> Si encuentras algún problema, por favor, abre un issue en el repositorio del plugin. Haré lo mejor posible para solucionar el problema rápidamente.
+
+</details>
+
+
+## ![Roadmap](assets/images/Section_Banner/es/05_Roadmap.svg)
 
 Aquí tienes algunas de las características y mejoras planeadas para futuras actualizaciones:
 
 - **🪤 Diagnóstico de Errores**: Un panel para diagnosticar problemas del plugin y generar un informe para facilitar la resolución de problemas.
 - **🏳️‍🌈 Múltiples Colores**: Nuevo panel para tener y administrar múltiples tarjetas de colores.
 - **🎲 Etiquetas Numéricas**: Expansión del estilo Typify al tipo número, permitiendo la creación de estilos personalizados para etiquetas numéricas. *(Evaluando)*
-- ~~**🎨 Píldoras Simples**: Estilos minimalistas y sin color. Se pueden configurar o aplicar automáticamente a valores no definidos en propiedades estilizadas.~~ ¡Implementado de otra manera! :D
-- ~~**🔮 Padding de la Píldora**: Ajusta el tamaño y la longitud de las píldoras, así como el tamaño de la fuente y del ícono.~~ *(Congelado)*
-- ~~**📊 Píldoras de Referencia**: Mostrar la cantidad total de referencias que tiene esa información en tu bóveda en lugar de mostrar un ícono (ej: una etiqueta de autor que muestre "X" referencias).~~ *(Congelado)*
-- ~~**🔗 Simplificación de Enlaces**: Limpiar y acortar automáticamente URLs externas que se muestran en píldoras (ej. `www.google.com` simplificado a `google.com`).~~ --> ¡Implementado de otra manera! :D
-- ~~**🌐 Iconos de Favicon**: Opción para buscar y mostrar automáticamente el favicon de un sitio web para enlaces externos que no tengan un icono personalizado configurado.~~ --> ¡Implementado! :D
-- ~~**🗂️ Nueva Interfaz de Gestión**: Reemplazar la larga lista de estilos por un diseño basado en pestañas (tabs) similar al utilizado en el modal de búsqueda de iconos, con soporte para desplazamiento horizontal.~~ --> ¡Implementado! :D
-- ~~**😀 Iconos de Emojis**: Soporte para seleccionar y utilizar emojis nativos directamente como iconos en las píldoras.~~ --> ¡Implementado! :3
+- **🔮 Padding de la Píldora**: Ajusta el tamaño y la longitud de las píldoras, así como el tamaño de la fuente y del ícono. *(Congelado)*
+- **📊 Píldoras de Referencia**: Mostrar la cantidad total de referencias que tiene esa información en tu bóveda en lugar de mostrar un ícono (ej: una etiqueta de autor que muestre "X" referencias). *(Congelado)*
 
-## Desarrollo
 
-Si quieres compilar el plugin tú mismo, haz lo siguiente:
+## ![Desarrollo](assets/images/Section_Banner/es/06_Desarrollo.svg)
+
+Si quieres compilar el plugin localmente, haz lo siguiente:
 
 1. Clona este repositorio.
 2. Ejecuta `npm install`.
 3. Ejecuta `npm run dev` para iniciar la compilación en modo watch.
 
-## Aviso Legal
+
+## ![Aviso Legal](assets/images/Section_Banner/es/07_Aviso_legal.svg)
 
 Este plugin nació de mi deseo de tener más opciones de personalización para las propiedades, similar a Notion, pero al estilo Obsidian.
 

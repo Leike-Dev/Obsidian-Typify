@@ -1,16 +1,20 @@
-
 <div align="center">
-  <img src="./docs/assets/images/banner_1.jpg"/>
+  <img src="./docs/assets/images/Section_Banner/en/Banner.png"/>
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
    ![Version](https://img.shields.io/badge/version-1.5.2-lightgreen.svg)
    [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/azurita_a)
+   [![Obsidian](https://img.shields.io/badge/Obsidian-%23483699.svg?&logo=obsidian&logoColor=white)](https://community.obsidian.md/plugins/typify)
 
 </div>
 
 <div align="center">
 
-   English | [Português](./docs/README_pt.md) | [Español](./docs/README_es.md) | [Français](./docs/README_fr.md) | [简体中文](./docs/README_zh-CN.md)
+   English 
+   | [Portuguese](./docs/README_pt.md) 
+   | [Spanish](./docs/README_es.md) 
+   | [French](./docs/README_fr.md) 
+   | [Simplified Chinese](./docs/README_zh-CN.md)
 
 </div>
 
@@ -20,43 +24,22 @@ Transform your boring metadata into a dynamic and colorful display! 🎨✨
 
 Typify is an Obsidian plugin that allows you to create unique styles for your metadata. What was once limited to tags can now be customized for any Obsidian property.
 
-## Features
 
-- **🎨 Customizable Styles**: Create unique styles for your metadata.
+## ![Features](docs/assets/images/Section_Banner/en/01_Features.svg)
 
-- **✨ 1700+ Icons**: Built-in fuzzy search for the entire Lucide icon library.
+Powerful and simple to use, Typify allows you to customize your Obsidian properties any way you want, with a variety of options and features. Some of the features include:
 
-- **🌑 Dark/Light Mode**: Colors automatically adapt to your Obsidian theme.
+- **Over 1700 icons**
+- **Three tag styles and shapes to choose from**
+- **Custom icons**
+- **Adaptable colors for light and dark mode automatically**
+- **Custom links**
 
-- **🚫 Optional Icons**: Support for text-only pills (just remove the icon!).
+✨ Want to see everything Typify can do? Check out the 
+[complete list of features and detailed guides](docs/features/README.md).
 
-- **🧩 Custom Icons**: Not enough icons? You can easily use your own.
 
-- **🌍 Internationalization**: Fully translated into English, Portuguese (Brazil), Spanish, French, and Simplified Chinese.
-
-- **💾 Export/Import**: Easily backup and share your configurations.
-
-- **📋 Bases Plugin**: Styles also apply to Bases views (table and cards).
-
-- **🎯 Scoped Styles**: Limit a style to specific properties using "Applies To".
-
-- **🖼️ Image Tags**: Upload your own local images (PNG, JPG, SVG) to use as contact avatars or custom icons.
-
-- **👁️ Hide Remove Button**: Aesthetically hide the 'X' button globally or per view to create read-only badges.
-
-- **♾️ Canvas Support**: Fully compatible with Obsidian Canvas, rendering styles dynamically.
-
-- **🔗 Associated Links**: Replaces URLs in pills with the style name, keeping the native link click behavior.
-
-- **😀 Emoji Icons**: Support for selecting and using native emojis directly as icons in pills.
-
-- **🎨 Color Palette**: Save your favorite colors or use the smart harmony presets to create perfect palettes in real-time.
-
-- **🌐 Link Favicons**: Automatically associate real website favicons to your associated link tags, with a secure local cache manager.
-
-- **📰 Changelog Board**: Keep track of Typify updates and improvements directly from within the plugin settings, in your own language.
-
-## How to Use
+## ![How to Use](docs/assets/images/Section_Banner/en/02_How_to_use.svg)
 
 It's very simple to transform your properties!
 
@@ -66,16 +49,8 @@ It's very simple to transform your properties!
 
 ![How to Use Typify](docs/assets/gifs/how-to-use-demo.gif)
 
-### 🔗 Associated Links
 
-Typify allows you to create much cleaner property links. Instead of seeing an ugly `https://...` URL, you can associate it with a Style!
-If your style name is "Google Translate" and the matched value in *Match Value* is the URL `https://translate.google.com/`, the plugin will hide the URL and perfectly render the name "Google Translate" as a clickable pill.
-
-![Associated Links Demo](docs/assets/gifs/associated-links-demo.gif)
-
-## Installation
-
-### Manual Installation
+## ![Installation](docs/assets/images/Section_Banner/en/03_Installation.svg)
 
 1. Download the latest release: `main.js`, `manifest.json`, and `styles.css`.
 
@@ -85,38 +60,121 @@ If your style name is "Google Translate" and the matched value in *Match Value* 
 
 4. Reload Obsidian and enable the plugin.
 
-## Notices
 
+## ![Notices](docs/assets/images/Section_Banner/en/04_Notices.svg)
 > [!Warning]  
 > Importing settings **replaces all existing styles**. Styles created after the backup will be lost.
 
 > [!Warning]  
 > The **Minimal** theme has some known layout inconsistencies when used alongside Typify (such as disproportionate font sizes or clipped elements). While I am actively working to mitigate and resolve these limitations in each update, please be aware of these temporary inconsistencies when using this theme.
 
-## Roadmap
+
+## ![FAQ](docs/assets/images/Section_Banner/en/08_FAQ.svg)
+
+
+<details>
+  <summary> 🤔
+    <b>What types of properties are compatible?</b>
+  </summary>
+
+> Currently, Typify only styles properties of type **list**.
+
+</details>
+
+<details>  
+  <summary> 🏷️
+    <b>Why is a property not being styled?</b>
+  </summary>
+
+> Check if you added the property in the plugin settings and if it is of type list.
+
+</details>
+
+<details>
+  <summary> 🎨
+    <b>Can I use custom icons or Lucide icons?</b>
+  </summary>
+
+> Yes! The plugin allows you to customize the icon used. You can choose to use Lucide icons, SVG icons of your choice, emojis, or even images. Just remember to enable the icon customization options in the plugin settings. Also, be sure to check the limitations in the plugin's notices panel :D.
+
+</details>
+
+<details>
+  <summary> 📱
+    <b>Does Typify work on Obsidian Mobile?</b>
+  </summary>
+
+> Yes! Typify is compatible with Obsidian Mobile. So don't be afraid to organize your notes.
+
+</details>
+
+<details>  
+  <summary> 💾
+    <b>How does favicon caching work?</b>
+  </summary>
+
+> Typify locally stores downloaded favicons to display on links. Nothing is updated without the user's express consent.
+
+</details>
+
+<details>
+  <summary> 🌐
+    <b>Does Typify send any data to external services?</b>
+  </summary>
+
+> No. The plugin only communicates with the favicon retrieval service when expressly requested by the user. Some providers are Google and DuckDuckGo (some options are better than others for obtaining favicons).
+
+</details>
+
+<details>
+  <summary> 🧹
+    <b>What happens to my properties when I uninstall the plugin?</b>
+  </summary>
+
+> Nothing. Your properties will continue to exist in your vault, they just won't be styled.
+
+</details>
+
+<details>
+  <summary> 🎭
+    <b>Can Typify conflict with CSS themes or snippets?</b>
+  </summary>
+
+> No, as the plugin does not overwrite any global styles of the theme used, or vice versa.
+
+</details>
+
+<details>
+  <summary> 📋
+    <b>How to report an issue or suggest a feature?</b>
+  </summary>
+
+> If you find any issues, please open an issue in the plugin repository. I will do my best to fix the problem as soon as possible.
+
+</details>
+
+
+## ![Roadmap](docs/assets/images/Section_Banner/en/05_Roadmap.svg)
 
 Here are some of the features and improvements planned for future updates:
 
 - **🪤 Error Diagnostics**: A panel to diagnose plugin issues and generate a report to facilitate troubleshooting.
 - **🏳️‍🌈 Multiple Colors**: New panel to have and manage multiple color cards.
 - **🎲 Numeric Tags**: Expansion of Typify style to the number type, allowing the creation of custom styles for number tags. *(Evaluating)*
-- ~~**🎨 Simple Pills**: Minimalist and colorless styles. Can be configured or automatically applied to undefined values in styled properties.~~ Implemented differently! :D
-- ~~**🔮 Pill Padding**: Adjust the size and length of the pills, as well as the font and icon size.~~ *(Frozen)*
-- ~~**📊 Reference Pills**: Display the total amount of references that information has in your vault instead of showing an icon (e.g., an author tag showing "X" references).~~ *(Frozen)*
-- ~~**🔗 Link Simplification**: Automatically clean and shorten external URLs displayed in pills (e.g., `www.google.com` simplified to `google.com`).~~ --> Implemented differently! :D
-- ~~**🌐 Favicon Support**: Automatically fetch and display website favicons for external links that do not have a custom icon configured.~~ --> Implemented! :D
-- ~~**🗂️ Tabbed Management UI**: Overhaul the settings panel to replace the long list of styles with a tab-based organization system (matching the icon search layout), complete with horizontal scrolling.~~ --> Implemented! :D
-- ~~**😀 Emoji Icons**: Support selecting and using native emojis as pill icons directly.~~ --> Implemented! :3
+- **🔮 Pill Padding**: Adjust the size and length of the pills, as well as the font and icon size. *(Frozen)*
+- **📊 Reference Pills**: Display the total amount of references that information has in your vault instead of showing an icon (e.g., an author tag showing "X" references). *(Frozen)*
 
-## Development
 
-If you want to build the plugin yourself, do the following:
+## ![Development](docs/assets/images/Section_Banner/en/06_Development.svg)
+
+If you want to build the plugin locally, do the following:
 
 1. Clone this repository.
 2. Run `npm install`.
 3. Run `npm run dev` to start compilation in watch mode.
 
-## Disclaimer
+
+## ![Disclaimer](docs/assets/images/Section_Banner/en/07_Disclaimer.svg)
 
 This plugin was born from my desire to have more customization options for properties, similar to Notion, but the Obsidian way.
 
