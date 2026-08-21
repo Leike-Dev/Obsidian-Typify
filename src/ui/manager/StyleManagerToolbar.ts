@@ -108,7 +108,7 @@ export class StyleManagerToolbar {
             } else {
                 this.selectedScope = '__show_all__';
                 this.scopeDropdown.setValue('__show_all__');
-                setTimeout(() => this.callbacks.onChange(), 0);
+                window.setTimeout(() => this.callbacks.onChange(), 0);
             }
         } else if (this.selectedScope !== '__show_all__') {
             this.scopeDropdown.setValue(this.selectedScope);

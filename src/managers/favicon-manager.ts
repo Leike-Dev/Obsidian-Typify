@@ -193,7 +193,7 @@ export class FaviconManager {
         try {
             const fetchPromise = requestUrl({ url, method: 'GET', throw: false });
             const timeoutPromise = new Promise<never>((_, reject) => {
-                setTimeout(() => reject(new Error('Timeout')), 15000);
+                window.setTimeout(() => reject(new Error('Timeout')), 15000);
             });
             const response = await Promise.race([fetchPromise, timeoutPromise]);
 
