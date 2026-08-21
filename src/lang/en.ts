@@ -275,6 +275,8 @@ export const en = {
     'notice_usage_multiple_desc': 'You can target more than one property. Just add a comma between the options. Example: `Status, Priority`.',
     'notice_custom_images_title': 'Custom Images',
     'notice_custom_images_desc': 'Place your image files (PNG, JPG, etc.) up to 50KB in the img/ folder in the plugin directory.',
+    'notice_usage_prefix_title': 'Prefix Match',
+    'notice_usage_prefix_desc': 'When using this function, the current style of the tag will be applied to all other occurrences of the prefix.',
 
     // Notices Tabs
     'notices_tab_all': 'All notices',

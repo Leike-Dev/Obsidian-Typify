@@ -190,6 +190,13 @@ export class NoticesModal extends Modal {
             desc: t('notice_custom_images_desc')
         });
 
+        notices.push({
+            type: 'info',
+            icon: 'search',
+            title: t('notice_usage_prefix_title'),
+            desc: t('notice_usage_prefix_desc')
+        });
+
         return notices;
     }
 

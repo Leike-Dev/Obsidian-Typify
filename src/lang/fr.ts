@@ -272,6 +272,8 @@ export const fr = {
     'notice_usage_multiple_desc': 'Vous pouvez cibler plus d\'une propriété. Ajoutez simplement une virgule entre les options. Exemple : `Status, Priority`.',
     'notice_custom_images_title': 'Images personnalisées',
     'notice_custom_images_desc': 'Placez vos fichiers image (PNG, JPG, etc.) d\'une taille maximale de 50 Ko dans le dossier img/ du répertoire du plugin.',
+    'notice_usage_prefix_title': 'Correspondance par préfixe',
+    'notice_usage_prefix_desc': 'Lors de l\'utilisation de la fonction, le style actuel de l\'étiquette sera appliqué à toutes les autres occurrences du préfixe.',
 
     // Notices Tabs
     'notices_tab_all': 'Tous les avis',

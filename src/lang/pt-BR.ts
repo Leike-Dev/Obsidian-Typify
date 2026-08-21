@@ -275,6 +275,8 @@ export const ptBR = {
     'notice_usage_multiple_desc': 'Você pode usar mais de uma propriedade como alvo. Apenas adicione uma vírgula entre as opções. Exemplo: `Status, Priority`.',
     'notice_custom_images_title': 'Imagens personalizadas',
     'notice_custom_images_desc': 'Coloque seus arquivos de imagem (PNG, JPG, etc.) de até 50KB na pasta img/ no diretório do plugin.',
+    'notice_usage_prefix_title': 'Correspondência por Prefixo',
+    'notice_usage_prefix_desc': 'Ao usar a função, o estilo atual da tag será aplicado para todas as outras ocorrências do prefixo.',
 
     // Notices Tabs
     'notices_tab_all': 'Todos os avisos',
