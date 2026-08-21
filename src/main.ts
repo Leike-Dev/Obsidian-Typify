@@ -57,7 +57,7 @@ export default class TypifyPlugin extends Plugin {
             this.settings.enableFavicons ? this.faviconManager.initialize() : Promise.resolve()
         ] as const;
 
-        const [_, imgResult] = await Promise.all(initPromises);
+        const [, imgResult] = await Promise.all(initPromises);
 
         // Post-load synchronous checks and warnings
         if (this.settings.enableCustomIcons) {
