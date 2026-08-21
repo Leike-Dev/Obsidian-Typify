@@ -1,4 +1,4 @@
-import { App, normalizePath } from 'obsidian';
+import { App, normalizePath, arrayBufferToBase64 } from 'obsidian';
 
 // ============================================================================
 // CUSTOM IMAGES MANAGER
@@ -55,7 +55,7 @@ export class CustomImagesManager {
                 }
 
                 const binary = await adapter.readBinary(filePath);
-                const base64 = this.arrayBufferToBase64(binary);
+                const base64 = arrayBufferToBase64(binary);
                 const mimeType = this.getMimeType(filePath);
                 const dataUri = `url("data:${mimeType};base64,${base64}")`;
 
@@ -116,13 +116,4 @@ export class CustomImagesManager {
         return 'application/octet-stream';
     }
 
-    private arrayBufferToBase64(buffer: ArrayBuffer): string {
-        let binary = '';
-        const bytes = new Uint8Array(buffer);
-        const len = bytes.byteLength;
-        for (let i = 0; i < len; i++) {
-            binary += String.fromCharCode(bytes[i]!);
-        }
-        return btoa(binary);
-    }
 }

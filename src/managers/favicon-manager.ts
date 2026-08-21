@@ -1,4 +1,4 @@
-import { App, normalizePath, requestUrl, Notice } from 'obsidian';
+import { App, normalizePath, requestUrl, Notice, arrayBufferToBase64 } from 'obsidian';
 import { t } from '../lang/helpers';
 import type TypifyPlugin from '../main';
 
@@ -69,7 +69,7 @@ export class FaviconManager {
                     if (!stat) continue;
                     
                     const binary = await adapter.readBinary(filePath);
-                    const base64 = this.arrayBufferToBase64(binary);
+                    const base64 = arrayBufferToBase64(binary);
                     const dataUri = `url("data:image/png;base64,${base64}")`;
                     
                     this.cache.set(domain, {
@@ -265,7 +265,7 @@ export class FaviconManager {
         await adapter.writeBinary(filePath, buffer);
         
         const stat = await adapter.stat(filePath);
-        const base64 = this.arrayBufferToBase64(buffer);
+        const base64 = arrayBufferToBase64(buffer);
         const dataUri = `url("data:image/png;base64,${base64}")`;
         
         this.cache.set(domain, {
@@ -323,13 +323,4 @@ export class FaviconManager {
         return parts[parts.length - 1]!;
     }
 
-    private arrayBufferToBase64(buffer: ArrayBuffer): string {
-        let binary = '';
-        const bytes = new Uint8Array(buffer);
-        const len = bytes.byteLength;
-        for (let i = 0; i < len; i++) {
-            binary += String.fromCharCode(bytes[i]!);
-        }
-        return btoa(binary);
-    }
 }
