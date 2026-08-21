@@ -68,6 +68,8 @@ export class StyleManager {
             cssContent += `}\n\n`;
         }
 
+        const lucideIconCache = new Map<string, string>();
+
         styles.forEach((style, index) => {
             const className = `typify-style-${String(index)}`;
             const valueKey = (style.matchValue || style.name).toLowerCase();
@@ -148,13 +150,18 @@ export class StyleManager {
                     iconUrl = `var(--typify-favicon-${safeVarName})`;
                 }
             } else if (style.icon) {
-                const iconEl = getIcon(style.icon);
-                if (iconEl) {
-                    // NOTE: outerHTML is used here for READ-ONLY serialization of Obsidian's
-                    // built-in SVG icons into CSS data URIs. No DOM mutation occurs.
-                    const svgString = iconEl.outerHTML.replace(/currentColor/g, 'black');
-                    const encodedSvg = encodeURIComponent(svgString);
-                    iconUrl = `url("data:image/svg+xml;charset=utf-8,${encodedSvg}")`;
+                if (lucideIconCache.has(style.icon)) {
+                    iconUrl = lucideIconCache.get(style.icon)!;
+                } else {
+                    const iconEl = getIcon(style.icon);
+                    if (iconEl) {
+                        // NOTE: outerHTML is used here for READ-ONLY serialization of Obsidian's
+                        // built-in SVG icons into CSS data URIs. No DOM mutation occurs.
+                        const svgString = iconEl.outerHTML.replace(/currentColor/g, 'black');
+                        const encodedSvg = encodeURIComponent(svgString);
+                        iconUrl = `url("data:image/svg+xml;charset=utf-8,${encodedSvg}")`;
+                        lucideIconCache.set(style.icon, iconUrl);
+                    }
                 }
             }
 
