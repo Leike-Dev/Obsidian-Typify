@@ -45,12 +45,22 @@ export default class TypifyPlugin extends Plugin {
         registerCommands(this);
         registerContextMenus(this);
 
-        // Initialize custom icons manager
+        // Instantiate asset managers
         this.customIconsManager = new CustomIconsManager(this.app, this.manifest.id);
-        if (this.settings.enableCustomIcons) {
-            await this.customIconsManager.initialize();
+        this.customImagesManager = new CustomImagesManager(this.app, this.manifest.id);
+        this.faviconManager = new FaviconManager(this);
 
-            // Check for missing custom icons
+        // Prepare initialization promises to load all local assets concurrently
+        const initPromises = [
+            this.settings.enableCustomIcons ? this.customIconsManager.initialize() : Promise.resolve(),
+            this.customImagesManager.initialize(),
+            this.settings.enableFavicons ? this.faviconManager.initialize() : Promise.resolve()
+        ] as const;
+
+        const [_, imgResult] = await Promise.all(initPromises);
+
+        // Post-load synchronous checks and warnings
+        if (this.settings.enableCustomIcons) {
             const missingIcons = this.settings.statusStyles
                 .filter(s => s.icon?.startsWith('custom:'))
                 .filter(s => !this.customIconsManager.getSvgDataUri(s.icon.replace('custom:', '')));
@@ -61,12 +71,8 @@ export default class TypifyPlugin extends Plugin {
             }
         }
 
-        // Initialize custom images manager (always loaded as it doesn't have a toggle yet)
-        this.customImagesManager = new CustomImagesManager(this.app, this.manifest.id);
-        const imgResult = await this.customImagesManager.initialize();
-
         // Warn about oversized images that were skipped
-        if (imgResult.errors.length > 0) {
+        if (imgResult && imgResult.errors && imgResult.errors.length > 0) {
             new Notice(
                 t('custom_images_oversized')
                     .replace('{count}', String(imgResult.errors.length))
@@ -86,12 +92,6 @@ export default class TypifyPlugin extends Plugin {
                     .replace('{count}', String(missingImages.length))
                     .replace('{names}', names)
             );
-        }
-
-        // Initialize Favicon manager
-        this.faviconManager = new FaviconManager(this);
-        if (this.settings.enableFavicons) {
-            await this.faviconManager.initialize();
         }
 
         this.addSettingTab(new CustomStatusIconsSettingTab(this.app, this));
