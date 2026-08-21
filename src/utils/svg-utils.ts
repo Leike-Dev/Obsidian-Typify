@@ -1,40 +1,30 @@
 // ============================================================================
 // SVG UTILITIES
-// Provides a safe, centralized way to insert trusted static SVG strings
-// into the DOM without using innerHTML directly on live elements.
+// Provides a centralized way to parse and normalize trusted SVG strings
+// for insertion into the DOM.
+//
+// WARNING: No sanitization is performed. Only use with trusted SVG content
+// (hardcoded constants or files from the plugin's own icons/ folder).
 // ============================================================================
 
 /**
- * Safely inserts a trusted static SVG string into a container element.
+ * Parses a trusted SVG string and optionally normalizes it for use as an icon.
  *
- * Uses a `<template>` element whose content is an inert DocumentFragment,
- * avoiding the overhead of DOMParser (which creates a full Document per call)
- * and preventing any script execution from the parsed content.
+ * When `asIcon` is true, the SVG is prepared for consistent icon rendering:
+ * - Adds the `svg-icon` class
+ * - Generates a `viewBox` from width/height if missing
+ * - Removes explicit width/height so CSS controls sizing
  *
- * IMPORTANT: Only use with trusted, hardcoded SVG constants (e.g. from
- * format-thumbs.ts). Never pass user-generated input to this function.
+ * WARNING: No security sanitization is applied. Only pass trusted SVG content
+ * (e.g. hardcoded constants from format-thumbs.ts or files from the plugin's
+ * own icons/ folder). Never pass untrusted or user-generated SVG input.
  *
- * @param container The parent element to receive the SVG nodes.
  * @param svgString A trusted SVG markup string.
+ * @param asIcon Whether to normalize the SVG for icon usage.
  */
 export function sanitizeSvg(svgString: string, asIcon: boolean = false): SVGSVGElement | null {
     const parser = new DOMParser();
     const doc = parser.parseFromString(svgString, 'image/svg+xml');
-    
-    // Agressive sanitization
-    const forbiddenTags = ['script', 'foreignobject', 'style', 'iframe', 'object', 'embed'];
-    forbiddenTags.forEach(tag => {
-        doc.querySelectorAll(tag).forEach(el => el.remove());
-    });
-
-    doc.querySelectorAll('*').forEach(el => {
-        const attrs = el.attributes;
-        for (let i = attrs.length - 1; i >= 0; i--) {
-            if (attrs[i]!.name.toLowerCase().startsWith('on')) {
-                el.removeAttribute(attrs[i]!.name);
-            }
-        }
-    });
 
     const svgEl = doc.documentElement;
     if (svgEl && svgEl.tagName.toLowerCase() === 'svg') {
