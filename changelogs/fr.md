@@ -8,6 +8,8 @@ NEW | Tri et filtres avancés dans le Gestionnaire de styles : Récent, Alphabé
 NEW | Explications détaillées ajoutées à chaque option dans le modal "Créer un style".
 NEW | Icône exclusive (sparkles) à côté du nom de Typify dans la recherche des paramètres.
 NEW | Avis informatif sur la "Correspondance par préfixe" ajouté au panneau "Avis du plugin".
+NEW | Intégration à la Palette de commandes : recherchez les fonctions du plugin et attribuez des raccourcis (hotkeys).
+NEW | Menu contextuel pour les Liens : faites un clic droit sur les liens pour détecter et modifier intelligemment leur style d'URL.
 IMP | Migration vers la nouvelle API native de paramètres d'Obsidian (nécessite Obsidian 1.13.0+).
 IMP | "Gérer les styles" et "Autres styles" migrés des modaux vers des sous-pages de paramètres dédiées.
 IMP | Modal "Palette de couleurs" restructuré avec le design natif d'Obsidian, design responsive et icônes Lucide.

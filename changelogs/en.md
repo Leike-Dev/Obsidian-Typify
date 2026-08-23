@@ -8,6 +8,8 @@ NEW | Sorting & advanced filters in Style Manager: Recent, Alphabetical, Shape, 
 NEW | Detailed explanations added to each option in the "Create style" modal.
 NEW | Exclusive icon (sparkles) next to Typify in Obsidian settings search.
 NEW | Informational notice about "Prefix match" added to the "Plugin notices" panel.
+NEW | Command Palette integration: search for plugin functions and assign custom hotkeys.
+NEW | Link Context Menu: right-click links to smartly detect and edit their URL style.
 IMP | Migrated to Obsidian's new native settings API (requires Obsidian 1.13.0+).
 IMP | "Manage styles" and "Other styles" moved from modals to dedicated settings sub-pages.
 IMP | "Color palette" modal restructured with native Obsidian layout, responsive design, and Lucide icons.
