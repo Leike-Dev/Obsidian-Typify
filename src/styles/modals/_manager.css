@@ -396,6 +396,11 @@
     font-size: var(--font-ui-small);
     color: var(--text-normal);
     margin-bottom: var(--size-4-2);
+    overflow-wrap: anywhere;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
 }
 
 .typify-batch-confirm-btns {

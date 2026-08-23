@@ -145,8 +145,12 @@ export class StyleManagerBatchActions {
         if (trulyNew.length === 0) return;
 
         const confirmEl = this.containerEl.createDiv({ cls: 'typify-batch-confirm' });
+        
+        const MAX_LEN = 35;
+        const displayValues = trulyNew.map(v => v.length > MAX_LEN ? v.substring(0, MAX_LEN - 3) + '...' : v).join(', ');
+
         confirmEl.createDiv({
-            text: t('batch_create_confirm_desc').replace('{values}', trulyNew.join(', ')),
+            text: t('batch_create_confirm_desc').replace('{values}', displayValues),
             cls: 'typify-batch-confirm-text'
         });
 
