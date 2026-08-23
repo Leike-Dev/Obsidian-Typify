@@ -2,7 +2,7 @@
   <img src="./docs/assets/images/Section_Banner/en/Banner.png"/>
   
    ![License](https://img.shields.io/badge/license-MIT-lightblue.svg)
-   ![Version](https://img.shields.io/badge/version-1.5.2-lightgreen.svg)
+   ![Version](https://img.shields.io/badge/version-1.6.0-lightgreen.svg)
    [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/azurita_a)
    [![Obsidian](https://img.shields.io/badge/Obsidian-%23483699.svg?&logo=obsidian&logoColor=white)](https://community.obsidian.md/plugins/typify)
 
