@@ -34,6 +34,8 @@ export const fr = {
     'applies_to_title': 'S\'applique à',
     'applies_to_desc': 'Limite le style à une propriété spécifique ou l\'applique à toutes les propriétés cibles.',
     'applies_to_all_option': 'Toutes les propriétés',
+    'catch_all_title': 'Appliquer à toutes les valeurs',
+    'catch_all_desc': 'Lorsque activé, ce style s\'applique à toutes les valeurs de la propriété sélectionnée, pas seulement aux correspondances.',
 
     // Supprimer
     'delete_button': 'Supprimer le style',

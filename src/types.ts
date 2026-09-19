@@ -6,6 +6,7 @@ export interface StatusStyle {
     name: string;
     matchValue?: string;
     prefixMatch?: boolean;
+    catchAll?: boolean;
     baseColor: string;
     icon: string;
     appliesTo?: string[];

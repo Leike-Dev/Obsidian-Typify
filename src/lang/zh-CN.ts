@@ -34,6 +34,8 @@ export const zhCN = {
     'applies_to_title': '应用于',
     'applies_to_desc': '将样式限制为特定属性或将其应用于所有目标属性。',
     'applies_to_all_option': '任意属性',
+    'catch_all_title': '应用于所有值',
+    'catch_all_desc': '启用后，此样式将应用于所选属性中的所有值，而不仅仅是匹配的值。',
 
     // 删除
     'delete_button': '删除样式',

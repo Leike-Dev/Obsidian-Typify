@@ -37,6 +37,8 @@ export const en = {
     'applies_to_title': 'Applies to',
     'applies_to_desc': 'Limits the style to a specific property or applies it to all target properties.',
     'applies_to_all_option': 'All properties',
+    'catch_all_title': 'Apply to all values',
+    'catch_all_desc': 'When enabled, this style applies to every value in the selected property, not just matching ones.',
 
     // Delete
     'delete_button': 'Delete style',

@@ -32,6 +32,7 @@ export class StyleEditorModal extends Modal {
     private colorMode: 'subtle' | 'solid' | 'simple' | '' = 'subtle';
     private matchValue = '';
     private prefixMatch = false;
+    private catchAll = false;
 
     // DOM references for live preview updates
     private previewPillLight: HTMLElement | null = null;
@@ -65,6 +66,7 @@ export class StyleEditorModal extends Modal {
             this.colorMode = editStyle.colorMode || 'subtle';
             this.matchValue = editStyle.matchValue || '';
             this.prefixMatch = editStyle.prefixMatch === true;
+            this.catchAll = editStyle.catchAll === true;
         }
 
         // Apply any explicit initial values ONLY when creating a new style (useful for Context Menus)
@@ -77,6 +79,7 @@ export class StyleEditorModal extends Modal {
             if (initialValues.colorMode !== undefined) this.colorMode = initialValues.colorMode;
             if (initialValues.matchValue !== undefined) this.matchValue = initialValues.matchValue;
             if (initialValues.prefixMatch !== undefined) this.prefixMatch = initialValues.prefixMatch;
+            if (initialValues.catchAll !== undefined) this.catchAll = initialValues.catchAll;
         }
     }
 
@@ -242,6 +245,17 @@ export class StyleEditorModal extends Modal {
                         this.appliesTo = value === 'all' ? [] : [value];
                     });
                 });
+        });
+
+        // Catch-all toggle
+        behaviorGroup.addSetting(setting => {
+            setting.setName(t('catch_all_title'))
+                .setDesc(t('catch_all_desc'))
+                .addToggle(toggle => toggle
+                    .setValue(this.catchAll)
+                    .onChange(value => {
+                        this.catchAll = value;
+                    }));
         });
 
         // Link URL (only shown when link styles are enabled)
@@ -556,6 +570,11 @@ export class StyleEditorModal extends Modal {
         // Only add appliesTo if scoped
         if (this.appliesTo.length > 0) {
             style.appliesTo = this.appliesTo;
+
+            // Only persist catchAll when a specific property is selected
+            if (this.catchAll) {
+                style.catchAll = true;
+            }
         }
 
         // Only add shape if not the default

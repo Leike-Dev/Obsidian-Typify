@@ -62,6 +62,11 @@ export function validateStatusStyles(raw: Record<string, unknown>[]): StatusStyl
             style.prefixMatch = item.prefixMatch;
         }
 
+        // Optional: catchAll (property-level fallback)
+        if (typeof item.catchAll === 'boolean') {
+            style.catchAll = item.catchAll;
+        }
+
         // Optional: colorMode
         if (typeof item.colorMode === 'string' && VALID_COLOR_MODES.includes(item.colorMode)) {
             style.colorMode = item.colorMode as StatusStyle['colorMode'];

@@ -37,6 +37,8 @@ export const ptBR = {
     'applies_to_title': 'Aplica-se a',
     'applies_to_desc': 'Limita o estilo a uma propriedade específica ou o aplica a todas as propriedades alvo.',
     'applies_to_all_option': 'Todas as propriedades',
+    'catch_all_title': 'Aplicar a todos os valores',
+    'catch_all_desc': 'Quando ativado, este estilo se aplica a todos os valores da propriedade selecionada, não apenas aos correspondentes.',
 
     // Excluir
     'delete_button': 'Excluir estilo',

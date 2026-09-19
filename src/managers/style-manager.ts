@@ -15,6 +15,8 @@ export class StyleManager {
     // Prefix match styles, sorted longest-first for best-match priority
     private prefixScopedList: { prefix: string; prop: string; classString: string }[] = [];
     private prefixGlobalList: { prefix: string; classString: string }[] = [];
+    // Property-level fallback: when catchAll is true, any unmatched value in that property gets this class
+    private propertyFallbackMap = new Map<string, string>();
 
     constructor(plugin: TypifyPlugin) {
         this.plugin = plugin;
@@ -28,6 +30,7 @@ export class StyleManager {
         this.fastLookupMap.clear();
         this.globalFallbackMap.clear();
         this.styleInfoMap.clear();
+        this.propertyFallbackMap.clear();
         this.prefixScopedList = [];
         this.prefixGlobalList = [];
 
@@ -103,6 +106,13 @@ export class StyleManager {
                 } else {
                     this.prefixGlobalList.push({ prefix: valueKey, classString });
                 }
+            } else if (style.catchAll === true && style.appliesTo && style.appliesTo.length > 0) {
+                style.appliesTo.forEach(prop => {
+                    const key = prop.toLowerCase();
+                    if (!this.propertyFallbackMap.has(key)) {
+                        this.propertyFallbackMap.set(key, classString);
+                    }
+                });
             } else if (style.appliesTo && style.appliesTo.length > 0) {
                 style.appliesTo.forEach(prop => {
                     this.fastLookupMap.set(`${valueKey}|${prop.toLowerCase()}`, classString);
@@ -243,7 +253,14 @@ body .${className} {
     }
 
     /**
-     * Finds the matched class name in O(1) time.
+     * Finds the matched class name for a given value + property pair.
+     *
+     * Matching priority (most specific wins):
+     *   1. Exact scoped   — value + property (fastLookupMap)
+     *   2. Exact global   — value in any property (globalFallbackMap)
+     *   3. Prefix scoped  — value starts with prefix + property (prefixScopedList, longest wins)
+     *   4. Prefix global  — value starts with prefix in any property (prefixGlobalList, longest wins)
+     *   5. Property fallback (catchAll) — any value in property (propertyFallbackMap)
      */
     findMatchingClass(value: string, propertyKey: string): string | undefined {
         const valLower = value.toLowerCase();
@@ -272,7 +289,10 @@ body .${className} {
             }
         }
 
-        return bestPrefix;
+        if (bestPrefix) return bestPrefix;
+
+        // Property-level fallback (catchAll styles)
+        return this.propertyFallbackMap.get(propLower);
     }
 
     /**
@@ -327,6 +347,7 @@ body .${className} {
         this.fastLookupMap.clear();
         this.globalFallbackMap.clear();
         this.styleInfoMap.clear();
+        this.propertyFallbackMap.clear();
         this.prefixScopedList = [];
         this.prefixGlobalList = [];
     }
