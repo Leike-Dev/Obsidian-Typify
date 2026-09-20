@@ -60,6 +60,7 @@ const jsContext = await esbuild.context({
     logLevel: "info",
     sourcemap: prod ? false : "inline",
     treeShaking: true,
+    minify: prod,
     outfile: "main.js",
     plugins: [copyToVaultPlugin],
 });
