@@ -1,5 +1,4 @@
-import { FuzzySuggestModal, App, setIcon, FuzzyMatch } from 'obsidian';
-import { LUCIDE_ICONS } from '../constants/lucide-icons';
+import { FuzzySuggestModal, App, setIcon, FuzzyMatch, getIconIds } from 'obsidian';
 import { t } from '../lang/helpers';
 import { CustomIconsManager } from '../managers/custom-icons';
 import { CustomImagesManager } from '../managers/custom-images';
@@ -19,6 +18,7 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
     private customIconsManager: CustomIconsManager | null;
     private customImagesManager: CustomImagesManager | null;
     private onChoose: (icon: string) => void;
+    private lucideIcons: string[];
     private currentTab: 'lucide' | 'emoji' | 'custom' | 'images' = 'lucide';
     private tabsContainerEl: HTMLElement | null = null;
 
@@ -34,6 +34,7 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
         this.customIconsManager = customIconsManager;
         this.customImagesManager = customImagesManager;
         this.onChoose = onChoose;
+        this.lucideIcons = getIconIds();
         this.setPlaceholder(t('icon_picker_placeholder'));
         this.setInstructions([
             { command: '↑↓', purpose: t('icon_picker_navigate') },
@@ -118,7 +119,7 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
 
         // Default tab: Lucide + Recent (which can be Lucide or Custom, we can filter them)
         const recentSet = new Set(this.recentIcons);
-        const others = LUCIDE_ICONS.filter(i => !recentSet.has(i));
+        const others = this.lucideIcons.filter(i => !recentSet.has(i));
         return [...this.recentIcons, ...others];
     }
 

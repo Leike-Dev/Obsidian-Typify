@@ -17,11 +17,17 @@ const testMocks = {
         context.onLoad({ filter: /^obsidian$/, namespace: 'typify-test-mocks' }, () => ({
             contents: `
                 export const getIcon = () => null;
+                export const getIconIds = () => ['activity', 'alarm-clock'];
                 export const getLanguage = () => 'en';
                 export const normalizePath = (path) => path.replaceAll('\\\\', '/');
                 export const requestUrl = async () => ({ status: 404, headers: {}, arrayBuffer: null });
                 export const setIcon = () => {};
                 export class Notice {}
+                export class FuzzySuggestModal {
+                    constructor(app) { this.app = app; }
+                    setPlaceholder() { return this; }
+                    setInstructions() { return this; }
+                }
                 export class ExtraButtonComponent {
                     constructor(el) { this.el = el; }
                     setIcon() { return this; }
@@ -87,6 +93,7 @@ try {
             'tests/import-roundtrip.test.mjs',
             'tests/save-settings.test.mjs',
             'tests/i18n-keys.test.mjs',
+            'tests/icon-picker.test.mjs',
             'tests/manager-filters.test.mjs',
             'tests/resource-managers.test.mjs',
         ],
