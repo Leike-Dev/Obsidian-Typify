@@ -32,6 +32,7 @@ export default class TypifyPlugin extends Plugin {
     styleManager!: StyleManager;
     domManager!: DOMManager;
     private cachedTargetProps: string[] | null = null;
+    private settingsSaveQueue: Promise<void> = Promise.resolve();
 
     async onload() {
         await this.loadSettings();
@@ -152,7 +153,6 @@ export default class TypifyPlugin extends Plugin {
         const reprocessPills = rebuildStyles || options.reprocessPills === true;
 
         this.cachedTargetProps = null;
-        await this.saveData(this.settings);
 
         if (rebuildStyles) {
             this.styleManager.buildCache();
@@ -165,6 +165,14 @@ export default class TypifyPlugin extends Plugin {
         if (reprocessPills && this.domManager) {
             this.domManager.reprocessAllPills();
         }
+
+        // Keep the interface responsive: visual effects are synchronous and disk
+        // writes are serialized afterwards so rapid changes cannot finish out of order.
+        const saveOperation = this.settingsSaveQueue.then(() => this.saveData(this.settings));
+        this.settingsSaveQueue = saveOperation.catch((error: unknown) => {
+            console.error('[Typify] Failed to save settings:', error);
+        });
+        await saveOperation;
     }
 
     getTargetProperties(): string[] {

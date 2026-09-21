@@ -18,7 +18,7 @@ function restoreGlobal(name, descriptor) {
  * Creates a minimal mock plugin for saveSettings tests.
  * Tracks which side-effects are invoked.
  */
-function createMockPlugin(targetProps = ['status']) {
+function createMockPlugin(targetProps = ['status'], saveData = async () => {}) {
     const calls = {
         saveData: 0,
         buildCache: 0,
@@ -29,8 +29,12 @@ function createMockPlugin(targetProps = ['status']) {
     const plugin = {
         settings: {},
         cachedTargetProps: null,
+        settingsSaveQueue: Promise.resolve(),
         getTargetProperties: () => targetProps,
-        saveData: async () => { calls.saveData++; },
+        saveData: async (settings) => {
+            calls.saveData++;
+            await saveData(settings);
+        },
         styleManager: {
             buildCache: () => { calls.buildCache++; },
         },
@@ -40,8 +44,7 @@ function createMockPlugin(targetProps = ['status']) {
         updateBodyClasses: () => { calls.updateBodyClasses++; },
     };
 
-    // Import the actual saveSettings via the SaveOptions interface
-    // We re-implement it here to test the logic without full Plugin instantiation
+    // Mirrors saveSettings without requiring a full Obsidian Plugin instance.
     plugin.saveSettings = async (options) => {
         const {
             rebuildStyles = false,
@@ -51,7 +54,6 @@ function createMockPlugin(targetProps = ['status']) {
         const reprocessPills = rebuildStyles || options.reprocessPills === true;
 
         plugin.cachedTargetProps = null;
-        await plugin.saveData(plugin.settings);
 
         if (rebuildStyles) {
             plugin.styleManager.buildCache();
@@ -64,6 +66,10 @@ function createMockPlugin(targetProps = ['status']) {
         if (reprocessPills && plugin.domManager) {
             plugin.domManager.reprocessAllPills();
         }
+
+        const saveOperation = plugin.settingsSaveQueue.then(() => plugin.saveData(plugin.settings));
+        plugin.settingsSaveQueue = saveOperation.catch(() => {});
+        await saveOperation;
     };
 
     return { plugin, calls };
@@ -115,6 +121,53 @@ test('saveSettings({ updateBodyClasses: true }) calls updateBodyClasses without 
     assert.equal(calls.updateBodyClasses, 1);
     assert.equal(calls.buildCache, 0);
     assert.equal(calls.reprocessAllPills, 0);
+});
+
+test('saveSettings applies visual effects before the disk write finishes', async () => {
+    let finishSave;
+    const pendingSave = new Promise((resolve) => { finishSave = resolve; });
+    const { plugin, calls } = createMockPlugin(['status'], () => pendingSave);
+
+    const savePromise = plugin.saveSettings({ rebuildStyles: true, updateBodyClasses: true });
+
+    assert.equal(calls.buildCache, 1);
+    assert.equal(calls.updateBodyClasses, 1);
+    assert.equal(calls.reprocessAllPills, 1);
+
+    await Promise.resolve();
+    assert.equal(calls.saveData, 1);
+
+    finishSave();
+    await savePromise;
+});
+
+test('saveSettings serializes rapid disk writes', async () => {
+    const pendingSaves = [];
+    let activeWrites = 0;
+    let maxActiveWrites = 0;
+    const { plugin, calls } = createMockPlugin(['status'], () => new Promise((resolve) => {
+        activeWrites++;
+        maxActiveWrites = Math.max(maxActiveWrites, activeWrites);
+        pendingSaves.push(() => {
+            activeWrites--;
+            resolve();
+        });
+    }));
+
+    const firstSave = plugin.saveSettings({});
+    await Promise.resolve();
+    const secondSave = plugin.saveSettings({});
+    await Promise.resolve();
+
+    assert.equal(calls.saveData, 1, 'second write must wait for the first');
+    pendingSaves.shift()();
+    await firstSave;
+    await Promise.resolve();
+
+    assert.equal(calls.saveData, 2);
+    pendingSaves.shift()();
+    await secondSave;
+    assert.equal(maxActiveWrites, 1);
 });
 
 // ============================================================================
@@ -319,4 +372,3 @@ test('reprocessAllPills unwraps .typify-single-value when property is removed', 
         restoreGlobal('HTMLElement', htmlElementDescriptor);
     }
 });
-
