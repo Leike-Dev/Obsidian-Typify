@@ -137,10 +137,10 @@ export class StyleManagerList {
 
             if (style.icon.startsWith('img:')) {
                 const name = style.icon.replace('img:', '');
-                const dataUri = this.plugin.customImagesManager?.getImageDataUri(name);
-                if (dataUri) {
+                const cssUrl = this.plugin.customImagesManager?.getImageCssUrl(name);
+                if (cssUrl) {
                     iconPreview.addClass('typify-img-preview', 'typify-img-manager-preview');
-                    iconPreview.setCssProps({ '--typify-bg-image': dataUri });
+                    iconPreview.setCssProps({ '--typify-bg-image': cssUrl });
                     iconPreview.setCssStyles({ backgroundImage: 'var(--typify-bg-image)' });
                 } else {
                     setIcon(iconPreview, 'image');
@@ -160,10 +160,10 @@ export class StyleManagerList {
                 iconPreview.setCssStyles({ fontSize: '14px' });
             } else if (style.icon.startsWith('favicon:')) {
                 const domain = style.icon.replace('favicon:', '');
-                const dataUri = this.plugin.faviconManager?.getFaviconDataUri(domain);
-                if (dataUri) {
+                const cssUrl = this.plugin.faviconManager?.getFaviconCssUrl(domain);
+                if (cssUrl) {
                     iconPreview.addClass('typify-img-preview', 'typify-img-manager-preview');
-                    iconPreview.setCssProps({ '--typify-bg-image': dataUri });
+                    iconPreview.setCssProps({ '--typify-bg-image': cssUrl });
                     iconPreview.setCssStyles({ backgroundImage: 'var(--typify-bg-image)' });
                 } else {
                     setIcon(iconPreview, 'globe');

@@ -124,7 +124,7 @@ export class FaviconsSection {
             // Preview or fallback icon
             const preview = leftEl.createDiv({ cls: 'typify-favicon-preview' });
             if (!isFailed && entry) {
-                preview.setCssStyles({ backgroundImage: entry.dataUri });
+                preview.setCssStyles({ backgroundImage: entry.cssUrl });
             } else {
                 setIcon(preview, 'globe');
             }

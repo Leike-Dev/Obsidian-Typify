@@ -154,10 +154,10 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
         if (icon.startsWith('img:')) {
             // Image: render as circular background
             const name = icon.replace('img:', '');
-            const dataUri = this.customImagesManager?.getImageDataUri(name);
-            if (dataUri) {
+            const cssUrl = this.customImagesManager?.getImageCssUrl(name);
+            if (cssUrl) {
                 iconEl.addClass('typify-img-preview', 'typify-img-picker-preview');
-                iconEl.setCssProps({ '--typify-bg-image': dataUri });
+                iconEl.setCssProps({ '--typify-bg-image': cssUrl });
                 iconEl.setCssStyles({ backgroundImage: 'var(--typify-bg-image)' });
             } else {
                 setIcon(iconEl, 'image'); // fallback

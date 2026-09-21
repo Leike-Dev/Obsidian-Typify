@@ -366,11 +366,11 @@ export class StyleEditorModal extends Modal {
                 this.iconBtnEl.setCssStyles({ fontSize: '16px' });
             } else if (this.icon.startsWith('img:')) {
                 const name = this.icon.replace('img:', '');
-                const dataUri = this.plugin.customImagesManager?.getImageDataUri(name);
-                if (dataUri) {
+                const cssUrl = this.plugin.customImagesManager?.getImageCssUrl(name);
+                if (cssUrl) {
                     const span = this.iconBtnEl.createSpan();
                     span.addClass('typify-img-preview', 'typify-img-btn-preview');
-                    span.setCssProps({ '--typify-bg-image': dataUri });
+                    span.setCssProps({ '--typify-bg-image': cssUrl });
                     span.setCssStyles({ backgroundImage: 'var(--typify-bg-image)' });
                 } else {
                     setIcon(this.iconBtnEl, 'image');
@@ -386,11 +386,11 @@ export class StyleEditorModal extends Modal {
                 }
             } else if (this.icon.startsWith('favicon:')) {
                 const domain = this.icon.replace('favicon:', '');
-                const dataUri = this.plugin.faviconManager?.getFaviconDataUri(domain);
-                if (dataUri) {
+                const cssUrl = this.plugin.faviconManager?.getFaviconCssUrl(domain);
+                if (cssUrl) {
                     const span = this.iconBtnEl.createSpan();
                     span.addClass('typify-img-preview', 'typify-img-btn-preview');
-                    span.setCssProps({ '--typify-bg-image': dataUri });
+                    span.setCssProps({ '--typify-bg-image': cssUrl });
                     span.setCssStyles({ backgroundImage: 'var(--typify-bg-image)' });
                 } else {
                     setIcon(this.iconBtnEl, 'globe');
@@ -456,10 +456,10 @@ export class StyleEditorModal extends Modal {
             iconSpan.setCssStyles({ backgroundColor: 'transparent', maskImage: 'none' });
         } else if (this.icon.startsWith('img:')) {
             const name = this.icon.replace('img:', '');
-            const dataUri = this.plugin.customImagesManager?.getImageDataUri(name);
-            if (dataUri) {
+            const cssUrl = this.plugin.customImagesManager?.getImageCssUrl(name);
+            if (cssUrl) {
                 iconSpan.addClass('typify-img-preview', 'typify-img-pill-icon');
-                iconSpan.setCssProps({ '--typify-bg-image': dataUri });
+                iconSpan.setCssProps({ '--typify-bg-image': cssUrl });
                 iconSpan.setCssStyles({ backgroundImage: 'var(--typify-bg-image)' });
             } else {
                 iconSpan.addClass('typify-preview-pill-icon');
@@ -475,10 +475,10 @@ export class StyleEditorModal extends Modal {
             }
         } else if (this.icon.startsWith('favicon:')) {
             const domain = this.icon.replace('favicon:', '');
-            const dataUri = this.plugin.faviconManager?.getFaviconDataUri(domain);
-            if (dataUri) {
+            const cssUrl = this.plugin.faviconManager?.getFaviconCssUrl(domain);
+            if (cssUrl) {
                 iconSpan.addClass('typify-img-preview', 'typify-img-pill-icon');
-                iconSpan.setCssProps({ '--typify-bg-image': dataUri });
+                iconSpan.setCssProps({ '--typify-bg-image': cssUrl });
                 iconSpan.setCssStyles({ backgroundImage: 'var(--typify-bg-image)' });
             } else {
                 iconSpan.addClass('typify-preview-pill-icon');

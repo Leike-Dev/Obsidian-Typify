@@ -83,7 +83,7 @@ export default class TypifyPlugin extends Plugin {
         // Warn about missing images referenced in styles
         const missingImages = this.settings.statusStyles
             .filter(s => s.icon?.startsWith('img:'))
-            .filter(s => !this.customImagesManager.getImageDataUri(s.icon.replace('img:', '')));
+            .filter(s => !this.customImagesManager.getImageCssUrl(s.icon.replace('img:', '')));
 
         if (missingImages.length > 0) {
             const names = missingImages.map(s => s.icon.replace('img:', '')).join(', ');

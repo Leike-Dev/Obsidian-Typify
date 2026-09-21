@@ -55,17 +55,17 @@ export class StyleManager {
         if (uniqueImages.size > 0 || uniqueFavicons.size > 0) {
             cssContent += `:root {\n`;
             uniqueImages.forEach(imgName => {
-                const dataUri = this.plugin.customImagesManager?.getImageDataUri(imgName);
-                if (dataUri) {
+                const cssUrl = this.plugin.customImagesManager?.getImageCssUrl(imgName);
+                if (cssUrl) {
                     const safeVarName = this.sanitizeCssVarName(imgName);
-                    cssContent += `    --typify-img-${safeVarName}: ${dataUri};\n`;
+                    cssContent += `    --typify-img-${safeVarName}: ${cssUrl};\n`;
                 }
             });
             uniqueFavicons.forEach(domain => {
-                const dataUri = this.plugin.faviconManager?.getFaviconDataUri(domain);
-                if (dataUri) {
+                const cssUrl = this.plugin.faviconManager?.getFaviconCssUrl(domain);
+                if (cssUrl) {
                     const safeVarName = this.sanitizeCssVarName(domain);
-                    cssContent += `    --typify-favicon-${safeVarName}: ${dataUri};\n`;
+                    cssContent += `    --typify-favicon-${safeVarName}: ${cssUrl};\n`;
                 }
             });
             cssContent += `}\n\n`;
@@ -82,7 +82,7 @@ export class StyleManager {
             let emojiChar = '';
             if (style.icon && style.icon.startsWith('img:')) {
                 const imgName = style.icon.replace('img:', '');
-                if (this.plugin.customImagesManager?.getImageDataUri(imgName)) {
+                if (this.plugin.customImagesManager?.getImageCssUrl(imgName)) {
                     isImage = true;
                 }
             } else if (style.icon && style.icon.startsWith('emoji:')) {
@@ -90,7 +90,7 @@ export class StyleManager {
                 emojiChar = style.icon.replace('emoji:', '');
             } else if (style.icon && style.icon.startsWith('favicon:')) {
                 const domain = style.icon.replace('favicon:', '');
-                if (this.plugin.faviconManager?.getFaviconDataUri(domain)) {
+                if (this.plugin.faviconManager?.getFaviconCssUrl(domain)) {
                     isImage = true;
                 }
             }
@@ -150,13 +150,13 @@ export class StyleManager {
             } else if (style.icon && style.icon.startsWith('img:')) {
                 const imgName = style.icon.replace('img:', '');
                 const safeVarName = this.sanitizeCssVarName(imgName);
-                if (this.plugin.customImagesManager?.getImageDataUri(imgName)) {
+                if (this.plugin.customImagesManager?.getImageCssUrl(imgName)) {
                     iconUrl = `var(--typify-img-${safeVarName})`;
                 }
             } else if (style.icon && style.icon.startsWith('favicon:')) {
                 const domain = style.icon.replace('favicon:', '');
                 const safeVarName = this.sanitizeCssVarName(domain);
-                if (this.plugin.faviconManager?.getFaviconDataUri(domain)) {
+                if (this.plugin.faviconManager?.getFaviconCssUrl(domain)) {
                     iconUrl = `var(--typify-favicon-${safeVarName})`;
                 }
             } else if (style.icon) {

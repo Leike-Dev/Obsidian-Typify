@@ -1,9 +1,10 @@
-import { App, normalizePath, requestUrl, Notice, arrayBufferToBase64 } from 'obsidian';
+import { App, normalizePath, requestUrl, Notice } from 'obsidian';
 import { t } from '../lang/helpers';
 import type TypifyPlugin from '../main';
+import { getCssResourceUrl } from '../utils/resource-url';
 
 export interface FaviconCacheEntry {
-    dataUri: string;
+    cssUrl: string;
     mtime: number;
     size: number;
 }
@@ -67,13 +68,11 @@ export class FaviconManager {
                 try {
                     const stat = await adapter.stat(filePath);
                     if (!stat) continue;
-                    
-                    const binary = await adapter.readBinary(filePath);
-                    const base64 = arrayBufferToBase64(binary);
-                    const dataUri = `url("data:image/png;base64,${base64}")`;
-                    
+
+                    const cssUrl = getCssResourceUrl(adapter, filePath, stat.mtime);
+
                     this.cache.set(domain, {
-                        dataUri,
+                        cssUrl,
                         mtime: stat.mtime,
                         size: stat.size
                     });
@@ -84,8 +83,8 @@ export class FaviconManager {
         }
     }
 
-    getFaviconDataUri(domain: string): string | null {
-        return this.cache.get(domain)?.dataUri || null;
+    getFaviconCssUrl(domain: string): string | null {
+        return this.cache.get(domain)?.cssUrl || null;
     }
 
     getCache(): Map<string, FaviconCacheEntry> {
@@ -116,7 +115,7 @@ export class FaviconManager {
      */
     async fetchFavicon(domain: string, silent = false, force = false): Promise<string | null> {
         if (!force && this.cache.has(domain)) {
-            return this.cache.get(domain)!.dataUri;
+            return this.cache.get(domain)!.cssUrl;
         }
 
         if (!force && this.failedDomains.has(domain)) {
@@ -265,12 +264,12 @@ export class FaviconManager {
         await adapter.writeBinary(filePath, buffer);
         
         const stat = await adapter.stat(filePath);
-        const base64 = arrayBufferToBase64(buffer);
-        const dataUri = `url("data:image/png;base64,${base64}")`;
+        const mtime = stat?.mtime || Date.now();
+        const cssUrl = getCssResourceUrl(adapter, filePath, mtime);
         
         this.cache.set(domain, {
-            dataUri,
-            mtime: stat?.mtime || Date.now(),
+            cssUrl,
+            mtime,
             size: stat?.size || buffer.byteLength
         });
 
@@ -279,7 +278,7 @@ export class FaviconManager {
             await this.removeFailedMark(domain);
         }
 
-        return dataUri;
+        return cssUrl;
     }
 
     private async markAsFailed(domain: string): Promise<void> {

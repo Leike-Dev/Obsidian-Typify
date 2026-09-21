@@ -18,7 +18,10 @@ const testMocks = {
             contents: `
                 export const getIcon = () => null;
                 export const getLanguage = () => 'en';
+                export const normalizePath = (path) => path.replaceAll('\\\\', '/');
+                export const requestUrl = async () => ({ status: 404, headers: {}, arrayBuffer: null });
                 export const setIcon = () => {};
+                export class Notice {}
                 export class ExtraButtonComponent {
                     constructor(el) { this.el = el; }
                     setIcon() { return this; }
@@ -85,6 +88,7 @@ try {
             'tests/save-settings.test.mjs',
             'tests/i18n-keys.test.mjs',
             'tests/manager-filters.test.mjs',
+            'tests/resource-managers.test.mjs',
         ],
         bundle: true,
         platform: 'node',

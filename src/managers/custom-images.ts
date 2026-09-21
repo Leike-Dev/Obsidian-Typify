@@ -1,16 +1,17 @@
-import { App, normalizePath, arrayBufferToBase64 } from 'obsidian';
+import { App, normalizePath } from 'obsidian';
+import { getCssResourceUrl } from '../utils/resource-url';
 
 // ============================================================================
 // CUSTOM IMAGES MANAGER
-// Loads image files (PNG, JPG, WEBP, GIF) from the plugin's img/ folder.
-// Converts them to Base64 to be used as CSS background-images.
+// Catalogs image files (PNG, JPG, WEBP, GIF) from the plugin's img/ folder.
+// Uses Obsidian resource URLs so image bytes are loaded by the browser on demand.
 // ============================================================================
 
 const IMAGES_FOLDER = 'img';
 const MAX_IMAGE_SIZE = 50 * 1024; // 50KB limit per image file
 
 export class CustomImagesManager {
-    private dataUriCache = new Map<string, string>(); // name → data URI (Base64)
+    private imageUrlCache = new Map<string, string>(); // name → CSS resource URL
     private app: App;
     private basePath: string;
 
@@ -20,12 +21,12 @@ export class CustomImagesManager {
     }
 
     /**
-     * Loads all image files from the img/ folder into memory as Base64.
+     * Catalogs image files from the img/ folder without reading their contents.
      * Creates the folder if it doesn't exist.
      * Called ONCE during onload().
      */
     async initialize(): Promise<{ loaded: number; errors: string[] }> {
-        this.dataUriCache.clear();
+        this.imageUrlCache.clear();
 
         const errors: string[] = [];
         const adapter = this.app.vault.adapter;
@@ -48,47 +49,45 @@ export class CustomImagesManager {
             try {
                 // Check file size
                 const stat = await adapter.stat(filePath);
-                if (stat && stat.size > MAX_IMAGE_SIZE) {
+                if (!stat) {
+                    throw new Error('file metadata unavailable');
+                }
+                if (stat.size > MAX_IMAGE_SIZE) {
                     const name = this.filePathToName(filePath);
                     errors.push(`${name}: file too large (${String(Math.round(stat.size / 1024))}KB > 50KB)`);
                     continue;
                 }
 
-                const binary = await adapter.readBinary(filePath);
-                const base64 = arrayBufferToBase64(binary);
-                const mimeType = this.getMimeType(filePath);
-                const dataUri = `url("data:${mimeType};base64,${base64}")`;
-
                 const name = this.filePathToName(filePath);
-                this.dataUriCache.set(name, dataUri);
+                this.imageUrlCache.set(name, getCssResourceUrl(adapter, filePath, stat.mtime));
             } catch (e) {
                 const name = this.filePathToName(filePath);
                 errors.push(`${name}: ${e instanceof Error ? e.message : 'unknown error'}`);
             }
         }
 
-        return { loaded: this.dataUriCache.size, errors };
+        return { loaded: this.imageUrlCache.size, errors };
     }
 
     /**
-     * Returns the encoded data URI for use in CSS background-image. SYNC.
+     * Returns the local resource URL for use in CSS background-image. SYNC.
      */
-    getImageDataUri(name: string): string | null {
-        return this.dataUriCache.get(name) || null;
+    getImageCssUrl(name: string): string | null {
+        return this.imageUrlCache.get(name) || null;
     }
 
     /**
      * Clears the in-memory cache without reloading.
      */
     clear(): void {
-        this.dataUriCache.clear();
+        this.imageUrlCache.clear();
     }
 
     /**
      * Returns the list of available custom image names. SYNC.
      */
     listImages(): string[] {
-        return Array.from(this.dataUriCache.keys());
+        return Array.from(this.imageUrlCache.keys());
     }
 
     /**
@@ -105,15 +104,6 @@ export class CustomImagesManager {
     private filePathToName(filePath: string): string {
         const parts = filePath.split('/');
         return parts[parts.length - 1]!; // Keep extension so we distinguish joao.png vs joao.jpg
-    }
-
-    private getMimeType(filePath: string): string {
-        const lower = filePath.toLowerCase();
-        if (lower.endsWith('.png')) return 'image/png';
-        if (lower.endsWith('.jpg') || lower.endsWith('.jpeg')) return 'image/jpeg';
-        if (lower.endsWith('.webp')) return 'image/webp';
-        if (lower.endsWith('.gif')) return 'image/gif';
-        return 'application/octet-stream';
     }
 
 }
