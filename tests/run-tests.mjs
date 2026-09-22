@@ -93,6 +93,7 @@ try {
             'tests/import-roundtrip.test.mjs',
             'tests/save-settings.test.mjs',
             'tests/i18n-keys.test.mjs',
+            'tests/emojis.test.mjs',
             'tests/icon-picker.test.mjs',
             'tests/manager-filters.test.mjs',
             'tests/resource-managers.test.mjs',

@@ -102,7 +102,7 @@ export class IconPickerModal extends FuzzySuggestModal<string> {
      */
     getItems(): string[] {
         if (this.currentTab === 'emoji') {
-            return EMOJIS.map(e => `emoji:${e.char}|||${e.name}|||${e.search}`);
+            return EMOJIS.map(([char, name, search]) => `emoji:${char}|||${name}|||${search}`);
         }
 
         if (this.currentTab === 'images') {
