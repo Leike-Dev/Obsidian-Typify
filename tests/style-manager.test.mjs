@@ -68,6 +68,61 @@ function createManager(styles) {
     });
 }
 
+test('runtime styles use the target document and update without recreating the element', () => {
+    function createStyleDocument() {
+        const elements = [];
+        return {
+            elements,
+            head: {
+                createEl(tagName, options) {
+                    assert.equal(tagName, 'style');
+                    const element = {
+                        id: options.attr.id,
+                        isConnected: true,
+                        textContent: '',
+                        remove() {
+                            this.isConnected = false;
+                        },
+                    };
+                    elements.push(element);
+                    return element;
+                },
+            },
+        };
+    }
+
+    const mainDocument = createStyleDocument();
+    const popoutDocument = createStyleDocument();
+    const documents = [mainDocument, popoutDocument];
+    const plugin = {
+        settings: { statusStyles: [createStyle()] },
+        windowManager: { getDocuments: () => documents },
+    };
+    const manager = new StyleManager(plugin);
+
+    try {
+        manager.buildCache();
+        for (const doc of documents) {
+            assert.equal(doc.elements.length, 1);
+            assert.equal(doc.elements[0].id, 'typify-dynamic-styles');
+            assert.match(doc.elements[0].textContent, /typify-style-0/);
+        }
+
+        plugin.settings.statusStyles = [];
+        manager.buildCache();
+        for (const doc of documents) {
+            assert.equal(doc.elements.length, 1);
+            assert.equal(doc.elements[0].textContent, '');
+        }
+    } finally {
+        manager.cleanup();
+    }
+
+    for (const doc of documents) {
+        assert.equal(doc.elements[0].isConnected, false);
+    }
+});
+
 test('legacy styles with omitted prefixMatch default to exact match', () => {
     const restoreDocument = installFakeStyleDocument();
     const manager = createManager([createStyle()]);
