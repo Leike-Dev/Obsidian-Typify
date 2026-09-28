@@ -233,7 +233,6 @@ body .${className} {
         if (!styleEl || !styleEl.isConnected) {
             if (styleEl) styleEl.remove();
             // User-defined colors and icons require runtime CSS in each Obsidian window.
-            // eslint-disable-next-line obsidianmd/no-forbidden-elements -- A static styles.css cannot represent user settings.
             styleEl = doc.head.createEl('style', { attr: { id: 'typify-dynamic-styles' } });
             this.styleElements.set(doc, styleEl);
         }
