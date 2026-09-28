@@ -1,4 +1,4 @@
-import { App, Modal, Notice, SettingGroup, setIcon } from 'obsidian';
+import { App, Modal, Notice, SettingGroup, setIcon, TextComponent, ToggleComponent } from 'obsidian';
 import type TypifyPlugin from '../main';
 import { StatusStyle, DEFAULT_STATUS_COLOR } from '../types';
 import { generatePalette } from '../utils';
@@ -7,6 +7,7 @@ import { IconPickerModal } from './icon-picker';
 import { THUMB_PILL, THUMB_RECT, THUMB_FLAT, THUMB_SOFT, THUMB_SOLID, THUMB_SIMPLE } from './format-thumbs';
 import { FaviconManager } from '../managers/favicon-manager';
 import { insertSvg } from '../utils/svg-utils';
+import { getStyleValue, stylesShareTarget } from '../utils/style-value';
 
 /**
  * Modal for creating or editing a status style.
@@ -30,6 +31,9 @@ export class StyleEditorModal extends Modal {
     private appliesTo: string[] = [];
     private shape: 'pill' | 'rectangle' | 'flat' | '' = 'pill';
     private colorMode: 'subtle' | 'solid' | 'simple' | '' = 'subtle';
+    private styleValue = '';
+    private styleValueEdited = false;
+    private syncingStyleValue = false;
     private matchValue = '';
     private prefixMatch = false;
     private catchAll = false;
@@ -38,6 +42,8 @@ export class StyleEditorModal extends Modal {
     private previewPillLight: HTMLElement | null = null;
     private previewPillDark: HTMLElement | null = null;
     private iconBtnEl: HTMLElement | null = null;
+    private styleValueInput: TextComponent | null = null;
+    private catchAllToggle: ToggleComponent | null = null;
 
     constructor(
         app: App,
@@ -55,23 +61,33 @@ export class StyleEditorModal extends Modal {
 
         // Pre-populate form if editing or duplicating
         if (editStyle) {
-            if (editIndex !== undefined) {
+            const isDuplicate = editIndex === undefined;
+            if (!isDuplicate) {
                 this.editIndex = editIndex;
             }
-            this.styleName = editIndex !== undefined ? editStyle.name : `${editStyle.name} (${t('copy_suffix')})`;
+            this.styleName = isDuplicate ? `${editStyle.name} (${t('copy_suffix')})` : editStyle.name;
+            // A copy keeps the appearance, but starts with its own match target.
+            this.styleValue = isDuplicate ? this.styleName : getStyleValue(editStyle);
+            this.styleValueEdited = !isDuplicate;
             this.baseColor = editStyle.baseColor;
             this.icon = editStyle.icon || '';
             this.appliesTo = editStyle.appliesTo ? [...editStyle.appliesTo] : [];
             this.shape = editStyle.shape || 'pill';
             this.colorMode = editStyle.colorMode || 'subtle';
-            this.matchValue = editStyle.matchValue || '';
-            this.prefixMatch = editStyle.prefixMatch === true;
-            this.catchAll = editStyle.catchAll === true;
+            this.matchValue = isDuplicate ? '' : editStyle.matchValue || '';
+            this.prefixMatch = !isDuplicate && editStyle.prefixMatch === true;
+            this.catchAll = !isDuplicate && editStyle.catchAll === true;
         }
 
         // Apply any explicit initial values ONLY when creating a new style (useful for Context Menus)
         if (!editStyle && initialValues) {
             if (initialValues.name !== undefined) this.styleName = initialValues.name;
+            if (initialValues.styleValue !== undefined) {
+                this.styleValue = initialValues.styleValue;
+                this.styleValueEdited = true;
+            } else if (initialValues.name !== undefined) {
+                this.styleValue = initialValues.name;
+            }
             if (initialValues.baseColor !== undefined) this.baseColor = initialValues.baseColor;
             if (initialValues.icon !== undefined) this.icon = initialValues.icon;
             if (initialValues.appliesTo !== undefined) this.appliesTo = [...initialValues.appliesTo];
@@ -81,6 +97,26 @@ export class StyleEditorModal extends Modal {
             if (initialValues.prefixMatch !== undefined) this.prefixMatch = initialValues.prefixMatch;
             if (initialValues.catchAll !== undefined) this.catchAll = initialValues.catchAll;
         }
+    }
+
+    private updateStyleName(value: string): void {
+        this.styleName = value;
+        if (!this.styleValueEdited) {
+            this.styleValue = value;
+            this.syncingStyleValue = true;
+            try {
+                this.styleValueInput?.setValue(value);
+            } finally {
+                this.syncingStyleValue = false;
+            }
+        }
+        this.updatePreview();
+    }
+
+    private updateStyleValue(value: string): void {
+        this.styleValue = value;
+        if (!this.syncingStyleValue) this.styleValueEdited = true;
+        this.updatePreview();
     }
 
     onOpen() {
@@ -107,9 +143,22 @@ export class StyleEditorModal extends Modal {
                     .setPlaceholder(t('status_name_placeholder'))
                     .setValue(this.styleName)
                     .onChange(value => {
-                        this.styleName = value;
-                        this.updatePreview();
+                        this.updateStyleName(value);
                     }));
+        });
+
+        generalGroup.addSetting(setting => {
+            setting.setClass('typify-stack-on-phone')
+                .setName(t('style_value_title'))
+                .setDesc(t('style_value_desc'))
+                .addText(text => {
+                    this.styleValueInput = text;
+                    text.setPlaceholder(t('style_value_placeholder'))
+                        .setValue(this.styleValue)
+                        .onChange(value => {
+                            this.updateStyleValue(value);
+                        });
+                });
         });
 
         const designGroup = new SettingGroup(contentEl)
@@ -236,13 +285,20 @@ export class StyleEditorModal extends Modal {
                         dropdown.addOption(prop, prop);
                     });
 
-                    // Set initial value based on current appliesTo state
+                    // Keep a saved scope selectable even if it is no longer a target property.
                     const initialValue = (this.appliesTo.length > 0) ? this.appliesTo[0]! : 'all';
-                    // Fallback to 'all' if the saved value is not an available dropdown option
-                    const validValue = properties.includes(initialValue) ? initialValue : 'all';
-                    dropdown.setValue(validValue);
+                    if (initialValue !== 'all' && !properties.includes(initialValue)) {
+                        dropdown.addOption(initialValue, initialValue);
+                    }
+                    dropdown.setValue(initialValue);
                     dropdown.onChange(value => {
                         this.appliesTo = value === 'all' ? [] : [value];
+                        if (this.appliesTo.length === 0) {
+                            this.catchAll = false;
+                            this.catchAllToggle?.setValue(false);
+                        }
+                        this.catchAllToggle?.setDisabled(this.appliesTo.length === 0);
+                        this.updatePreview();
                     });
                 });
         });
@@ -251,11 +307,15 @@ export class StyleEditorModal extends Modal {
         behaviorGroup.addSetting(setting => {
             setting.setName(t('catch_all_title'))
                 .setDesc(t('catch_all_desc'))
-                .addToggle(toggle => toggle
-                    .setValue(this.catchAll)
-                    .onChange(value => {
-                        this.catchAll = value;
-                    }));
+                .addToggle(toggle => {
+                    this.catchAllToggle = toggle;
+                    toggle.setValue(this.catchAll)
+                        .setDisabled(this.appliesTo.length === 0)
+                        .onChange(value => {
+                            this.catchAll = value;
+                            this.updatePreview();
+                        });
+                });
         });
 
         // Link URL (only shown when link styles are enabled)
@@ -413,7 +473,7 @@ export class StyleEditorModal extends Modal {
 
         const previewMode = this.colorMode === '' ? 'subtle' : this.colorMode;
         const palette = generatePalette(this.baseColor, previewMode);
-        const displayName = this.styleName || t('new_status_name');
+        const displayName = (this.catchAll ? this.styleName : this.styleValue || this.styleName) || t('new_status_name');
 
         // Light pill
         this.previewPillLight.empty();
@@ -507,57 +567,9 @@ export class StyleEditorModal extends Modal {
             new Notice(t('shape_color_required'));
             return;
         }
-        // Check for conflicts: same name with overlapping or identical scope
-        const newScope = this.appliesTo;
-        let hasExactDuplicate = false;
-        let hasOverlap = false;
-
-        this.plugin.settings.statusStyles.forEach((existing, idx) => {
-            // Skip the style being edited
-            if (this.editIndex !== null && idx === this.editIndex) return;
-            // Different name = no conflict
-            if (existing.name.toLowerCase() !== name.toLowerCase()) return;
-
-            const existingScope = existing.appliesTo || [];
-
-            // Both apply to all = exact duplicate
-            if (existingScope.length === 0 && newScope.length === 0) {
-                hasExactDuplicate = true;
-                return;
-            }
-
-            // Both scoped: check if identical or partially overlapping
-            if (existingScope.length > 0 && newScope.length > 0) {
-                const existingNorm = existingScope.map(p => p.toLowerCase()).sort();
-                const newNorm = newScope.map(p => p.toLowerCase()).sort();
-                // Exact same properties = exact duplicate
-                if (existingNorm.length === newNorm.length && existingNorm.every((p, i) => p === newNorm[i])) {
-                    hasExactDuplicate = true;
-                    return;
-                }
-                // Partial overlap = warn
-                if (existingNorm.some(p => newNorm.includes(p))) {
-                    hasOverlap = true;
-                    return;
-                }
-                return; // No overlap at all = fine
-            }
-
-            // One is "All", other is scoped = overlap (scoped wins via CSS specificity)
-            hasOverlap = true;
-        });
-
-        if (hasExactDuplicate) {
-            new Notice(t('style_duplicate'));
-            return;
-        }
-
-        if (hasOverlap) {
-            new Notice(t('style_overlap_warning'));
-        }
-
         const style: StatusStyle = {
             name: name,
+            styleValue: this.styleValue.trim() || name,
             baseColor: this.baseColor,
             icon: this.icon
         };
@@ -586,6 +598,40 @@ export class StyleEditorModal extends Modal {
         if (this.colorMode !== 'subtle') {
             style.colorMode = this.colorMode;
         }
+
+        let hasDuplicate = false;
+        let hasOverlap = false;
+        const newScope = style.appliesTo?.map(prop => prop.toLowerCase()) || [];
+
+        this.plugin.settings.statusStyles.forEach((existing, idx) => {
+            if (this.editIndex !== null && idx === this.editIndex) return;
+
+            const existingScope = existing.appliesTo?.map(prop => prop.toLowerCase()) || [];
+            const bothGlobal = newScope.length === 0 && existingScope.length === 0;
+            const bothScoped = newScope.length > 0 && existingScope.length > 0;
+            const overlappingScope = bothGlobal || !bothScoped
+                || newScope.some(prop => existingScope.includes(prop));
+            if (!overlappingScope) return;
+
+            const sameName = existing.name.toLowerCase() === name.toLowerCase();
+            const sameTarget = stylesShareTarget(existing, style);
+            if (!sameName && !sameTarget) return;
+
+            const identicalScope = bothGlobal || (bothScoped
+                && newScope.length === existingScope.length
+                && newScope.every(prop => existingScope.includes(prop)));
+            if ((sameTarget && bothScoped) || identicalScope) {
+                hasDuplicate = true;
+            } else {
+                hasOverlap = true;
+            }
+        });
+
+        if (hasDuplicate) {
+            new Notice(t('style_duplicate'));
+            return;
+        }
+        if (hasOverlap) new Notice(t('style_overlap_warning'));
 
         // Update existing or push new
         if (this.editIndex !== null) {

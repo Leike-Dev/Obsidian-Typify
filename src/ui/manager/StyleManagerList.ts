@@ -8,6 +8,7 @@ import { StatusStyle } from '../../types';
 import { t } from '../../lang/helpers';
 import type { SortMode } from './StyleManagerFilters';
 import { insertSvg } from '../../utils/svg-utils';
+import { getStyleValue } from '../../utils/style-value';
 
 export interface ListCallbacks {
     onEdit: (style: StatusStyle, realIndex: number) => void;
@@ -52,7 +53,10 @@ export class StyleManagerList {
         const styles = this.plugin.settings.statusStyles;
 
         let filtered = styles.filter(s => {
-            if (lowerFilter !== '' && !s.name.toLowerCase().includes(lowerFilter)) {
+            if (lowerFilter !== ''
+                && !s.name.toLowerCase().includes(lowerFilter)
+                && !getStyleValue(s).toLowerCase().includes(lowerFilter)
+                && !s.matchValue?.toLowerCase().includes(lowerFilter)) {
                 return false;
             }
 
@@ -129,6 +133,14 @@ export class StyleManagerList {
         const nameRow = textBlock.createDiv({ cls: 'typify-manager-item-name' });
         nameRow.setText(style.name);
 
+        const styleValue = getStyleValue(style);
+        if (style.catchAll !== true && styleValue !== style.name && styleValue !== style.matchValue) {
+            textBlock.createDiv({
+                cls: 'typify-manager-item-value',
+                text: `${t('style_value_title')}: ${styleValue}`
+            });
+        }
+
         const metaRow = textBlock.createDiv({ cls: 'typify-manager-meta' });
 
         if (style.icon) {
@@ -185,7 +197,7 @@ export class StyleManagerList {
 
         if (style.matchValue) {
             metaRow.createSpan({ text: ' \u00b7 ' });
-            metaRow.createSpan({ text: t('link_url_title') });
+            metaRow.createSpan({ text: `${t('link_url_title')}: ${style.matchValue}` });
             if (style.prefixMatch === true) {
                 metaRow.createSpan({ text: ` (${t('prefix_match_title')})` });
             }

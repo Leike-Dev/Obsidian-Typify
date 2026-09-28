@@ -4,6 +4,9 @@
 
 export interface StatusStyle {
     name: string;
+    /** Value in a property that receives this style. Optional for legacy settings. */
+    styleValue?: string;
+    /** Optional associated URL, independent from the property value. */
     matchValue?: string;
     prefixMatch?: boolean;
     catchAll?: boolean;

@@ -43,6 +43,11 @@ export function validateStatusStyles(raw: Record<string, unknown>[]): StatusStyl
 
         const style: StatusStyle = {
             name: item.name.trim(),
+            styleValue: typeof item.styleValue === 'string' && item.styleValue.trim()
+                ? item.styleValue.trim()
+                : typeof item.matchValue === 'string' && item.matchValue.trim()
+                    ? item.matchValue.trim()
+                    : item.name.trim(),
             baseColor: item.baseColor,
             icon: typeof item.icon === 'string' ? item.icon : ''
         };

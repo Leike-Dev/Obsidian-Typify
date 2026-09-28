@@ -10,6 +10,7 @@ import { WindowManager } from './managers/window-manager';
 import { FaviconManager } from './managers/favicon-manager';
 import { registerCommands } from './commands';
 import { registerContextMenus } from './context-menus';
+import { migrateStyleValues } from './utils/style-value';
 
 export interface SaveOptions {
     /** Rebuild O(1) style lookup maps and dynamic stylesheet. */
@@ -141,6 +142,8 @@ export default class TypifyPlugin extends Plugin {
 
     async loadSettings() {
         this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData() as Partial<CustomStatusIconsSettings>);
+        // Migrate in memory only; a regular settings save persists the new field.
+        this.settings.statusStyles = migrateStyleValues(this.settings.statusStyles);
     }
 
     async saveSettings(options: SaveOptions): Promise<void> {

@@ -23,6 +23,12 @@ const testMocks = {
                 export const requestUrl = async () => ({ status: 404, headers: {}, arrayBuffer: null });
                 export const setIcon = () => {};
                 export class Notice {}
+                export class Modal {
+                    constructor(app) { this.app = app; }
+                    close() {}
+                }
+                export class SettingGroup {}
+                export class ButtonComponent {}
                 export class FuzzySuggestModal {
                     constructor(app) { this.app = app; }
                     setPlaceholder() { return this; }
@@ -90,6 +96,9 @@ try {
         entryPoints: [
             'tests/dom-manager.test.mjs',
             'tests/style-manager.test.mjs',
+            'tests/style-value.test.mjs',
+            'tests/batch-actions.test.mjs',
+            'tests/style-editor.test.mjs',
             'tests/import-roundtrip.test.mjs',
             'tests/save-settings.test.mjs',
             'tests/i18n-keys.test.mjs',

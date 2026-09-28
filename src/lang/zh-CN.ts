@@ -23,8 +23,10 @@ export const zhCN = {
     'new_status_name': '新样式',
 
     // 样式控件
-    'status_name_title': '名称',
-    'status_name_desc': '定义用于识别和匹配样式的名称。',
+    'status_name_title': '样式名称',
+    'status_name_desc': '用于在样式列表中标识样式。启用关联链接功能后，也用作关联链接的显示文本。',
+    'style_value_title': '要设置样式的值',
+    'style_value_desc': '将应用此样式的属性值。如果留空，保存时将使用样式名称。',
     'base_color_title': '基础颜色',
     'base_color_desc': '定义用于生成样式视觉变体的颜色。',
     'icon_title': '图标',
@@ -35,7 +37,7 @@ export const zhCN = {
     'applies_to_desc': '将样式限制为特定属性或将其应用于所有目标属性。',
     'applies_to_all_option': '任意属性',
     'catch_all_title': '应用于所有值',
-    'catch_all_desc': '启用后，此样式将应用于所选属性中的所有值，而不仅仅是匹配的值。',
+    'catch_all_desc': '请先选择具体属性。此样式用于没有更具体样式的值；关联链接仍单独匹配。',
 
     // 删除
     'delete_button': '删除样式',
@@ -93,13 +95,14 @@ export const zhCN = {
     // 创建样式弹窗
     'create_style_title': '创建样式',
     'status_name_placeholder': '请输入样式名称…',
+    'style_value_placeholder': '输入属性中显示的值…',
     'save_button': '保存',
     'cancel_button': '取消',
     'style_name_required': '样式名称不能为空。',
     'shape_color_required': '请选择形状和颜色模式。',
     'style_saved': '样式「{name}」已保存！',
-    'style_duplicate': '相同属性下已存在同名样式。',
-    'style_overlap_warning': '注意：已存在同名样式但作用域不同。更具体的样式将优先应用。',
+    'style_duplicate': '此属性中已存在同名或匹配相同值的样式。',
+    'style_overlap_warning': '另一作用范围内也有同名或匹配相同值的样式。更具体的样式优先。',
 
     // 样式管理器弹窗
     'manage_styles_modal_title': '管理样式',
@@ -174,7 +177,7 @@ export const zhCN = {
     'link_styles_toggle_title': '关联链接',
     'link_styles_toggle_desc': '将药丸中的 URL 替换为样式名称，同时保留原生的链接点击行为。',
     'link_url_title': '关联链接',
-    'link_url_desc': '定义用于匹配和设置链接样式的URL，保持原始目标可点击。',
+    'link_url_desc': '可选网址，与属性值独立匹配。启用关联链接后，匹配的链接显示样式名称，且仍可点击。',
     'link_url_placeholder': '输入网址…',
     'prefix_match_title': '前缀匹配',
     'prefix_match_desc': '将样式应用于以关联链接开头的任何URL，不区分大小写。',

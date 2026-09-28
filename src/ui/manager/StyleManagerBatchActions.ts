@@ -6,6 +6,7 @@ import { App, ButtonComponent, Notice } from 'obsidian';
 import type TypifyPlugin from '../../main';
 import { StatusStyle, DEFAULT_STATUS_COLOR } from '../../types';
 import { t } from '../../lang/helpers';
+import { styleMatchesValue } from '../../utils/style-value';
 
 export interface BatchCallbacks {
     onBatchCreated: () => void;
@@ -43,38 +44,28 @@ export class StyleManagerBatchActions {
         const candidateValues = this.getCandidateValuesForScope(scope);
         if (candidateValues.length === 0) return;
 
-        // Names that exist in the current scope
-        const existingInScope = new Set(
-            this.plugin.settings.statusStyles
-                .filter(s => {
-                    const styleScope = (s.appliesTo && s.appliesTo.length > 0)
-                        ? s.appliesTo[0]!.toLowerCase()
-                        : '__all__';
-                    return styleScope === scope.toLowerCase();
-                })
-                .map(s => s.name.toLowerCase())
+        const styles = this.plugin.settings.statusStyles;
+        const scopedStyles = styles.filter(style =>
+            style.appliesTo?.some(prop => prop.toLowerCase() === scope.toLowerCase())
         );
+        const globalStyles = styles.filter(style => !style.appliesTo?.length);
 
-        // Names that exist in global
-        const existingGlobal = new Set(
-            this.plugin.settings.statusStyles
-                .filter(s => !s.appliesTo || s.appliesTo.length === 0)
-                .map(s => s.name.toLowerCase())
+        // Compare the actual matched values, not the display names.
+        const notInScope = candidateValues.filter(value =>
+            !scopedStyles.some(style => styleMatchesValue(style, value, scope))
         );
-
-        // Values not in current scope
-        const notInScope = candidateValues.filter(v => !existingInScope.has(v.toLowerCase()));
         if (notInScope.length === 0) return;
 
-        // Separate: already in global vs truly new
-        const alreadyGlobal = notInScope.filter(v => existingGlobal.has(v.toLowerCase()));
-        const trulyNew = notInScope.filter(v => !existingGlobal.has(v.toLowerCase()));
+        const alreadyGlobal = notInScope.filter(value =>
+            globalStyles.some(style => styleMatchesValue(style, value, scope))
+        );
+        const trulyNew = notInScope.filter(value =>
+            !globalStyles.some(style => styleMatchesValue(style, value, scope))
+        );
 
-        const totalUncreated = notInScope.length;
-
-        if (totalUncreated > 50) {
+        if (trulyNew.length > 50) {
             this.containerEl.createSpan({
-                text: t('batch_create_too_many').replace('{count}', String(totalUncreated)),
+                text: t('batch_create_too_many').replace('{count}', String(trulyNew.length)),
                 cls: 'typify-batch-hint-text'
             });
             return;
@@ -162,15 +153,21 @@ export class StyleManagerBatchActions {
             .onClick(() => {
                 void (async () => {
                     let created = 0;
-                    const existingNames = new Set(
-                        this.plugin.settings.statusStyles.map(s => s.name.toLowerCase())
-                    );
+                    const existingNames = new Set(this.plugin.settings.statusStyles.map(s => s.name.toLowerCase()));
 
                     for (const val of trulyNew) {
-                        if (existingNames.has(val.toLowerCase())) continue;
+                        if (this.plugin.settings.statusStyles.some(style => styleMatchesValue(style, val, scope))) continue;
+
+                        let name = val;
+                        let suffix = 2;
+                        while (existingNames.has(name.toLowerCase())) {
+                            name = `${val} (${String(suffix++)})`;
+                        }
+                        existingNames.add(name.toLowerCase());
 
                         const style: StatusStyle = {
-                            name: val,
+                            name,
+                            styleValue: val,
                             baseColor: DEFAULT_STATUS_COLOR,
                             icon: '',
                             appliesTo: [scope],

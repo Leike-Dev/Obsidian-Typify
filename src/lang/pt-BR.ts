@@ -26,8 +26,10 @@ export const ptBR = {
     'group_design_title': 'Aparência',
     'group_behavior_title': 'Comportamento',
     'group_preview_title': 'Pré-visualização',
-    'status_name_title': 'Nome',
-    'status_name_desc': 'Define o nome usado para identificar e corresponder ao estilo.',
+    'status_name_title': 'Nome do estilo',
+    'status_name_desc': 'Identifica o estilo na lista de estilos. Também é o texto exibido nos links associados quando esse recurso está ativado.',
+    'style_value_title': 'Valor a estilizar',
+    'style_value_desc': 'Valor da propriedade que receberá o estilo. Se ficar vazio, o nome do estilo será usado ao salvar.',
     'base_color_title': 'Cor base',
     'base_color_desc': 'Define a cor usada para gerar as variações visuais do estilo.',
     'icon_title': 'Ícone',
@@ -38,7 +40,7 @@ export const ptBR = {
     'applies_to_desc': 'Limita o estilo a uma propriedade específica ou o aplica a todas as propriedades alvo.',
     'applies_to_all_option': 'Todas as propriedades',
     'catch_all_title': 'Aplicar a todos os valores',
-    'catch_all_desc': 'Quando ativado, este estilo se aplica a todos os valores da propriedade selecionada, não apenas aos correspondentes.',
+    'catch_all_desc': 'Selecione uma propriedade específica. Usa este estilo nos valores sem estilo mais específico; o link associado continua independente.',
 
     // Excluir
     'delete_button': 'Excluir estilo',
@@ -96,13 +98,14 @@ export const ptBR = {
     // Create Style Modal
     'create_style_title': 'Criar estilo',
     'status_name_placeholder': 'Digite o nome do estilo...',
+    'style_value_placeholder': 'Digite o valor como aparece na propriedade...',
     'save_button': 'Salvar',
     'cancel_button': 'Cancelar',
     'style_name_required': 'O nome do estilo é obrigatório.',
     'shape_color_required': 'Selecione um formato e um modo de cor.',
     'style_saved': 'Estilo "{name}" salvo!',
-    'style_duplicate': 'Já existe um estilo com esse nome para a mesma propriedade.',
-    'style_overlap_warning': 'Aviso: já existe um estilo com esse nome em outro escopo. O estilo mais específico terá prioridade.',
+    'style_duplicate': 'Já existe um estilo com esse nome ou valor correspondente para a mesma propriedade.',
+    'style_overlap_warning': 'Um estilo com o mesmo nome ou valor correspondente também cobre outro escopo. O mais específico tem prioridade.',
 
     // Modal de Gerenciamento de Estilos
     'manage_styles_modal_title': 'Gerenciar estilos',
@@ -177,7 +180,7 @@ export const ptBR = {
     'link_styles_toggle_title': 'Links associados',
     'link_styles_toggle_desc': 'Substitui URLs nas pílulas pelo nome do estilo, mantendo o clique nativo do link.',
     'link_url_title': 'Link associado',
-    'link_url_desc': 'Define a URL usada para corresponder e estilizar links, mantendo o destino original clicável.',
+    'link_url_desc': 'URL opcional, independente do valor da propriedade. Com Links associados ativado, links correspondentes mostram o nome do estilo e continuam clicáveis.',
     'link_url_placeholder': 'Insira uma URL\u2026',
     'prefix_match_title': 'Correspondência por prefixo',
     'prefix_match_desc': 'Aplica o estilo a qualquer URL que comece com o Link associado, sem diferenciar maiúsculas de minúsculas.',

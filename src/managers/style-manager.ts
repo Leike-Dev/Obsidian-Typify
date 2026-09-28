@@ -1,6 +1,7 @@
 import { getIcon } from 'obsidian';
 import TypifyPlugin from '../main';
 import { generatePalette } from '../utils';
+import { getStyleValue } from '../utils/style-value';
 
 export class StyleManager {
     private plugin: TypifyPlugin;
@@ -10,8 +11,8 @@ export class StyleManager {
     private fastLookupMap = new Map<string, string>();
     // Cache for global fallbacks: key = value.toLowerCase()
     private globalFallbackMap = new Map<string, string>();
-    // Display info cache: className → { name, hasMatchValue }
-    private styleInfoMap = new Map<string, { name: string; hasMatchValue: boolean }>();
+    // Link display info remains separate from property-value matching.
+    private styleInfoMap = new Map<string, { name: string; linkValue?: string; prefixMatch: boolean }>();
     // Prefix match styles, sorted longest-first for best-match priority
     private prefixScopedList: { prefix: string; prop: string; classString: string }[] = [];
     private prefixGlobalList: { prefix: string; classString: string }[] = [];
@@ -75,7 +76,8 @@ export class StyleManager {
 
         styles.forEach((style, index) => {
             const className = `typify-style-${String(index)}`;
-            const valueKey = (style.matchValue || style.name).toLowerCase();
+            const valueKey = getStyleValue(style).toLowerCase();
+            const linkKey = style.matchValue?.trim().toLowerCase();
 
             let isImage = false;
             let isEmoji = false;
@@ -97,34 +99,34 @@ export class StyleManager {
 
             const classString = isImage ? `${className} typify-is-image` : isEmoji ? `${className} typify-is-emoji` : className;
 
-            // Treat styles without an explicit prefixMatch value as exact match (disabled).
-            if (style.prefixMatch === true && style.matchValue) {
-                if (style.appliesTo && style.appliesTo.length > 0) {
-                    style.appliesTo.forEach(prop => {
-                        this.prefixScopedList.push({ prefix: valueKey, prop: prop.toLowerCase(), classString });
-                    });
-                } else {
-                    this.prefixGlobalList.push({ prefix: valueKey, classString });
-                }
-            } else if (style.catchAll === true && style.appliesTo && style.appliesTo.length > 0) {
+            const hasScopedCatchAll = style.catchAll === true && !!style.appliesTo?.length;
+            const exactKeys = new Set<string>();
+            if (!hasScopedCatchAll) exactKeys.add(valueKey);
+            if (linkKey && style.prefixMatch !== true) exactKeys.add(linkKey);
+
+            if (style.appliesTo && style.appliesTo.length > 0) {
                 style.appliesTo.forEach(prop => {
-                    const key = prop.toLowerCase();
-                    if (!this.propertyFallbackMap.has(key)) {
-                        this.propertyFallbackMap.set(key, classString);
+                    const propertyKey = prop.toLowerCase();
+                    if (hasScopedCatchAll && !this.propertyFallbackMap.has(propertyKey)) {
+                        this.propertyFallbackMap.set(propertyKey, classString);
+                    }
+                    exactKeys.forEach(key => this.fastLookupMap.set(`${key}|${propertyKey}`, classString));
+                    if (linkKey && style.prefixMatch === true) {
+                        this.prefixScopedList.push({ prefix: linkKey, prop: propertyKey, classString });
                     }
                 });
-            } else if (style.appliesTo && style.appliesTo.length > 0) {
-                style.appliesTo.forEach(prop => {
-                    this.fastLookupMap.set(`${valueKey}|${prop.toLowerCase()}`, classString);
-                });
             } else {
-                this.globalFallbackMap.set(valueKey, classString);
+                exactKeys.forEach(key => this.globalFallbackMap.set(key, classString));
+                if (linkKey && style.prefixMatch === true) {
+                    this.prefixGlobalList.push({ prefix: linkKey, classString });
+                }
             }
 
             // Populate display info map
             this.styleInfoMap.set(classString, {
                 name: style.name,
-                hasMatchValue: !!style.matchValue
+                linkValue: linkKey,
+                prefixMatch: style.prefixMatch === true
             });
 
             // Generate CSS
@@ -295,11 +297,17 @@ body .${className} {
         return this.propertyFallbackMap.get(propLower);
     }
 
-    /**
-     * Returns display info for a matched class string.
-     */
-    getStyleInfo(classString: string): { name: string; hasMatchValue: boolean } | undefined {
-        return this.styleInfoMap.get(classString);
+    /** Returns the link label only when this style's associated URL matched the link. */
+    getLinkDisplayName(classString: string, url: string): string | undefined {
+        const info = this.styleInfoMap.get(classString);
+        if (!info?.linkValue) return undefined;
+        const normalizedUrl = url.toLowerCase();
+        if (info.prefixMatch
+            ? normalizedUrl.startsWith(info.linkValue)
+            : normalizedUrl === info.linkValue) {
+            return info.name;
+        }
+        return undefined;
     }
 
     /**

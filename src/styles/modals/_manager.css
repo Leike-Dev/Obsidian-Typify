@@ -197,6 +197,14 @@
     text-overflow: ellipsis;
 }
 
+.typify-manager-item-value {
+    font-size: var(--font-ui-smaller);
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* Metadata row */
 .typify-manager-meta {
     font-size: var(--font-ui-smaller);

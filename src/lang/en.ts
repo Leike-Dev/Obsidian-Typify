@@ -26,8 +26,10 @@ export const en = {
     'group_design_title': 'Appearance',
     'group_behavior_title': 'Behavior',
     'group_preview_title': 'Preview',
-    'status_name_title': 'Name',
-    'status_name_desc': 'Defines the name used to identify and match the style.',
+    'status_name_title': 'Style name',
+    'status_name_desc': 'Identifies the style in the style list. Also serves as the display text for associated links when that feature is enabled.',
+    'style_value_title': 'Value to style',
+    'style_value_desc': 'The property value that will receive this style. If left empty, the style name will be used when saving.',
     'base_color_title': 'Base color',
     'base_color_desc': 'Defines the color used to generate the style\'s visual variations.',
     'icon_title': 'Icon',
@@ -38,7 +40,7 @@ export const en = {
     'applies_to_desc': 'Limits the style to a specific property or applies it to all target properties.',
     'applies_to_all_option': 'All properties',
     'catch_all_title': 'Apply to all values',
-    'catch_all_desc': 'When enabled, this style applies to every value in the selected property, not just matching ones.',
+    'catch_all_desc': 'Choose a specific property first. Uses this style for values without a more specific style; the associated link still matches separately.',
 
     // Delete
     'delete_button': 'Delete style',
@@ -96,13 +98,14 @@ export const en = {
     // Create Style Modal
     'create_style_title': 'Create style',
     'status_name_placeholder': 'Enter style name...',
+    'style_value_placeholder': 'Enter the value as it appears in the property...',
     'save_button': 'Save',
     'cancel_button': 'Cancel',
     'style_name_required': 'Style name is required.',
     'shape_color_required': 'Please select a shape and color mode.',
     'style_saved': 'Style "{name}" saved!',
-    'style_duplicate': 'A style with this name already exists for the same property.',
-    'style_overlap_warning': 'Note: a style with this name already exists with a different scope. The more specific style will take priority.',
+    'style_duplicate': 'A style with the same name or matching value already exists for this property.',
+    'style_overlap_warning': 'A style with the same name or matching value also covers another scope. The more specific style takes priority.',
 
     // Style Manager Modal
     'manage_styles_modal_title': 'Manage styles',
@@ -177,7 +180,7 @@ export const en = {
     'link_styles_toggle_title': 'Associated links',
     'link_styles_toggle_desc': 'Replaces URLs in pills with the style name, keeping the native link click behavior.',
     'link_url_title': 'Associated Link',
-    'link_url_desc': 'Defines the URL used to match and style links, keeping the original destination clickable.',
+    'link_url_desc': 'Optional URL matched separately from the property value. With associated links enabled, matching links show the style name and remain clickable.',
     'link_url_placeholder': 'Enter a URL\u2026',
     'prefix_match_title': 'Prefix match',
     'prefix_match_desc': 'Applies the style to any URL that starts with the Associated Link, case-insensitive.',

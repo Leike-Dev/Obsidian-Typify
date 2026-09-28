@@ -16,6 +16,7 @@ function createFullStyle(overrides = {}) {
         icon: 'star',
         shape: 'pill',
         colorMode: 'subtle',
+        styleValue: 'Different value',
         matchValue: 'https://example.com',
         prefixMatch: false,
         appliesTo: ['status'],
@@ -35,6 +36,7 @@ test('round-trip: full style with all fields is preserved', () => {
     assert.equal(result.icon, original.icon);
     assert.equal(result.shape, original.shape);
     assert.equal(result.colorMode, original.colorMode);
+    assert.equal(result.styleValue, original.styleValue);
     assert.equal(result.matchValue, original.matchValue);
     assert.equal(result.prefixMatch, original.prefixMatch);
     assert.deepEqual(result.appliesTo, original.appliesTo);
@@ -96,6 +98,7 @@ test('round-trip: style without optional fields is valid', () => {
     
     assert.ok(result, 'minimal style should be valid');
     assert.equal(result.name, 'Minimal');
+    assert.equal(result.styleValue, 'Minimal');
     assert.equal(result.baseColor, '#ff0000');
     assert.equal(result.icon, '');
     assert.equal(result.shape, undefined);
@@ -103,6 +106,12 @@ test('round-trip: style without optional fields is valid', () => {
     assert.equal(result.matchValue, undefined);
     assert.equal(result.prefixMatch, undefined);
     assert.equal(result.appliesTo, undefined);
+});
+
+test('legacy imports copy the former link target into the new value field', () => {
+    const [result] = validateStatusStyles([{ name: 'Portal', baseColor: '#6366f1', matchValue: 'https://example.com' }]);
+    assert.equal(result.styleValue, 'https://example.com');
+    assert.equal(result.matchValue, 'https://example.com');
 });
 
 test('round-trip: batch of styles preserves count and order', () => {

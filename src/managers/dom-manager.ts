@@ -309,12 +309,14 @@ export class DOMManager {
             this.styleManager.applyStyle(pill, matchedClass);
 
             // Link text replacement: swap URL for display name
-            const info = this.styleManager.getStyleInfo(matchedClass);
+            const linkName = this.plugin.settings.enableLinkStyles && isExternalLink
+                ? this.styleManager.getLinkDisplayName(matchedClass, value)
+                : undefined;
 
-            if (this.plugin.settings.enableLinkStyles && info?.hasMatchValue && isExternalLink && content?.instanceOf(HTMLElement)) {
+            if (linkName && content?.instanceOf(HTMLElement)) {
                 // Replace URL text with style display name
-                if (content.textContent?.trim() !== info.name) {
-                    content.textContent = info.name;
+                if (content.textContent?.trim() !== linkName) {
+                    content.textContent = linkName;
                 }
             } else {
                 // Toggle off or style lost matchValue — restore original URL
@@ -361,10 +363,12 @@ export class DOMManager {
             element.classList.add('custom-status-icon-value');
             this.styleManager.applyStyle(element, matchedClass);
 
-            const info = this.styleManager.getStyleInfo(matchedClass);
-            if (this.plugin.settings.enableLinkStyles && info?.hasMatchValue && isExternalLink && linkContent?.instanceOf(HTMLElement)) {
-                if (linkContent.textContent?.trim() !== info.name) {
-                    linkContent.textContent = info.name;
+            const linkName = this.plugin.settings.enableLinkStyles && isExternalLink
+                ? this.styleManager.getLinkDisplayName(matchedClass, value)
+                : undefined;
+            if (linkName && linkContent?.instanceOf(HTMLElement)) {
+                if (linkContent.textContent?.trim() !== linkName) {
+                    linkContent.textContent = linkName;
                 }
             } else {
                 if (isExternalLink && linkContent?.instanceOf(HTMLElement)) {

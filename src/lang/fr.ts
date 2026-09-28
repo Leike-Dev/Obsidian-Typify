@@ -23,8 +23,10 @@ export const fr = {
     'new_status_name': 'Nouveau style',
 
     // Contrôles de Style
-    'status_name_title': 'Nom',
-    'status_name_desc': 'Définit le nom utilisé pour identifier et faire correspondre le style.',
+    'status_name_title': 'Nom du style',
+    'status_name_desc': 'Identifie le style dans la liste des styles. Sert aussi de texte affiché pour les liens associés lorsque cette fonctionnalité est activée.',
+    'style_value_title': 'Valeur à styliser',
+    'style_value_desc': 'Valeur de la propriété à laquelle appliquer le style. Si ce champ reste vide, le nom du style sera utilisé lors de l’enregistrement.',
     'base_color_title': 'Couleur de base',
     'base_color_desc': 'Définit la couleur utilisée pour générer les variations visuelles du style.',
     'icon_title': 'Icône',
@@ -35,7 +37,7 @@ export const fr = {
     'applies_to_desc': 'Limite le style à une propriété spécifique ou l\'applique à toutes les propriétés cibles.',
     'applies_to_all_option': 'Toutes les propriétés',
     'catch_all_title': 'Appliquer à toutes les valeurs',
-    'catch_all_desc': 'Lorsque activé, ce style s\'applique à toutes les valeurs de la propriété sélectionnée, pas seulement aux correspondances.',
+    'catch_all_desc': 'Choisissez d’abord une propriété précise. Applique ce style aux valeurs sans style plus spécifique ; le lien associé reste indépendant.',
 
     // Supprimer
     'delete_button': 'Supprimer le style',
@@ -93,13 +95,14 @@ export const fr = {
     // Modal Créer un Style
     'create_style_title': 'Créer un style',
     'status_name_placeholder': 'Entrez le nom du style...',
+    'style_value_placeholder': 'Entrez la valeur telle qu’elle apparaît dans la propriété...',
     'save_button': 'Enregistrer',
     'cancel_button': 'Annuler',
     'style_name_required': 'Le nom du style est requis.',
     'shape_color_required': 'Veuillez s\u00e9lectionner une forme et un mode de couleur.',
     'style_saved': 'Style « {name} » enregistré !',
-    'style_duplicate': 'Un style avec ce nom existe déjà pour la même propriété.',
-    'style_overlap_warning': 'Note : un style avec ce nom existe déjà dans une autre portée. Le style le plus spécifique aura la priorité.',
+    'style_duplicate': 'Un style avec ce nom ou cette valeur existe déjà pour cette propriété.',
+    'style_overlap_warning': 'Un style avec le même nom ou la même valeur couvre aussi une autre portée. Le plus spécifique est prioritaire.',
 
     // Modal Gestionnaire de Styles
     'manage_styles_modal_title': 'Gérer les styles',
@@ -174,7 +177,7 @@ export const fr = {
     'link_styles_toggle_title': 'Liens associés',
     'link_styles_toggle_desc': 'Remplace les URL dans les pilules par le nom du style, en conservant le comportement de clic natif du lien.',
     'link_url_title': 'Lien associé',
-    'link_url_desc': 'Définit l\'URL utilisée pour faire correspondre et styliser les liens, en gardant la destination d\'origine cliquable.',
+    'link_url_desc': 'URL facultative, indépendante de la valeur de la propriété. Si les liens associés sont activés, les liens correspondants affichent le nom du style et restent cliquables.',
     'link_url_placeholder': 'Entrez une URL…',
     'prefix_match_title': 'Correspondance par préfixe',
     'prefix_match_desc': 'Applique le style à n\'importe quelle URL qui commence par le Lien Associé, insensible à la casse.',

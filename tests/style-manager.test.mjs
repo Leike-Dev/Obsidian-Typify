@@ -197,3 +197,65 @@ test('the longest matching prefix wins', () => {
         restoreDocument();
     }
 });
+
+test('one style matches an independent property value and associated link', () => {
+    const manager = createManager([createStyle({
+        name: 'Portal',
+        styleValue: 'Em análise',
+        matchValue: 'https://example.com',
+    })]);
+
+    try {
+        manager.buildCache();
+        assert.equal(manager.findMatchingClass('Em análise', 'link'), 'typify-style-0');
+        assert.equal(manager.findMatchingClass('https://example.com', 'link'), 'typify-style-0');
+        assert.equal(manager.findMatchingClass('Portal', 'link'), undefined);
+        assert.equal(manager.getLinkDisplayName('typify-style-0', 'https://example.com'), 'Portal');
+        assert.equal(manager.getLinkDisplayName('typify-style-0', 'Em análise'), undefined);
+    } finally {
+        manager.cleanup();
+    }
+});
+
+test('legacy associated links keep their original target before persistence', () => {
+    const manager = createManager([createStyle({ name: 'Portal' })]);
+
+    try {
+        manager.buildCache();
+        assert.equal(manager.findMatchingClass('https://github.com', 'link'), 'typify-style-0');
+        assert.equal(manager.findMatchingClass('Portal', 'link'), undefined);
+        assert.equal(manager.getLinkDisplayName('typify-style-0', 'https://github.com'), 'Portal');
+    } finally {
+        manager.cleanup();
+    }
+});
+
+test('catch-all remains a fallback while its associated link matches by prefix', () => {
+    const manager = createManager([
+        createStyle({
+            name: 'General',
+            styleValue: 'Ignored',
+            matchValue: 'https://example.com/',
+            prefixMatch: true,
+            catchAll: true,
+            appliesTo: ['status'],
+        }),
+        createStyle({
+            name: 'Specific',
+            styleValue: 'Urgent',
+            matchValue: '',
+            appliesTo: ['status'],
+        }),
+    ]);
+
+    try {
+        manager.buildCache();
+        assert.equal(manager.findMatchingClass('Urgent', 'status'), 'typify-style-1');
+        assert.equal(manager.findMatchingClass('Ordinary', 'status'), 'typify-style-0');
+        assert.equal(manager.findMatchingClass('https://example.com/page', 'status'), 'typify-style-0');
+        assert.equal(manager.getLinkDisplayName('typify-style-0', 'https://example.com/page'), 'General');
+        assert.equal(manager.getLinkDisplayName('typify-style-0', 'https://other.com/'), undefined);
+    } finally {
+        manager.cleanup();
+    }
+});

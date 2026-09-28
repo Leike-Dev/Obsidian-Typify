@@ -2,6 +2,7 @@ import type TypifyPlugin from './main';
 import { StyleEditorModal } from './ui/StyleEditorModal';
 import { t } from './lang/helpers';
 import { Menu } from 'obsidian';
+import { getStyleValue } from './utils/style-value';
 
 /**
  * Registers native context menus (like right-clicking external URLs).
@@ -14,7 +15,7 @@ export function registerContextMenus(plugin: TypifyPlugin) {
 
             // 1. Search for an exact match first
             matchIndex = styles.findIndex(s => {
-                const matchVal = (s.matchValue || s.name).toLowerCase();
+                const matchVal = (s.matchValue?.trim() || getStyleValue(s)).toLowerCase();
                 return url.toLowerCase() === matchVal;
             });
 
@@ -22,8 +23,8 @@ export function registerContextMenus(plugin: TypifyPlugin) {
             if (matchIndex === -1) {
                 let bestPrefixLen = -1;
                 styles.forEach((s, i) => {
-                    if (s.prefixMatch) {
-                        const matchVal = (s.matchValue || s.name).toLowerCase();
+                    if (s.prefixMatch && s.matchValue?.trim()) {
+                        const matchVal = s.matchValue.trim().toLowerCase();
                         if (url.toLowerCase().startsWith(matchVal) && matchVal.length > bestPrefixLen) {
                             bestPrefixLen = matchVal.length;
                             matchIndex = i;
